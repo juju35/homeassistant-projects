@@ -999,6 +999,46 @@ projects:
   - Picture shown as the entity thumbnail
   - No credentials and no network calls
   homeassistant: 2025.8.0
+- slug: ha-vehicle-consumption
+  title: Vehicle Consumption
+  kind: integration
+  withCard: true
+  category: car
+  icon: mdiGaugeLow
+  accent: '#26a69a'
+  tagline: A fuel and energy logbook built from your car's own sensors.
+  summary: Consumption per trip, per month and on average, refuels and charges detected on their own, and what driving costs per kilometre. Fuel, electric and plug-in hybrid cars, with a card bundled with the integration.
+  highlights:
+  - Odometer, fuel and battery sensors detected from the vehicle's device
+  - Fuel, electric and plug-in hybrid, in L/100 km and kWh/100 km
+  - Refuels and charges detected automatically, or logged with an action
+  - Trips with distance, consumption and cost
+  - Cost of the month and cost per km, with prices from a sensor or fixed
+  - Card with gauges, monthly chart and recent trips, refuels and charges
+  homeassistant: 2024.12.0
+  cardTypes:
+  - vehicle-consumption-card
+  hero:
+    src: card-fuel.png
+    dark: card-fuel-dark.png
+    caption: Fuel car
+  screenshots:
+  - src: card-ev.png
+    dark: card-ev-dark.png
+    caption: Electric car
+  - src: card-hybrid.png
+    caption: Plug-in hybrid
+  - src: card-sections.png
+    caption: Sections
+  - src: popup.png
+    caption: Add a refuel
+  animations:
+  - src: driving.gif
+    caption: Driving
+  - src: gauge.gif
+    caption: Gauge
+  - src: chart.gif
+    caption: Chart
 - slug: ha-carburants-france
   title: Carburants France
   kind: integration
