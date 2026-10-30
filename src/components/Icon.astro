@@ -1,0 +1,13 @@
+---
+import { icon } from "../lib/projects";
+
+interface Props {
+  name: string;
+  class?: string;
+  [attr: string]: unknown;
+}
+// The other props carry the parent's scoped-style attribute, so parent styles reach the svg.
+const { name, class: cls, ...rest } = Astro.props;
+---
+
+<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class={cls} {...rest}><path fill="currentColor" d={icon(name)}></path></svg>

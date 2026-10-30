@@ -1,0 +1,1211 @@
+# Source of the site: one entry per Home Assistant project.
+# Screenshot paths are relative to the screenshots/ folder of each repository (main branch).
+categories:
+- id: climate
+  label: Climate & weather
+  icon: mdiWeatherPartlyCloudy
+- id: home
+  label: Home & energy
+  icon: mdiHomeLightningBolt
+- id: security
+  label: Security & presence
+  icon: mdiShieldHome
+- id: appliances
+  label: Appliances
+  icon: mdiWashingMachine
+- id: network
+  label: Network & servers
+  icon: mdiServerNetwork
+- id: car
+  label: Car & fuel
+  icon: mdiCar
+- id: everyday
+  label: Everyday
+  icon: mdiCalendarMonth
+- id: maintenance
+  label: Maintenance
+  icon: mdiWrenchClock
+projects:
+- slug: ha-weather-card
+  title: Weather Plus Card
+  kind: card
+  category: climate
+  icon: mdiWeatherPartlyCloudy
+  accent: '#f5a623'
+  tagline: An animated weather card that gathers everything your weather integrations know.
+  summary: Animated day and night scenes, rain in the next hour, weather warnings, lightning nearby, air quality, UV, pollen, sun and moon, all in one card with a compact mini version.
+  highlights:
+  - Animated scene for every condition, by day and by night, with the real moon phase
+  - Rain in the next hour, hourly and daily forecasts
+  - Weather warnings, lightning nearby, drought restrictions
+  - Air quality, pollutants, UV index and pollen with tomorrow's forecast
+  - Full screen view and a refresh button for fresh data
+  homeassistant: 2024.8.0
+  cardTypes:
+  - weather-plus-card
+  - weather-plus-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Weather
+  screenshots:
+  - src: storm.png
+    dark: storm-dark.png
+    caption: Storm
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Mini
+  - src: conditions.png
+    dark: conditions-dark.png
+    caption: Conditions
+  - src: night.png
+    dark: night-dark.png
+    caption: Night
+  - src: popup.png
+    dark: popup-dark.png
+  - src: popup-phone.png
+  animations:
+  - src: scenes.gif
+    caption: Animated scenes
+  - src: scene-sunny.gif
+  - src: scene-windy.gif
+  - src: scene-pouring.gif
+  - src: scene-snowy.gif
+  - src: scene-lightning-rainy.gif
+  - src: scene-lightning-rainy-night.gif
+  - src: scene-clear-night.gif
+  - src: scene-partlycloudy-night.gif
+  - src: scene-rainy-night.gif
+- slug: ha-uv-card
+  title: UV Index Card
+  kind: card
+  category: climate
+  icon: mdiSunWireless
+  accent: '#f2b100'
+  tagline: The current UV index with an animated icon and the WHO risk level.
+  summary: 'A small card for the UV index: an animated weather-style icon for every level from 0 to 11+, the value and the WHO risk level in its colour.'
+  highlights:
+  - Animated icon for every UV index, bundled in the card
+  - WHO risk level from Low to Extreme, in the level's colour
+  - Horizontal or vertical layout, transparent mode
+  - Sections view support and card picker preview
+  homeassistant: 2024.11.0
+  cardTypes:
+  - ha-uv-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: UV Index Card
+  screenshots:
+  - src: card-vertical.png
+    caption: Vertical
+  - src: card-unavailable.png
+    caption: Unavailable
+  animations:
+  - src: uv-low.gif
+    caption: Low
+  - src: uv-moderate.gif
+    caption: Moderate
+  - src: uv-high.gif
+    caption: High
+  - src: uv-very-high.gif
+    caption: Very High
+  - src: uv-extreme.gif
+    caption: Extreme
+- slug: ha-climate-air-card
+  title: Climate Air Cards
+  kind: card
+  category: climate
+  icon: mdiAirConditioner
+  accent: '#039be5'
+  tagline: Cards for air purifiers, fans and air conditioners, with an overview of every device.
+  summary: One card per kind of device, each with a mini card, and an overview of the whole home. Add a card and it finds the device and its sensors by itself; the illustrations come alive while a device runs.
+  highlights:
+  - Air purifier, fan and air conditioner cards, each with a mini card
+  - Overview of every device, grouped by kind or by area
+  - 'Animated illustrations: turning blades, air flowing, swinging head'
+  - Automatic discovery of devices and their sensors
+  homeassistant: 2024.8.0
+  cardTypes:
+  - climate-air-overview-card
+  - climate-air-purifier-card
+  - climate-air-fan-card
+  - climate-air-aircon-card
+  hero:
+    src: overview-all.png
+    dark: overview-all-dark.png
+    caption: Overview
+  screenshots:
+  - src: purifier-card.png
+    dark: purifier-card-dark.png
+    caption: Air purifier
+  - src: fan-card.png
+    dark: fan-card-dark.png
+    caption: Fan
+  - src: aircon-card.png
+    dark: aircon-card-dark.png
+    caption: Air conditioner
+  - src: purifier-mini.png
+    dark: purifier-mini-dark.png
+    caption: Air purifier mini
+  - src: fan-mini.png
+    dark: fan-mini-dark.png
+    caption: Fan mini
+  - src: aircon-mini.png
+    dark: aircon-mini-dark.png
+    caption: Air conditioner mini
+  - src: overview-active.png
+    dark: overview-active-dark.png
+  - src: overview-area.png
+    dark: overview-area-dark.png
+  - src: overview-details.png
+    dark: overview-details-dark.png
+  - src: purifier-alert.png
+    dark: purifier-alert-dark.png
+  - src: purifier-round.png
+    dark: purifier-round-dark.png
+  - src: purifier-box.png
+    dark: purifier-box-dark.png
+  - src: purifier-dyson.png
+    dark: purifier-dyson-dark.png
+  - src: aircon-heat.png
+    dark: aircon-heat-dark.png
+  - src: aircon-portable.png
+    dark: aircon-portable-dark.png
+  - src: aircon-window.png
+    dark: aircon-window-dark.png
+  animations:
+  - src: purifier.gif
+    caption: air purifier animation
+  - src: purifier-dyson.gif
+    caption: Dyson bladeless purifier animation
+  - src: fan.gif
+    caption: fan animation
+  - src: aircon.gif
+    caption: air conditioner animation
+  - src: aircon-heat.gif
+    caption: air conditioner heating animation
+  - src: aircon-dry.gif
+    caption: air conditioner drying animation
+  - src: overview.gif
+    caption: overview animation
+- slug: ha-smart-comfort
+  title: Smart Comfort
+  kind: integration
+  withCard: true
+  category: climate
+  icon: mdiHomeThermometer
+  accent: '#26a69a'
+  tagline: Fewer, smarter comfort alerts and automatic control of climate devices, room by room.
+  summary: 'Tracks each comfort problem as an episode: notified once when it starts, again only if it gets worse. Temperature, CO₂, humidity, noise and windows to open or close, with a dedicated panel to set up every room.'
+  highlights:
+  - 'Ten alerts per room: heat, cold, windows, CO₂, humidity, noise'
+  - Episodes instead of cooldowns, with hysteresis and delay
+  - One digest notification listing every current problem
+  - Quiet hours, presence and iOS / Android interruption levels
+  - Automatic control of air conditioners, fans and purifiers
+  - Setup panel with room discovery
+  homeassistant: 2024.12.0
+  hero:
+    src: panel-overview.png
+    dark: panel-overview-dark.png
+    caption: Overview of the Smart Comfort panel
+  screenshots:
+  - src: panel-start.png
+    caption: Discover offered in the overview while nothing is set up
+  - src: panel-discover.png
+    caption: Rooms found by Discover, before saving
+  - src: panel-room.png
+    caption: A room in the Smart Comfort panel
+  - src: panel-outdoors.png
+    caption: The outdoor places, below the rooms
+  - src: panel-alerts.png
+    caption: Alert settings in the Smart Comfort panel
+- slug: ha-room-card
+  title: Room Cards
+  kind: card
+  category: home
+  icon: mdiFloorPlan
+  accent: '#5b6cf0'
+  tagline: 'Compact cards room by room: sensors, lights, plugs, environment and an overview of the home.'
+  summary: Pick a room and the cards find its entities by themselves. The overview shows every room as a tile coloured by what matters most, and unfolds its sensors, lights and plugs on tap.
+  highlights:
+  - Overview of every room, coloured by leaks, openings and presence
+  - 'Sensors card: what is open comes first, with how long'
+  - Lights and plugs cards with power draw
+  - Environment cards for temperature, humidity and air quality
+  - Automatic discovery from Home Assistant areas
+  homeassistant: 2024.8.0
+  cardTypes:
+  - room-overview-card
+  - room-sensors-card
+  - room-lights-card
+  - room-switch-card
+  - room-environment-card
+  - room-environment-overview-card
+  hero:
+    src: overview-all.png
+    dark: overview-all-dark.png
+    caption: Overview
+  screenshots:
+  - src: sensors-open.png
+    dark: sensors-open-dark.png
+    caption: Sensors
+  - src: lights-on.png
+    dark: lights-on-dark.png
+    caption: Lights
+  - src: switch-on.png
+    dark: switch-on-dark.png
+    caption: Plugs
+  - src: environment-stuffy.png
+    dark: environment-stuffy-dark.png
+    caption: Environment
+  - src: overview-active.png
+    dark: overview-active-dark.png
+    caption: Active rooms
+  - src: overview-details.png
+    dark: overview-details-dark.png
+    caption: Room details
+  - src: sensors-leak.png
+    dark: sensors-leak-dark.png
+    caption: Water leak
+  - src: sensors-mini-open.png
+    dark: sensors-mini-open-dark.png
+    caption: Mini a door open
+  - src: sensors-mini-leak.png
+    dark: sensors-mini-leak-dark.png
+    caption: Mini water leak
+  - src: sensors-mini-zoom.png
+    dark: sensors-mini-zoom-dark.png
+    caption: Mini zoomed in
+  - src: lights-off.png
+    dark: lights-off-dark.png
+    caption: All off
+  - src: switch-off.png
+    dark: switch-off-dark.png
+    caption: All off
+  - src: environment-comfort.png
+    dark: environment-comfort-dark.png
+    caption: Comfortable
+  - src: environment-mini-comfort.png
+    dark: environment-mini-comfort-dark.png
+    caption: Mini comfortable
+  - src: environment-mini-stuffy.png
+    dark: environment-mini-stuffy-dark.png
+    caption: Mini stuffy room
+  - src: environment-mini-zoom.png
+    dark: environment-mini-zoom-dark.png
+    caption: Mini zoomed in
+  - src: environment-overview-check.png
+    dark: environment-overview-check-dark.png
+    caption: Rooms to check
+  - src: environment-overview-all.png
+    dark: environment-overview-all-dark.png
+    caption: Every room
+  - src: environment-overview-details.png
+    dark: environment-overview-details-dark.png
+    caption: Room details
+  animations:
+  - src: sensors-blink.gif
+    caption: Open sensors blinking
+  - src: sensors-alert.gif
+    caption: Water leak alert
+  - src: lights-dim.gif
+    caption: Drag to dim
+- slug: ha-zlinky-card
+  title: ZLinky Card
+  kind: card
+  category: home
+  icon: mdiMeterElectric
+  accent: '#43a047'
+  tagline: The French Linky smart meter, through the LiXee ZLinky module.
+  summary: Live power, load against your subscribed power, today's, yesterday's and this month's consumption with its cost, and a 24-hour curve. The LED blinks faster as power rises.
+  highlights:
+  - Automatic discovery for ZHA and Zigbee2MQTT
+  - Live power, current and voltage
+  - Load gauge against the subscribed power
+  - Consumption and cost from long-term statistics
+  - 24 h power curve with its peak
+  homeassistant: 2024.8.0
+  cardTypes:
+  - zlinky-card
+  - zlinky-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: ZLinky card
+  screenshots:
+  - src: mini.png
+    dark: mini-dark.png
+    caption: ZLinky mini card
+  animations:
+  - src: live.gif
+    caption: ZLinky card, live meter animation at normal load
+  - src: live-high.gif
+    caption: ZLinky card, live meter animation at high load
+- slug: ha-battery-monitor
+  title: Battery Monitor
+  kind: integration
+  withCard: true
+  category: home
+  icon: mdiBatteryAlert
+  accent: '#ffa600'
+  tagline: Watches every battery of your home and tells you twice a day which ones are low.
+  summary: 'No more alert for a battery that dips for an hour, no more dead sensor found a week later: a battery is reported once it has stayed below the threshold for a while, with a card listing them by room.'
+  highlights:
+  - Automatic discovery of every battery
+  - Threshold and duration before notifying
+  - Unavailable batteries reported too
+  - Two notifications a day, at times you choose
+  - Lovelace card with a full screen view by room or type
+  homeassistant: 2024.12.0
+  cardTypes:
+  - battery-monitor-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Battery Monitor card
+  screenshots:
+  - src: card-low.png
+    dark: card-low-dark.png
+    caption: Battery Monitor card, low batteries only
+  - src: popup.png
+    dark: popup-dark.png
+    caption: full screen by room
+  - src: popup-phone.png
+    caption: phone by room
+  - src: popup-phone-type.png
+    caption: phone by type
+  animations:
+  - src: due.gif
+    caption: due battery animation
+- slug: ha-presence-card
+  title: Presence Card
+  kind: card
+  category: security
+  icon: mdiHomeAccount
+  accent: '#5b6cf0'
+  tagline: 'The people of the house: at home, in a zone or away, since when and how far.'
+  summary: 'Reads the person entities, nothing to install: each person with their picture, place, time there, distance from home and phone battery, plus a single-row mini card.'
+  highlights:
+  - Every person found automatically
+  - 'Badge and colour per state: home, zone, away, unknown'
+  - Time in the current place and distance from home
+  - Phone battery level
+  - Mini card on a single row with a zoom button
+  homeassistant: 2024.8.0
+  cardTypes:
+  - presence-card
+  - presence-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: presence-card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: presence-mini-card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: mini card zoomed in
+- slug: ha-alarm-card
+  title: Alarm Card
+  kind: card
+  category: security
+  icon: mdiShieldHome
+  accent: '#e5484d'
+  tagline: 'Arm and disarm an alarm: state, delays, code pad, open sensors and who changed it last.'
+  summary: Works with any alarm control panel (Alarmo, Manual, Verisure, Ajax…). The arm modes come from the panel's features, and the shield pulses during delays and flashes when the alarm goes off.
+  highlights:
+  - One button per supported arm mode
+  - Exit and entry delay countdown with a progress bar
+  - Code pad when the panel needs a code
+  - Open sensors and the last person who changed the state
+  - Single-row mini card
+  homeassistant: 2024.8.0
+  cardTypes:
+  - alarm-card
+  - alarm-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: alarm-card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: alarm-mini-card
+  - src: card-armed.png
+    caption: card armed
+  - src: card-triggered.png
+    caption: card triggered
+  - src: card-code.png
+    caption: code pad
+  - src: mini-card-zoom.png
+    caption: mini card zoomed in
+  animations:
+  - src: triggered.gif
+    caption: shield flashing while triggered
+  - src: arming.gif
+    caption: shield pulsing while arming
+- slug: ha-smartlock-card
+  title: Smart Lock Card
+  kind: card
+  category: security
+  icon: mdiLockSmart
+  accent: '#43a047'
+  tagline: Monitor and control smart locks, whatever the integration.
+  summary: 'State, door, battery, lock, unlock and open at a glance, for any lock entity: Nuki, Tedee, Yale, Aqara, SwitchBot, Matter, Z-Wave, Zigbee… A drawn lock follows the model and animates with the state.'
+  highlights:
+  - Works with every lock integration
+  - Drawn lock picture matching the model, animated while it moves
+  - Lock, Unlock and Open with a confirmation popup
+  - Door sensor, battery, keypad and activity
+  - Compact mini card
+  homeassistant: 2024.8.0
+  cardTypes:
+  - smartlock-card
+  - smartlock-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: smartlock-card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: smartlock-mini-card
+  - src: card-code.png
+    caption: code
+  - src: card-jammed.png
+    caption: jammed
+  - src: mini-card-zoom.png
+    caption: mini card zoomed in
+  animations:
+  - src: unlocking.gif
+    caption: unlocking animation
+  - src: locking.gif
+    caption: locking animation
+  - src: garage-unlocking.gif
+    caption: garage unlocking animation
+  - src: jammed.gif
+    caption: jammed animation
+  - src: opening.gif
+    caption: opening animation
+  - src: compact-unlocking.gif
+    caption: compact cylinder unlocking animation
+  - src: keypad-unlocking.gif
+    caption: keypad deadbolt unlocking animation
+  - src: lever-unlocking.gif
+    caption: fingerprint lever unlocking animation
+  - src: reader-unlocking.gif
+    caption: access reader unlocking animation
+  - src: padlock-unlocking.gif
+    caption: padlock unlocking animation
+- slug: ha-home-camera-card
+  title: Home Camera Card
+  kind: card
+  category: security
+  icon: mdiCctv
+  accent: '#e5484d'
+  tagline: Every home camera in one grid, with a privacy badge per camera, HD / SD and PTZ.
+  summary: List the cameras and the card finds their privacy switch, SD stream and PTZ buttons by itself. Hidden cameras leave the grid, and a live dot shows which ones are filming.
+  highlights:
+  - One grid for every camera
+  - 'Privacy badge per camera: live dot or lock'
+  - HD / SD switch shared across dashboards
+  - Pan and tilt controls
+  - Full screen view
+  homeassistant: 2024.8.0
+  cardTypes:
+  - home-camera-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Camera card
+  screenshots:
+  - src: card-single.png
+    caption: Camera card with a single camera
+  - src: card-hidden.png
+    caption: Camera card with every camera hidden, dark theme
+  - src: card-fullscreen.png
+    caption: Fullscreen camera with the round pan and tilt pad
+  animations:
+  - src: live.gif
+    caption: live
+  - src: loading.gif
+    caption: loading
+- slug: ha-home-connect-card
+  title: Home Connect Card
+  kind: card
+  category: appliances
+  icon: mdiDishwasher
+  accent: '#039be5'
+  tagline: Dishwasher and washing machine cards for Home Connect (Bosch, Siemens, Neff, Gaggenau).
+  summary: 'One card per appliance type: status, progress, finish time, program picker and options, start, pause and stop, with animated illustrations while running.'
+  highlights:
+  - Dishwasher and washing machine cards, with mini cards
+  - Status, progress bar, finish time and time left
+  - Program picker and options before starting
+  - Door state, salt and rinse aid alerts
+  homeassistant: 2024.8.0
+  cardTypes:
+  - home-connect-dishwasher-card
+  - home-connect-washer-card
+  hero:
+    src: dishwasher.png
+    dark: dishwasher-dark.png
+    caption: Dishwasher card
+  screenshots:
+  - src: washer.png
+    dark: washer-dark.png
+    caption: Washing machine card
+  - src: dishwasher-options.png
+    caption: dishwasher with program options
+  - src: washer-mini-zoom.png
+    caption: washer mini card unfolded
+  - src: dishwasher-mini.png
+    dark: dishwasher-mini-dark.png
+    caption: dishwasher mini card
+  - src: washer-mini.png
+    caption: washer mini card
+  - src: dishwasher-open.png
+    caption: dishwasher door open
+  - src: washer-open.png
+    caption: washer door open
+  animations:
+  - src: dishwasher-running.gif
+    caption: dishwasher running
+  - src: washer-running.gif
+    caption: washing machine running
+  - src: dishwasher-finished.gif
+    caption: dishwasher finished
+  - src: washer-finished.gif
+    caption: washer finished
+  - src: dishwasher-paused.gif
+    caption: dishwasher paused
+  - src: washer-paused.gif
+    caption: washer paused
+  - src: dishwasher-delayed.gif
+    caption: dishwasher delayed start
+  - src: washer-delayed.gif
+    caption: washer delayed start
+- slug: ha-vacuum-card
+  title: Vacuum Card
+  kind: card
+  category: appliances
+  icon: mdiRobotVacuum
+  accent: '#ea0029'
+  tagline: Robot vacuum cards for Roborock, Xiaomi, Dreame, Ecovacs, Dyson and iRobot.
+  summary: A drawn device picture matching about 130 models, brand colours, battery, status, current room, cleaning settings and room cleaning, with animations while cleaning, returning or washing the mop.
+  highlights:
+  - About 130 models recognised, drawn picture per model
+  - Brand logo and colours, readable in light and dark
+  - Battery, status, current room, progress and errors
+  - Cleaning mode, suction, mop intensity and route
+  - Room selection and dock actions
+  homeassistant: 2024.8.0
+  cardTypes:
+  - vacuum-card
+  - vacuum-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: roborock card
+  screenshots:
+  - src: card-xiaomi.png
+    caption: xiaomi card
+  - src: card-dreame.png
+    caption: dreame card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: roborock mini card
+  - src: mini-card-xiaomi.png
+    dark: mini-card-xiaomi-dark.png
+    caption: xiaomi mini card
+  - src: mini-card-dreame.png
+    caption: dreame mini card
+  - src: card-ecovacs.png
+    caption: ecovacs card
+  - src: card-dyson.png
+    caption: dyson card
+  - src: card-irobot.png
+    caption: irobot card
+  - src: mini-card-ecovacs.png
+    dark: mini-card-ecovacs-dark.png
+    caption: ecovacs mini card
+  - src: mini-card-dyson.png
+    caption: dyson mini card
+  - src: mini-card-irobot.png
+    dark: mini-card-irobot-dark.png
+    caption: irobot mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: mini card zoomed in
+  - src: card-rooms.png
+    caption: room selector
+  - src: card-f25.png
+    caption: card f25
+  - src: mini-card-f25.png
+    caption: mini card f25
+  - src: mini-card-dreame-light.png
+    caption: mini card dreame light
+  - src: mini-card-dyson-light.png
+    caption: mini card dyson light
+  - src: card-braava.png
+    caption: card braava
+  - src: mini-card-braava.png
+    caption: mini card braava
+  animations:
+  - src: cleaning.gif
+    caption: cleaning animation
+  - src: returning.gif
+    caption: returning animation
+  - src: mop-washing.gif
+    caption: mop washing animation
+  - src: mop-drying.gif
+    caption: mop drying animation
+  - src: f25-cleaning.gif
+    caption: F25 cleaning animation
+  - src: ecovacs-cleaning.gif
+    caption: ecovacs cleaning animation
+  - src: ecovacs-returning.gif
+    caption: ecovacs returning animation
+  - src: ecovacs-mop-washing.gif
+    caption: ecovacs mop washing animation
+  - src: ecovacs-mop-drying.gif
+    caption: ecovacs mop drying animation
+  - src: dyson-cleaning.gif
+    caption: dyson cleaning animation
+  - src: dyson-returning.gif
+    caption: dyson returning animation
+  - src: irobot-cleaning.gif
+    caption: irobot cleaning animation
+  - src: irobot-returning.gif
+    caption: irobot returning animation
+  - src: irobot-emptying.gif
+    caption: irobot emptying animation
+  - src: braava-mopping.gif
+    caption: braava mopping animation
+- slug: ha-printer-card
+  title: Printer Card
+  kind: card
+  category: appliances
+  icon: mdiPrinter
+  accent: '#0096d6'
+  tagline: 'HP printers and any IPP printer: status, ink or toner levels and alerts.'
+  summary: Built for HP printers and working with any IPP printer (Brother, Canon, Epson, Xerox…). The control panel lights up in the status colour, and the card simply says offline when the printer is off.
+  highlights:
+  - Status with colour and a pulsing control panel while printing
+  - Ink or toner tanks in slot order, with a warning threshold
+  - Paper, cover and cartridge alerts
+  - Drawing per HP range, generic printer for other brands
+  - Mini card with an offline state
+  homeassistant: 2024.8.0
+  cardTypes:
+  - printer-card
+  - printer-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Printer card
+  screenshots:
+  - src: offline.png
+    caption: Printer card, printer offline
+  - src: ipp.png
+    caption: Printer card, IPP laser printer
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Printer mini card
+  - src: mini-zoom.png
+    dark: mini-zoom-dark.png
+    caption: Printer mini card, full view
+  - src: mini-offline.png
+    dark: mini-offline-dark.png
+    caption: mini card offline
+  animations:
+  - src: printing.gif
+    caption: printer printing animation
+  - src: printing-mini.gif
+    caption: printer mini card printing animation
+- slug: ha-internet-box-card
+  title: Internet Box Card
+  kind: card
+  category: network
+  icon: mdiRouterWireless
+  accent: '#cd1e25'
+  tagline: Freebox, Livebox, SFR Box and Bbox at a glance.
+  summary: Download and upload rates, connection, temperatures, fans, storage, Wi-Fi, missed calls and connected devices. The operator's logo, colours and links follow the detected box.
+  highlights:
+  - Freebox, Livebox, SFR Box and Bbox
+  - Box picture and model detected automatically
+  - Connection type, public IP and uptime
+  - Wi-Fi networks, connected devices and missed calls
+  - Compact mini card
+  homeassistant: 2024.8.0
+  cardTypes:
+  - internet-box-card
+  - internet-box-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: internet-box-card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: internet-box-mini-card
+  - src: card-livebox.png
+    dark: card-livebox-dark.png
+    caption: Livebox card
+  - src: card-sfr.png
+    dark: card-sfr-dark.png
+    caption: SFR Box card
+  - src: card-bbox.png
+    dark: card-bbox-dark.png
+    caption: Bbox card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: mini card, detail view
+  animations:
+  - src: fan.gif
+    caption: fan
+- slug: ha-nas-card
+  title: NAS Card
+  kind: card
+  category: network
+  icon: mdiNas
+  accent: '#00b46e'
+  tagline: 'UGREEN, Synology and QNAP NAS: CPU, RAM, disks, volumes and network.'
+  summary: Gauges for CPU, RAM and temperature, network rates, RAID volumes, disks and fans for three NAS integrations, discovered automatically, brands can be mixed.
+  highlights:
+  - UGREEN NAS, Synology DSM and QNAP
+  - CPU, RAM and temperature gauges
+  - Volumes with RAID level and used space
+  - Disks with temperature and power-on hours
+  - Compact mini card
+  homeassistant: 2024.8.0
+  cardTypes:
+  - nas-card
+  - nas-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: ugreen card
+  screenshots:
+  - src: card-synology.png
+    dark: card-synology-dark.png
+    caption: synology card
+  - src: card-qnap.png
+    dark: card-qnap-dark.png
+    caption: qnap card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: ugreen mini card
+  - src: mini-card-synology.png
+    caption: synology mini card
+  - src: mini-card-qnap.png
+    caption: qnap mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: mini card zoomed in
+  animations:
+  - src: fans.gif
+    caption: cooling fans animation
+- slug: ha-switch-card
+  title: Network Switch Card
+  kind: card
+  category: network
+  icon: mdiSwitch
+  accent: '#5b6cf0'
+  tagline: 'A managed network switch over SNMP: ports, traffic, status and power.'
+  summary: Live state of every port on a drawn front panel, traffic, connectivity and uptime. Pure JavaScript with no dependencies, fully configurable from the visual editor.
+  highlights:
+  - Drawn generic front panel (1–52 ports) or Netgear GS308T
+  - Live state of every port
+  - Incoming and outgoing traffic, auto-scaled
+  - Custom image with an adjustable port overlay
+  homeassistant: 2024.8.0
+  cardTypes:
+  - ha-switch-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: card
+  screenshots:
+  - src: card-gs308t.png
+    caption: GS308T
+- slug: ha-system-monitor-card
+  title: System Monitor Card
+  kind: card
+  category: network
+  icon: mdiMonitorDashboard
+  accent: '#039be5'
+  tagline: 'The machine running Home Assistant: CPU, RAM, disk, temperature, network and updates.'
+  summary: Three cards built on the core System Monitor integration, with Home Assistant versions, HACS updates and the integration watchdog status.
+  highlights:
+  - Full, mini and status cards
+  - CPU, RAM, disk and temperature gauges
+  - Core and OS versions with update badges
+  - HACS updates and integration watchdog sections
+  - Network rates per interface
+  homeassistant: 2024.8.0
+  cardTypes:
+  - system-monitor-card
+  - system-monitor-mini-card
+  - system-monitor-status-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: system-monitor-card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: system-monitor-mini-card
+  - src: status-card.png
+    dark: status-card-dark.png
+    caption: system-monitor-status-card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: mini card zoomed in
+  - src: status-card-zoom.png
+    dark: status-card-zoom-dark.png
+    caption: status card zoomed in
+  - src: card-hacs.png
+    caption: HACS extensions
+  - src: card-watchdog.png
+    caption: Unavailable integrations
+  - src: card-hacs-search.png
+    caption: HACS search
+  - src: card-install.png
+    caption: Install confirmation
+  animations:
+  - src: hacs-checking.gif
+    caption: HACS check animation
+  - src: hacs-installing.gif
+    caption: Install all animation
+  - src: wd-checking.gif
+    caption: Watchdog check animation
+- slug: ha-dockhand-card
+  title: Dockhand Card
+  kind: card
+  category: network
+  icon: mdiDocker
+  accent: '#2496ed'
+  tagline: 'Docker environments managed by Dockhand: CPU, memory, containers, stacks and updates.'
+  summary: 'Built on the Dockhand integration, with every environment discovered automatically: gauges, counters, stacks with their Git status and containers with available updates.'
+  highlights:
+  - Several environments supported
+  - CPU, memory and running containers gauges
+  - Stacks, images, volumes and networks counters
+  - Stacks and containers with pending updates
+  - Compact mini card
+  homeassistant: 2024.8.0
+  cardTypes:
+  - dockhand-card
+  - dockhand-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: dockhand-card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: dockhand-mini-card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: mini card zoomed in
+  - src: card-containers.png
+    caption: containers
+  animations:
+  - src: card-sections.gif
+    caption: sections folding and unfolding
+  - src: card-gauges.gif
+    caption: gauges animating on a state change
+  - src: mini-card-zoom.gif
+    caption: mini card switching to the full card and back
+- slug: ha-zoraxy
+  title: Zoraxy
+  kind: integration
+  withCard: true
+  category: network
+  icon: mdiServerNetwork
+  accent: '#5b6cf0'
+  tagline: Integration and card for the Zoraxy reverse proxy.
+  summary: Proxy status and controls, TLS certificates with ACME renewal and proxy rules you can switch on and off from the dashboard, with a card shipped in the integration.
+  highlights:
+  - Sensors for proxy rules, certificates and access rules
+  - Expiry sensor and ACME renewal button per certificate
+  - Switches for HTTPS redirect and port 80
+  - Toggle proxy rules from automations
+  - Card and mini card included
+  homeassistant: 2024.12.0
+  cardTypes:
+  - zoraxy-card
+  - zoraxy-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: zoraxy-card
+  screenshots:
+  - src: mini.png
+    dark: mini-dark.png
+    caption: zoraxy-mini-card
+  - src: mini-zoom.png
+    dark: mini-zoom-dark.png
+    caption: mini zoomed
+- slug: ha-renault-card
+  title: Renault Card
+  kind: card
+  category: car
+  icon: mdiCar
+  accent: '#e1b000'
+  tagline: Vehicle and map cards for the Renault integration.
+  summary: Range, fuel, battery, mileage, tyres, charging, location and actions, whatever your car exposes, with an optional section for the Orange Internet On the move data plan.
+  highlights:
+  - Range, fuel gauge, battery and mileage
+  - Charging status, plug, lock and doors
+  - Map card with the last location
+  - Action buttons with a confirmation tap
+  - Lease section and official vehicle picture
+  homeassistant: 2024.8.0
+  cardTypes:
+  - renault-card
+  - renault-map-card
+  hero:
+    src: espace.png
+    dark: espace-dark.png
+    caption: Renault Espace card
+  screenshots:
+  - src: captur.png
+    dark: captur-dark.png
+    caption: Renault Captur card
+  - src: lease.png
+    dark: lease-dark.png
+    caption: Lease tracking
+  - src: map.png
+    dark: map-dark.png
+    caption: map card
+  animations:
+  - src: lease.gif
+    caption: Lease section unfolding and folding back
+- slug: ha-renault-picture
+  title: Renault Picture
+  kind: integration
+  category: car
+  icon: mdiCarInfo
+  accent: '#e1b000'
+  tagline: The official MyRenault picture of each vehicle, as a sensor.
+  summary: 'Reads the picture URL already loaded by the core Renault integration and publishes it as a sensor: no credentials, no extra API call. Used by the Renault Card.'
+  highlights:
+  - One picture sensor per vehicle, on the existing device
+  - Picture shown as the entity thumbnail
+  - No credentials and no network calls
+  homeassistant: 2025.8.0
+- slug: ha-carburants-france
+  title: Carburants France
+  kind: integration
+  withCard: true
+  category: car
+  icon: mdiGasStation
+  accent: '#43a047'
+  tagline: Fuel prices and availability at your stations in France, with a card and a map.
+  summary: Official data from the French government's live feed, no API key. Pick your stations from the configuration form and follow prices, shortages and the best price per fuel.
+  highlights:
+  - Station search around home, by town or postcode
+  - Price and in-stock sensors per station and fuel
+  - Best price per fuel across your stations
+  - 42 French networks' logos built in
+  - Card and map card included
+  homeassistant: 2024.12.0
+  cardTypes:
+  - carburants-france-card
+  - carburants-france-map-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: card
+  screenshots:
+  - src: card-all-fuels.png
+    dark: card-all-fuels-dark.png
+    caption: card with every fuel
+  - src: map.png
+    dark: map-dark.png
+    caption: map card
+  - src: map-nearby.png
+    caption: stations around me
+  - src: map-search.png
+    caption: stations of a town
+  animations:
+  - src: refreshing.gif
+    caption: refresh animation
+  - src: locate.gif
+    caption: locate animation
+- slug: ha-calendar-card
+  title: Calendar Card
+  kind: card
+  category: everyday
+  icon: mdiCalendarMonth
+  accent: '#5b6cf0'
+  tagline: An agenda of one or more calendars, grouped by day, each in its own colour.
+  summary: 'Google Calendar, CalDAV, Local Calendar, Microsoft 365…: events grouped by day with countdowns, a progress bar for the event under way, details in a popup and a mini card with the next event.'
+  highlights:
+  - Several calendars merged, each with its colour
+  - Countdown and Now badge for today's events
+  - Event details in a popup
+  - Mini card with the next event
+  homeassistant: 2024.8.0
+  cardTypes:
+  - calendar-agenda-card
+  - calendar-agenda-mini-card
+  hero:
+    src: agenda.png
+    dark: agenda-dark.png
+    caption: Agenda card
+  screenshots:
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Mini card
+  - src: agenda-more.png
+    caption: agenda with folded events
+  - src: agenda-details.png
+    caption: event details
+  - src: mini-zoom.png
+    caption: mini card unfolded
+  animations:
+  - src: agenda-popup.gif
+    caption: event details popup
+  - src: agenda-more.gif
+    caption: folded events
+  - src: mini-zoom.gif
+    caption: mini card unfolding
+- slug: ha-parcel
+  title: Parcel
+  kind: integration
+  withCard: true
+  category: everyday
+  icon: mdiPackageVariantClosed
+  accent: '#ff7a00'
+  tagline: Deliveries tracked in the Parcel app, with a card to follow and add them.
+  summary: See the deliveries tracked in Parcel and add new ones from an automation, a script or the card shipped with the integration.
+  highlights:
+  - Deliveries sensor with every delivery's events
+  - Add a delivery with an action or from the card
+  - Card included, with carrier search
+  - API key entered in the UI
+  homeassistant: 2024.12.0
+  cardTypes:
+  - parcel-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: card
+  animations:
+  - src: refreshing.gif
+    caption: refresh animation
+- slug: ha-wifi-card
+  title: Wi-Fi QR Card
+  kind: card
+  category: everyday
+  icon: mdiQrcodeScan
+  accent: '#039be5'
+  tagline: A Wi-Fi QR code so guests join your network in one scan.
+  summary: 'The QR code is generated in pure JavaScript with no external dependency: no CDN, no network request. The password stays hidden until you reveal it.'
+  highlights:
+  - QR code generated in pure JS
+  - Password hidden by default
+  - Visual editor, no YAML needed
+  - Light and dark mode
+  homeassistant: 2024.8.0
+  cardTypes:
+  - wifi-qr-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: wifi-qr-card
+- slug: ha-wero-card
+  title: Wero QR Card
+  kind: card
+  category: everyday
+  icon: mdiQrcode
+  accent: '#b8a400'
+  tagline: Your Wero QR code, so guests can pay you back without your phone number or IBAN.
+  summary: A pure JavaScript QR code with no external dependency, a copy-link button to share the payment link and a full screen view.
+  highlights:
+  - QR code generated in pure JS
+  - Copy-link button
+  - Tap for full screen
+  - Visual editor
+  homeassistant: 2024.8.0
+  cardTypes:
+  - wero-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: card
+- slug: ha-automation-monitor-card
+  title: Automation Monitor Card
+  kind: card
+  category: maintenance
+  icon: mdiRobotConfusedOutline
+  accent: '#e5484d'
+  tagline: Automations whose last run failed and entities stuck unavailable, at a glance.
+  summary: 'Built on the Automation Monitor integration, discovered automatically: failed automations with their error and failed step, unavailable linked entities, and shortcuts to the trace and the editor.'
+  highlights:
+  - 'Overall status: all good or the number of problems'
+  - Error message, failed step and consecutive failures
+  - Trace and Edit shortcuts
+  - Clear a failure with confirmation
+  - Compact mini card
+  homeassistant: 2024.8.0
+  cardTypes:
+  - automation-monitor-card
+  - automation-monitor-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: card
+  screenshots:
+  - src: card-open.png
+    caption: automation-monitor-card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: automation-monitor-mini-card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: mini card zoomed in
+  - src: card-ok.png
+    caption: card ok
+  - src: mini-card-ok.png
+    caption: mini card ok
+  animations:
+  - src: refreshing.gif
+    caption: refresh animation
+  - src: folding.gif
+    caption: fold animation
+- slug: ha-hacs-refresh
+  title: HACS Refresh
+  kind: integration
+  category: maintenance
+  icon: mdiCloudRefreshVariant
+  accent: '#41bdf5'
+  tagline: Checks every HACS repository for updates, on the server.
+  summary: HACS only checks downloaded repositories every 48 hours, one at a time from the browser. HACS Refresh checks them all at once in the background, with a button, an action and a progress sensor.
+  highlights:
+  - Check every repository with a button or an action
+  - Check only selected repositories
+  - Automatic check at your interval
+  - Status sensor with progress and failures
+  homeassistant: 2024.12.0
+- slug: ha-integration-watchdog
+  title: Integration Watchdog
+  kind: integration
+  category: maintenance
+  icon: mdiShieldSyncOutline
+  accent: '#41bdf5'
+  tagline: Reloads the integrations whose entities are all unavailable.
+  summary: 'Some integrations lose their connection and never recover until reloaded by hand. Integration Watchdog does it for you, safely: never during startup, never in a loop.'
+  highlights:
+  - Periodic check of every loaded integration
+  - Reload after a grace period
+  - Never during startup, no reload loop
+  - Notification for each reload
+  - Ignored integrations
+  homeassistant: 2024.12.0

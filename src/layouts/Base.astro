@@ -1,0 +1,106 @@
+---
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "../styles/global.css";
+import Icon from "../components/Icon.astro";
+import { OWNER } from "../lib/projects";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const pageTitle = title === "Home Assistant projects" ? title : `${title} · Home Assistant projects`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#e8eaed" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <script is:inline>
+      // Before first paint, so the page never flashes the wrong theme.
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap bar">
+        <a class="brand" href={base}>
+          <span class="logo sm" style="--c:#41bdf5"><Icon name="mdiHomeAssistant" /></span>
+          <span class="brand-text"><b>Home Assistant</b> projects</span>
+        </a>
+        <nav class="actions">
+          <a class="icon-btn" href={`https://github.com/${OWNER}`} title="GitHub" aria-label="GitHub profile"><Icon name="mdiGithub" /></a>
+          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+            <Icon name="mdiWeatherNight" class="to-dark" />
+            <Icon name="mdiWhiteBalanceSunny" class="to-light" />
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main><slot /></main>
+
+    <footer class="wrap footer muted">
+      <span>Made by <a href={`https://github.com/${OWNER}`}>{OWNER}</a> · Every project is free and open source</span>
+      <span>Not affiliated with Home Assistant or the brands shown</span>
+    </footer>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const dark = () =>
+          root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        document.getElementById("theme-toggle").addEventListener("click", () => {
+          const next = dark() ? "light" : "dark";
+          root.dataset.theme = next;
+          try { localStorage.setItem("theme", next); } catch {}
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--primary-background-color) 80%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid var(--divider-color);
+  }
+  .bar { display: flex; align-items: center; gap: 12px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-size: 16px; }
+  .brand b { font-weight: 500; }
+  .brand-text { color: var(--secondary-text-color); }
+  .brand-text b { color: var(--primary-text-color); }
+  .actions { margin-left: auto; display: flex; gap: 4px; }
+  #theme-toggle .to-light { display: none; }
+  :global(:root[data-theme="dark"]) #theme-toggle .to-dark { display: none; }
+  :global(:root[data-theme="dark"]) #theme-toggle .to-light { display: block; }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) #theme-toggle .to-dark { display: none; }
+    :global(:root:not([data-theme="light"])) #theme-toggle .to-light { display: block; }
+  }
+  main { min-height: calc(100vh - 160px); }
+  .footer {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+    padding-top: 32px; padding-bottom: 40px; font-size: 13px;
+  }
+  .footer a { color: var(--primary-text-color); font-weight: 500; }
+  @media (max-width: 480px) { .brand-text { display: none; } }
+</style>

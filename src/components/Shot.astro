@@ -1,0 +1,21 @@
+---
+import { caption, shotUrl, type Project, type Shot } from "../lib/projects";
+
+interface Props {
+  project: Project;
+  shot: Shot;
+  eager?: boolean;
+}
+const { project, shot, eager = false } = Astro.props;
+const alt = `${project.title}: ${caption(shot)}`;
+const loading = eager ? "eager" : "lazy";
+---
+
+<span class:list={["shot", { "has-dark": !!shot.dark }]}>
+  <img class="shot-light" src={shotUrl(project, shot.src)} alt={alt} loading={loading} decoding="async" />
+  {shot.dark && <img class="shot-dark" src={shotUrl(project, shot.dark)} alt={alt} loading={loading} decoding="async" />}
+</span>
+
+<style>
+  .shot { display: contents; }
+</style>

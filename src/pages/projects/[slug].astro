@@ -1,0 +1,373 @@
+---
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import Shot from "../../components/Shot.astro";
+import {
+  projects,
+  repoUrl,
+  hacsUrl,
+  kindLabel,
+  caption,
+  categoryOf,
+  type Project,
+} from "../../lib/projects";
+
+export function getStaticPaths() {
+  return projects.map((project, i) => ({
+    params: { slug: project.slug },
+    props: {
+      project,
+      prev: projects[(i - 1 + projects.length) % projects.length],
+      next: projects[(i + 1) % projects.length],
+    },
+  }));
+}
+
+interface Props {
+  project: Project;
+  prev: Project;
+  next: Project;
+}
+const { project, prev, next } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const accent = `--c:${project.accent}`;
+const category = categoryOf(project);
+const isCard = project.kind === "card";
+const cardTypes = project.cardTypes ?? [];
+const yaml = cardTypes.length ? `type: custom:${cardTypes[0]}` : "";
+const screenshots = project.screenshots ?? [];
+const animations = project.animations ?? [];
+const sections = [
+  { id: "screenshots", title: "Screenshots", icon: "mdiImageMultiple", shots: screenshots },
+  { id: "animations", title: "Animations", icon: "mdiAnimationPlay", shots: animations },
+].filter((s) => s.shots.length);
+---
+
+<Base title={project.title} description={project.tagline}>
+  <div class="wrap page" style={accent}>
+    <a class="back muted" href={base}><Icon name="mdiChevronLeft" /> All projects</a>
+
+    <!-- Header -->
+    <section class="ha-card intro">
+      <div class="header top">
+        <span class="logo lg" style={accent}><Icon name={project.icon} /></span>
+        <div class="titles">
+          <h1>{project.title}</h1>
+          <div class="sub">{kindLabel(project)} · {category.label}</div>
+        </div>
+        <div class="chips">
+          <span class="chip neutral"><Icon name="mdiHomeAssistant" /> HA {project.homeassistant}+</span>
+          <span class="chip" style={accent}><Icon name="mdiStorefrontOutline" /> HACS</span>
+        </div>
+      </div>
+      <p class="lead">{project.tagline}</p>
+      <p class="summary muted">{project.summary}</p>
+      <div class="actions">
+        <a class="btn" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener">
+          <Icon name="mdiDownload" /> Add to HACS
+        </a>
+        <a class="btn ghost" href={repoUrl(project)} target="_blank" rel="noopener">
+          <Icon name="mdiGithub" /> GitHub
+        </a>
+      </div>
+    </section>
+
+    <!-- Hero + side column -->
+    <div class="cols">
+      <div class="hero-col">
+        {
+          project.hero ? (
+            <button class="frame hero zoom" type="button" aria-label={`Enlarge: ${caption(project.hero)}`}>
+              <Shot project={project} shot={project.hero} eager />
+            </button>
+          ) : (
+            <div class="frame hero empty">
+              <span class="logo lg" style={accent}><Icon name={project.icon} /></span>
+            </div>
+          )
+        }
+      </div>
+
+      <div class="side">
+        <section class="ha-card pad">
+          <h2 class="section-title"><Icon name="mdiStarFourPointsOutline" /> Highlights</h2>
+          <ul class="highlights">
+            {
+              project.highlights.map((h) => (
+                <li>
+                  <span class="check" style={accent}><Icon name="mdiCheck" /></span>
+                  <span>{h}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        {
+          cardTypes.length > 0 && (
+            <section class="ha-card pad">
+              <h2 class="section-title"><Icon name="mdiCardsOutline" /> Cards</h2>
+              <div class="types">
+                {cardTypes.map((t) => (
+                  <span class="chip" style={accent}>{t}</span>
+                ))}
+              </div>
+              <div class="code tile">
+                <pre><code>{yaml}</code></pre>
+                <button class="icon-btn copy" type="button" data-copy={yaml} aria-label="Copy YAML" title="Copy">
+                  <Icon name="mdiContentCopy" class="i-copy" />
+                  <Icon name="mdiCheck" class="i-done" />
+                </button>
+              </div>
+            </section>
+          )
+        }
+
+        <section class="ha-card pad">
+          <h2 class="section-title"><Icon name="mdiDownloadOutline" /> Install</h2>
+          <ol class="steps">
+            <li>
+              <span class="num" style={accent}>1</span>
+              <span>
+                Open the repository in HACS with the <b>Add to HACS</b> button, or add
+                <code>{repoUrl(project).replace("https://", "")}</code> as a custom repository
+                (category <b>{isCard ? "Dashboard" : "Integration"}</b>).
+              </span>
+            </li>
+            <li>
+              <span class="num" style={accent}>2</span>
+              <span>Download it from HACS.</span>
+            </li>
+            <li>
+              <span class="num" style={accent}>3</span>
+              <span>
+                {
+                  isCard
+                    ? "Reload the browser and add the card from the dashboard editor."
+                    : "Restart Home Assistant and add the integration from Settings → Devices & services."
+                }
+              </span>
+            </li>
+          </ol>
+        </section>
+      </div>
+    </div>
+
+    <!-- Galleries -->
+    {
+      sections.map((s) => (
+        <details class="fold ha-card gallery" open>
+          <summary>
+            <h2 class="section-title">
+              <Icon name={s.icon} /> {s.title}
+              <span class="chip neutral count">{s.shots.length}</span>
+              <Icon name="mdiChevronRight" class="chev" />
+            </h2>
+          </summary>
+          <div class="grid">
+            {s.shots.map((shot) => (
+              <figure>
+                <button class="frame zoom" type="button" aria-label={`Enlarge: ${caption(shot)}`}>
+                  <Shot project={project} shot={shot} />
+                </button>
+                <figcaption class="sub">{caption(shot)}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </details>
+      ))
+    }
+
+    <!-- Prev / next -->
+    <nav class="pager" aria-label="Other projects">
+      <a class="ha-card nb" href={`${base}projects/${prev.slug}/`}>
+        <Icon name="mdiChevronLeft" class="arrow" />
+        <span class="logo sm" style={`--c:${prev.accent}`}><Icon name={prev.icon} /></span>
+        <span class="titles">
+          <span class="sub">Previous</span>
+          <span class="name">{prev.title}</span>
+        </span>
+      </a>
+      <a class="ha-card nb right" href={`${base}projects/${next.slug}/`}>
+        <span class="titles">
+          <span class="sub">Next</span>
+          <span class="name">{next.title}</span>
+        </span>
+        <span class="logo sm" style={`--c:${next.accent}`}><Icon name={next.icon} /></span>
+        <Icon name="mdiChevronRight" class="arrow" />
+      </a>
+    </nav>
+  </div>
+
+  <dialog class="lightbox" aria-label="Screenshot">
+    <img alt="" />
+    <button class="icon-btn close" type="button" aria-label="Close" title="Close">
+      <Icon name="mdiClose" />
+    </button>
+  </dialog>
+</Base>
+
+<script>
+  // Copy the YAML snippet.
+  for (const btn of document.querySelectorAll<HTMLButtonElement>("button.copy")) {
+    let timer: number | undefined;
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+        btn.classList.add("done");
+        clearTimeout(timer);
+        timer = window.setTimeout(() => btn.classList.remove("done"), 1500);
+      } catch {}
+    });
+  }
+
+  // Lightbox: shows the image currently visible (light or dark variant).
+  const dialog = document.querySelector<HTMLDialogElement>("dialog.lightbox")!;
+  const big = dialog.querySelector("img")!;
+  for (const zoom of document.querySelectorAll<HTMLButtonElement>("button.zoom")) {
+    zoom.addEventListener("click", () => {
+      const img = [...zoom.querySelectorAll("img")].find((i) => getComputedStyle(i).display !== "none");
+      if (!img) return;
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      dialog.showModal();
+    });
+  }
+  dialog.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("close", () => big.removeAttribute("src"));
+</script>
+
+<style>
+  .page { display: flex; flex-direction: column; gap: 24px; padding-top: 20px; padding-bottom: 8px; }
+
+  .back {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-left: -6px; padding: 4px 10px 4px 4px; border-radius: 16px;
+    font-size: 14px; font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .back svg { width: 20px; height: 20px; }
+  .back:hover { color: var(--primary-text-color); background: var(--secondary-background-color); }
+
+  /* Header card */
+  .intro { padding: 24px; }
+  .top { gap: 16px; flex-wrap: wrap; }
+  h1 { margin: 0; font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; }
+  .top .sub { font-size: 14px; margin-top: 2px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lead { margin: 20px 0 6px; font-size: 18px; line-height: 1.45; max-width: 70ch; }
+  .summary { margin: 0; max-width: 75ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+  /* Two columns */
+  .cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+  .side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .pad { padding: 16px 20px 20px; }
+  .side h2 { margin-bottom: 14px; }
+
+  /* Screenshot frames: blend with the padding already in the screenshots */
+  .frame {
+    all: unset;
+    display: block; width: 100%; box-sizing: border-box;
+    background: var(--primary-background-color);
+    border: 1px solid var(--divider-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.3s ease;
+  }
+  .frame :global(img) { width: 100%; height: auto; }
+  .zoom { cursor: zoom-in; }
+  .zoom:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .zoom:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+  .hero-col { position: sticky; top: 84px; min-width: 0; }
+  .hero.empty { aspect-ratio: 4 / 3; display: grid; place-items: center; }
+
+  /* Highlights */
+  .highlights { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .highlights li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; }
+  .check {
+    width: 22px; height: 22px; flex: none; margin-top: -1px;
+    border-radius: 50%; display: grid; place-items: center;
+    background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c);
+  }
+  .check svg { width: 14px; height: 14px; }
+
+  /* Cards */
+  .types { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .code { position: relative; display: flex; align-items: center; }
+  .code pre { flex: 1; min-width: 0; margin: 0; padding: 12px 14px; overflow-x: auto; font-size: 13px; }
+  .copy { margin-right: 4px; }
+  .copy .i-done { display: none; }
+  .copy.done { color: var(--success-color); }
+  .copy.done .i-copy { display: none; }
+  .copy.done .i-done { display: block; }
+
+  /* Install */
+  .steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+  .steps li { display: flex; gap: 12px; align-items: flex-start; }
+  .steps b { font-weight: 500; }
+  .steps code {
+    font-size: 12px; padding: 1px 6px; border-radius: 6px;
+    background: var(--secondary-background-color); overflow-wrap: anywhere;
+  }
+  .num {
+    width: 22px; height: 22px; flex: none;
+    border-radius: 50%; display: grid; place-items: center;
+    font-size: 12px; font-weight: 500;
+    background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c);
+  }
+
+  /* Galleries */
+  .gallery { padding: 0 20px; }
+  .gallery summary { padding: 16px 0; }
+  .gallery summary h2 { margin: 0; }
+  .gallery[open] summary { padding-bottom: 12px; }
+  .count { letter-spacing: 0; text-transform: none; }
+  .grid { columns: 3 260px; column-gap: 16px; padding-bottom: 20px; }
+  figure { break-inside: avoid; margin: 0 0 16px; }
+  figcaption { margin-top: 6px; padding-left: 2px; }
+
+  /* Prev / next */
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .nb { display: flex; align-items: center; gap: 12px; padding: 14px 16px; min-width: 0; }
+  .nb:hover { transform: translateY(-2px); }
+  .nb .titles { display: flex; flex-direction: column; }
+  .nb .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nb.right { justify-content: flex-end; text-align: right; }
+  .arrow { width: 20px; height: 20px; flex: none; color: var(--secondary-text-color); }
+
+  /* Lightbox, near the top of the viewport */
+  .lightbox {
+    margin: 24px auto auto; padding: 0;
+    max-width: min(1200px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
+    border: 1px solid var(--divider-color); border-radius: var(--radius);
+    background: var(--primary-background-color); box-shadow: var(--shadow);
+    overflow: hidden; cursor: zoom-out;
+  }
+  .lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .lightbox img { max-width: 100%; max-height: calc(100vh - 50px); width: auto; height: auto; margin: 0 auto; }
+  .lightbox .close {
+    position: absolute; top: 8px; right: 8px;
+    background: var(--card-background-color); box-shadow: var(--shadow);
+  }
+
+  @media (max-width: 899px) {
+    .cols { grid-template-columns: 1fr; }
+    .hero-col { position: static; }
+  }
+  @media (max-width: 600px) {
+    .intro { padding: 20px 16px; }
+    h1 { font-size: 24px; }
+    .chips { width: 100%; }
+    .pager { grid-template-columns: 1fr; }
+    .grid { columns: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .zoom:hover, .nb:hover { transform: none; }
+  }
+</style>
