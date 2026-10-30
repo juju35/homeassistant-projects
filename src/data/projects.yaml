@@ -1007,12 +1007,13 @@ projects:
   icon: mdiGaugeLow
   accent: '#26a69a'
   tagline: A fuel and energy logbook built from your car's own sensors.
-  summary: Consumption per trip, per month and on average, refuels and charges detected on their own, and what driving costs per kilometre. Fuel, electric and plug-in hybrid cars, with a card bundled with the integration.
+  summary: Consumption per trip, per month and on average, refuels and charges detected on their own, and what driving costs per kilometre. When a vehicle is added, its past trips are rebuilt from what Home Assistant already recorded. Fuel, electric and plug-in hybrid cars, with a card bundled with the integration.
   highlights:
   - Odometer, fuel and battery sensors detected from the vehicle's device
   - Fuel, electric and plug-in hybrid, in L/100 km and kWh/100 km
   - Refuels and charges detected automatically, or logged with an action
   - Trips with distance, consumption and cost
+  - Past trips, refuels and charges rebuilt from the recorder history, up to two years back
   - Cost of the month and cost per km, with prices from a sensor or fixed
   - Card with gauges, monthly chart and recent trips, refuels and charges
   homeassistant: 2024.12.0
