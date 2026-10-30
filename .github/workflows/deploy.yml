@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # The documentation comes from each project's README: rebuild daily to pick up changes.
+  schedule:
+    - cron: "17 4 * * *"
 
 permissions:
   contents: read

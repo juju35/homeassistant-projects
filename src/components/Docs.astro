@@ -1,0 +1,152 @@
+---
+import Icon from "./Icon.astro";
+import { getDocs } from "../lib/docs";
+import { repoUrl, type Project } from "../lib/projects";
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const sections = await getDocs(project);
+
+const iconFor = (t: string) => {
+  const s = t.toLowerCase();
+  if (s.startsWith("feature")) return "mdiStarFourPointsOutline";
+  if (s.startsWith("prerequisite")) return "mdiClipboardCheckOutline";
+  if (s.startsWith("configuration") || s.includes("option")) return "mdiTuneVariant";
+  if (s.startsWith("entit")) return "mdiShape";
+  if (s.startsWith("action") || s.startsWith("service")) return "mdiPlayCircleOutline";
+  if (s.startsWith("event")) return "mdiLightningBolt";
+  if (s.startsWith("how it works")) return "mdiCogOutline";
+  if (s.startsWith("supported")) return "mdiCheckDecagramOutline";
+  if (s.includes("card")) return "mdiCardsOutline";
+  return "mdiTextBoxOutline";
+};
+---
+
+<section class="docs" id="documentation">
+  <div class="docs-head">
+    <h2 class="section-title"><Icon name="mdiBookOpenPageVariantOutline" /> Documentation</h2>
+    <a class="src muted" href={`${repoUrl(project)}#readme`} target="_blank" rel="noopener">
+      From the README <Icon name="mdiOpenInNew" />
+    </a>
+  </div>
+
+  {
+    sections && sections.length ? (
+      <>
+        <nav class="toc" aria-label="Documentation sections">
+          {sections.map((s) => (
+            <a class="chip neutral" href={`#${s.id}`} data-open={s.id}>
+              <Icon name={iconFor(s.title)} />
+              {s.title}
+            </a>
+          ))}
+        </nav>
+        {sections.map((s) => (
+          <details class="fold ha-card doc" id={s.id} open={s.open}>
+            <summary>
+              <h3 class="section-title">
+                <Icon name={iconFor(s.title)} /> {s.title}
+                <Icon name="mdiChevronRight" class="chev" />
+              </h3>
+            </summary>
+            <div class="md" set:html={s.html} />
+          </details>
+        ))}
+      </>
+    ) : (
+      <p class="ha-card pad muted">
+        The documentation could not be loaded. Read it on <a href={`${repoUrl(project)}#readme`}>GitHub</a>.
+      </p>
+    )
+  }
+</section>
+
+<script is:inline>
+  // A table-of-contents chip, or a #link inside the docs, unfolds its section before scrolling to it.
+  (() => {
+    const openFor = (hash) => {
+      const el = hash && document.getElementById(decodeURIComponent(hash.slice(1)));
+      const fold = el && el.closest("details.doc");
+      if (fold) fold.open = true;
+    };
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (a) openFor(a.getAttribute("href"));
+    });
+    openFor(location.hash);
+  })();
+</script>
+
+<style>
+  .docs { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .docs-head { display: flex; align-items: center; gap: 12px; }
+  .docs-head .section-title { margin: 0; }
+  .src { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
+  .src:hover { color: var(--primary-text-color); }
+  .src :global(svg) { width: 14px; height: 14px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .toc .chip { padding: 4px 12px; font-size: 13px; }
+  .toc .chip:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
+  .pad { padding: 16px 20px; }
+
+  .doc { padding: 0 20px; scroll-margin-top: 80px; }
+  .doc > summary { padding: 16px 0; }
+  .doc > summary .section-title { margin: 0; color: var(--primary-text-color); }
+  .doc > summary .section-title :global(svg:first-child) { color: var(--c); }
+  .doc[open] > summary { border-bottom: 1px solid var(--divider-color); margin-bottom: 4px; }
+  .md { padding-bottom: 16px; }
+
+  /* README content, in the cards' style */
+  .md :global(.doc-anchor) { display: none; }
+  .md :global(h3) { font-size: 16px; font-weight: 500; margin: 24px 0 8px; scroll-margin-top: 80px; }
+  .md :global(h4) { font-size: 14px; font-weight: 500; margin: 20px 0 6px; color: var(--secondary-text-color); text-transform: uppercase; letter-spacing: .05em; }
+  .md :global(p), .md :global(li) { font-size: 14px; line-height: 1.6; }
+  .md :global(p) { margin: 10px 0; }
+  .md :global(ul), .md :global(ol) { padding-left: 20px; margin: 10px 0; }
+  .md :global(li) { margin: 4px 0; }
+  .md :global(li::marker) { color: var(--c); }
+  .md :global(a) { color: var(--c); font-weight: 500; }
+  .md :global(a:hover) { text-decoration: underline; }
+  .md :global(strong) { font-weight: 500; }
+  .md :global(:not(pre) > code) {
+    font-size: 12.5px; padding: 1px 6px; border-radius: 6px;
+    background: var(--secondary-background-color); white-space: nowrap;
+  }
+  .md :global(pre) {
+    margin: 12px 0; padding: 12px 14px; overflow-x: auto;
+    background: var(--secondary-background-color); border-radius: var(--radius);
+    font-size: 13px; line-height: 1.5;
+  }
+  .md :global(blockquote) {
+    margin: 12px 0; padding: 8px 14px; border-radius: var(--radius);
+    background: color-mix(in srgb, var(--c) 10%, transparent);
+    border-left: 3px solid var(--c);
+  }
+  .md :global(blockquote p) { margin: 4px 0; }
+  .md :global(img) { display: inline-block; max-width: 100%; height: auto; border-radius: 8px; }
+  .md :global(hr) { border: 0; border-top: 1px solid var(--divider-color); margin: 20px 0; }
+
+  /* Option tables: a tile header, thin dividers, scroll on narrow screens */
+  .md :global(table) {
+    display: block; width: 100%; overflow-x: auto;
+    border-collapse: separate; border-spacing: 0;
+    margin: 12px 0; font-size: 13.5px;
+  }
+  .md :global(thead th) {
+    text-align: left; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--secondary-text-color); background: var(--secondary-background-color);
+    padding: 8px 12px; white-space: nowrap;
+  }
+  .md :global(thead th:first-child) { border-radius: 8px 0 0 8px; }
+  .md :global(thead th:last-child) { border-radius: 0 8px 8px 0; }
+  .md :global(td) { padding: 8px 12px; border-bottom: 1px solid var(--divider-color); vertical-align: top; }
+  .md :global(tbody tr:last-child td) { border-bottom: 0; }
+  .md :global(td:first-child code) { color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+
+  @media (max-width: 600px) {
+    .doc { padding: 0 14px; }
+    .md :global(:not(pre) > code) { white-space: normal; word-break: break-word; }
+  }
+</style>

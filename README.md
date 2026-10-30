@@ -22,6 +22,8 @@ The site is a static [Astro](https://astro.build) site. Every project is an entr
 
 Images are loaded from `raw.githubusercontent.com`, so the site always shows the current captures without a rebuild. `dark` gives the dark-theme twin of an image.
 
+The documentation of each project (features, prerequisites, configuration and options, entities, actions, how it works) is taken from its `README.md` at build time (`src/lib/docs.ts`) and rendered on the project page. Installation, screenshots, development and translation sections are left out. The site is rebuilt every day to pick up README changes.
+
 ## Add a project
 
 1. Add an entry to `src/data/projects.yaml`.
@@ -38,7 +40,7 @@ npm run build # build the static site into dist/
 
 ## Deployment
 
-The site is built and deployed by GitHub Actions (`.github/workflows/deploy.yml`) on every push to `main`, or manually with `workflow_dispatch`. In the repository's Settings → Pages, Source must be set to "GitHub Actions".
+The site is built and deployed by GitHub Actions (`.github/workflows/deploy.yml`) on every push to `main`, every day, or manually with `workflow_dispatch`. The build needs network access to `raw.githubusercontent.com` for the READMEs; a README that cannot be loaded shows a link to GitHub instead. In the repository's Settings → Pages, Source must be set to "GitHub Actions".
 
 ## License
 
