@@ -27,6 +27,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Optimised screenshots, reused across builds (npm ci empties node_modules)
+      - uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/hp-images
+          key: hp-images-${{ github.run_id }}
+          restore-keys: hp-images-
       - run: npm run build
         env:
           # Latest release of each project, read from the GitHub API at build time
