@@ -733,7 +733,7 @@ projects:
     caption: Dyson card
     group: Card
   - src: card-irobot.png
-    caption: Irobot card
+    caption: iRobot card
     group: Card
   - src: card-rooms.png
     caption: Room selector
@@ -764,7 +764,7 @@ projects:
     group: Mini card
   - src: mini-card-irobot.png
     dark: mini-card-irobot-dark.png
-    caption: Irobot mini card
+    caption: iRobot mini card
     group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
@@ -772,12 +772,6 @@ projects:
     group: Mini card
   - src: mini-card-f25.png
     caption: F25
-    group: Mini card
-  - src: mini-card-dreame-light.png
-    caption: Dreame light
-    group: Mini card
-  - src: mini-card-dyson-light.png
-    caption: Dyson light
     group: Mini card
   - src: mini-card-braava.png
     caption: Braava

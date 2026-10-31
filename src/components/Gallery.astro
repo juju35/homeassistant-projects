@@ -5,6 +5,7 @@ import Icon from "./Icon.astro";
 import Shot from "./Shot.astro";
 import { caption, shotUrl, type Project, type Shot as ShotT } from "../lib/projects";
 import { imageSize } from "../lib/imgsize";
+import { withTwin } from "../lib/twins";
 
 interface Props {
   project: Project;
@@ -12,9 +13,14 @@ interface Props {
 const { project } = Astro.props;
 
 type Item = { shot: ShotT; group: string; anim: boolean };
-const stills: Item[] = [project.hero, ...(project.screenshots ?? [])]
-  .filter((s): s is ShotT => !!s)
-  .map((shot) => ({ shot, group: shot.group || "Screenshots", anim: false }));
+const stills: Item[] = await Promise.all(
+  [project.hero, ...(project.screenshots ?? [])]
+    .filter((s): s is ShotT => !!s)
+    .map(async (s) => {
+      const shot = await withTwin(project, s);
+      return { shot, group: shot.group || "Screenshots", anim: false };
+    }),
+);
 const anims: Item[] = (project.animations ?? []).map((shot) => ({ shot, group: "Animations", anim: true }));
 const items = [...stills, ...anims];
 
