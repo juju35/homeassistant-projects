@@ -1,0 +1,38 @@
+---
+// The "Open Marketplace repository on My Home Assistant" badge, the same one as in the README of every project.
+// It is loaded from my.home-assistant.io like in the READMEs; a copy in public/badges/ takes over if that fails.
+import { hacsUrl, type Project } from "../lib/projects";
+
+interface Props {
+  project: Project;
+  /** Height in px; the badge keeps its 850×96 proportions. */
+  height?: number;
+  class?: string;
+}
+const { project, height = 40, class: cls } = Astro.props;
+const width = Math.round((height * 850) / 96);
+const fallback = `${import.meta.env.BASE_URL}badges/hacs_repository.svg`;
+---
+
+<a class:list={["hacs-badge", cls]} href={hacsUrl(project)} target="_blank" rel="noopener" style={`--h:${height}px`}>
+  <img
+    src="https://my.home-assistant.io/badges/hacs_repository.svg"
+    alt="Open your Home Assistant instance and open this repository in HACS"
+    width={width}
+    height={height}
+    decoding="async"
+    onerror={`this.onerror=null;this.src='${fallback}'`}
+  />
+</a>
+
+<style>
+  .hacs-badge {
+    display: inline-flex; flex: 0 1 auto; align-items: center; max-width: 100%;
+    border-radius: calc(var(--h) / 2);
+    transition: filter 0.2s ease, transform 0.2s ease;
+  }
+  /* Full height, unless the line is narrower than the badge (phones): then it shrinks, keeping its proportions */
+  .hacs-badge img { display: block; width: auto; height: auto; max-width: 100%; max-height: var(--h); border-radius: calc(var(--h) / 2); }
+  .hacs-badge:hover { filter: brightness(1.06); }
+  .hacs-badge:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+</style>
