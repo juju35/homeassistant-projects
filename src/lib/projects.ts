@@ -30,6 +30,10 @@ export interface Project {
   summary: string;
   highlights: string[];
   homeassistant: string;
+  /** Extra search terms: brands, integration domains, synonyms. */
+  keywords?: string;
+  /** Other projects this one works with, and why (shown on both sides). */
+  worksWith?: { slug: string; why: string }[];
   cardTypes?: string[];
   hero?: Shot;
   screenshots?: Shot[];

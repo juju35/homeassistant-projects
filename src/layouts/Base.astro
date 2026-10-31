@@ -9,8 +9,11 @@ import { OWNER } from "../lib/projects";
 interface Props {
   title: string;
   description: string;
+  /** Absolute URL of the image shown when the page is shared. */
+  image?: string;
 }
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const base = import.meta.env.BASE_URL;
 const pageTitle = title === "Home Assistant projects" ? title : `${title} · Home Assistant projects`;
 ---
@@ -25,6 +28,10 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="canonical" href={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
     <meta name="theme-color" content="#e8eaed" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
@@ -37,6 +44,7 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
     </script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="topbar">
       <div class="wrap bar">
         <a class="brand" href={base}>
@@ -53,7 +61,7 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
       </div>
     </header>
 
-    <main><slot /></main>
+    <main id="main" tabindex="-1"><slot /></main>
 
     <footer class="wrap footer muted">
       <span>Made by <a href={`https://github.com/${OWNER}`}>{OWNER}</a> · Every project is free and open source</span>
@@ -96,7 +104,7 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
     :global(:root:not([data-theme="light"])) #theme-toggle .to-dark { display: none; }
     :global(:root:not([data-theme="light"])) #theme-toggle .to-light { display: block; }
   }
-  main { min-height: calc(100vh - 160px); }
+  main { min-height: calc(100vh - 160px); outline: none; }
   .footer {
     display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
     padding-top: 32px; padding-bottom: 40px; font-size: 13px;

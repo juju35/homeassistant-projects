@@ -11,8 +11,10 @@ import {
   kindLabel,
   caption,
   categoryOf,
+  shotUrl,
   type Project,
 } from "../../lib/projects";
+import { latestRelease, formatDate } from "../../lib/releases";
 
 export function getStaticPaths() {
   return projects.map((project, i) => ({
@@ -40,9 +42,17 @@ const yaml = cardTypes.length ? `type: custom:${cardTypes[0]}` : "";
 const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + (project.animations?.length ?? 0);
 // The gallery is left out when its only capture is the hero
 const hasGallery = shotCount > 1;
+const release = await latestRelease(project);
+// Projects this one works with, declared on either side
+const related = projects.flatMap((p) => {
+  if (p.slug === project.slug) return [];
+  const mine = project.worksWith?.find((w) => w.slug === p.slug);
+  const theirs = p.worksWith?.find((w) => w.slug === project.slug);
+  return mine || theirs ? [{ p, why: mine?.why ?? `${p.title} works with ${project.title}` }] : [];
+});
 ---
 
-<Base title={project.title} description={project.tagline}>
+<Base title={project.title} description={project.tagline} image={project.hero ? shotUrl(project, project.hero.src) : undefined}>
   <div class="wrap page" style={accent}>
     <a class="back muted" href={base}><Icon name="mdiChevronLeft" /> All projects</a>
 
@@ -55,6 +65,11 @@ const hasGallery = shotCount > 1;
           <div class="sub">{kindLabel(project)} · {category.label}</div>
         </div>
         <div class="chips">
+          {release && (
+            <a class="chip neutral rel" href={release.url} target="_blank" rel="noopener" title="Latest release and its changelog">
+              <Icon name="mdiTagOutline" /> {release.tag} · {formatDate(release.date)}
+            </a>
+          )}
           <span class="chip neutral"><Icon name="mdiHomeAssistant" /> HA {project.homeassistant}+</span>
           <span class="chip" style={accent}><Icon name="mdiStorefrontOutline" /> HACS</span>
         </div>
@@ -68,9 +83,12 @@ const hasGallery = shotCount > 1;
         <a class="btn ghost" href={repoUrl(project)} target="_blank" rel="noopener">
           <Icon name="mdiGithub" /> GitHub
         </a>
-        <a class="btn ghost" href="#documentation">
-          <Icon name="mdiBookOpenPageVariantOutline" /> Documentation
+        <a class="btn ghost" href="#install">
+          <Icon name="mdiDownloadOutline" /> How to install
         </a>
+        <button class="btn ghost share" type="button" data-title={project.title}>
+          <Icon name="mdiShareVariantOutline" /> <span class="share-l">Share</span>
+        </button>
       </div>
     </section>
 
@@ -80,10 +98,11 @@ const hasGallery = shotCount > 1;
       <span class="sn-title">{project.title}</span>
       <div class="sn-links">
         <a href="#overview" class="sn-link active" data-spy="overview">Overview</a>
+        <a href="#install" class="sn-link" data-spy="install">Install</a>
         {hasGallery && <a href="#gallery" class="sn-link" data-spy="gallery">Gallery <span class="n">{shotCount}</span></a>}
         <a href="#documentation" class="sn-link" data-spy="documentation">Documentation</a>
       </div>
-      <a class="btn sn-cta" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener"><Icon name="mdiDownload" /> <span>Add to HACS</span></a>
+      <a class="btn sn-cta" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener" aria-label="Add to HACS"><Icon name="mdiDownload" /> <span>Add to HACS</span></a>
     </nav>
 
     <!-- Hero + side column -->
@@ -124,6 +143,28 @@ const hasGallery = shotCount > 1;
         </section>
 
         {
+          related.length > 0 && (
+            <section class="ha-card pad">
+              <h2 class="section-title"><Icon name="mdiPuzzleOutline" /> Works with</h2>
+              <ul class="related">
+                {related.map(({ p, why }) => (
+                  <li>
+                    <a class="rel-item tile" href={`${base}projects/${p.slug}/`}>
+                      <span class="logo sm" style={`--c:${p.accent}`}><Icon name={p.icon} /></span>
+                      <span class="titles">
+                        <span class="name">{p.title}</span>
+                        <span class="sub">{why}</span>
+                      </span>
+                      <Icon name="mdiChevronRight" class="arrow" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
           cardTypes.length > 0 && (
             <section class="ha-card pad">
               <h2 class="section-title"><Icon name="mdiCardsOutline" /> Cards</h2>
@@ -143,7 +184,7 @@ const hasGallery = shotCount > 1;
           )
         }
 
-        <section class="ha-card pad">
+        <section class="ha-card pad" id="install">
           <h2 class="section-title"><Icon name="mdiDownloadOutline" /> Install</h2>
           <ol class="steps">
             <li>
@@ -200,12 +241,40 @@ const hasGallery = shotCount > 1;
 
 </Base>
 
+<p class="sr-only" id="announce" role="status" aria-live="polite"></p>
+
 <script>
+  const announce = (text: string) => {
+    const el = document.getElementById("announce")!;
+    el.textContent = "";
+    requestAnimationFrame(() => (el.textContent = text));
+  };
+
+  // Share: the system share sheet when there is one, otherwise copy the link.
+  for (const b of document.querySelectorAll<HTMLButtonElement>("button.share")) {
+    b.addEventListener("click", async () => {
+      const url = location.href.split("#")[0];
+      try {
+        if (navigator.share) await navigator.share({ title: b.dataset.title, url });
+        else {
+          await navigator.clipboard.writeText(url);
+          const label = b.querySelector(".share-l")!;
+          label.textContent = "Link copied";
+          announce("Link copied");
+          setTimeout(() => (label.textContent = "Share"), 1600);
+        }
+      } catch {}
+    });
+  }
+
   // Highlight the section in view in the section navigation.
   const links = [...document.querySelectorAll<HTMLAnchorElement>(".sn-link")];
-  const targets = links.map((l) => document.getElementById(l.dataset.spy!)).filter(Boolean) as HTMLElement[];
+  // In document order, so the last section scrolled past wins
+  const targets = (links.map((l) => document.getElementById(l.dataset.spy!)).filter(Boolean) as HTMLElement[]).sort(
+    (a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1),
+  );
   const spy = () => {
-    const y = 140;
+    const y = 150;
     let current = targets[0]?.id;
     for (const t of targets) if (t.getBoundingClientRect().top <= y) current = t.id;
     if (innerHeight + scrollY >= document.body.scrollHeight - 4) current = targets[targets.length - 1]?.id;
@@ -221,6 +290,7 @@ const hasGallery = shotCount > 1;
       try {
         await navigator.clipboard.writeText(btn.dataset.copy ?? "");
         btn.classList.add("done");
+        announce("Copied");
         clearTimeout(timer);
         timer = window.setTimeout(() => btn.classList.remove("done"), 1500);
       } catch {}
@@ -253,7 +323,7 @@ const hasGallery = shotCount > 1;
   .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 
   /* Section navigation */
-  .intro { scroll-margin-top: 140px; }
+  .intro, #install { scroll-margin-top: 140px; }
   .subnav {
     position: sticky; top: 68px; z-index: 5;
     display: flex; align-items: center; gap: 10px;
@@ -334,6 +404,15 @@ const hasGallery = shotCount > 1;
     background: color-mix(in srgb, var(--c) 16%, transparent); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
   }
   .check svg { width: 14px; height: 14px; }
+
+  /* Works with */
+  .related { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .rel-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; transition: background-color .2s ease; }
+  .rel-item:hover { background: color-mix(in srgb, var(--secondary-text-color) 18%, transparent); }
+  .rel-item .titles { display: flex; flex-direction: column; min-width: 0; }
+  .rel-item .name { font-size: 14px; }
+  .rel-item .arrow { margin-left: auto; }
+  .chip.rel:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
 
   /* Cards */
   .types { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }

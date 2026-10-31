@@ -1,16 +1,27 @@
 ---
 import Icon from "./Icon.astro";
 import Shot from "./Shot.astro";
-import { kindLabel, type Project } from "../lib/projects";
+import { kindLabel, projects, type Project } from "../lib/projects";
+import { latestRelease } from "../lib/releases";
 
 interface Props {
   project: Project;
 }
 const { project: p } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const search = [p.title, p.slug, p.tagline, ...(p.cardTypes ?? [])].join(" ").toLowerCase();
+// Lower-case, accent-free text the home search matches every word of the query against
+const search = [p.title, p.slug, p.tagline, p.summary, p.keywords ?? "", ...p.highlights, ...(p.cardTypes ?? [])]
+  .join(" ")
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .toLowerCase();
+// Projects it works with, declared on either side
+const related = projects.filter(
+  (o) => o.slug !== p.slug && (p.worksWith?.some((w) => w.slug === o.slug) || o.worksWith?.some((w) => w.slug === p.slug)),
+);
 const shots = (p.screenshots?.length ?? 0) + (p.hero ? 1 : 0);
 const anims = p.animations?.length ?? 0;
+const release = await latestRelease(p);
 ---
 
 <a
@@ -30,17 +41,28 @@ const anims = p.animations?.length ?? 0;
     <Icon name="mdiChevronRight" class="go" />
   </div>
 
-  <div class="preview">
-    {p.hero ? <Shot project={p} shot={p.hero} /> : (
-      <div class="placeholder"><span class="logo lg"><Icon name={p.icon} /></span><span class="sub">Runs in the background</span></div>
-    )}
-  </div>
+  {p.hero ? (
+    <div class="preview"><Shot project={p} shot={p.hero} /></div>
+  ) : (
+    <div class="preview compact">
+      <span class="logo lg"><Icon name={p.icon} /></span>
+      <span class="sub">Runs in the background, no dashboard of its own</span>
+    </div>
+  )}
 
   <p class="tagline">{p.tagline}</p>
+
+  {related.length > 0 && (
+    <div class="works">
+      <Icon name="mdiPuzzleOutline" />
+      <span>Works with {related.map((o) => o.title).join(", ")}</span>
+    </div>
+  )}
 
   <div class="meta">
     {anims > 0 && <span class="chip" style={`--c:${p.accent}`}><Icon name="mdiAnimationPlay" />{anims} animation{anims > 1 ? "s" : ""}</span>}
     {shots > 0 && <span class="chip neutral"><Icon name="mdiImageMultiple" />{shots}</span>}
+    {release && <span class="chip neutral" title="Latest release">{release.tag}</span>}
     <span class="chip neutral">HA {p.homeassistant}+</span>
   </div>
 </a>
@@ -76,7 +98,12 @@ const anims = p.animations?.length ?? 0;
     pointer-events: none;
   }
   .project:hover .preview :global(img) { transform: scale(1.02); }
-  .placeholder { display: grid; place-items: center; gap: 10px; }
+  .preview.compact {
+    height: 120px; display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--c) 14%, transparent), transparent 70%), var(--primary-background-color);
+  }
+  .works { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--secondary-text-color); margin-top: -4px; }
+  .works :global(svg) { width: 16px; height: 16px; flex: none; color: var(--c); }
 
   .tagline { margin: 0; font-size: 14px; line-height: 1.45; color: var(--secondary-text-color); flex: 1; }
   .meta { display: flex; flex-wrap: wrap; gap: 6px; }
