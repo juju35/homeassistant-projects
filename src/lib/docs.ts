@@ -96,19 +96,18 @@ const dropScreenshots = (html: string) => {
   return out.replace(/\n{3,}/g, "\n\n");
 };
 
-// my.home-assistant.io badges: a text button instead of a remote image (broken when the host is unreachable).
-const HA_LABELS: Record<string, string> = {
-  config_flow_start: "Add integration to my Home Assistant",
-  hacs_repository: "Open in HACS",
-  integration: "Open integration",
-};
+// my.home-assistant.io badges: shown as in the READMEs (loaded from my.home-assistant.io), 40px high so they line
+// up with the page's buttons; a copy in public/badges/ takes over if that host can't be reached.
+const BADGE_RATIO: Record<string, number> = { hacs_repository: 850 / 96, config_flow_start: 583 / 96 };
 const haButtons = (html: string) =>
   html.replace(
-    /<a\b[^>]*\bhref="(https:\/\/my\.home-assistant\.io\/redirect\/([^/"?]+)[^"]*)"[^>]*>\s*<img\b[^>]*\bsrc="https:\/\/my\.home-assistant\.io\/badges\/[^"]*"[^>]*>\s*<\/a>/gi,
-    (m, href: string, path: string) => {
-      const alt = /\balt="([^"]*)"/i.exec(m)?.[1]?.trim() ?? "";
-      const label = alt && alt.length <= 40 && !/^open your home assistant/i.test(alt) ? alt : HA_LABELS[path] ?? "Open in Home Assistant";
-      return `<a class="ha-btn" href="${href}" target="_blank" rel="noopener">${label}</a>`;
+    /<a\b[^>]*\bhref="(https:\/\/my\.home-assistant\.io\/redirect\/[^"]*)"[^>]*>\s*<img\b[^>]*\bsrc="https:\/\/my\.home-assistant\.io\/badges\/([a-z_]+)\.svg"[^>]*>\s*<\/a>/gi,
+    (m, href: string, badge: string) => {
+      const alt = attr(/\balt="([^"]*)"/i.exec(m)?.[1]?.trim() || "Open in My Home Assistant");
+      const ratio = BADGE_RATIO[badge];
+      const size = ratio ? ` width="${Math.round(40 * ratio)}" height="40"` : ' height="40"';
+      const fallback = ratio ? ` onerror="this.onerror=null;this.src='${import.meta.env.BASE_URL}badges/${badge}.svg'"` : "";
+      return `<a class="ha-badge" href="${href}" target="_blank" rel="noopener"><img src="https://my.home-assistant.io/badges/${badge}.svg" alt="${alt}"${size}${fallback}></a>`;
     },
   );
 

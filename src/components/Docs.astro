@@ -213,15 +213,10 @@ const iconFor = (t: string) => {
   .md :global(.alert-caution .alert-title::before) { content: "!"; }
   .md :global(blockquote.alert a) { color: var(--primary-text-color); text-decoration: underline; }
 
-  /* my.home-assistant.io links, as a tinted button */
-  .md :global(a.ha-btn) {
-    display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 18px;
-    font-size: 13px; font-weight: 500; line-height: 1; text-decoration: none; vertical-align: middle;
-    color: color-mix(in srgb, var(--c) 60%, var(--primary-text-color));
-    background: color-mix(in srgb, var(--c) 14%, transparent);
-    transition: background .15s;
-  }
-  .md :global(a.ha-btn:hover) { text-decoration: none; background: color-mix(in srgb, var(--c) 22%, transparent); }
+  /* my.home-assistant.io badges, as in the READMEs: 40px high like the page's buttons */
+  .md :global(a.ha-badge) { display: inline-flex; vertical-align: middle; border-radius: 20px; transition: filter .2s ease; }
+  .md :global(a.ha-badge:hover) { filter: brightness(1.06); }
+  .md :global(a.ha-badge img) { height: 40px; width: auto; max-width: 100%; border-radius: 20px; }
   .md :global(img) { display: inline-block; max-width: 100%; height: auto; border-radius: 8px; }
   .md :global(hr) { border: 0; border-top: 1px solid var(--divider-color); margin: 20px 0; }
 

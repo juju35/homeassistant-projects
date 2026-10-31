@@ -4,6 +4,7 @@ import Icon from "../../components/Icon.astro";
 import Shot from "../../components/Shot.astro";
 import Docs from "../../components/Docs.astro";
 import Gallery from "../../components/Gallery.astro";
+import HacsBadge from "../../components/HacsBadge.astro";
 import {
   projects,
   repoUrl,
@@ -77,9 +78,7 @@ const related = projects.flatMap((p) => {
       <p class="lead">{project.tagline}</p>
       <p class="summary muted">{project.summary}</p>
       <div class="actions">
-        <a class="btn" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener">
-          <Icon name="mdiDownload" /> Add to HACS
-        </a>
+        <HacsBadge project={project} />
         <a class="btn ghost" href={repoUrl(project)} target="_blank" rel="noopener">
           <Icon name="mdiGithub" /> GitHub
         </a>
@@ -102,7 +101,7 @@ const related = projects.flatMap((p) => {
         {hasGallery && <a href="#gallery" class="sn-link" data-spy="gallery">Gallery <span class="n">{shotCount}</span></a>}
         <a href="#documentation" class="sn-link" data-spy="documentation">Documentation</a>
       </div>
-      <a class="btn sn-cta" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener" aria-label="Add to HACS"><Icon name="mdiDownload" /> <span>Add to HACS</span></a>
+      <HacsBadge project={project} height={36} class="sn-cta" />
     </nav>
 
     <!-- Hero + side column -->
@@ -190,7 +189,7 @@ const related = projects.flatMap((p) => {
             <li>
               <span class="num" style={accent}>1</span>
               <span>
-                Open the repository in HACS with the <b>Add to HACS</b> button, or add
+                Open the repository in HACS with the <b>My Home Assistant</b> button above, or add
                 <code>{repoUrl(project).replace("https://", "")}</code> as a custom repository
                 (category <b>{isCard ? "Dashboard" : "Integration"}</b>).
               </span>
@@ -320,7 +319,7 @@ const related = projects.flatMap((p) => {
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .lead { margin: 20px 0 6px; font-size: 18px; line-height: 1.45; max-width: 70ch; }
   .summary { margin: 0; max-width: 75ch; }
-  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; }
 
   /* Section navigation */
   .intro, #install { scroll-margin-top: 140px; }
@@ -344,7 +343,7 @@ const related = projects.flatMap((p) => {
   .sn-link .n { font-weight: 400; opacity: .7; margin-left: 2px; }
   .sn-link:hover { color: var(--primary-text-color); }
   .sn-link.active { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); background: color-mix(in srgb, var(--c) 14%, transparent); }
-  .sn-cta { height: 36px; padding: 0 14px; font-size: 13px; }
+  .subnav :global(.sn-cta) { margin-left: 4px; }
 
   /* Two columns */
   .cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
@@ -462,8 +461,8 @@ const related = projects.flatMap((p) => {
     .subnav { top: 61px; margin-inline: -16px; border-radius: 0; border-inline: 0; border-top: 0; background: var(--card-background-color); }
     .sn-links { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 20px; }
     .subnav > .logo { display: none; }
-    .sn-cta span { display: none; }
-    .sn-cta { width: 36px; padding: 0; }
+    /* The badge is too wide for the bar on phones: it stays in the header, and Install is in the bar */
+    .subnav :global(.sn-cta) { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     .zoom:hover, .nb:hover { transform: none; }
