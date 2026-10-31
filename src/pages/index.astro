@@ -31,6 +31,7 @@ const groups = categories
         and integrations that keep things quiet until something really needs you. Light and dark themes,
         English, French, German and Spanish.
       </p>
+      <p class="stats-inline muted">{cards} cards · {integrations} integrations · {animations} animations · 4 languages</p>
       <div class="stats">
         <div class="tile stat" style="--c:#5b6cf0">
           <span class="logo"><Icon name="mdiViewDashboardVariant" /></span>
@@ -54,10 +55,10 @@ const groups = categories
 
   <div class="sticky">
   <section class="wrap toolbar" aria-label="Filter projects">
-    <div class="segmented" role="tablist">
-      <button class="seg active" data-filter="all" role="tab" aria-selected="true">All <span>{projects.length}</span></button>
-      <button class="seg" data-filter="card" role="tab" aria-selected="false">Cards <span>{cards}</span></button>
-      <button class="seg" data-filter="integration" role="tab" aria-selected="false">Integrations <span>{integrations}</span></button>
+    <div class="segmented" role="group" aria-label="Type">
+      <button class="seg active" type="button" data-filter="all" aria-pressed="true"><Icon name="mdiViewGridOutline" class="seg-i" /><span class="seg-l">All</span> <span class="n">{projects.length}</span></button>
+      <button class="seg" type="button" data-filter="card" aria-pressed="false"><Icon name="mdiViewDashboardVariant" class="seg-i" /><span class="seg-l">Cards</span> <span class="n">{cards}</span></button>
+      <button class="seg" type="button" data-filter="integration" aria-pressed="false"><Icon name="mdiPuzzle" class="seg-i" /><span class="seg-l">Integrations</span> <span class="n">{integrations}</span></button>
     </div>
     <label class="search tile">
       <Icon name="mdiMagnify" />
@@ -65,6 +66,7 @@ const groups = categories
       <kbd class="kbd" aria-hidden="true">/</kbd>
     </label>
   </section>
+  <p class="sr-only" id="results" role="status" aria-live="polite"></p>
 
   <nav class="wrap jump" aria-label="Categories">
     {groups.map((g) => (
@@ -72,6 +74,11 @@ const groups = categories
     ))}
   </nav>
   </div>
+  <nav class="wrap jump below" aria-label="Categories">
+    {groups.map((g) => (
+      <a class="chip neutral" href={`#${g.id}`}><Icon name={g.icon} />{g.label}</a>
+    ))}
+  </nav>
 
   <div class="wrap">
     {groups.map((g) => (
@@ -97,17 +104,23 @@ const groups = categories
     const cards = [...document.querySelectorAll(".project")];
     const groups = [...document.querySelectorAll("[data-group]")];
     const jumps = [...document.querySelectorAll(".jump a")];
+    const segs = [...document.querySelectorAll(".seg")];
     const apply = () => {
       const term = q.value.trim().toLowerCase();
-      for (const c of cards) {
-        const okKind = kind === "all" || c.dataset.kind === kind || (kind === "card" && c.dataset.withCard);
-        c.hidden = !(okKind && (!term || c.dataset.search.includes(term)));
-      }
+      // Every word must match somewhere (name, description, brands, integration names…), accents ignored
+      const words = term.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/).filter(Boolean);
+      const matches = (c) => words.every((w) => c.dataset.search.includes(w));
+      const isKind = (c, k) => k === "all" || c.dataset.kind === k || (k === "card" && c.dataset.withCard);
+      for (const c of cards) c.hidden = !(isKind(c, kind) && matches(c));
+      // Counts on the type buttons follow the search
+      for (const b of segs) b.querySelector(".n").textContent = cards.filter((c) => isKind(c, b.dataset.filter) && matches(c)).length;
+      const shownTotal = cards.filter((c) => !c.hidden).length;
+      document.getElementById("results").textContent = `${shownTotal} project${shownTotal === 1 ? "" : "s"}`;
       let any = false;
-      groups.forEach((g, i) => {
+      groups.forEach((g) => {
         const shown = g.querySelectorAll(".project:not([hidden])").length;
         g.hidden = !shown;
-        jumps[i].hidden = !shown;
+        for (const a of jumps) if (a.getAttribute("href") === `#${g.id}`) a.hidden = !shown;
         g.querySelector(".count").textContent = shown;
         any ||= !!shown;
       });
@@ -127,9 +140,9 @@ const groups = categories
     });
     document.querySelectorAll(".seg").forEach((b) =>
       b.addEventListener("click", () => {
-        document.querySelectorAll(".seg").forEach((x) => {
+        segs.forEach((x) => {
           x.classList.toggle("active", x === b);
-          x.setAttribute("aria-selected", x === b);
+          x.setAttribute("aria-pressed", x === b);
         });
         kind = b.dataset.filter;
         apply();
@@ -171,6 +184,7 @@ const groups = categories
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   .stat { display: flex; align-items: center; gap: 12px; padding: 12px; }
   .stat .v { font-size: 22px; font-weight: 500; line-height: 1.1; }
+  .stats-inline { display: none; margin: -4px 0 0; font-size: 13px; }
 
   /* Filters stay under the top bar while scrolling */
   .sticky {
@@ -193,7 +207,9 @@ const groups = categories
     font-size: 14px; font-weight: 500; color: var(--secondary-text-color);
     transition: background-color .2s ease, color .2s ease;
   }
-  .seg span { margin-left: 4px; font-weight: 400; opacity: .7; }
+  .seg { display: inline-flex; align-items: center; gap: 4px; }
+  .seg .n { font-weight: 400; opacity: .7; }
+  .seg-i { width: 16px; height: 16px; display: none; }
   .seg:hover { color: var(--primary-text-color); }
   .seg.active { color: var(--primary-color); background: color-mix(in srgb, var(--primary-color) 14%, transparent); }
   .seg:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
@@ -217,6 +233,7 @@ const groups = categories
   .jump { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; }
   .jump::-webkit-scrollbar { display: none; }
   .jump .chip { flex: none; }
+  .jump.below { display: none; }
   .jump .chip { padding: 4px 12px; font-size: 13px; transition: background-color .2s ease; }
   .jump .chip:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
 
@@ -239,9 +256,23 @@ const groups = categories
   @media (max-width: 380px) { .grid { grid-template-columns: 1fr; } }
   /* Phones: the filters scroll with the page instead of taking a quarter of the screen,
      bigger touch targets, and a fade hinting that the category row scrolls */
+  /* Phones: a short header, and only one compact row (type icons + search) stays under the top bar */
   @media (max-width: 600px) {
-    .sticky { position: static; padding-bottom: 0; background: none; backdrop-filter: none; }
-    .group { scroll-margin-top: 76px; }
+    .hero { padding-top: 12px; }
+    .hero-card { padding: 16px; gap: 12px; }
+    .lead { font-size: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .stats { display: none; }
+    .stats-inline { display: block; }
+    .sticky { padding: 8px 0; }
+    .toolbar { flex-wrap: nowrap; gap: 8px; }
+    .segmented { flex: none; }
+    .seg { padding: 8px 10px; }
+    .seg-l { display: none; }
+    .seg-i { display: block; }
+    .search { min-width: 0; height: 40px; }
+    .sticky .jump { display: none; }
+    .jump.below { display: flex; }
+    .group { scroll-margin-top: 130px; }
     .seg { padding: 9px 14px; }
     .jump .chip { min-height: 36px; padding-block: 6px; }
     .jump { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }

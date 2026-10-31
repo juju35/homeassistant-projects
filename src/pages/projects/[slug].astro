@@ -11,6 +11,7 @@ import {
   kindLabel,
   caption,
   categoryOf,
+  shotUrl,
   type Project,
 } from "../../lib/projects";
 import { latestRelease, formatDate } from "../../lib/releases";
@@ -51,7 +52,7 @@ const related = projects.flatMap((p) => {
 });
 ---
 
-<Base title={project.title} description={project.tagline}>
+<Base title={project.title} description={project.tagline} image={project.hero ? shotUrl(project, project.hero.src) : undefined}>
   <div class="wrap page" style={accent}>
     <a class="back muted" href={base}><Icon name="mdiChevronLeft" /> All projects</a>
 
@@ -82,9 +83,12 @@ const related = projects.flatMap((p) => {
         <a class="btn ghost" href={repoUrl(project)} target="_blank" rel="noopener">
           <Icon name="mdiGithub" /> GitHub
         </a>
-        <a class="btn ghost" href="#documentation">
-          <Icon name="mdiBookOpenPageVariantOutline" /> Documentation
+        <a class="btn ghost" href="#install">
+          <Icon name="mdiDownloadOutline" /> How to install
         </a>
+        <button class="btn ghost share" type="button" data-title={project.title}>
+          <Icon name="mdiShareVariantOutline" /> <span class="share-l">Share</span>
+        </button>
       </div>
     </section>
 
@@ -94,10 +98,11 @@ const related = projects.flatMap((p) => {
       <span class="sn-title">{project.title}</span>
       <div class="sn-links">
         <a href="#overview" class="sn-link active" data-spy="overview">Overview</a>
+        <a href="#install" class="sn-link" data-spy="install">Install</a>
         {hasGallery && <a href="#gallery" class="sn-link" data-spy="gallery">Gallery <span class="n">{shotCount}</span></a>}
         <a href="#documentation" class="sn-link" data-spy="documentation">Documentation</a>
       </div>
-      <a class="btn sn-cta" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener"><Icon name="mdiDownload" /> <span>Add to HACS</span></a>
+      <a class="btn sn-cta" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener" aria-label="Add to HACS"><Icon name="mdiDownload" /> <span>Add to HACS</span></a>
     </nav>
 
     <!-- Hero + side column -->
@@ -179,7 +184,7 @@ const related = projects.flatMap((p) => {
           )
         }
 
-        <section class="ha-card pad">
+        <section class="ha-card pad" id="install">
           <h2 class="section-title"><Icon name="mdiDownloadOutline" /> Install</h2>
           <ol class="steps">
             <li>
@@ -236,12 +241,40 @@ const related = projects.flatMap((p) => {
 
 </Base>
 
+<p class="sr-only" id="announce" role="status" aria-live="polite"></p>
+
 <script>
+  const announce = (text: string) => {
+    const el = document.getElementById("announce")!;
+    el.textContent = "";
+    requestAnimationFrame(() => (el.textContent = text));
+  };
+
+  // Share: the system share sheet when there is one, otherwise copy the link.
+  for (const b of document.querySelectorAll<HTMLButtonElement>("button.share")) {
+    b.addEventListener("click", async () => {
+      const url = location.href.split("#")[0];
+      try {
+        if (navigator.share) await navigator.share({ title: b.dataset.title, url });
+        else {
+          await navigator.clipboard.writeText(url);
+          const label = b.querySelector(".share-l")!;
+          label.textContent = "Link copied";
+          announce("Link copied");
+          setTimeout(() => (label.textContent = "Share"), 1600);
+        }
+      } catch {}
+    });
+  }
+
   // Highlight the section in view in the section navigation.
   const links = [...document.querySelectorAll<HTMLAnchorElement>(".sn-link")];
-  const targets = links.map((l) => document.getElementById(l.dataset.spy!)).filter(Boolean) as HTMLElement[];
+  // In document order, so the last section scrolled past wins
+  const targets = (links.map((l) => document.getElementById(l.dataset.spy!)).filter(Boolean) as HTMLElement[]).sort(
+    (a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1),
+  );
   const spy = () => {
-    const y = 140;
+    const y = 150;
     let current = targets[0]?.id;
     for (const t of targets) if (t.getBoundingClientRect().top <= y) current = t.id;
     if (innerHeight + scrollY >= document.body.scrollHeight - 4) current = targets[targets.length - 1]?.id;
@@ -257,6 +290,7 @@ const related = projects.flatMap((p) => {
       try {
         await navigator.clipboard.writeText(btn.dataset.copy ?? "");
         btn.classList.add("done");
+        announce("Copied");
         clearTimeout(timer);
         timer = window.setTimeout(() => btn.classList.remove("done"), 1500);
       } catch {}
@@ -289,7 +323,7 @@ const related = projects.flatMap((p) => {
   .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 
   /* Section navigation */
-  .intro { scroll-margin-top: 140px; }
+  .intro, #install { scroll-margin-top: 140px; }
   .subnav {
     position: sticky; top: 68px; z-index: 5;
     display: flex; align-items: center; gap: 10px;

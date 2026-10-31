@@ -42,6 +42,7 @@ projects:
   - Air quality, pollutants, UV index and pollen with tomorrow's forecast
   - Full screen view and a refresh button for fresh data
   homeassistant: 2024.8.0
+  keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no"
   cardTypes:
   - weather-plus-card
   - weather-plus-mini-card
@@ -109,6 +110,7 @@ projects:
   - Horizontal or vertical layout, transparent mode
   - Sections view support and card picker preview
   homeassistant: 2024.11.0
+  keywords: "sun ultraviolet openuv sunscreen"
   cardTypes:
   - ha-uv-card
   hero:
@@ -148,6 +150,7 @@ projects:
   - 'Animated illustrations: turning blades, air flowing, swinging head'
   - Automatic discovery of devices and their sensors
   homeassistant: 2024.8.0
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi fan ventilateur climate"
   cardTypes:
   - climate-air-overview-card
   - climate-air-purifier-card
@@ -256,6 +259,7 @@ projects:
   - Outdoor places and air quality index to suggest opening or closing the windows
   - Setup panel in the sidebar, with room discovery
   homeassistant: 2024.12.0
+  keywords: "comfort notifications alerts co2 humidity temperature noise windows lights lighting adaptive nap night"
   hero:
     src: panel-overview.png
     dark: panel-overview-dark.png
@@ -298,6 +302,7 @@ projects:
   - Environment cards for temperature, humidity and air quality
   - Automatic discovery from Home Assistant areas
   homeassistant: 2024.8.0
+  keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity"
   cardTypes:
   - room-overview-card
   - room-sensors-card
@@ -409,6 +414,7 @@ projects:
   - Consumption and cost from long-term statistics
   - 24 h power curve with its peak
   homeassistant: 2024.8.0
+  keywords: "linky lixee zha zigbee2mqtt energy electricity tic meter power"
   cardTypes:
   - zlinky-card
   - zlinky-mini-card
@@ -443,6 +449,7 @@ projects:
   - Two notifications a day, at times you choose
   - Lovelace card with a full screen view by room or type
   homeassistant: 2024.12.0
+  keywords: "battery batteries low notification"
   cardTypes:
   - battery-monitor-card
   hero:
@@ -486,6 +493,7 @@ projects:
   - Phone battery level
   - Mini card on a single row with a zoom button
   homeassistant: 2024.8.0
+  keywords: "person people home away zone device tracker"
   cardTypes:
   - presence-card
   - presence-mini-card
@@ -518,6 +526,7 @@ projects:
   - Open sensors and the last person who changed the state
   - Single-row mini card
   homeassistant: 2024.8.0
+  keywords: "alarmo alarm control panel security verisure ajax manual"
   cardTypes:
   - alarm-card
   - alarm-mini-card
@@ -563,6 +572,7 @@ projects:
   - Door sensor, battery, keypad and activity
   - Compact mini card
   homeassistant: 2024.8.0
+  keywords: "lock door nuki tedee yale august switchbot aqara matter zwave"
   cardTypes:
   - smartlock-card
   - smartlock-mini-card
@@ -621,6 +631,7 @@ projects:
   - Pan and tilt controls
   - Full screen view
   homeassistant: 2024.8.0
+  keywords: "camera cctv privacy ptz frigate reolink"
   cardTypes:
   - home-camera-card
   hero:
@@ -657,6 +668,7 @@ projects:
   - Program picker and options before starting
   - Door state, salt and rinse aid alerts
   homeassistant: 2024.8.0
+  keywords: "bosch siemens neff gaggenau dishwasher washer washing machine appliance"
   cardTypes:
   - home-connect-dishwasher-card
   - home-connect-washer-card
@@ -721,6 +733,7 @@ projects:
   - Cleaning mode, suction, mop intensity and route
   - Room selection and dock actions
   homeassistant: 2024.8.0
+  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop"
   cardTypes:
   - vacuum-card
   - vacuum-mini-card
@@ -832,6 +845,7 @@ projects:
   - Drawing per HP range, generic printer for other brands
   - Mini card with an offline state
   homeassistant: 2024.8.0
+  keywords: "printer hp hpprinter ipp ink toner brother canon epson"
   cardTypes:
   - printer-card
   - printer-mini-card
@@ -879,6 +893,7 @@ projects:
   - Wi-Fi networks, connected devices and missed calls
   - Compact mini card
   homeassistant: 2024.8.0
+  keywords: "freebox free livebox orange sfr bbox bouygues router internet box wifi"
   cardTypes:
   - internet-box-card
   - internet-box-mini-card
@@ -926,6 +941,7 @@ projects:
   - Disks with temperature and power-on hours
   - Compact mini card
   homeassistant: 2024.8.0
+  keywords: "nas ugreen synology synology_dsm dsm qnap storage disks raid"
   cardTypes:
   - nas-card
   - nas-mini-card
@@ -974,6 +990,7 @@ projects:
   - Incoming and outgoing traffic, auto-scaled
   - Custom image with an adjustable port overlay
   homeassistant: 2024.8.0
+  keywords: "network switch snmp netgear gs308t ports"
   cardTypes:
   - ha-switch-card
   hero:
@@ -1000,6 +1017,7 @@ projects:
   - HACS updates and integration watchdog sections
   - Network rates per interface
   homeassistant: 2024.8.0
+  keywords: "systemmonitor cpu ram disk server hacs updates watchdog"
   worksWith:
   - slug: ha-hacs-refresh
     why: "Powers the Check for updates button of the HACS section"
@@ -1065,6 +1083,7 @@ projects:
   - Stacks and containers with pending updates
   - Compact mini card
   homeassistant: 2024.8.0
+  keywords: "docker containers stacks dockhand portainer"
   cardTypes:
   - dockhand-card
   - dockhand-mini-card
@@ -1108,6 +1127,7 @@ projects:
   - Toggle proxy rules from automations
   - Card and mini card included
   homeassistant: 2024.12.0
+  keywords: "reverse proxy zoraxy certificates acme tls"
   cardTypes:
   - zoraxy-card
   - zoraxy-mini-card
@@ -1140,6 +1160,7 @@ projects:
   - Action buttons with a confirmation tap
   - Lease section and official vehicle picture
   homeassistant: 2024.8.0
+  keywords: "renault espace captur megane zoe ev car vehicle tank fuel charge"
   worksWith:
   - slug: ha-renault-picture
     why: "Shows the official MyRenault photo of your car on the card"
@@ -1180,6 +1201,7 @@ projects:
   - Picture shown as the entity thumbnail
   - No credentials and no network calls
   homeassistant: 2025.8.0
+  keywords: "renault myrenault car picture photo"
   worksWith:
   - slug: ha-renault-card
     why: "Its picture is shown by the Renault Card"
@@ -1201,6 +1223,7 @@ projects:
   - Cost of the month and cost per km, with prices from a sensor or fixed
   - Card with gauges, monthly chart and recent trips, refuels and charges
   homeassistant: 2024.12.0
+  keywords: "car vehicle fuel consumption ev charging cost renault"
   worksWith:
   - slug: ha-carburants-france
     why: "A station price sensor for the fuel cost"
@@ -1248,6 +1271,7 @@ projects:
   - 42 French networks' logos built in
   - Card and map card included
   homeassistant: 2024.12.0
+  keywords: "fuel gas station prix carburants essence gazole diesel e10 sp95 france"
   worksWith:
   - slug: ha-vehicle-consumption
     why: "Uses your station prices to compute the cost per km"
@@ -1293,6 +1317,7 @@ projects:
   - Event details in a popup
   - Mini card with the next event
   homeassistant: 2024.8.0
+  keywords: "calendar agenda google caldav events"
   cardTypes:
   - calendar-agenda-card
   - calendar-agenda-mini-card
@@ -1337,6 +1362,7 @@ projects:
   - Card included, with carrier search
   - API key entered in the UI
   homeassistant: 2024.12.0
+  keywords: "parcel delivery package tracking colis"
   cardTypes:
   - parcel-card
   hero:
@@ -1361,6 +1387,7 @@ projects:
   - Visual editor, no YAML needed
   - Light and dark mode
   homeassistant: 2024.8.0
+  keywords: "wifi qr code guest network"
   cardTypes:
   - wifi-qr-card
   hero:
@@ -1382,6 +1409,7 @@ projects:
   - Tap for full screen
   - Visual editor
   homeassistant: 2024.8.0
+  keywords: "wero payment qr code pay"
   cardTypes:
   - wero-card
   hero:
@@ -1404,6 +1432,7 @@ projects:
   - Clear a failure with confirmation
   - Compact mini card
   homeassistant: 2024.8.0
+  keywords: "automation errors failures unavailable entities traces"
   cardTypes:
   - automation-monitor-card
   - automation-monitor-mini-card
@@ -1449,6 +1478,7 @@ projects:
   - Automatic check at your interval
   - Status sensor with progress and failures
   homeassistant: 2024.12.0
+  keywords: "hacs updates refresh repositories"
   worksWith:
   - slug: ha-system-monitor-card
     why: "Its HACS section runs the check from the dashboard"
@@ -1467,6 +1497,7 @@ projects:
   - Notification for each reload
   - Ignored integrations
   homeassistant: 2024.12.0
+  keywords: "integrations unavailable reload watchdog"
   worksWith:
   - slug: ha-system-monitor-card
     why: "Shows the unavailable integrations and reloads on the dashboard"
