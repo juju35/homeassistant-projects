@@ -25,6 +25,7 @@ const iconFor = (t: string) => {
 ---
 
 <section class="docs" id="documentation">
+  <p class="sr-only" id="docs-live" aria-live="polite"></p>
   <div class="docs-head">
     <h2 class="section-title"><Icon name="mdiBookOpenPageVariantOutline" /> Documentation</h2>
     <a class="src muted" href={`${repoUrl(project)}#readme`} target="_blank" rel="noopener">
@@ -64,18 +65,56 @@ const iconFor = (t: string) => {
 </section>
 
 <script is:inline>
-  // A table-of-contents chip, or a #link inside the docs, unfolds its section before scrolling to it.
   (() => {
-    const openFor = (hash) => {
-      const el = hash && document.getElementById(decodeURIComponent(hash.slice(1)));
+    // A table-of-contents chip, a #link inside the docs, or a #doc-… deep link unfolds its section first.
+    const target = (hash) => {
+      if (!hash || hash.length < 2) return null;
+      let id = hash.slice(1);
+      try { id = decodeURIComponent(id); } catch {}
+      return document.getElementById(id);
+    };
+    const openFor = (hash, scroll) => {
+      const el = target(hash);
       const fold = el && el.closest("details.doc");
-      if (fold) fold.open = true;
+      if (!fold) return;
+      fold.open = true;
+      if (!scroll) return;
+      // The README's own h2 is hidden (the fold shows it): scroll to the fold instead.
+      const to = el.offsetParent === null ? fold : el;
+      requestAnimationFrame(() => to.scrollIntoView({ block: "start" }));
     };
     document.addEventListener("click", (e) => {
       const a = e.target.closest && e.target.closest('a[href^="#"]');
-      if (a) openFor(a.getAttribute("href"));
+      if (!a) return;
+      const href = a.getAttribute("href");
+      const el = target(href);
+      if (el && el.offsetParent === null && el.closest("details.doc")) {
+        // Hidden target (closed fold or hidden h2): unfold and scroll ourselves.
+        e.preventDefault();
+        history.pushState(null, "", href);
+        openFor(href, true);
+      } else openFor(href, false);
     });
-    openFor(location.hash);
+    addEventListener("hashchange", () => openFor(location.hash, true));
+    openFor(location.hash, true);
+
+    // Copy buttons of the code blocks.
+    const live = document.getElementById("docs-live");
+    document.addEventListener("click", async (e) => {
+      const btn = e.target.closest && e.target.closest("button.doc-copy");
+      if (!btn) return;
+      const pre = btn.parentElement.querySelector("pre");
+      try {
+        await navigator.clipboard.writeText((pre ? pre.innerText : "").replace(/\n$/, ""));
+        btn.classList.add("done");
+        clearTimeout(btn._t);
+        btn._t = setTimeout(() => btn.classList.remove("done"), 1500);
+        if (live) {
+          live.textContent = "";
+          setTimeout(() => (live.textContent = "Copied"), 50);
+        }
+      } catch {}
+    });
   })();
 </script>
 
@@ -90,6 +129,10 @@ const iconFor = (t: string) => {
   .toc .chip { padding: 4px 12px; font-size: 13px; }
   .toc .chip:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
   .pad { padding: 16px 20px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
 
   .doc { padding: 0 20px; scroll-margin-top: 130px; }
   .doc > summary { padding: 16px 0; }
@@ -102,6 +145,18 @@ const iconFor = (t: string) => {
   .md :global(.doc-anchor) { display: none; }
   .md :global(h3) { font-size: 16px; font-weight: 500; margin: 24px 0 8px; scroll-margin-top: 130px; }
   .md :global(h4) { font-size: 14px; font-weight: 500; margin: 20px 0 6px; color: var(--secondary-text-color); text-transform: uppercase; letter-spacing: .05em; }
+  .md :global([id]) { scroll-margin-top: 130px; }
+
+  /* Heading permalinks: a small "#" shown on hover or focus */
+  .md :global(a.hl) {
+    margin-left: 6px; padding: 0 4px; border-radius: 4px;
+    font-weight: 400; color: var(--secondary-text-color); text-decoration: none;
+    opacity: 0; transition: opacity .15s, color .15s;
+  }
+  .md :global(h3:hover a.hl), .md :global(h4:hover a.hl), .md :global(a.hl:focus-visible) { opacity: 1; }
+  .md :global(a.hl:hover) { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); text-decoration: none; }
+  .md :global(a.hl:focus-visible) { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+  @media (hover: none) { .md :global(a.hl) { opacity: .5; } }
   .md :global(p), .md :global(li) { font-size: 14px; line-height: 1.6; }
   .md :global(p) { margin: 10px 0; }
   .md :global(ul), .md :global(ol) { padding-left: 20px; margin: 10px 0; }
@@ -114,6 +169,13 @@ const iconFor = (t: string) => {
     font-size: 12.5px; padding: 1px 6px; border-radius: 6px;
     background: var(--secondary-background-color); white-space: nowrap;
   }
+  .md :global(.code-block) { position: relative; margin: 12px 0; }
+  .md :global(.code-block > pre) { margin: 0; padding-right: 48px; }
+  .md :global(.doc-copy) { position: absolute; top: 4px; right: 4px; }
+  .md :global(.doc-copy .i-done) { display: none; }
+  .md :global(.doc-copy.done) { color: var(--success-color); }
+  .md :global(.doc-copy.done .i-copy) { display: none; }
+  .md :global(.doc-copy.done .i-done) { display: block; }
   .md :global(pre) {
     margin: 12px 0; padding: 12px 14px; overflow-x: auto;
     background: var(--secondary-background-color); border-radius: var(--radius);
@@ -178,7 +240,7 @@ const iconFor = (t: string) => {
   .md :global(thead th:last-child) { border-radius: 0 8px 8px 0; }
   .md :global(td) { padding: 8px 12px; border-bottom: 1px solid var(--divider-color); vertical-align: top; }
   .md :global(tbody tr:last-child td) { border-bottom: 0; }
-  .md :global(td:first-child code) { color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); white-space: nowrap; }
+  .md :global(td:first-child code) { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); background: color-mix(in srgb, var(--c) 12%, transparent); white-space: nowrap; }
   .md :global(td) { min-width: 9ch; }
   .md :global(td:last-child) { min-width: 22ch; }
 
@@ -187,5 +249,33 @@ const iconFor = (t: string) => {
     .md :global(:not(pre) > code) { white-space: normal; overflow-wrap: anywhere; }
     .md :global(td:first-child code) { white-space: nowrap; }
     .md :global(table) { mask-image: linear-gradient(90deg, #000 88%, transparent); }
+  }
+
+  /* Phones: each row of a table becomes a small card, each cell labelled with its column */
+  @media (max-width: 640px) {
+    .md :global(table.stack) { display: block; overflow: visible; mask-image: none; font-size: 14px; }
+    .md :global(table.stack thead) { display: none; }
+    .md :global(table.stack tbody), .md :global(table.stack tr) { display: block; }
+    .md :global(table.stack tr) {
+      margin: 8px 0; padding: 10px 14px;
+      border: 1px solid var(--divider-color); border-radius: var(--radius);
+    }
+    .md :global(table.stack td) {
+      display: block; min-width: 0; padding: 3px 0; border: 0;
+      overflow-wrap: anywhere;
+    }
+    .md :global(table.stack td:empty) { display: none; }
+    /* Label in a hanging column on the left, the value wraps beside it */
+    .md :global(table.stack td + td) { padding-left: 100px; }
+    .md :global(table.stack td + td::before) {
+      content: attr(data-label); float: left; width: 90px; margin-left: -100px;
+      font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em;
+      color: var(--secondary-text-color); overflow-wrap: normal;
+    }
+    .md :global(table.stack td:first-child) {
+      padding: 0 0 4px; font-size: 15px; font-weight: 500;
+      color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
+    }
+    .md :global(table.stack td:first-child code) { font-size: 13.5px; white-space: normal; overflow-wrap: anywhere; }
   }
 </style>
