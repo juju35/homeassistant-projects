@@ -8,6 +8,8 @@ export interface Shot {
   src: string;
   dark?: string;
   caption?: string;
+  /** Tab of the gallery this screenshot is shown under (one card or variant per tab). */
+  group?: string;
 }
 
 export interface Category {

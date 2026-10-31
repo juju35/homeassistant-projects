@@ -1,5 +1,6 @@
 ---
 import { caption, shotUrl, type Project, type Shot } from "../lib/projects";
+import { imageSize } from "../lib/imgsize";
 
 interface Props {
   project: Project;
@@ -9,11 +10,19 @@ interface Props {
 const { project, shot, eager = false } = Astro.props;
 const alt = `${project.title}: ${caption(shot)}`;
 const loading = eager ? "eager" : "lazy";
+const light = shotUrl(project, shot.src);
+const dark = shot.dark ? shotUrl(project, shot.dark) : undefined;
+// Captures are taken at 2x: the size attributes keep their space reserved while they load.
+const size = await imageSize(light);
+const width = size?.w;
+const height = size?.h;
+// Portrait captures (much taller than wide) get framed from the top in fixed-size frames.
+const tall = size ? size.h > size.w * 1.15 : false;
 ---
 
-<span class:list={["shot", { "has-dark": !!shot.dark }]}>
-  <img class="shot-light" src={shotUrl(project, shot.src)} alt={alt} loading={loading} decoding="async" />
-  {shot.dark && <img class="shot-dark" src={shotUrl(project, shot.dark)} alt={alt} loading={loading} decoding="async" />}
+<span class:list={["shot", { "has-dark": !!dark }]}>
+  <img class="shot-light" src={light} alt={alt} loading={loading} decoding="async" width={width} height={height} data-tall={tall ? "" : undefined} />
+  {dark && <img class="shot-dark" src={dark} alt={alt} loading={loading} decoding="async" width={width} height={height} data-tall={tall ? "" : undefined} />}
 </span>
 
 <style>

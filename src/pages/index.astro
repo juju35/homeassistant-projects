@@ -52,6 +52,7 @@ const groups = categories
     </div>
   </section>
 
+  <div class="sticky">
   <section class="wrap toolbar" aria-label="Filter projects">
     <div class="segmented" role="tablist">
       <button class="seg active" data-filter="all" role="tab" aria-selected="true">All <span>{projects.length}</span></button>
@@ -69,6 +70,7 @@ const groups = categories
       <a class="chip neutral" href={`#${g.id}`}><Icon name={g.icon} />{g.label}</a>
     ))}
   </nav>
+  </div>
 
   <div class="wrap">
     {groups.map((g) => (
@@ -117,6 +119,11 @@ const groups = categories
       }),
     );
     q.addEventListener("input", apply);
+    // Divider under the filters once they stick under the top bar
+    const bar = document.querySelector(".sticky");
+    const onScroll = () => bar.classList.toggle("stuck", bar.getBoundingClientRect().top <= 62);
+    addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   })();
 </script>
 
@@ -132,7 +139,15 @@ const groups = categories
   .stat { display: flex; align-items: center; gap: 12px; padding: 12px; }
   .stat .v { font-size: 22px; font-weight: 500; line-height: 1.1; }
 
-  .toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 24px; }
+  /* Filters stay under the top bar while scrolling */
+  .sticky {
+    position: sticky; top: 61px; z-index: 5; margin-top: 16px; padding: 10px 0 12px;
+    background: color-mix(in srgb, var(--primary-background-color) 94%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid transparent; transition: border-color .2s ease;
+  }
+  .sticky.stuck { border-bottom-color: var(--divider-color); }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   .segmented {
     display: inline-flex; gap: 4px; padding: 4px;
     background: var(--card-background-color);
@@ -160,11 +175,13 @@ const groups = categories
   .search input { all: unset; flex: 1; min-width: 0; font-size: 14px; color: var(--primary-text-color); }
   .search:focus-within { border-color: var(--primary-color); }
 
-  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .jump { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump .chip { flex: none; }
   .jump .chip { padding: 4px 12px; font-size: 13px; transition: background-color .2s ease; }
   .jump .chip:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
 
-  .group { margin-top: 32px; scroll-margin-top: 80px; }
+  .group { margin-top: 24px; scroll-margin-top: 190px; }
   .count {
     font-size: 12px; letter-spacing: 0; text-transform: none;
     padding: 0 8px; border-radius: 10px; background: var(--card-background-color); border: 1px solid var(--divider-color);

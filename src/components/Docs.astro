@@ -80,7 +80,7 @@ const iconFor = (t: string) => {
 </script>
 
 <style>
-  .docs { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .docs { margin-top: 8px; scroll-margin-top: 130px; display: flex; flex-direction: column; gap: 12px; }
   .docs-head { display: flex; align-items: center; gap: 12px; }
   .docs-head .section-title { margin: 0; }
   .src { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
@@ -91,7 +91,7 @@ const iconFor = (t: string) => {
   .toc .chip:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
   .pad { padding: 16px 20px; }
 
-  .doc { padding: 0 20px; scroll-margin-top: 80px; }
+  .doc { padding: 0 20px; scroll-margin-top: 130px; }
   .doc > summary { padding: 16px 0; }
   .doc > summary .section-title { margin: 0; color: var(--primary-text-color); }
   .doc > summary .section-title :global(svg:first-child) { color: var(--c); }
@@ -100,7 +100,7 @@ const iconFor = (t: string) => {
 
   /* README content, in the cards' style */
   .md :global(.doc-anchor) { display: none; }
-  .md :global(h3) { font-size: 16px; font-weight: 500; margin: 24px 0 8px; scroll-margin-top: 80px; }
+  .md :global(h3) { font-size: 16px; font-weight: 500; margin: 24px 0 8px; scroll-margin-top: 130px; }
   .md :global(h4) { font-size: 14px; font-weight: 500; margin: 20px 0 6px; color: var(--secondary-text-color); text-transform: uppercase; letter-spacing: .05em; }
   .md :global(p), .md :global(li) { font-size: 14px; line-height: 1.6; }
   .md :global(p) { margin: 10px 0; }
