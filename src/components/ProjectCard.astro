@@ -1,6 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import Shot from "./Shot.astro";
+import HacsBadge from "./HacsBadge.astro";
 import { kindLabel, projects, type Project } from "../lib/projects";
 import { latestRelease } from "../lib/releases";
 
@@ -24,9 +25,9 @@ const anims = p.animations?.length ?? 0;
 const release = await latestRelease(p);
 ---
 
-<a
+<!-- The whole card opens the project (its title link covers it); the Add to HACS badge sits on top -->
+<article
   class="ha-card project"
-  href={`${base}projects/${p.slug}/`}
   style={`--c:${p.accent}`}
   data-kind={p.kind}
   data-with-card={p.withCard ? "1" : undefined}
@@ -35,10 +36,10 @@ const release = await latestRelease(p);
   <div class="header">
     <span class="logo"><Icon name={p.icon} /></span>
     <div class="titles">
-      <div class="name">{p.title}</div>
+      <h3 class="name"><a class="open" href={`${base}projects/${p.slug}/`}>{p.title}</a></h3>
       <div class="sub">{kindLabel(p)}</div>
     </div>
-    <Icon name="mdiChevronRight" class="go" />
+    <HacsBadge project={p} height={28} class="card-cta" />
   </div>
 
   {p.hero ? (
@@ -65,7 +66,7 @@ const release = await latestRelease(p);
     {release && <span class="chip neutral" title="Latest release">{release.tag}</span>}
     <span class="chip neutral">HA {p.homeassistant}+</span>
   </div>
-</a>
+</article>
 
 <style>
   .project {
@@ -74,8 +75,14 @@ const release = await latestRelease(p);
     break-inside: avoid;
   }
   .project:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(0,0,0,.05), 0 16px 32px -16px color-mix(in srgb, var(--c) 45%, transparent); }
-  .project:hover .go { color: var(--c); transform: translateX(2px); }
-  .go { width: 20px; height: 20px; color: var(--secondary-text-color); align-self: flex-start; margin-top: 2px; transition: transform .2s ease, color .2s ease; }
+  .project { position: relative; cursor: pointer; }
+  .name { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.25; }
+  .open { color: inherit; outline: none; }
+  /* The title link covers the whole card */
+  .open::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
+  .project:has(.open:focus-visible) { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+  /* The badge stays clickable above it */
+  .project :global(.card-cta) { position: relative; z-index: 2; }
 
   .preview {
     position: relative;
