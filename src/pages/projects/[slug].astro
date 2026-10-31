@@ -461,8 +461,10 @@ const related = projects.flatMap((p) => {
     .subnav { top: 61px; margin-inline: -16px; border-radius: 0; border-inline: 0; border-top: 0; background: var(--card-background-color); }
     .sn-links { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 20px; }
     .subnav > .logo { display: none; }
-    /* The badge is too wide for the bar on phones: it stays in the header, and Install is in the bar */
-    .subnav :global(.sn-cta) { display: none; }
+    /* Phones: the badge keeps its place in the bar, on a second line under the section links */
+    .subnav { flex-wrap: wrap; row-gap: 6px; }
+    .sn-links { flex: 1 1 100%; order: 1; }
+    .subnav :global(.sn-cta) { order: 2; margin: 0 auto; }
   }
   @media (prefers-reduced-motion: reduce) {
     .zoom:hover, .nb:hover { transform: none; }
