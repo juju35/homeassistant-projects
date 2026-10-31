@@ -1,8 +1,8 @@
 // Documentation of each project, taken at build time from the README of its repository,
 // so the site always documents the options and behaviour of the released version.
 import { Marked } from "marked";
-import { gfmHeadingId } from "marked-gfm-heading-id";
-import { OWNER, type Project } from "./projects";
+import { gfmHeadingId, resetHeadings } from "marked-gfm-heading-id";
+import { OWNER, icon, projects, type Project } from "./projects";
 
 export interface DocSection {
   id: string;
@@ -44,7 +44,8 @@ function splitSections(md: string) {
 
 function renderer(slug: string) {
   const marked = new Marked({ gfm: true });
-  marked.use(gfmHeadingId());
+  // One slugger for the whole README (reset in load()), so ids match GitHub's, unique across sections.
+  marked.use(gfmHeadingId({ globalSlugs: true }));
   marked.use({
     walkTokens(token) {
       if ((token.type === "image" || token.type === "link") && isRelative(token.href)) {
@@ -111,6 +112,52 @@ const haButtons = (html: string) =>
     },
   );
 
+const strip = (html: string) => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const attr = (text: string) => text.replace(/"/g, "&quot;");
+
+// Tables: each cell carries its column header, shown as a label when rows stack as cards on phones.
+const tableLabels = (html: string) =>
+  html.replace(/<table>([\s\S]*?)<\/table>/gi, (m, inner: string) => {
+    const head = /<thead>([\s\S]*?)<\/thead>/i.exec(inner);
+    if (!head) return m;
+    const labels = [...head[1].matchAll(/<th\b[^>]*>([\s\S]*?)<\/th>/gi)].map((x) => attr(strip(x[1])));
+    if (labels.length < 2) return m;
+    const body = inner.replace(/<tr>([\s\S]*?)<\/tr>/gi, (row) => {
+      let i = 0;
+      return row.replace(/<td\b/gi, () => `<td data-label="${labels[i++] ?? ""}"`);
+    });
+    return `<table class="stack">${body}</table>`;
+  });
+
+// Code blocks: a copy button in the top-right corner, like the YAML snippet of the page.
+const svg = (name: string, cls: string) =>
+  `<svg class="${cls}" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="${icon(name)}"></path></svg>`;
+const COPY_BTN = `<button class="icon-btn doc-copy" type="button" aria-label="Copy code" title="Copy">${svg("mdiContentCopy", "i-copy")}${svg("mdiCheck", "i-done")}</button>`;
+const codeCopy = (html: string) => html.replace(/<pre\b[\s\S]*?<\/pre>/gi, (m) => `<div class="code-block">${m}${COPY_BTN}</div>`);
+
+// Links to another project's repository (root or #readme) go to its page on this site, in the same tab;
+// links to files in a repository keep going to GitHub. ha-iptv is never linked.
+const SLUGS = new Set(projects.map((p) => p.slug));
+const siteLinks = (html: string, self: string) =>
+  html
+    .replace(/<a\b[^>]*\bhref="https:\/\/github\.com\/juju35\/ha-iptv\b[^"]*"[^>]*>([\s\S]*?)<\/a>/gi, "$1")
+    .replace(
+      /<a\b([^>]*?)\bhref="https:\/\/github\.com\/juju35\/([\w.-]+?)\/?(?:#readme)?"([^>]*)>/gi,
+      (m, before: string, slug: string, after: string) => {
+        if (slug === self || !SLUGS.has(slug)) return m;
+        const rest = `${before} ${after}`.replace(/\s(target|rel)="[^"]*"/gi, "").replace(/\s+/g, " ").trim();
+        return `<a href="${import.meta.env.BASE_URL}projects/${slug}/"${rest ? " " + rest : ""}>`;
+      },
+    );
+
+// Sub-headings get a "#" permalink.
+const permalinks = (html: string) =>
+  html.replace(
+    /<h([34]) id="([^"]+)">([\s\S]*?)<\/h\1>/g,
+    (_m, level: string, id: string, text: string) =>
+      `<h${level} id="${id}">${text}<a class="hl" href="#${id}" aria-label="Link to ${attr(strip(text))}">#</a></h${level}>`,
+  );
+
 const cache = new Map<string, Promise<DocSection[] | null>>();
 
 export function getDocs(p: Project): Promise<DocSection[] | null> {
@@ -129,13 +176,15 @@ async function load(p: Project): Promise<DocSection[] | null> {
     return null;
   }
   const marked = renderer(p.slug);
+  resetHeadings(); // the sections below are parsed synchronously, in order, with one shared slugger
   return splitSections(md)
     .filter((s) => !SKIP.test(plain(s.title)))
     .map((s) => {
       const title = plain(s.title);
       const id = `doc-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
       // Re-add the heading so the README's own #anchors to it keep working, then hide it (the fold shows it).
-      const html = haButtons(dropScreenshots(alerts(fixHtml(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string, p.slug))));
+      const parsed = siteLinks(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string, p.slug);
+      const html = permalinks(codeCopy(tableLabels(haButtons(dropScreenshots(alerts(fixHtml(parsed, p.slug)))))));
       return { id, title, html: html.replace(/^<h2/, '<h2 class="doc-anchor"'), open: OPEN.test(title) };
     })
     .filter((s) => s.html.replace(/<h2[^>]*>.*?<\/h2>/s, "").trim());
