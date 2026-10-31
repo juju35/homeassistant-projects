@@ -216,7 +216,8 @@ const iconFor = (t: string) => {
   /* my.home-assistant.io badges, as in the READMEs: 40px high like the page's buttons */
   .md :global(a.ha-badge) { display: inline-flex; vertical-align: middle; border-radius: 20px; transition: filter .2s ease; }
   .md :global(a.ha-badge:hover) { filter: brightness(1.06); }
-  .md :global(a.ha-badge img) { height: 40px; width: auto; max-width: 100%; border-radius: 20px; }
+  /* Width from the width/height attributes (the SVGs declare none of their own) */
+  .md :global(a.ha-badge img) { max-width: 100%; height: auto; border-radius: 20px; }
   .md :global(img) { display: inline-block; max-width: 100%; height: auto; border-radius: 8px; }
   .md :global(hr) { border: 0; border-top: 1px solid var(--divider-color); margin: 20px 0; }
 

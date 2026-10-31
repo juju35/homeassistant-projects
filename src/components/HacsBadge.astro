@@ -14,7 +14,7 @@ const width = Math.round((height * 850) / 96);
 const fallback = `${import.meta.env.BASE_URL}badges/hacs_repository.svg`;
 ---
 
-<a class:list={["hacs-badge", cls]} href={hacsUrl(project)} target="_blank" rel="noopener" style={`--h:${height}px`}>
+<a class:list={["hacs-badge", cls]} href={hacsUrl(project)} target="_blank" rel="noopener" style={`--h:${height}px;--w:${width}px`}>
   <img
     src="https://my.home-assistant.io/badges/hacs_repository.svg"
     alt="Open your Home Assistant instance and open this repository in HACS"
@@ -27,12 +27,16 @@ const fallback = `${import.meta.env.BASE_URL}badges/hacs_repository.svg`;
 
 <style>
   .hacs-badge {
-    display: inline-flex; flex: 0 1 auto; align-items: center; max-width: 100%;
+    display: inline-flex; flex: 0 1 var(--w); align-items: center; width: var(--w); max-width: 100%;
     border-radius: calc(var(--h) / 2);
     transition: filter 0.2s ease, transform 0.2s ease;
   }
-  /* Full height, unless the line is narrower than the badge (phones): then it shrinks, keeping its proportions */
-  .hacs-badge img { display: block; width: auto; height: auto; max-width: 100%; max-height: var(--h); border-radius: calc(var(--h) / 2); }
+  /* Explicit size: the SVG declares no width of its own, which some browsers (Safari) render as 0 wide.
+     Full size, unless the line is narrower (phones): then it shrinks, keeping its proportions. */
+  .hacs-badge img {
+    display: block; width: var(--w); max-width: 100%; height: auto; aspect-ratio: 850 / 96;
+    border-radius: calc(var(--h) / 2);
+  }
   .hacs-badge:hover { filter: brightness(1.06); }
   .hacs-badge:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 </style>
