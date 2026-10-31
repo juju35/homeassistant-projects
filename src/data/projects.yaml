@@ -1483,6 +1483,7 @@ projects:
 - slug: ha-hacs-refresh
   title: HACS Refresh
   kind: integration
+  withCard: true
   category: maintenance
   icon: mdiCloudRefreshVariant
   accent: '#41bdf5'
@@ -1493,8 +1494,25 @@ projects:
   - Check only selected repositories
   - Automatic check at your interval
   - Status sensor with progress and failures
+  - Card with the check, its progress and the updates available
   homeassistant: 2024.12.0
-  keywords: "hacs updates refresh repositories"
+  keywords: "hacs updates refresh repositories card"
+  cardTypes:
+  - hacs-refresh-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Updates available
+    group: Card
+  screenshots:
+  - src: card-checking.png
+    dark: card-checking-dark.png
+    caption: Check running
+    group: Card
+  - src: card-ok.png
+    dark: card-ok-dark.png
+    caption: Everything up to date
+    group: Card
   worksWith:
   - slug: ha-system-monitor-card
     why: "Its HACS section runs the check from the dashboard"
