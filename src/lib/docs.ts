@@ -86,8 +86,9 @@ const dropScreenshots = (html: string) => {
       .replace(/<picture>\s*<\/picture>/gi, "")
       .replace(/<a\b(?![^>]*\b(?:id|name)=)[^>]*>\s*<\/a>/gi, "")
       .replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, (m, inner) => (isEmpty(inner) ? "" : m))
+      // A table is empty when its cells are, whatever its header says ("Light | Dark" over removed captures)
       .replace(/<table\b[^>]*>[\s\S]*?<\/table>/gi, (m) =>
-        isEmpty(m.replace(/<\/?(table|thead|tbody|tr|th|td)\b[^>]*>/gi, "")) ? "" : m,
+        [...m.matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi)].every((c) => isEmpty(c[1])) ? "" : m,
       )
       .replace(/<details\b[^>]*>\s*(<summary\b[^>]*>[\s\S]*?<\/summary>)?([\s\S]*?)<\/details>/gi, (m, _s, rest) =>
         isEmpty(rest) ? "" : m,

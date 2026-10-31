@@ -98,6 +98,29 @@ const iconFor = (t: string) => {
     addEventListener("hashchange", () => openFor(location.hash, true));
     openFor(location.hash, true);
 
+    // Open sections keep their title stuck just under the section bar (its height changes on phones).
+    const subnav = document.querySelector(".subnav");
+    if (subnav) {
+      const set = () =>
+        document.documentElement.style.setProperty(
+          "--subnav-bottom",
+          `${(parseFloat(getComputedStyle(subnav).top) || 0) + subnav.offsetHeight}px`,
+        );
+      new ResizeObserver(set).observe(subnav);
+      addEventListener("resize", set);
+      set();
+    }
+    // Folding a long section from its stuck title: bring its title back into view instead of landing further down.
+    document.addEventListener(
+      "toggle",
+      (e) => {
+        const fold = e.target;
+        if (!fold.matches || !fold.matches("details.doc") || fold.open) return;
+        if (fold.getBoundingClientRect().top < 0) fold.scrollIntoView({ block: "start" });
+      },
+      true,
+    );
+
     // Copy buttons of the code blocks.
     const live = document.getElementById("docs-live");
     document.addEventListener("click", async (e) => {
@@ -139,6 +162,16 @@ const iconFor = (t: string) => {
   .doc > summary .section-title { margin: 0; color: var(--primary-text-color); }
   .doc > summary .section-title :global(svg:first-child) { color: var(--c); }
   .doc[open] > summary { border-bottom: 1px solid var(--divider-color); margin-bottom: 4px; }
+  /* An open section keeps its title under the section bar while it is read: one tap folds it back */
+  .doc[open] > summary {
+    position: sticky; top: var(--subnav-bottom, 120px); z-index: 2;
+    margin-inline: -20px; padding-inline: 20px;
+    background: var(--card-background-color);
+  }
+  /* Prose at a readable line length; tables and code keep the full width */
+  .md > :global(p), .md > :global(ul), .md > :global(ol), .md > :global(blockquote), .md > :global(h3), .md > :global(h4) { max-width: 82ch; }
+  /* A My Home Assistant badge inside a sentence stays close to the line height */
+  .md :global(li a.ha-badge img) { height: 30px; width: auto; }
   .md { padding-bottom: 16px; }
 
   /* README content, in the cards' style */
@@ -242,6 +275,7 @@ const iconFor = (t: string) => {
 
   @media (max-width: 600px) {
     .doc { padding: 0 14px; }
+    .doc[open] > summary { margin-inline: -14px; padding-inline: 14px; }
     .md :global(:not(pre) > code) { white-space: normal; overflow-wrap: anywhere; }
     .md :global(td:first-child code) { white-space: nowrap; }
     .md :global(table) { mask-image: linear-gradient(90deg, #000 88%, transparent); }
