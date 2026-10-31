@@ -1,7 +1,8 @@
 ---
 // Screenshots and animations of a project: one tab per card or variant, a grid of even tiles with a
 // light / dark switch (when the project has both themes), and a viewer with previous / next, keyboard
-// and swipe navigation and the same switch.
+// and swipe navigation, the same switch, a light / dark comparison and zoom. The tab and the capture
+// shown are kept in the URL (#gallery/<group>/<n>), and Back closes the viewer.
 import Icon from "./Icon.astro";
 import Shot from "./Shot.astro";
 import { caption, shotUrl, type Project, type Shot as ShotT } from "../lib/projects";
@@ -68,6 +69,8 @@ const hasDark = data.some((d) => d.dark);
                 type="button"
                 role="tab"
                 aria-selected={i === 0 ? "true" : "false"}
+                aria-controls="gallery-panel"
+                tabindex={i === 0 ? 0 : -1}
                 data-tab={g.name}
                 id={`tab-${slugId(g.name)}`}
               >
@@ -86,7 +89,12 @@ const hasDark = data.some((d) => d.dark);
         )}
       </div>
 
-      <div class="tiles" role="tabpanel">
+      <div
+        class="tiles"
+        id="gallery-panel"
+        role={groups.length > 1 ? "tabpanel" : undefined}
+        aria-labelledby={groups.length > 1 ? `tab-${slugId(groups[0].name)}` : undefined}
+      >
         {items.map((it, i) => (
           <figure class="tile-fig" data-group={it.group} hidden={it.group !== groups[0].name}>
             <button class="tile-btn" type="button" data-index={i} aria-label={`Open: ${caption(it.shot)}`}>
@@ -113,18 +121,36 @@ const hasDark = data.some((d) => d.dark);
       <div class="v-sub"></div>
     </div>
     <div class="v-theme" role="group" aria-label="Theme of the screenshot">
-      <button type="button" data-theme="light" title="Light theme"><Icon name="mdiWhiteBalanceSunny" /><span>Light</span></button>
-      <button type="button" data-theme="dark" title="Dark theme"><Icon name="mdiWeatherNight" /><span>Dark</span></button>
+      <button type="button" data-theme="light" title="Light theme (T)" aria-pressed="false"><Icon name="mdiWhiteBalanceSunny" /><span>Light</span></button>
+      <button type="button" data-theme="dark" title="Dark theme (T)" aria-pressed="false"><Icon name="mdiWeatherNight" /><span>Dark</span></button>
     </div>
+    <button class="v-cmp" type="button" aria-pressed="false" title="Compare light and dark (C)">
+      <Icon name="mdiCompare" /><span>Compare</span>
+    </button>
     <a class="icon-btn v-open" target="_blank" rel="noopener" aria-label="Open the original" title="Open the original"><Icon name="mdiOpenInNew" /></a>
     <button class="icon-btn v-close" type="button" aria-label="Close" title="Close (Esc)"><Icon name="mdiClose" /></button>
   </div>
   <div class="v-stage">
-    <img alt="" />
+    <button class="v-zoom v-main" type="button"><img alt="" /></button>
+    <div class="v-compare" hidden>
+      <figure class="cmp cmp-light">
+        <button class="v-zoom" type="button"><img alt="" /></button>
+        <span class="cmp-tag"><Icon name="mdiWhiteBalanceSunny" /> Light</span>
+      </figure>
+      <figure class="cmp cmp-dark">
+        <button class="v-zoom" type="button"><img alt="" /></button>
+        <span class="cmp-tag"><Icon name="mdiWeatherNight" /> Dark</span>
+      </figure>
+    </div>
+  </div>
+  <div class="v-split">
+    <Icon name="mdiWhiteBalanceSunny" />
+    <input type="range" min="0" max="100" step="1" value="50" aria-label="Split between the light and dark captures" />
+    <Icon name="mdiWeatherNight" />
   </div>
   <button class="v-nav prev" type="button" aria-label="Previous" title="Previous (←)"><Icon name="mdiChevronLeft" /></button>
   <button class="v-nav next" type="button" aria-label="Next" title="Next (→)"><Icon name="mdiChevronRight" /></button>
-  <div class="v-strip" role="list"></div>
+  <div class="v-strip" role="group" aria-label="Captures"></div>
 </dialog>
 
 <script>
@@ -134,14 +160,26 @@ const hasDark = data.some((d) => d.dark);
   if (section && dialog) {
     const items: Item[] = JSON.parse(section.dataset.gallery!);
     const tabs = [...section.querySelectorAll<HTMLButtonElement>(".tab")];
+    const panel = section.querySelector<HTMLElement>(".tiles")!;
     const figs = [...section.querySelectorAll<HTMLElement>(".tile-fig")];
-    const img = dialog.querySelector<HTMLImageElement>(".v-stage img")!;
-    const stage = dialog.querySelector<HTMLElement>(".v-stage")!;
-    const strip = dialog.querySelector<HTMLElement>(".v-strip")!;
-    const capEl = dialog.querySelector<HTMLElement>(".v-caption")!;
-    const subEl = dialog.querySelector<HTMLElement>(".v-sub")!;
-    const themeBox = dialog.querySelector<HTMLElement>(".v-theme")!;
-    const openLink = dialog.querySelector<HTMLAnchorElement>(".v-open")!;
+    const $ = <T extends Element = HTMLElement>(sel: string) => dialog.querySelector<T>(sel)!;
+    const mainBtn = $<HTMLButtonElement>(".v-main");
+    const img = mainBtn.querySelector("img")!;
+    const stage = $(".v-stage");
+    const strip = $(".v-strip");
+    const capEl = $(".v-caption");
+    const subEl = $(".v-sub");
+    const themeBox = $(".v-theme");
+    const themeBtns = [...themeBox.querySelectorAll<HTMLButtonElement>("button")];
+    const cmpBtn = $<HTMLButtonElement>(".v-cmp");
+    const cmpBox = $(".v-compare");
+    const cmpLight = cmpBox.querySelector<HTMLImageElement>(".cmp-light img")!;
+    const cmpDark = cmpBox.querySelector<HTMLImageElement>(".cmp-dark img")!;
+    const split = $<HTMLInputElement>(".v-split input");
+    const closeBtn = $<HTMLButtonElement>(".v-close");
+    const openLink = $<HTMLAnchorElement>(".v-open");
+    const zoomBtns = [...dialog.querySelectorAll<HTMLButtonElement>(".v-zoom")];
+    const wideMq = matchMedia("(min-width: 721px)");
     const siteDark = () => {
       const t = document.documentElement.dataset.theme;
       return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
@@ -150,6 +188,8 @@ const hasDark = data.some((d) => d.dark);
     let group = tabs[0]?.dataset.tab ?? items[0]?.group;
     let list: number[] = [];
     let pos = 0;
+    let comparing = false;
+    let zoomed = false;
     // Theme of the screenshots: the site's until one is picked in the gallery or the viewer.
     let chosen: boolean | null = null;
     const shotsDark = () => chosen ?? siteDark();
@@ -175,55 +215,177 @@ const hasDark = data.some((d) => d.dark);
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", showTheme);
     showTheme();
 
-    // Tabs
+    // URL: #gallery/<group>, and #gallery/<group>/<n> while the viewer shows the n-th capture of the group.
+    const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const groupNames = [...new Set(items.map((it) => it.group))];
+    const tabHash = (g: string) => `#gallery/${slugId(g)}`;
+    const viewerHash = () => `${tabHash(items[list[pos]].group)}/${pos + 1}`;
+    const inGroup = (g: string) => items.map((_, i) => i).filter((i) => items[i].group === g);
+    const parseHash = () => {
+      const m = /^#gallery\/([^/]+)(?:\/(\d+))?\/?$/.exec(location.hash);
+      const g = m && groupNames.find((n) => slugId(n) === decodeURIComponent(m[1]));
+      if (!g) return null;
+      const idx = inGroup(g);
+      const n = m[2] ? Number(m[2]) : 0;
+      return { group: g, index: n >= 1 && n <= idx.length ? idx[n - 1] : null };
+    };
+    const setHash = (hash: string, mode: "push" | "replace", state: object | null = null) => {
+      if (location.hash === hash && mode === "replace" && history.state === state) return;
+      history[mode === "push" ? "pushState" : "replaceState"](state, "", hash);
+    };
+
+    // Tabs: a tablist with a roving tabindex
     const selectTab = (name: string) => {
       group = name;
       for (const t of tabs) {
         const on = t.dataset.tab === name;
         t.classList.toggle("active", on);
         t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        if (on) panel.setAttribute("aria-labelledby", t.id);
       }
       for (const f of figs) f.hidden = f.dataset.group !== name;
     };
-    tabs.forEach((t) => t.addEventListener("click", () => selectTab(t.dataset.tab!)));
+    const userSelectTab = (t: HTMLButtonElement) => {
+      selectTab(t.dataset.tab!);
+      setHash(tabHash(t.dataset.tab!), "replace");
+    };
+    tabs.forEach((t) => t.addEventListener("click", () => userSelectTab(t)));
+    section.querySelector(".tabs")?.addEventListener("keydown", (e) => {
+      const ev = e as KeyboardEvent;
+      const i = tabs.indexOf(document.activeElement as HTMLButtonElement);
+      if (i < 0) return;
+      const j = { ArrowRight: (i + 1) % tabs.length, ArrowLeft: (i - 1 + tabs.length) % tabs.length, Home: 0, End: tabs.length - 1 }[ev.key];
+      if (j === undefined) return;
+      ev.preventDefault();
+      tabs[j].focus();
+      tabs[j].scrollIntoView({ block: "nearest", inline: "nearest" });
+      userSelectTab(tabs[j]);
+    });
+
+    // Sizes: fitted to the stage, or at the size the capture was taken for (zoom)
+    const natural = (it: Item) => {
+      if (it.w && it.h) return it.anim ? { w: it.w, h: it.h } : { w: it.w / 2, h: it.h / 2 };
+      return img.naturalWidth ? { w: img.naturalWidth, h: img.naturalHeight } : null;
+    };
+    const layout = () => {
+      if (!dialog.open || !list.length) return;
+      const it = items[list[pos]];
+      const nat = natural(it);
+      const shown = comparing && !!it.dark;
+      const imgs = shown ? [cmpLight, cmpDark] : [img];
+      if (!nat) {
+        imgs.forEach((i) => (i.style.width = ""));
+        zoomBtns.forEach((b) => (b.disabled = true));
+        return;
+      }
+      const cs = getComputedStyle(stage);
+      let w = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      let h = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      if (shown) {
+        const fs = getComputedStyle(cmpBox.firstElementChild!);
+        if (wideMq.matches) w = (w - parseFloat(getComputedStyle(cmpBox).columnGap || "0")) / 2;
+        w -= parseFloat(fs.paddingLeft) + parseFloat(fs.paddingRight);
+        h -= parseFloat(fs.paddingTop) + parseFloat(fs.paddingBottom);
+      }
+      const fit = Math.max(40, Math.floor(Math.min(nat.w, w, (nat.w * h) / nat.h)) - 1);
+      // Zoom to the capture size, or to its full resolution when the capture already fits.
+      const full = it.w ?? nat.w;
+      const zoomTo = nat.w > fit + 1 ? nat.w : full > fit + 1 ? full : null;
+      if (!zoomTo) zoomed = false;
+      const width = zoomed && zoomTo ? zoomTo : fit;
+      imgs.forEach((i) => (i.style.width = `${Math.round(width)}px`));
+      stage.classList.toggle("zoomed", zoomed);
+      for (const b of zoomBtns) {
+        b.disabled = !zoomTo;
+        b.classList.toggle("out", zoomed);
+        b.setAttribute("aria-label", zoomTo ? (zoomed ? "Fit to the screen" : "Zoom to full size") : it.caption);
+      }
+    };
+    const toggleZoom = (e: MouseEvent) => {
+      const btn = e.currentTarget as HTMLElement;
+      // Keep the point under the pointer (or the centre) in place
+      const r = btn.getBoundingClientRect();
+      const fx = e.detail ? (e.clientX - r.left) / r.width : 0.5;
+      const fy = e.detail ? (e.clientY - r.top) / r.height : 0.5;
+      zoomed = !zoomed;
+      layout();
+      const r2 = btn.getBoundingClientRect();
+      const s = stage.getBoundingClientRect();
+      stage.scrollLeft += r2.left + fx * r2.width - (e.detail ? e.clientX : s.left + s.width / 2);
+      stage.scrollTop += r2.top + fy * r2.height - (e.detail ? e.clientY : s.top + s.height / 2);
+    };
+    zoomBtns.forEach((b) => b.addEventListener("click", toggleZoom));
+    new ResizeObserver(() => layout()).observe(stage);
+    [img, cmpLight, cmpDark].forEach((i) => i.addEventListener("load", () => layout()));
 
     // Viewer
     const render = () => {
       const it = items[list[pos]];
       const useDark = dark && !!it.dark;
-      img.src = useDark ? it.dark! : it.light;
+      const shown = comparing && !!it.dark;
+      const want = useDark ? it.dark! : it.light;
+      if (img.getAttribute("src") !== want) img.src = want;
       img.alt = it.caption;
-      // Shown at the size it was captured for (screenshots at 2x, animations at 1x), never wider than the stage.
-      img.style.width = it.w ? `min(100%, ${Math.round(it.anim ? it.w : it.w / 2)}px)` : "";
-      stage.classList.toggle("is-dark", useDark || (!it.dark && siteDark()));
-      stage.scrollTop = 0;
+      cmpBox.hidden = !shown;
+      mainBtn.hidden = shown;
+      dialog.classList.toggle("comparing", shown);
+      if (shown) {
+        if (cmpLight.getAttribute("src") !== it.light) cmpLight.src = it.light;
+        if (cmpDark.getAttribute("src") !== it.dark) cmpDark.src = it.dark!;
+        cmpLight.alt = `${it.caption} (light)`;
+        cmpDark.alt = `${it.caption} (dark)`;
+      }
+      stage.classList.toggle("is-dark", !shown && (useDark || (!it.dark && siteDark())));
       capEl.textContent = it.caption;
       subEl.textContent = it.caption === it.group ? `${pos + 1} / ${list.length}` : `${it.group} · ${pos + 1} / ${list.length}`;
-      if (!it.dark && themeBox.contains(document.activeElement)) dialog.querySelector<HTMLElement>(".v-close")!.focus();
-      themeBox.hidden = !it.dark;
-      for (const b of themeBox.querySelectorAll<HTMLButtonElement>("button")) {
-        b.classList.toggle("on", (b.dataset.theme === "dark") === useDark);
+      // Controls about to disappear hand the focus to the Close button
+      const leaving = (!it.dark && (themeBox.contains(document.activeElement) || document.activeElement === cmpBtn)) ||
+        (shown && themeBox.contains(document.activeElement));
+      if (leaving) closeBtn.focus();
+      themeBox.hidden = !it.dark || shown;
+      cmpBtn.hidden = !it.dark;
+      cmpBtn.setAttribute("aria-pressed", String(shown));
+      cmpBtn.classList.toggle("on", shown);
+      for (const b of themeBtns) {
+        const on = (b.dataset.theme === "dark") === useDark;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", String(on));
       }
-      openLink.href = img.src;
+      openLink.href = want;
       strip.querySelectorAll<HTMLElement>(".s").forEach((s, i) => {
         const t = items[list[i]];
         const thumb = s.querySelector("img")!;
-        const want = dark && t.dark ? t.dark : t.light;
-        if (thumb.getAttribute("src") !== want) thumb.src = want;
+        const w = dark && t.dark ? t.dark : t.light;
+        if (thumb.getAttribute("src") !== w) thumb.src = w;
         s.classList.toggle("on", i === pos);
-        if (i === pos) s.scrollIntoView({ block: "nearest", inline: "center" });
+        if (i === pos) {
+          s.setAttribute("aria-current", "true");
+          s.scrollIntoView({ block: "nearest", inline: "center" });
+        } else s.removeAttribute("aria-current");
       });
       dialog.classList.toggle("single", list.length < 2);
+      layout();
       // Warm the neighbours
       for (const d of [-1, 1]) {
         const n = items[list[(pos + d + list.length) % list.length]];
         if (n) new Image().src = dark && n.dark ? n.dark : n.light;
       }
     };
-    const open = (index: number) => {
+    const goTo = (k: number) => {
+      pos = k;
+      zoomed = false;
+      stage.scrollTop = 0;
+      stage.scrollLeft = 0;
+      render();
+      if (dialog.open) setHash(viewerHash(), "replace", history.state);
+    };
+    // history: "push" adds an entry (Back closes the viewer), "none" when the URL is already the viewer's.
+    const open = (index: number, history_: "push" | "none" = "push") => {
       const g = items[index].group;
-      list = items.map((_, i) => i).filter((i) => items[i].group === g);
+      list = inGroup(g);
       pos = list.indexOf(index);
+      zoomed = false;
       dark = shotsDark();
       strip.innerHTML = "";
       list.forEach((i, k) => {
@@ -236,17 +398,79 @@ const hasDark = data.some((d) => d.dark);
         t.alt = "";
         t.loading = "lazy";
         b.append(t);
-        b.addEventListener("click", () => { pos = k; render(); });
+        b.addEventListener("click", () => goTo(k));
         strip.append(b);
       });
+      const wasOpen = dialog.open;
+      if (!wasOpen) dialog.showModal();
+      stage.scrollTop = 0;
+      stage.scrollLeft = 0;
       render();
-      if (!dialog.open) dialog.showModal();
+      if (!wasOpen) closeBtn.focus();
+      if (history_ === "push" && !wasOpen) setHash(viewerHash(), "push", { gallery: true });
+      else if (history_ === "push") setHash(viewerHash(), "replace", history.state);
     };
     const step = (d: number) => {
       if (list.length < 2) return;
-      pos = (pos + d + list.length) % list.length;
+      goTo((pos + d + list.length) % list.length);
+    };
+    const setTheme = (d: boolean) => {
+      dark = d;
+      pickTheme(dark); // The tiles follow the viewer.
       render();
     };
+    const toggleCompare = () => {
+      if (!items[list[pos]]?.dark) return;
+      comparing = !comparing;
+      zoomed = false;
+      render();
+    };
+
+    // Closing returns the focus to the tile of the capture last shown
+    let closedByHistory = false;
+    let focusAfterBack = false;
+    const focusTile = () => {
+      const it = items[list[pos]];
+      if (!it) return;
+      if (group !== it.group) selectTab(it.group);
+      section.querySelector<HTMLElement>(`.tile-btn[data-index="${list[pos]}"]`)?.focus({ preventScroll: true });
+      section.querySelector(`.tile-btn[data-index="${list[pos]}"]`)?.scrollIntoView({ block: "nearest" });
+    };
+    dialog.addEventListener("close", () => {
+      [img, cmpLight, cmpDark].forEach((i) => i.removeAttribute("src"));
+      comparing = false;
+      dialog.classList.remove("comparing");
+      const g = items[list[pos]]?.group ?? group;
+      if (closedByHistory) {
+        closedByHistory = false;
+      } else if (history.state?.gallery) {
+        // The entry the viewer added: going back to the one before keeps Back / Forward consistent.
+        focusAfterBack = true;
+        history.back();
+        setTimeout(() => { if (focusAfterBack) { focusAfterBack = false; focusTile(); } }, 400);
+        return;
+      } else {
+        setHash(tabHash(g), "replace");
+      }
+      focusTile();
+    });
+    addEventListener("popstate", () => {
+      const h = parseHash();
+      if (h && h.index !== null) {
+        // Forward to a viewer entry
+        selectTab(h.group);
+        open(h.index, "none");
+        return;
+      }
+      if (dialog.open) {
+        closedByHistory = true;
+        dialog.close();
+      } else if (focusAfterBack) {
+        focusAfterBack = false;
+        requestAnimationFrame(focusTile);
+      }
+      if (h) selectTab(h.group);
+    });
 
     section.querySelectorAll<HTMLButtonElement>(".tile-btn").forEach((b) =>
       b.addEventListener("click", () => open(Number(b.dataset.index))),
@@ -255,33 +479,69 @@ const hasDark = data.some((d) => d.dark);
     document.querySelectorAll<HTMLElement>("[data-open-gallery]").forEach((el) =>
       el.addEventListener("click", () => { selectTab(items[0].group); open(0); }),
     );
-    dialog.querySelector(".prev")!.addEventListener("click", () => step(-1));
-    dialog.querySelector(".next")!.addEventListener("click", () => step(1));
-    dialog.querySelector(".v-close")!.addEventListener("click", () => dialog.close());
-    themeBox.querySelectorAll<HTMLButtonElement>("button").forEach((b) =>
-      b.addEventListener("click", () => {
-        dark = b.dataset.theme === "dark";
-        pickTheme(dark); // The tiles follow the viewer.
-        render();
-      }),
-    );
+    $(".prev").addEventListener("click", () => step(-1));
+    $(".next").addEventListener("click", () => step(1));
+    closeBtn.addEventListener("click", () => dialog.close());
+    themeBtns.forEach((b) => b.addEventListener("click", () => setTheme(b.dataset.theme === "dark")));
+    cmpBtn.addEventListener("click", toggleCompare);
+    const setSplit = () => {
+      cmpBox.style.setProperty("--split", `${split.value}%`);
+      split.setAttribute("aria-valuetext", `${100 - Number(split.value)}% dark`);
+    };
+    split.addEventListener("input", setSplit);
+    setSplit();
+    wideMq.addEventListener("change", () => layout());
     // A click on the backdrop closes; clicks inside the viewer don't.
     dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
-    document.addEventListener("keydown", (e) => {
-      if (!dialog.open) return;
-      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
-      if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    dialog.addEventListener("keydown", (e) => {
+      const t = e.target as HTMLElement;
+      if (e.key === "Tab") {
+        // Focus stays inside the viewer
+        const f = [...dialog.querySelectorAll<HTMLElement>("button, a[href], input")].filter(
+          (el) => !(el as HTMLButtonElement).disabled && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== "hidden",
+        );
+        if (!f.length) return;
+        const i = f.indexOf(document.activeElement as HTMLElement);
+        const j = e.shiftKey ? (i <= 0 ? f.length - 1 : i - 1) : (i === -1 || i === f.length - 1 ? 0 : i + 1);
+        if ((e.shiftKey && i <= 0) || (!e.shiftKey && (i === -1 || i === f.length - 1))) {
+          e.preventDefault();
+          f[j].focus();
+        }
+        return;
+      }
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const onRange = t instanceof HTMLInputElement;
+      if (e.key === "ArrowLeft" && !onRange) { e.preventDefault(); step(-1); }
+      else if (e.key === "ArrowRight" && !onRange) { e.preventDefault(); step(1); }
+      else if (e.key === "t" || e.key === "T") {
+        if (items[list[pos]]?.dark && !comparing) { e.preventDefault(); setTheme(!dark); }
+      } else if (e.key === "c" || e.key === "C") {
+        if (items[list[pos]]?.dark) { e.preventDefault(); toggleCompare(); }
+      }
     });
-    // Swipe
+    // Swipe (not while zoomed: the stage pans)
     let x0: number | null = null;
-    stage.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchstart", (e) => { x0 = zoomed || e.touches.length > 1 ? null : e.touches[0].clientX; }, { passive: true });
     stage.addEventListener("touchend", (e) => {
       if (x0 === null) return;
       const dx = e.changedTouches[0].clientX - x0;
       if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
       x0 = null;
     });
-    dialog.addEventListener("close", () => img.removeAttribute("src"));
+
+    // Opening the page on #gallery/<group>[/<n>]
+    const h0 = parseHash();
+    if (h0) {
+      selectTab(h0.group);
+      const scroll = () => section.scrollIntoView({ block: "start" });
+      scroll();
+      requestAnimationFrame(scroll);
+      if (h0.index !== null) {
+        // The tab's entry under the viewer's: Back closes the viewer and stays on the page.
+        setHash(tabHash(h0.group), "replace");
+        open(h0.index);
+      }
+    }
   }
 </script>
 
@@ -367,7 +627,7 @@ const hasDark = data.some((d) => d.dark);
   /* Viewer, near the top of the viewport */
   .viewer {
     margin: 16px auto auto; padding: 0;
-    width: min(1100px, calc(100vw - 24px)); max-height: calc(100dvh - 32px);
+    width: min(1100px, calc(100vw - 24px)); height: min(calc(100dvh - 32px), 980px); max-height: none;
     border: 1px solid var(--divider-color); border-radius: 16px;
     background: var(--card-background-color); color: var(--primary-text-color);
     box-shadow: 0 24px 64px -16px rgba(0,0,0,.45);
@@ -388,14 +648,60 @@ const hasDark = data.some((d) => d.dark);
   }
   .v-theme button :global(svg) { width: 18px; height: 18px; }
   .v-theme button.on { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  .v-theme button:focus-visible, .v-cmp:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+  /* Compare: a tinted toggle, like the switches */
+  .v-cmp {
+    all: unset; cursor: pointer; flex: none; height: 40px; padding: 0 12px; border-radius: 20px; box-sizing: border-box;
+    display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500;
+    color: var(--secondary-text-color); background: var(--secondary-background-color);
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .v-cmp[hidden] { display: none; }
+  .v-cmp :global(svg) { width: 18px; height: 18px; }
+  .v-cmp:hover { color: var(--primary-text-color); }
+  .v-cmp.on { background: color-mix(in srgb, var(--c) 16%, transparent); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); }
   /* The stage takes the page colour of the variant shown, like the captures' own background */
   .v-stage {
-    flex: 1; min-height: min(62vh, 620px); overflow: auto; overscroll-behavior: contain;
+    flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain;
     padding: 24px 72px; background: #e8eaed;
     display: flex; transition: background-color .25s ease;
   }
   .v-stage.is-dark { background: #111111; }
-  .v-stage img { margin: auto; border-radius: 8px; height: auto; }
+  .v-zoom { all: unset; display: block; margin: auto; flex: none; border-radius: 8px; cursor: zoom-in; line-height: 0; }
+  .v-zoom.out { cursor: zoom-out; }
+  .v-zoom:disabled { cursor: default; }
+  .v-zoom[hidden] { display: none; }
+  .v-zoom:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 3px; }
+  .v-zoom img { display: block; max-width: none; border-radius: 8px; height: auto; }
+  .v-stage:not(.zoomed) .v-zoom img { max-width: 100%; }
+  /* Light and dark side by side; on narrow screens, dark over light with a split */
+  .viewer.comparing .v-stage { background: var(--secondary-background-color); }
+  .v-compare { position: relative; margin: auto; flex: none; display: grid; grid-template-columns: auto auto; column-gap: 16px; align-items: start; }
+  .v-compare[hidden] { display: none; }
+  .cmp { position: relative; margin: 0; padding: 40px 12px 12px; border-radius: 12px; background: #e8eaed; }
+  .cmp-dark { background: #111111; }
+  .cmp-tag {
+    position: absolute; top: 9px; left: 12px; z-index: 1; pointer-events: none;
+    display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px 3px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500; color: #212121; background: rgba(255,255,255,.85); backdrop-filter: blur(6px);
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  }
+  .cmp-dark .cmp-tag { color: #e1e1e1; background: rgba(28,28,28,.85); left: auto; right: 12px; }
+  .cmp-tag :global(svg) { width: 14px; height: 14px; }
+  .v-split { display: none; align-items: center; gap: 10px; padding: 8px 16px; border-top: 1px solid var(--divider-color); color: var(--secondary-text-color); }
+  .v-split :global(svg) { width: 18px; height: 18px; flex: none; }
+  .v-split input { flex: 1; min-width: 0; height: 32px; margin: 0; accent-color: var(--c); cursor: ew-resize; }
+  .v-split input:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; border-radius: 4px; }
+  @media (max-width: 720px) {
+    .v-compare { grid-template-columns: auto; }
+    .cmp { grid-area: 1 / 1; }
+    .cmp-dark { clip-path: inset(0 0 0 var(--split, 50%)); }
+    .v-compare::after {
+      content: ""; position: absolute; top: 0; bottom: 0; left: var(--split, 50%); width: 2px; margin-left: -1px;
+      background: var(--c); z-index: 2; pointer-events: none;
+    }
+    .viewer.comparing .v-split { display: flex; }
+  }
   .v-nav {
     all: unset; cursor: pointer; position: absolute; top: 50%;
     width: 44px; height: 44px; border-radius: 50%;
@@ -431,7 +737,13 @@ const hasDark = data.some((d) => d.dark);
     .viewer { margin: 0; width: 100vw; max-width: none; height: 100dvh; max-height: none; border: 0; border-radius: 0; }
     .v-stage { padding: 12px; min-height: 0; }
     .v-theme button { height: 40px; padding: 0 10px; }
-    .v-theme button span { display: none; }
+    .cmp { padding: 38px 8px 8px; }
+    .cmp-tag { left: 8px; }
+    .cmp-dark .cmp-tag { right: 8px; }
+    .viewer.comparing .v-nav { bottom: 134px; }
+    .v-theme button span, .v-cmp span { display: none; }
+    .v-cmp { width: 40px; padding: 0; justify-content: center; }
+    .v-bar { gap: 4px; padding-left: 14px; }
     .themes { order: 3; }
     .tabs { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
     .v-nav { top: auto; bottom: 84px; width: 40px; height: 40px; }
