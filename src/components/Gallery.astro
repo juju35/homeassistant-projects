@@ -7,6 +7,7 @@ import Icon from "./Icon.astro";
 import Shot from "./Shot.astro";
 import { caption, shotUrl, type Project, type Shot as ShotT } from "../lib/projects";
 import { imageSize } from "../lib/imgsize";
+import { fullUrl, optimizedUrl } from "../lib/optimize";
 import { withTwin } from "../lib/twins";
 
 interface Props {
@@ -38,12 +39,19 @@ for (const it of items) {
 // Data for the viewer
 const data = await Promise.all(
   items.map(async (it) => {
-    const size = await imageSize(shotUrl(project, it.shot.src));
+    const lightRaw = shotUrl(project, it.shot.src);
+    const darkRaw = it.shot.dark ? shotUrl(project, it.shot.dark) : null;
+    const size = await imageSize(lightRaw);
     return {
       group: it.group,
       caption: caption(it.shot),
-      light: shotUrl(project, it.shot.src),
-      dark: it.shot.dark ? shotUrl(project, it.shot.dark) : null,
+      // Viewer: optimised at full resolution; strip: light thumbnails (2x of their 76px); link: the original
+      light: await fullUrl(lightRaw),
+      dark: darkRaw ? await fullUrl(darkRaw) : null,
+      lightThumb: await optimizedUrl(lightRaw, 160),
+      darkThumb: darkRaw ? await optimizedUrl(darkRaw, 160) : null,
+      lightOrig: lightRaw,
+      darkOrig: darkRaw,
       w: size?.w ?? null,
       h: size?.h ?? null,
       anim: it.anim,
@@ -98,7 +106,7 @@ const hasDark = data.some((d) => d.dark);
         {items.map((it, i) => (
           <figure class="tile-fig" data-group={it.group} hidden={it.group !== groups[0].name}>
             <button class="tile-btn" type="button" data-index={i} aria-label={`Open: ${caption(it.shot)}`}>
-              <Shot project={project} shot={it.shot} />
+              <Shot project={project} shot={it.shot} sizes="(max-width: 600px) 50vw, 300px" />
               {it.anim && (
                 <span class="badge play" title="Animation">
                   <Icon name="mdiPlay" />
@@ -154,7 +162,11 @@ const hasDark = data.some((d) => d.dark);
 </dialog>
 
 <script>
-  type Item = { group: string; caption: string; light: string; dark: string | null; w: number | null; h: number | null; anim: boolean };
+  type Item = {
+    group: string; caption: string; light: string; dark: string | null;
+    lightThumb: string; darkThumb: string | null; lightOrig: string; darkOrig: string | null;
+    w: number | null; h: number | null; anim: boolean;
+  };
   const section = document.querySelector<HTMLElement>("[data-gallery]");
   const dialog = document.querySelector<HTMLDialogElement>("dialog.viewer");
   if (section && dialog) {
@@ -360,11 +372,11 @@ const hasDark = data.some((d) => d.dark);
         b.classList.toggle("on", on);
         b.setAttribute("aria-pressed", String(on));
       }
-      openLink.href = want;
+      openLink.href = useDark ? it.darkOrig! : it.lightOrig;
       strip.querySelectorAll<HTMLElement>(".s").forEach((s, i) => {
         const t = items[list[i]];
         const thumb = s.querySelector("img")!;
-        const w = dark && t.dark ? t.dark : t.light;
+        const w = dark && t.darkThumb ? t.darkThumb : t.lightThumb;
         if (thumb.getAttribute("src") !== w) thumb.src = w;
         s.classList.toggle("on", i === pos);
         if (i === pos) {
@@ -404,7 +416,7 @@ const hasDark = data.some((d) => d.dark);
         b.className = "s";
         b.setAttribute("aria-label", items[i].caption);
         const t = document.createElement("img");
-        t.src = dark && items[i].dark ? items[i].dark! : items[i].light;
+        t.src = dark && items[i].darkThumb ? items[i].darkThumb! : items[i].lightThumb;
         t.alt = "";
         t.loading = "lazy";
         b.append(t);

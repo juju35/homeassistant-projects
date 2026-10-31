@@ -75,6 +75,7 @@ async function limited<T>(job: () => Promise<T>): Promise<T> {
 }
 
 const outputs = new Map<string, Promise<string>>();
+const files = new Map<string, Promise<void>>();
 
 /** URL of the capture re-encoded as WebP at `width` (never wider than the original). */
 export function optimizedUrl(url: string, width: number): Promise<string> {
@@ -93,19 +94,26 @@ async function encode(url: string, width: number): Promise<string> {
     const stem = (url.split("/").pop() ?? "img").replace(/\.\w+$/, "").replace(/[^\w-]/g, "_");
     const name = `${stem}-${w}-${hash}.webp`;
     const file = join(CACHE_DIR, name);
-    if (!existsSync(file)) {
-      await limited(async () => {
-        sharp ??= (await import("sharp")).default;
-        const animated = /\.gif$/i.test(url);
-        const data = await sharp(buf, { animated, failOn: "none" })
-          .resize({ width: w, withoutEnlargement: true })
-          .webp({ quality: QUALITY, ...(animated ? { loop: 0 } : {}) })
-          .toBuffer();
-        await mkdir(CACHE_DIR, { recursive: true });
-        await writeFile(`${file}.tmp`, data);
-        await rename(`${file}.tmp`, file);
-      });
+    // Several requested widths can clamp to the same file (e.g. 1600 and 984 for a 984px capture): encode it once
+    if (!files.has(name)) {
+      files.set(
+        name,
+        existsSync(file)
+          ? Promise.resolve()
+          : limited(async () => {
+              sharp ??= (await import("sharp")).default;
+              const animated = /\.gif$/i.test(url);
+              const data = await sharp(buf, { animated, failOn: "none" })
+                .resize({ width: w, withoutEnlargement: true })
+                .webp({ quality: QUALITY, ...(animated ? { loop: 0 } : {}) })
+                .toBuffer();
+              await mkdir(CACHE_DIR, { recursive: true });
+              await writeFile(`${file}.tmp`, data);
+              await rename(`${file}.tmp`, file);
+            }),
+      );
     }
+    await files.get(name);
     used.add(name);
     return OUT + name;
   } catch (e) {
