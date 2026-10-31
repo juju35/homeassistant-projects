@@ -281,17 +281,16 @@ const hasDark = data.some((d) => d.dark);
       }
       const cs = getComputedStyle(stage);
       let w = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-      let h = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
       if (shown) {
         const fs = getComputedStyle(cmpBox.firstElementChild!);
         if (wideMq.matches) w = (w - parseFloat(getComputedStyle(cmpBox).columnGap || "0")) / 2;
         w -= parseFloat(fs.paddingLeft) + parseFloat(fs.paddingRight);
-        h -= parseFloat(fs.paddingTop) + parseFloat(fs.paddingBottom);
       }
-      const fit = Math.max(40, Math.floor(Math.min(nat.w, w, (nat.w * h) / nat.h)) - 1);
-      // Zoom to the capture size, or to its full resolution when the capture already fits.
+      // Default: the capture at its own display size, never wider than the stage (tall ones scroll).
+      const fit = Math.max(40, Math.floor(Math.min(nat.w, w)));
+      // Zoom: its full pixel resolution, when that is larger.
       const full = it.w ?? nat.w;
-      const zoomTo = nat.w > fit + 1 ? nat.w : full > fit + 1 ? full : null;
+      const zoomTo = full > fit + 1 ? full : null;
       if (!zoomTo) zoomed = false;
       const width = zoomed && zoomTo ? zoomTo : fit;
       imgs.forEach((i) => (i.style.width = `${Math.round(width)}px`));
@@ -316,7 +315,13 @@ const hasDark = data.some((d) => d.dark);
       stage.scrollTop += r2.top + fy * r2.height - (e.detail ? e.clientY : s.top + s.height / 2);
     };
     zoomBtns.forEach((b) => b.addEventListener("click", toggleZoom));
-    new ResizeObserver(() => layout()).observe(stage);
+    // Only width matters to the layout (the height follows the content)
+    let stageW = 0;
+    new ResizeObserver(() => {
+      if (stage.clientWidth === stageW) return;
+      stageW = stage.clientWidth;
+      layout();
+    }).observe(stage);
     [img, cmpLight, cmpDark].forEach((i) => i.addEventListener("load", () => layout()));
 
     // Viewer
@@ -327,6 +332,9 @@ const hasDark = data.some((d) => d.dark);
       const want = useDark ? it.dark! : it.light;
       if (img.getAttribute("src") !== want) img.src = want;
       img.alt = it.caption;
+      // The focused capture hands its focus over when compare shows or hides it
+      const fromMain = shown && document.activeElement === mainBtn;
+      const fromCmp = !shown && cmpBox.contains(document.activeElement);
       cmpBox.hidden = !shown;
       mainBtn.hidden = shown;
       dialog.classList.toggle("comparing", shown);
@@ -366,6 +374,8 @@ const hasDark = data.some((d) => d.dark);
       });
       dialog.classList.toggle("single", list.length < 2);
       layout();
+      const target = fromMain ? cmpBox.querySelector<HTMLButtonElement>(".v-zoom")! : fromCmp ? mainBtn : null;
+      if (target) (target.disabled ? closeBtn : target).focus();
       // Warm the neighbours
       for (const d of [-1, 1]) {
         const n = items[list[(pos + d + list.length) % list.length]];
@@ -627,7 +637,7 @@ const hasDark = data.some((d) => d.dark);
   /* Viewer, near the top of the viewport */
   .viewer {
     margin: 16px auto auto; padding: 0;
-    width: min(1100px, calc(100vw - 24px)); height: min(calc(100dvh - 32px), 980px); max-height: none;
+    width: min(1100px, calc(100vw - 24px)); max-height: min(calc(100dvh - 32px), 980px);
     border: 1px solid var(--divider-color); border-radius: 16px;
     background: var(--card-background-color); color: var(--primary-text-color);
     box-shadow: 0 24px 64px -16px rgba(0,0,0,.45);
@@ -662,7 +672,7 @@ const hasDark = data.some((d) => d.dark);
   .v-cmp.on { background: color-mix(in srgb, var(--c) 16%, transparent); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); }
   /* The stage takes the page colour of the variant shown, like the captures' own background */
   .v-stage {
-    flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain;
+    flex: 0 1 auto; min-height: min(36vh, 320px); overflow: auto; overscroll-behavior: contain;
     padding: 24px 72px; background: #e8eaed;
     display: flex; transition: background-color .25s ease;
   }
@@ -735,7 +745,7 @@ const hasDark = data.some((d) => d.dark);
     .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 10px; }
     /* Phones: the viewer takes the whole screen */
     .viewer { margin: 0; width: 100vw; max-width: none; height: 100dvh; max-height: none; border: 0; border-radius: 0; }
-    .v-stage { padding: 12px; min-height: 0; }
+    .v-stage { padding: 12px; min-height: 0; flex: 1 1 auto; }
     .v-theme button { height: 40px; padding: 0 10px; }
     .cmp { padding: 38px 8px 8px; }
     .cmp-tag { left: 8px; }
