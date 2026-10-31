@@ -165,3 +165,6 @@ details.fold[open] > summary .chev { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Hidden wins over the display of every component (scoped styles would otherwise show filtered items). */
+[hidden] { display: none !important; }
