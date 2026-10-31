@@ -2,16 +2,23 @@
 import { caption, shotUrl, type Project, type Shot } from "../lib/projects";
 import { imageSize } from "../lib/imgsize";
 import { withTwin } from "../lib/twins";
+import { CARD_SIZES, CARD_WIDTHS, HERO_SIZES, HERO_WIDTHS, optimizedSet } from "../lib/optimize";
 
 interface Props {
   project: Project;
   shot: Shot;
+  /** Above the fold (project hero): the visible variant loads right away, with a high priority. */
   eager?: boolean;
+  /** `sizes` of the images; defaults to the hero's when `eager`, to a card / tile's otherwise. */
+  sizes?: string;
+  /** Widths generated for the `srcset`; same defaults. */
+  widths?: number[];
 }
 const { project, eager = false } = Astro.props;
+const sizes = Astro.props.sizes ?? (eager ? HERO_SIZES : CARD_SIZES);
+const widths = Astro.props.widths ?? (eager ? HERO_WIDTHS : CARD_WIDTHS);
 const shot = await withTwin(project, Astro.props.shot);
 const alt = `${project.title}: ${caption(shot)}`;
-const loading = eager ? "eager" : "lazy";
 const light = shotUrl(project, shot.src);
 const dark = shot.dark ? shotUrl(project, shot.dark) : undefined;
 // Captures are taken at 2x: the size attributes keep their space reserved while they load.
@@ -20,12 +27,52 @@ const width = size?.w;
 const height = size?.h;
 // Portrait captures (much taller than wide) get framed from the top in fixed-size frames.
 const tall = size ? size.h > size.w * 1.15 : false;
+const [l, d] = await Promise.all([optimizedSet(light, { widths }), dark ? optimizedSet(dark, { widths }) : undefined]);
+// Without a twin the only image is the visible one. With a twin, which one shows depends on the theme, only known
+// in the browser: both start lazy (a lazy image that isn't displayed is never fetched), and the script below
+// promotes the displayed one when `eager`.
+const solo = eager && !dark;
 ---
 
 <span class:list={["shot", { "has-dark": !!dark }]}>
-  <img class="shot-light" src={light} alt={alt} loading={loading} decoding="async" width={width} height={height} data-tall={tall ? "" : undefined} />
-  {dark && <img class="shot-dark" src={dark} alt={alt} loading={loading} decoding="async" width={width} height={height} data-tall={tall ? "" : undefined} />}
+  <img
+    class="shot-light"
+    src={l.src}
+    srcset={l.srcset}
+    sizes={l.srcset ? sizes : undefined}
+    alt={alt}
+    loading={solo ? "eager" : "lazy"}
+    fetchpriority={solo ? "high" : undefined}
+    decoding="async"
+    width={width}
+    height={height}
+    data-tall={tall ? "" : undefined}
+  />
+  {
+    d && (
+      <img
+        class="shot-dark"
+        src={d.src}
+        srcset={d.srcset}
+        sizes={d.srcset ? sizes : undefined}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        width={width}
+        height={height}
+        data-tall={tall ? "" : undefined}
+      />
+    )
+  }
 </span>
+{
+  eager && dark && (
+    <script is:inline>
+      for (const i of document.currentScript.previousElementSibling.querySelectorAll("img"))
+        if (getComputedStyle(i).display !== "none") { i.fetchPriority = "high"; i.loading = "eager"; }
+    </script>
+  )
+}
 
 <style>
   .shot { display: contents; }
