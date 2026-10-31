@@ -256,10 +256,14 @@ projects:
   - Quiet hours, presence and iOS / Android interruption levels, with Snooze and Got it buttons
   - Air conditioners, fans and purifiers controlled automatically, quieter at night
   - Adaptive lighting by time of day, with a quiet morning and nap slots per room
+  - Lights on presence, with time slots, night lights and a color per slot
   - Outdoor places and air quality index to suggest opening or closing the windows
-  - Setup panel in the sidebar, with room discovery
+  - Setup panel in the sidebar, with room discovery, a day schedule and the YAML of the setup
+  - Activity log in the panel and in an activity card for the dashboard
   homeassistant: 2024.12.0
-  keywords: "comfort notifications alerts co2 humidity temperature noise windows lights lighting adaptive nap night"
+  keywords: "comfort notifications alerts co2 humidity temperature noise windows lights lighting adaptive presence motion nap night activity log"
+  cardTypes:
+  - smart-comfort-activity-card
   hero:
     src: panel-overview.png
     dark: panel-overview-dark.png
@@ -286,6 +290,18 @@ projects:
     group: Panel
   - src: panel-naps.png
     caption: Quiet morning and naps of a bedroom
+    group: Panel
+  - src: panel-presence.png
+    caption: Lights on presence
+    group: Panel
+  - src: panel-schedule.png
+    caption: Schedule
+    group: Panel
+  - src: panel-activity.png
+    caption: Activity
+    group: Panel
+  - src: panel-yaml.png
+    caption: YAML
     group: Panel
 - slug: ha-room-card
   title: Room Cards
@@ -1485,6 +1501,7 @@ projects:
 - slug: ha-integration-watchdog
   title: Integration Watchdog
   kind: integration
+  withCard: true
   category: maintenance
   icon: mdiShieldSyncOutline
   accent: '#41bdf5'
@@ -1496,8 +1513,21 @@ projects:
   - Never during startup, no reload loop
   - Notification for each reload
   - Ignored integrations
+  - Card with the overall status, the unavailable integrations and the recent reloads
   homeassistant: 2024.12.0
-  keywords: "integrations unavailable reload watchdog"
+  keywords: "integrations unavailable reload watchdog card history"
+  cardTypes:
+  - integration-watchdog-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Unavailable integrations
+    group: Card
+  screenshots:
+  - src: card-ok.png
+    dark: card-ok-dark.png
+    caption: Everything available
+    group: Card
   worksWith:
   - slug: ha-system-monitor-card
     why: "Shows the unavailable integrations and reloads on the dashboard"
