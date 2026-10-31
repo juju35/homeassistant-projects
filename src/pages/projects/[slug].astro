@@ -13,6 +13,7 @@ import {
   categoryOf,
   type Project,
 } from "../../lib/projects";
+import { latestRelease, formatDate } from "../../lib/releases";
 
 export function getStaticPaths() {
   return projects.map((project, i) => ({
@@ -40,6 +41,14 @@ const yaml = cardTypes.length ? `type: custom:${cardTypes[0]}` : "";
 const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + (project.animations?.length ?? 0);
 // The gallery is left out when its only capture is the hero
 const hasGallery = shotCount > 1;
+const release = await latestRelease(project);
+// Projects this one works with, declared on either side
+const related = projects.flatMap((p) => {
+  if (p.slug === project.slug) return [];
+  const mine = project.worksWith?.find((w) => w.slug === p.slug);
+  const theirs = p.worksWith?.find((w) => w.slug === project.slug);
+  return mine || theirs ? [{ p, why: mine?.why ?? `${p.title} works with ${project.title}` }] : [];
+});
 ---
 
 <Base title={project.title} description={project.tagline}>
@@ -55,6 +64,11 @@ const hasGallery = shotCount > 1;
           <div class="sub">{kindLabel(project)} · {category.label}</div>
         </div>
         <div class="chips">
+          {release && (
+            <a class="chip neutral rel" href={release.url} target="_blank" rel="noopener" title="Latest release and its changelog">
+              <Icon name="mdiTagOutline" /> {release.tag} · {formatDate(release.date)}
+            </a>
+          )}
           <span class="chip neutral"><Icon name="mdiHomeAssistant" /> HA {project.homeassistant}+</span>
           <span class="chip" style={accent}><Icon name="mdiStorefrontOutline" /> HACS</span>
         </div>
@@ -122,6 +136,28 @@ const hasGallery = shotCount > 1;
             }
           </ul>
         </section>
+
+        {
+          related.length > 0 && (
+            <section class="ha-card pad">
+              <h2 class="section-title"><Icon name="mdiPuzzleOutline" /> Works with</h2>
+              <ul class="related">
+                {related.map(({ p, why }) => (
+                  <li>
+                    <a class="rel-item tile" href={`${base}projects/${p.slug}/`}>
+                      <span class="logo sm" style={`--c:${p.accent}`}><Icon name={p.icon} /></span>
+                      <span class="titles">
+                        <span class="name">{p.title}</span>
+                        <span class="sub">{why}</span>
+                      </span>
+                      <Icon name="mdiChevronRight" class="arrow" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
 
         {
           cardTypes.length > 0 && (
@@ -334,6 +370,15 @@ const hasGallery = shotCount > 1;
     background: color-mix(in srgb, var(--c) 16%, transparent); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
   }
   .check svg { width: 14px; height: 14px; }
+
+  /* Works with */
+  .related { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .rel-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; transition: background-color .2s ease; }
+  .rel-item:hover { background: color-mix(in srgb, var(--secondary-text-color) 18%, transparent); }
+  .rel-item .titles { display: flex; flex-direction: column; min-width: 0; }
+  .rel-item .name { font-size: 14px; }
+  .rel-item .arrow { margin-left: auto; }
+  .chip.rel:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
 
   /* Cards */
   .types { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }

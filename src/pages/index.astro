@@ -61,7 +61,8 @@ const groups = categories
     </div>
     <label class="search tile">
       <Icon name="mdiMagnify" />
-      <input type="search" id="q" placeholder="Search a card or an integration" autocomplete="off" />
+      <input type="search" id="q" placeholder="Search a card or an integration" autocomplete="off" aria-label="Search a card or an integration" />
+      <kbd class="kbd" aria-hidden="true">/</kbd>
     </label>
   </section>
 
@@ -111,6 +112,11 @@ const groups = categories
         any ||= !!shown;
       });
       document.getElementById("empty").hidden = any;
+      // Shareable: ?kind=card&q=nas (replaceState, so typing doesn't flood the history)
+      const url = new URL(location.href);
+      kind === "all" ? url.searchParams.delete("kind") : url.searchParams.set("kind", kind);
+      term ? url.searchParams.set("q", q.value.trim()) : url.searchParams.delete("q");
+      history.replaceState(null, "", url);
       const label = { card: "cards", integration: "integrations" }[kind];
       document.getElementById("empty-text").textContent =
         `No ${label ?? "project"} ${term ? `matches “${q.value.trim()}”` : "here"}.`;
@@ -130,6 +136,22 @@ const groups = categories
       }),
     );
     q.addEventListener("input", apply);
+    // Restore the filters from the URL
+    const params = new URLSearchParams(location.search);
+    const k = params.get("kind");
+    if (params.get("q")) q.value = params.get("q");
+    if (k === "card" || k === "integration") document.querySelector(`.seg[data-filter="${k}"]`).click();
+    else if (q.value) apply();
+    // "/" focuses the search, Escape clears it
+    addEventListener("keydown", (e) => {
+      if (e.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName ?? "")) {
+        e.preventDefault();
+        q.focus();
+      }
+    });
+    q.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && q.value) { q.value = ""; apply(); }
+    });
     // Divider under the filters once they stick under the top bar
     const bar = document.querySelector(".sticky");
     const onScroll = () => bar.classList.toggle("stuck", bar.getBoundingClientRect().top <= 62);
@@ -185,6 +207,12 @@ const groups = categories
   .search svg { width: 20px; height: 20px; flex: none; }
   .search input { all: unset; flex: 1; min-width: 0; font-size: 14px; color: var(--primary-text-color); }
   .search:focus-within { border-color: var(--primary-color); }
+  .kbd {
+    flex: none; font: 500 11px/1 var(--font); padding: 3px 7px; border-radius: 6px;
+    color: var(--secondary-text-color); border: 1px solid var(--divider-color);
+  }
+  .search:focus-within .kbd { display: none; }
+  @media (hover: none) { .kbd { display: none; } }
 
   .jump { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; }
   .jump::-webkit-scrollbar { display: none; }

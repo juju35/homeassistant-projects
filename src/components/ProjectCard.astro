@@ -2,15 +2,17 @@
 import Icon from "./Icon.astro";
 import Shot from "./Shot.astro";
 import { kindLabel, type Project } from "../lib/projects";
+import { latestRelease } from "../lib/releases";
 
 interface Props {
   project: Project;
 }
 const { project: p } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const search = [p.title, p.slug, p.tagline, ...(p.cardTypes ?? [])].join(" ").toLowerCase();
+const search = [p.title, p.slug, p.tagline, p.summary, ...p.highlights, ...(p.cardTypes ?? [])].join(" ").toLowerCase();
 const shots = (p.screenshots?.length ?? 0) + (p.hero ? 1 : 0);
 const anims = p.animations?.length ?? 0;
+const release = await latestRelease(p);
 ---
 
 <a
@@ -41,6 +43,7 @@ const anims = p.animations?.length ?? 0;
   <div class="meta">
     {anims > 0 && <span class="chip" style={`--c:${p.accent}`}><Icon name="mdiAnimationPlay" />{anims} animation{anims > 1 ? "s" : ""}</span>}
     {shots > 0 && <span class="chip neutral"><Icon name="mdiImageMultiple" />{shots}</span>}
+    {release && <span class="chip neutral" title="Latest release">{release.tag}</span>}
     <span class="chip neutral">HA {p.homeassistant}+</span>
   </div>
 </a>

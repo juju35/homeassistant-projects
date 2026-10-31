@@ -1000,6 +1000,11 @@ projects:
   - HACS updates and integration watchdog sections
   - Network rates per interface
   homeassistant: 2024.8.0
+  worksWith:
+  - slug: ha-hacs-refresh
+    why: "Powers the Check for updates button of the HACS section"
+  - slug: ha-integration-watchdog
+    why: "Fills the Unavailable integrations section"
   cardTypes:
   - system-monitor-card
   - system-monitor-mini-card
@@ -1135,6 +1140,9 @@ projects:
   - Action buttons with a confirmation tap
   - Lease section and official vehicle picture
   homeassistant: 2024.8.0
+  worksWith:
+  - slug: ha-renault-picture
+    why: "Shows the official MyRenault photo of your car on the card"
   cardTypes:
   - renault-card
   - renault-map-card
@@ -1172,6 +1180,9 @@ projects:
   - Picture shown as the entity thumbnail
   - No credentials and no network calls
   homeassistant: 2025.8.0
+  worksWith:
+  - slug: ha-renault-card
+    why: "Its picture is shown by the Renault Card"
 - slug: ha-vehicle-consumption
   title: Vehicle Consumption
   kind: integration
@@ -1190,6 +1201,9 @@ projects:
   - Cost of the month and cost per km, with prices from a sensor or fixed
   - Card with gauges, monthly chart and recent trips, refuels and charges
   homeassistant: 2024.12.0
+  worksWith:
+  - slug: ha-carburants-france
+    why: "A station price sensor for the fuel cost"
   cardTypes:
   - vehicle-consumption-card
   hero:
@@ -1234,6 +1248,9 @@ projects:
   - 42 French networks' logos built in
   - Card and map card included
   homeassistant: 2024.12.0
+  worksWith:
+  - slug: ha-vehicle-consumption
+    why: "Uses your station prices to compute the cost per km"
   cardTypes:
   - carburants-france-card
   - carburants-france-map-card
@@ -1432,6 +1449,9 @@ projects:
   - Automatic check at your interval
   - Status sensor with progress and failures
   homeassistant: 2024.12.0
+  worksWith:
+  - slug: ha-system-monitor-card
+    why: "Its HACS section runs the check from the dashboard"
 - slug: ha-integration-watchdog
   title: Integration Watchdog
   kind: integration
@@ -1447,3 +1467,6 @@ projects:
   - Notification for each reload
   - Ignored integrations
   homeassistant: 2024.12.0
+  worksWith:
+  - slug: ha-system-monitor-card
+    why: "Shows the unavailable integrations and reloads on the dashboard"
