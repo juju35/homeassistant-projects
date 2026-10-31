@@ -143,10 +143,14 @@ const iconFor = (t: string) => {
   .md :global(thead th:last-child) { border-radius: 0 8px 8px 0; }
   .md :global(td) { padding: 8px 12px; border-bottom: 1px solid var(--divider-color); vertical-align: top; }
   .md :global(tbody tr:last-child td) { border-bottom: 0; }
-  .md :global(td:first-child code) { color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+  .md :global(td:first-child code) { color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); white-space: nowrap; }
+  .md :global(td) { min-width: 9ch; }
+  .md :global(td:last-child) { min-width: 22ch; }
 
   @media (max-width: 600px) {
     .doc { padding: 0 14px; }
-    .md :global(:not(pre) > code) { white-space: normal; word-break: break-word; }
+    .md :global(:not(pre) > code) { white-space: normal; overflow-wrap: anywhere; }
+    .md :global(td:first-child code) { white-space: nowrap; }
+    .md :global(table) { mask-image: linear-gradient(90deg, #000 88%, transparent); }
   }
 </style>
