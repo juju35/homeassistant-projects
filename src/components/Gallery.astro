@@ -21,7 +21,9 @@ const stills: Item[] = await Promise.all(
       return { shot, group: shot.group || "Screenshots", anim: false };
     }),
 );
-const anims: Item[] = (project.animations ?? []).map((shot) => ({ shot, group: "Animations", anim: true }));
+const anims: Item[] = await Promise.all(
+  (project.animations ?? []).map(async (s) => ({ shot: await withTwin(project, s), group: "Animations", anim: true })),
+);
 const items = [...stills, ...anims];
 
 const groups: { name: string; count: number; anim: boolean }[] = [];
