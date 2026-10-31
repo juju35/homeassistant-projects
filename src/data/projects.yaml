@@ -1,5 +1,6 @@
 # Source of the site: one entry per Home Assistant project.
 # Screenshot paths are relative to the screenshots/ folder of each repository (main branch).
+# group: the tab a screenshot is shown under on the project page (one card or variant per tab).
 categories:
 - id: climate
   label: Climate & weather
@@ -48,34 +49,52 @@ projects:
     src: card.png
     dark: card-dark.png
     caption: Weather
+    group: Card
   screenshots:
   - src: storm.png
     dark: storm-dark.png
     caption: Storm
-  - src: mini.png
-    dark: mini-dark.png
-    caption: Mini
+    group: Card
   - src: conditions.png
     dark: conditions-dark.png
     caption: Conditions
+    group: Card
   - src: night.png
     dark: night-dark.png
     caption: Night
+    group: Card
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Default view
+    group: Mini card
   - src: popup.png
     dark: popup-dark.png
+    group: Full screen
+    caption: Desktop
   - src: popup-phone.png
+    group: Full screen
+    caption: Phone
   animations:
   - src: scenes.gif
     caption: Animated scenes
   - src: scene-sunny.gif
+    caption: Sunny
   - src: scene-windy.gif
+    caption: Windy
   - src: scene-pouring.gif
+    caption: Pouring
   - src: scene-snowy.gif
+    caption: Snowy
   - src: scene-lightning-rainy.gif
+    caption: Lightning rainy
   - src: scene-lightning-rainy-night.gif
+    caption: Lightning rainy night
   - src: scene-clear-night.gif
+    caption: Clear night
   - src: scene-partlycloudy-night.gif
+    caption: Partly cloudy night
   - src: scene-rainy-night.gif
+    caption: Rainy night
 - slug: ha-uv-card
   title: UV Index Card
   kind: card
@@ -96,11 +115,14 @@ projects:
     src: card.png
     dark: card-dark.png
     caption: UV Index Card
+    group: Card
   screenshots:
   - src: card-vertical.png
     caption: Vertical
+    group: Card
   - src: card-unavailable.png
     caption: Unavailable
+    group: Card
   animations:
   - src: uv-low.gif
     caption: Low
@@ -135,60 +157,87 @@ projects:
     src: overview-all.png
     dark: overview-all-dark.png
     caption: Overview
+    group: Overview
   screenshots:
+  - src: overview-active.png
+    dark: overview-active-dark.png
+    group: Overview
+    caption: Active
+  - src: overview-area.png
+    dark: overview-area-dark.png
+    group: Overview
+    caption: Area
+  - src: overview-details.png
+    dark: overview-details-dark.png
+    group: Overview
+    caption: Details
   - src: purifier-card.png
     dark: purifier-card-dark.png
     caption: Air purifier
-  - src: fan-card.png
-    dark: fan-card-dark.png
-    caption: Fan
-  - src: aircon-card.png
-    dark: aircon-card-dark.png
-    caption: Air conditioner
+    group: Air purifier
   - src: purifier-mini.png
     dark: purifier-mini-dark.png
     caption: Air purifier mini
+    group: Air purifier
+  - src: purifier-alert.png
+    dark: purifier-alert-dark.png
+    group: Air purifier
+    caption: Alert
+  - src: purifier-round.png
+    dark: purifier-round-dark.png
+    group: Air purifier
+    caption: Round
+  - src: purifier-box.png
+    dark: purifier-box-dark.png
+    group: Air purifier
+    caption: Box
+  - src: purifier-dyson.png
+    dark: purifier-dyson-dark.png
+    group: Air purifier
+    caption: Dyson
+  - src: fan-card.png
+    dark: fan-card-dark.png
+    caption: Fan
+    group: Fan
   - src: fan-mini.png
     dark: fan-mini-dark.png
-    caption: Fan mini
+    caption: Mini card
+    group: Fan
+  - src: aircon-card.png
+    dark: aircon-card-dark.png
+    caption: Air conditioner
+    group: Air conditioner
   - src: aircon-mini.png
     dark: aircon-mini-dark.png
     caption: Air conditioner mini
-  - src: overview-active.png
-    dark: overview-active-dark.png
-  - src: overview-area.png
-    dark: overview-area-dark.png
-  - src: overview-details.png
-    dark: overview-details-dark.png
-  - src: purifier-alert.png
-    dark: purifier-alert-dark.png
-  - src: purifier-round.png
-    dark: purifier-round-dark.png
-  - src: purifier-box.png
-    dark: purifier-box-dark.png
-  - src: purifier-dyson.png
-    dark: purifier-dyson-dark.png
+    group: Air conditioner
   - src: aircon-heat.png
     dark: aircon-heat-dark.png
+    group: Air conditioner
+    caption: Heat
   - src: aircon-portable.png
     dark: aircon-portable-dark.png
+    group: Air conditioner
+    caption: Portable
   - src: aircon-window.png
     dark: aircon-window-dark.png
+    group: Air conditioner
+    caption: Window
   animations:
   - src: purifier.gif
-    caption: air purifier animation
+    caption: Air purifier
   - src: purifier-dyson.gif
-    caption: Dyson bladeless purifier animation
+    caption: Dyson bladeless purifier
   - src: fan.gif
-    caption: fan animation
+    caption: Fan
   - src: aircon.gif
-    caption: air conditioner animation
+    caption: Air conditioner
   - src: aircon-heat.gif
-    caption: air conditioner heating animation
+    caption: Air conditioner heating
   - src: aircon-dry.gif
-    caption: air conditioner drying animation
+    caption: Air conditioner drying
   - src: overview.gif
-    caption: overview animation
+    caption: Overview
 - slug: ha-smart-comfort
   title: Smart Comfort
   kind: integration
@@ -209,18 +258,24 @@ projects:
   hero:
     src: panel-overview.png
     dark: panel-overview-dark.png
-    caption: Overview of the Smart Comfort panel
+    caption: Overview
+    group: Panel
   screenshots:
   - src: panel-start.png
-    caption: Discover offered in the overview while nothing is set up
+    caption: Getting started
+    group: Panel
   - src: panel-discover.png
-    caption: Rooms found by Discover, before saving
+    caption: Rooms found by Discover
+    group: Panel
   - src: panel-room.png
-    caption: A room in the Smart Comfort panel
+    caption: A room
+    group: Panel
   - src: panel-outdoors.png
-    caption: The outdoor places, below the rooms
+    caption: Outdoor places
+    group: Panel
   - src: panel-alerts.png
-    caption: Alert settings in the Smart Comfort panel
+    caption: Alert settings
+    group: Panel
 - slug: ha-room-card
   title: Room Cards
   kind: card
@@ -247,64 +302,84 @@ projects:
     src: overview-all.png
     dark: overview-all-dark.png
     caption: Overview
+    group: Overview
   screenshots:
-  - src: sensors-open.png
-    dark: sensors-open-dark.png
-    caption: Sensors
-  - src: lights-on.png
-    dark: lights-on-dark.png
-    caption: Lights
-  - src: switch-on.png
-    dark: switch-on-dark.png
-    caption: Plugs
-  - src: environment-stuffy.png
-    dark: environment-stuffy-dark.png
-    caption: Environment
   - src: overview-active.png
     dark: overview-active-dark.png
     caption: Active rooms
+    group: Overview
   - src: overview-details.png
     dark: overview-details-dark.png
     caption: Room details
+    group: Overview
+  - src: sensors-open.png
+    dark: sensors-open-dark.png
+    caption: Sensors
+    group: Sensors
   - src: sensors-leak.png
     dark: sensors-leak-dark.png
     caption: Water leak
+    group: Sensors
   - src: sensors-mini-open.png
     dark: sensors-mini-open-dark.png
     caption: Mini a door open
+    group: Sensors
   - src: sensors-mini-leak.png
     dark: sensors-mini-leak-dark.png
     caption: Mini water leak
+    group: Sensors
   - src: sensors-mini-zoom.png
     dark: sensors-mini-zoom-dark.png
     caption: Mini zoomed in
+    group: Sensors
+  - src: lights-on.png
+    dark: lights-on-dark.png
+    caption: Lights
+    group: Lights
   - src: lights-off.png
     dark: lights-off-dark.png
     caption: All off
+    group: Lights
+  - src: switch-on.png
+    dark: switch-on-dark.png
+    caption: Plugs
+    group: Plugs
   - src: switch-off.png
     dark: switch-off-dark.png
     caption: All off
+    group: Plugs
+  - src: environment-stuffy.png
+    dark: environment-stuffy-dark.png
+    caption: Environment
+    group: Environment
   - src: environment-comfort.png
     dark: environment-comfort-dark.png
     caption: Comfortable
+    group: Environment
   - src: environment-mini-comfort.png
     dark: environment-mini-comfort-dark.png
     caption: Mini comfortable
+    group: Environment
   - src: environment-mini-stuffy.png
     dark: environment-mini-stuffy-dark.png
     caption: Mini stuffy room
+    group: Environment
   - src: environment-mini-zoom.png
     dark: environment-mini-zoom-dark.png
     caption: Mini zoomed in
+    group: Environment
   - src: environment-overview-check.png
     dark: environment-overview-check-dark.png
     caption: Rooms to check
+    group: Environment
   - src: environment-overview-all.png
     dark: environment-overview-all-dark.png
     caption: Every room
+    group: Environment
   - src: environment-overview-details.png
     dark: environment-overview-details-dark.png
     caption: Room details
+    group: Environment
   animations:
   - src: sensors-blink.gif
     caption: Open sensors blinking
@@ -334,15 +409,17 @@ projects:
     src: card.png
     dark: card-dark.png
     caption: ZLinky card
+    group: Card
   screenshots:
   - src: mini.png
     dark: mini-dark.png
     caption: ZLinky mini card
+    group: Mini card
   animations:
   - src: live.gif
-    caption: ZLinky card, live meter animation at normal load
+    caption: ZLinky card, live meter at normal load
   - src: live-high.gif
-    caption: ZLinky card, live meter animation at high load
+    caption: ZLinky card, live meter at high load
 - slug: ha-battery-monitor
   title: Battery Monitor
   kind: integration
@@ -365,20 +442,28 @@ projects:
     src: card.png
     dark: card-dark.png
     caption: Battery Monitor card
+    group: Card
   screenshots:
   - src: card-low.png
     dark: card-low-dark.png
-    caption: Battery Monitor card, low batteries only
+    caption: Low batteries only
+    group: Card
   - src: popup.png
     dark: popup-dark.png
-    caption: full screen by room
+    caption: Full screen by room
+    group: Full screen
+  - src: popup-type.png
+    caption: Full screen by battery type
+    group: Full screen
   - src: popup-phone.png
-    caption: phone by room
+    caption: Phone by room
+    group: Full screen
   - src: popup-phone-type.png
-    caption: phone by type
+    caption: Phone by type
+    group: Full screen
   animations:
   - src: due.gif
-    caption: due battery animation
+    caption: Due battery
 - slug: ha-presence-card
   title: Presence Card
   kind: card
@@ -400,14 +485,17 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: presence-card
+    caption: Default view
+    group: Card
   screenshots:
   - src: mini-card.png
     dark: mini-card-dark.png
-    caption: presence-mini-card
+    caption: Default view
+    group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
-    caption: mini card zoomed in
+    caption: Mini card zoomed in
+    group: Mini card
 - slug: ha-alarm-card
   title: Alarm Card
   kind: card
@@ -429,24 +517,30 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: alarm-card
+    caption: Default view
+    group: Card
   screenshots:
+  - src: card-armed.png
+    caption: Armed
+    group: Card
+  - src: card-triggered.png
+    caption: Triggered
+    group: Card
+  - src: card-code.png
+    caption: Code pad
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
-    caption: alarm-mini-card
-  - src: card-armed.png
-    caption: card armed
-  - src: card-triggered.png
-    caption: card triggered
-  - src: card-code.png
-    caption: code pad
+    caption: Default view
+    group: Mini card
   - src: mini-card-zoom.png
-    caption: mini card zoomed in
+    caption: Mini card zoomed in
+    group: Mini card
   animations:
   - src: triggered.gif
-    caption: shield flashing while triggered
+    caption: Shield flashing while triggered
   - src: arming.gif
-    caption: shield pulsing while arming
+    caption: Shield pulsing while arming
 - slug: ha-smartlock-card
   title: Smart Lock Card
   kind: card
@@ -468,38 +562,43 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: smartlock-card
+    caption: Default view
+    group: Card
   screenshots:
+  - src: card-code.png
+    caption: Code
+    group: Card
+  - src: card-jammed.png
+    caption: Jammed
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
-    caption: smartlock-mini-card
-  - src: card-code.png
-    caption: code
-  - src: card-jammed.png
-    caption: jammed
+    caption: Default view
+    group: Mini card
   - src: mini-card-zoom.png
-    caption: mini card zoomed in
+    caption: Mini card zoomed in
+    group: Mini card
   animations:
   - src: unlocking.gif
-    caption: unlocking animation
+    caption: Unlocking
   - src: locking.gif
-    caption: locking animation
+    caption: Locking
   - src: garage-unlocking.gif
-    caption: garage unlocking animation
+    caption: Garage unlocking
   - src: jammed.gif
-    caption: jammed animation
+    caption: Jammed
   - src: opening.gif
-    caption: opening animation
+    caption: Opening
   - src: compact-unlocking.gif
-    caption: compact cylinder unlocking animation
+    caption: Compact cylinder unlocking
   - src: keypad-unlocking.gif
-    caption: keypad deadbolt unlocking animation
+    caption: Keypad deadbolt unlocking
   - src: lever-unlocking.gif
-    caption: fingerprint lever unlocking animation
+    caption: Fingerprint lever unlocking
   - src: reader-unlocking.gif
-    caption: access reader unlocking animation
+    caption: Access reader unlocking
   - src: padlock-unlocking.gif
-    caption: padlock unlocking animation
+    caption: Padlock unlocking
 - slug: ha-home-camera-card
   title: Home Camera Card
   kind: card
@@ -521,18 +620,22 @@ projects:
     src: card.png
     dark: card-dark.png
     caption: Camera card
+    group: Card
   screenshots:
   - src: card-single.png
     caption: Camera card with a single camera
+    group: Card
   - src: card-hidden.png
     caption: Camera card with every camera hidden, dark theme
+    group: Card
   - src: card-fullscreen.png
     caption: Fullscreen camera with the round pan and tilt pad
+    group: Card
   animations:
   - src: live.gif
-    caption: live
+    caption: Live
   - src: loading.gif
-    caption: loading
+    caption: Loading
 - slug: ha-home-connect-card
   title: Home Connect Card
   kind: card
@@ -554,40 +657,48 @@ projects:
     src: dishwasher.png
     dark: dishwasher-dark.png
     caption: Dishwasher card
+    group: Dishwasher
   screenshots:
+  - src: dishwasher-options.png
+    caption: Dishwasher with program options
+    group: Dishwasher
+  - src: dishwasher-mini.png
+    dark: dishwasher-mini-dark.png
+    caption: Dishwasher mini card
+    group: Dishwasher
+  - src: dishwasher-open.png
+    caption: Dishwasher door open
+    group: Dishwasher
   - src: washer.png
     dark: washer-dark.png
     caption: Washing machine card
-  - src: dishwasher-options.png
-    caption: dishwasher with program options
+    group: Washing machine
   - src: washer-mini-zoom.png
-    caption: washer mini card unfolded
-  - src: dishwasher-mini.png
-    dark: dishwasher-mini-dark.png
-    caption: dishwasher mini card
+    caption: Washer mini card unfolded
+    group: Washing machine
   - src: washer-mini.png
-    caption: washer mini card
-  - src: dishwasher-open.png
-    caption: dishwasher door open
+    caption: Washer mini card
+    group: Washing machine
   - src: washer-open.png
-    caption: washer door open
+    caption: Washer door open
+    group: Washing machine
   animations:
   - src: dishwasher-running.gif
-    caption: dishwasher running
+    caption: Dishwasher running
   - src: washer-running.gif
-    caption: washing machine running
+    caption: Washing machine running
   - src: dishwasher-finished.gif
-    caption: dishwasher finished
+    caption: Dishwasher finished
   - src: washer-finished.gif
-    caption: washer finished
+    caption: Washer finished
   - src: dishwasher-paused.gif
-    caption: dishwasher paused
+    caption: Dishwasher paused
   - src: washer-paused.gif
-    caption: washer paused
+    caption: Washer paused
   - src: dishwasher-delayed.gif
-    caption: dishwasher delayed start
+    caption: Dishwasher delayed start
   - src: washer-delayed.gif
-    caption: washer delayed start
+    caption: Washer delayed start
 - slug: ha-vacuum-card
   title: Vacuum Card
   kind: card
@@ -609,82 +720,96 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: roborock card
+    caption: Roborock card
+    group: Card
   screenshots:
   - src: card-xiaomi.png
-    caption: xiaomi card
+    caption: Xiaomi card
+    group: Card
   - src: card-dreame.png
-    caption: dreame card
+    caption: Dreame card
+    group: Card
+  - src: card-ecovacs.png
+    caption: Ecovacs card
+    group: Card
+  - src: card-dyson.png
+    caption: Dyson card
+    group: Card
+  - src: card-irobot.png
+    caption: iRobot card
+    group: Card
+  - src: card-rooms.png
+    caption: Room selector
+    group: Card
+  - src: card-f25.png
+    caption: F25
+    group: Card
+  - src: card-braava.png
+    caption: Braava
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
-    caption: roborock mini card
+    caption: Roborock mini card
+    group: Mini card
   - src: mini-card-xiaomi.png
     dark: mini-card-xiaomi-dark.png
-    caption: xiaomi mini card
+    caption: Xiaomi mini card
+    group: Mini card
   - src: mini-card-dreame.png
-    caption: dreame mini card
-  - src: card-ecovacs.png
-    caption: ecovacs card
-  - src: card-dyson.png
-    caption: dyson card
-  - src: card-irobot.png
-    caption: irobot card
+    caption: Dreame mini card
+    group: Mini card
   - src: mini-card-ecovacs.png
     dark: mini-card-ecovacs-dark.png
-    caption: ecovacs mini card
+    caption: Ecovacs mini card
+    group: Mini card
   - src: mini-card-dyson.png
-    caption: dyson mini card
+    caption: Dyson mini card
+    group: Mini card
   - src: mini-card-irobot.png
     dark: mini-card-irobot-dark.png
-    caption: irobot mini card
+    caption: iRobot mini card
+    group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
-    caption: mini card zoomed in
-  - src: card-rooms.png
-    caption: room selector
-  - src: card-f25.png
-    caption: card f25
+    caption: Mini card zoomed in
+    group: Mini card
   - src: mini-card-f25.png
-    caption: mini card f25
-  - src: mini-card-dreame-light.png
-    caption: mini card dreame light
-  - src: mini-card-dyson-light.png
-    caption: mini card dyson light
-  - src: card-braava.png
-    caption: card braava
+    caption: F25
+    group: Mini card
   - src: mini-card-braava.png
-    caption: mini card braava
+    caption: Braava
+    group: Mini card
   animations:
   - src: cleaning.gif
-    caption: cleaning animation
+    caption: Cleaning
   - src: returning.gif
-    caption: returning animation
+    caption: Returning
   - src: mop-washing.gif
-    caption: mop washing animation
+    caption: Mop washing
   - src: mop-drying.gif
-    caption: mop drying animation
+    caption: Mop drying
   - src: f25-cleaning.gif
-    caption: F25 cleaning animation
+    caption: F25 cleaning
   - src: ecovacs-cleaning.gif
-    caption: ecovacs cleaning animation
+    caption: Ecovacs cleaning
   - src: ecovacs-returning.gif
-    caption: ecovacs returning animation
+    caption: Ecovacs returning
   - src: ecovacs-mop-washing.gif
-    caption: ecovacs mop washing animation
+    caption: Ecovacs mop washing
   - src: ecovacs-mop-drying.gif
-    caption: ecovacs mop drying animation
+    caption: Ecovacs mop drying
   - src: dyson-cleaning.gif
-    caption: dyson cleaning animation
+    caption: Dyson cleaning
   - src: dyson-returning.gif
-    caption: dyson returning animation
+    caption: Dyson returning
   - src: irobot-cleaning.gif
-    caption: irobot cleaning animation
+    caption: Irobot cleaning
   - src: irobot-returning.gif
-    caption: irobot returning animation
+    caption: Irobot returning
   - src: irobot-emptying.gif
-    caption: irobot emptying animation
+    caption: Irobot emptying
   - src: braava-mopping.gif
-    caption: braava mopping animation
+    caption: Braava mopping
 - slug: ha-printer-card
   title: Printer Card
   kind: card
@@ -707,25 +832,31 @@ projects:
     src: card.png
     dark: card-dark.png
     caption: Printer card
+    group: Card
   screenshots:
   - src: offline.png
     caption: Printer card, printer offline
+    group: Card
   - src: ipp.png
     caption: Printer card, IPP laser printer
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
     caption: Printer mini card
+    group: Mini card
   - src: mini-zoom.png
     dark: mini-zoom-dark.png
     caption: Printer mini card, full view
+    group: Mini card
   - src: mini-offline.png
     dark: mini-offline-dark.png
-    caption: mini card offline
+    caption: Mini card offline
+    group: Mini card
   animations:
   - src: printing.gif
-    caption: printer printing animation
+    caption: Printer printing
   - src: printing-mini.gif
-    caption: printer mini card printing animation
+    caption: Printer mini card printing
 - slug: ha-internet-box-card
   title: Internet Box Card
   kind: card
@@ -747,26 +878,32 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: internet-box-card
+    caption: Default view
+    group: Card
   screenshots:
-  - src: mini-card.png
-    dark: mini-card-dark.png
-    caption: internet-box-mini-card
   - src: card-livebox.png
     dark: card-livebox-dark.png
     caption: Livebox card
+    group: Card
   - src: card-sfr.png
     dark: card-sfr-dark.png
     caption: SFR Box card
+    group: Card
   - src: card-bbox.png
     dark: card-bbox-dark.png
     caption: Bbox card
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Default view
+    group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
-    caption: mini card, detail view
+    caption: Mini card, detail view
+    group: Mini card
   animations:
   - src: fan.gif
-    caption: fan
+    caption: Fan
 - slug: ha-nas-card
   title: NAS Card
   kind: card
@@ -788,27 +925,34 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: ugreen card
+    caption: Ugreen card
+    group: Card
   screenshots:
   - src: card-synology.png
     dark: card-synology-dark.png
-    caption: synology card
+    caption: Synology card
+    group: Card
   - src: card-qnap.png
     dark: card-qnap-dark.png
-    caption: qnap card
+    caption: Qnap card
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
-    caption: ugreen mini card
+    caption: Ugreen mini card
+    group: Mini card
   - src: mini-card-synology.png
-    caption: synology mini card
+    caption: Synology mini card
+    group: Mini card
   - src: mini-card-qnap.png
-    caption: qnap mini card
+    caption: Qnap mini card
+    group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
-    caption: mini card zoomed in
+    caption: Mini card zoomed in
+    group: Mini card
   animations:
   - src: fans.gif
-    caption: cooling fans animation
+    caption: Cooling fans
 - slug: ha-switch-card
   title: Network Switch Card
   kind: card
@@ -828,10 +972,12 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: card
+    caption: Default view
+    group: Card
   screenshots:
   - src: card-gs308t.png
     caption: GS308T
+    group: Card
 - slug: ha-system-monitor-card
   title: System Monitor Card
   kind: card
@@ -854,35 +1000,44 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: system-monitor-card
+    caption: Default view
+    group: Card
   screenshots:
-  - src: mini-card.png
-    dark: mini-card-dark.png
-    caption: system-monitor-mini-card
-  - src: status-card.png
-    dark: status-card-dark.png
-    caption: system-monitor-status-card
-  - src: mini-card-zoom.png
-    dark: mini-card-zoom-dark.png
-    caption: mini card zoomed in
-  - src: status-card-zoom.png
-    dark: status-card-zoom-dark.png
-    caption: status card zoomed in
   - src: card-hacs.png
     caption: HACS extensions
+    group: Card
   - src: card-watchdog.png
     caption: Unavailable integrations
+    group: Card
   - src: card-hacs-search.png
     caption: HACS search
+    group: Card
   - src: card-install.png
     caption: Install confirmation
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Default view
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Mini card zoomed in
+    group: Mini card
+  - src: status-card.png
+    dark: status-card-dark.png
+    caption: Default view
+    group: Status card
+  - src: status-card-zoom.png
+    dark: status-card-zoom-dark.png
+    caption: Status card zoomed in
+    group: Status card
   animations:
   - src: hacs-checking.gif
-    caption: HACS check animation
+    caption: HACS check
   - src: hacs-installing.gif
-    caption: Install all animation
+    caption: Install all
   - src: wd-checking.gif
-    caption: Watchdog check animation
+    caption: Watchdog check
 - slug: ha-dockhand-card
   title: Dockhand Card
   kind: card
@@ -904,23 +1059,27 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: dockhand-card
+    caption: Default view
+    group: Card
   screenshots:
+  - src: card-containers.png
+    caption: Containers
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
-    caption: dockhand-mini-card
+    caption: Default view
+    group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
-    caption: mini card zoomed in
-  - src: card-containers.png
-    caption: containers
+    caption: Mini card zoomed in
+    group: Mini card
   animations:
   - src: card-sections.gif
-    caption: sections folding and unfolding
+    caption: Sections folding and unfolding
   - src: card-gauges.gif
-    caption: gauges animating on a state change
+    caption: Gauges animating on a state change
   - src: mini-card-zoom.gif
-    caption: mini card switching to the full card and back
+    caption: Mini card switching to the full card and back
 - slug: ha-zoraxy
   title: Zoraxy
   kind: integration
@@ -943,14 +1102,17 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: zoraxy-card
+    caption: Default view
+    group: Card
   screenshots:
   - src: mini.png
     dark: mini-dark.png
-    caption: zoraxy-mini-card
+    caption: Default view
+    group: Mini card
   - src: mini-zoom.png
     dark: mini-zoom-dark.png
-    caption: mini zoomed
+    caption: Mini zoomed
+    group: Mini card
 - slug: ha-renault-card
   title: Renault Card
   kind: card
@@ -973,16 +1135,20 @@ projects:
     src: espace.png
     dark: espace-dark.png
     caption: Renault Espace card
+    group: Vehicle card
   screenshots:
   - src: captur.png
     dark: captur-dark.png
     caption: Renault Captur card
+    group: Vehicle card
   - src: lease.png
     dark: lease-dark.png
     caption: Lease tracking
+    group: Vehicle card
   - src: map.png
     dark: map-dark.png
-    caption: map card
+    caption: Map card
+    group: Map card
   animations:
   - src: lease.gif
     caption: Lease section unfolding and folding back
@@ -1023,16 +1189,21 @@ projects:
     src: card-fuel.png
     dark: card-fuel-dark.png
     caption: Fuel car
+    group: Card
   screenshots:
   - src: card-ev.png
     dark: card-ev-dark.png
     caption: Electric car
+    group: Card
   - src: card-hybrid.png
     caption: Plug-in hybrid
+    group: Card
   - src: card-sections.png
     caption: Sections
+    group: Card
   - src: popup.png
     caption: Add a refuel
+    group: Card
   animations:
   - src: driving.gif
     caption: Driving
@@ -1062,23 +1233,28 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: card
+    caption: Default view
+    group: Card
   screenshots:
   - src: card-all-fuels.png
     dark: card-all-fuels-dark.png
-    caption: card with every fuel
+    caption: Card with every fuel
+    group: Card
   - src: map.png
     dark: map-dark.png
-    caption: map card
+    caption: Map card
+    group: Map card
   - src: map-nearby.png
-    caption: stations around me
+    caption: Stations around me
+    group: Map card
   - src: map-search.png
-    caption: stations of a town
+    caption: Stations of a town
+    group: Map card
   animations:
   - src: refreshing.gif
-    caption: refresh animation
+    caption: Refresh
   - src: locate.gif
-    caption: locate animation
+    caption: Locate
 - slug: ha-calendar-card
   title: Calendar Card
   kind: card
@@ -1100,23 +1276,28 @@ projects:
     src: agenda.png
     dark: agenda-dark.png
     caption: Agenda card
+    group: Agenda
   screenshots:
+  - src: agenda-more.png
+    caption: Agenda with folded events
+    group: Agenda
+  - src: agenda-details.png
+    caption: Event details
+    group: Agenda
   - src: mini.png
     dark: mini-dark.png
-    caption: Mini card
-  - src: agenda-more.png
-    caption: agenda with folded events
-  - src: agenda-details.png
-    caption: event details
+    caption: Default view
+    group: Mini card
   - src: mini-zoom.png
-    caption: mini card unfolded
+    caption: Mini card unfolded
+    group: Mini card
   animations:
   - src: agenda-popup.gif
-    caption: event details popup
+    caption: Event details popup
   - src: agenda-more.gif
-    caption: folded events
+    caption: Folded events
   - src: mini-zoom.gif
-    caption: mini card unfolding
+    caption: Mini card unfolding
 - slug: ha-parcel
   title: Parcel
   kind: integration
@@ -1137,10 +1318,11 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: card
+    caption: Default view
+    group: Card
   animations:
   - src: refreshing.gif
-    caption: refresh animation
+    caption: Refresh
 - slug: ha-wifi-card
   title: Wi-Fi QR Card
   kind: card
@@ -1160,7 +1342,8 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: wifi-qr-card
+    caption: Default view
+    group: Card
 - slug: ha-wero-card
   title: Wero QR Card
   kind: card
@@ -1180,7 +1363,8 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: card
+    caption: Default view
+    group: Card
 - slug: ha-automation-monitor-card
   title: Automation Monitor Card
   kind: card
@@ -1202,25 +1386,31 @@ projects:
   hero:
     src: card.png
     dark: card-dark.png
-    caption: card
+    caption: Default view
+    group: Card
   screenshots:
   - src: card-open.png
-    caption: automation-monitor-card
+    caption: Open
+    group: Card
+  - src: card-ok.png
+    caption: Ok
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
-    caption: automation-monitor-mini-card
+    caption: Default view
+    group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
-    caption: mini card zoomed in
-  - src: card-ok.png
-    caption: card ok
+    caption: Mini card zoomed in
+    group: Mini card
   - src: mini-card-ok.png
-    caption: mini card ok
+    caption: Ok
+    group: Mini card
   animations:
   - src: refreshing.gif
-    caption: refresh animation
+    caption: Refresh
   - src: folding.gif
-    caption: fold animation
+    caption: Fold
 - slug: ha-hacs-refresh
   title: HACS Refresh
   kind: integration

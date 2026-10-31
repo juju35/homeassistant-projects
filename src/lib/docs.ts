@@ -61,6 +61,56 @@ const fixHtml = (html: string, slug: string) =>
     .replace(/(src|srcset)="([^"]+)"/g, (m, attr, url) => (isRelative(url) ? `${attr}="${raw(slug, url)}"` : m))
     .replace(/<a href="(https?:)/g, '<a target="_blank" rel="noopener" href="$1');
 
+// GitHub alerts: "> [!NOTE]" becomes a titled callout instead of showing the marker.
+const ALERTS: Record<string, string> = { note: "Note", tip: "Tip", important: "Important", warning: "Warning", caution: "Caution" };
+const alerts = (html: string) =>
+  html.replace(
+    /<blockquote>\s*<p>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(?:<br\s*\/?>)?\s*(<\/p>\s*)?/gi,
+    (_m, type: string, closed?: string) => {
+      const t = type.toLowerCase();
+      const head = `<blockquote class="alert alert-${t}">\n<p class="alert-title">${ALERTS[t]}</p>\n`;
+      return closed ? head : `${head}<p>`;
+    },
+  );
+
+// Screenshots of the repository: the page's gallery already shows them, so drop them from the docs,
+// then whatever they leave empty (paragraphs, links, image-only tables, "More screenshots" folds).
+const isEmpty = (inner: string) => !inner.replace(/<br\s*\/?>|&nbsp;|\s/g, "");
+const dropScreenshots = (html: string) => {
+  let out = html
+    .replace(/<img\b[^>]*\bsrc="[^"]*\/main\/screenshots\/[^"]*"[^>]*>/gi, "")
+    .replace(/<source\b[^>]*\bsrcset="[^"]*\/main\/screenshots\/[^"]*"[^>]*>/gi, "");
+  for (let i = 0; i < 3; i++) {
+    out = out
+      .replace(/<picture>\s*<\/picture>/gi, "")
+      .replace(/<a\b(?![^>]*\b(?:id|name)=)[^>]*>\s*<\/a>/gi, "")
+      .replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, (m, inner) => (isEmpty(inner) ? "" : m))
+      .replace(/<table\b[^>]*>[\s\S]*?<\/table>/gi, (m) =>
+        isEmpty(m.replace(/<\/?(table|thead|tbody|tr|th|td)\b[^>]*>/gi, "")) ? "" : m,
+      )
+      .replace(/<details\b[^>]*>\s*(<summary\b[^>]*>[\s\S]*?<\/summary>)?([\s\S]*?)<\/details>/gi, (m, _s, rest) =>
+        isEmpty(rest) ? "" : m,
+      );
+  }
+  return out.replace(/\n{3,}/g, "\n\n");
+};
+
+// my.home-assistant.io badges: a text button instead of a remote image (broken when the host is unreachable).
+const HA_LABELS: Record<string, string> = {
+  config_flow_start: "Add integration to my Home Assistant",
+  hacs_repository: "Open in HACS",
+  integration: "Open integration",
+};
+const haButtons = (html: string) =>
+  html.replace(
+    /<a\b[^>]*\bhref="(https:\/\/my\.home-assistant\.io\/redirect\/([^/"?]+)[^"]*)"[^>]*>\s*<img\b[^>]*\bsrc="https:\/\/my\.home-assistant\.io\/badges\/[^"]*"[^>]*>\s*<\/a>/gi,
+    (m, href: string, path: string) => {
+      const alt = /\balt="([^"]*)"/i.exec(m)?.[1]?.trim() ?? "";
+      const label = alt && alt.length <= 40 && !/^open your home assistant/i.test(alt) ? alt : HA_LABELS[path] ?? "Open in Home Assistant";
+      return `<a class="ha-btn" href="${href}" target="_blank" rel="noopener">${label}</a>`;
+    },
+  );
+
 const cache = new Map<string, Promise<DocSection[] | null>>();
 
 export function getDocs(p: Project): Promise<DocSection[] | null> {
@@ -85,7 +135,7 @@ async function load(p: Project): Promise<DocSection[] | null> {
       const title = plain(s.title);
       const id = `doc-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
       // Re-add the heading so the README's own #anchors to it keep working, then hide it (the fold shows it).
-      const html = fixHtml(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string, p.slug);
+      const html = haButtons(dropScreenshots(alerts(fixHtml(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string, p.slug))));
       return { id, title, html: html.replace(/^<h2/, '<h2 class="doc-anchor"'), open: OPEN.test(title) };
     })
     .filter((s) => s.html.replace(/<h2[^>]*>.*?<\/h2>/s, "").trim());

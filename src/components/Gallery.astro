@@ -1,0 +1,386 @@
+---
+// Screenshots and animations of a project: one tab per card or variant, a grid of even tiles,
+// and a viewer with previous / next, keyboard and swipe navigation and a light / dark switch.
+import Icon from "./Icon.astro";
+import Shot from "./Shot.astro";
+import { caption, shotUrl, type Project, type Shot as ShotT } from "../lib/projects";
+import { imageSize } from "../lib/imgsize";
+import { withTwin } from "../lib/twins";
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+
+type Item = { shot: ShotT; group: string; anim: boolean };
+const stills: Item[] = await Promise.all(
+  [project.hero, ...(project.screenshots ?? [])]
+    .filter((s): s is ShotT => !!s)
+    .map(async (s) => {
+      const shot = await withTwin(project, s);
+      return { shot, group: shot.group || "Screenshots", anim: false };
+    }),
+);
+const anims: Item[] = (project.animations ?? []).map((shot) => ({ shot, group: "Animations", anim: true }));
+const items = [...stills, ...anims];
+
+const groups: { name: string; count: number; anim: boolean }[] = [];
+for (const it of items) {
+  const g = groups.find((x) => x.name === it.group);
+  if (g) g.count++;
+  else groups.push({ name: it.group, count: 1, anim: it.anim });
+}
+
+// Data for the viewer
+const data = await Promise.all(
+  items.map(async (it) => {
+    const size = await imageSize(shotUrl(project, it.shot.src));
+    return {
+      group: it.group,
+      caption: caption(it.shot),
+      light: shotUrl(project, it.shot.src),
+      dark: it.shot.dark ? shotUrl(project, it.shot.dark) : null,
+      w: size?.w ?? null,
+      h: size?.h ?? null,
+      anim: it.anim,
+    };
+  }),
+);
+const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+---
+
+{
+  !(items.length === 1 && project.hero) && items.length > 0 && (
+    <section class="ha-card gallery" id="gallery" data-gallery={JSON.stringify(data)}>
+      <div class="g-head">
+        <h2 class="section-title">
+          <Icon name="mdiImageMultiple" /> Gallery <span class="chip neutral count">{items.length}</span>
+        </h2>
+        {groups.length > 1 && (
+          <div class="tabs" role="tablist" aria-label="Screenshot groups">
+            {groups.map((g, i) => (
+              <button
+                class:list={["tab", { active: i === 0 }]}
+                type="button"
+                role="tab"
+                aria-selected={i === 0 ? "true" : "false"}
+                data-tab={g.name}
+                id={`tab-${slugId(g.name)}`}
+              >
+                {g.anim && <Icon name="mdiPlayCircleOutline" />}
+                {g.name}
+                <span class="n">{g.count}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="tiles" role="tabpanel">
+        {items.map((it, i) => (
+          <figure class="tile-fig" data-group={it.group} hidden={it.group !== groups[0].name}>
+            <button class="tile-btn" type="button" data-index={i} aria-label={`Open: ${caption(it.shot)}`}>
+              <Shot project={project} shot={it.shot} />
+              {it.anim && (
+                <span class="badge play" title="Animation">
+                  <Icon name="mdiPlay" />
+                </span>
+              )}
+              <span class="expand"><Icon name="mdiArrowExpand" /></span>
+            </button>
+            <figcaption>{caption(it.shot)}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<dialog class="viewer" aria-label="Screenshot viewer">
+  <div class="v-bar">
+    <div class="v-titles">
+      <div class="v-caption"></div>
+      <div class="v-sub"></div>
+    </div>
+    <div class="v-theme" role="group" aria-label="Theme of the screenshot">
+      <button type="button" data-theme="light" aria-label="Light theme" title="Light theme"><Icon name="mdiWhiteBalanceSunny" /></button>
+      <button type="button" data-theme="dark" aria-label="Dark theme" title="Dark theme"><Icon name="mdiWeatherNight" /></button>
+    </div>
+    <a class="icon-btn v-open" target="_blank" rel="noopener" aria-label="Open the original" title="Open the original"><Icon name="mdiOpenInNew" /></a>
+    <button class="icon-btn v-close" type="button" aria-label="Close" title="Close (Esc)"><Icon name="mdiClose" /></button>
+  </div>
+  <div class="v-stage">
+    <img alt="" />
+  </div>
+  <button class="v-nav prev" type="button" aria-label="Previous" title="Previous (←)"><Icon name="mdiChevronLeft" /></button>
+  <button class="v-nav next" type="button" aria-label="Next" title="Next (→)"><Icon name="mdiChevronRight" /></button>
+  <div class="v-strip" role="list"></div>
+</dialog>
+
+<script>
+  type Item = { group: string; caption: string; light: string; dark: string | null; w: number | null; h: number | null; anim: boolean };
+  const section = document.querySelector<HTMLElement>("[data-gallery]");
+  const dialog = document.querySelector<HTMLDialogElement>("dialog.viewer");
+  if (section && dialog) {
+    const items: Item[] = JSON.parse(section.dataset.gallery!);
+    const tabs = [...section.querySelectorAll<HTMLButtonElement>(".tab")];
+    const figs = [...section.querySelectorAll<HTMLElement>(".tile-fig")];
+    const img = dialog.querySelector<HTMLImageElement>(".v-stage img")!;
+    const stage = dialog.querySelector<HTMLElement>(".v-stage")!;
+    const strip = dialog.querySelector<HTMLElement>(".v-strip")!;
+    const capEl = dialog.querySelector<HTMLElement>(".v-caption")!;
+    const subEl = dialog.querySelector<HTMLElement>(".v-sub")!;
+    const themeBox = dialog.querySelector<HTMLElement>(".v-theme")!;
+    const openLink = dialog.querySelector<HTMLAnchorElement>(".v-open")!;
+    const siteDark = () => {
+      const t = document.documentElement.dataset.theme;
+      return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    };
+
+    let group = tabs[0]?.dataset.tab ?? items[0]?.group;
+    let list: number[] = [];
+    let pos = 0;
+    let dark = siteDark();
+
+    // Tabs
+    const selectTab = (name: string) => {
+      group = name;
+      for (const t of tabs) {
+        const on = t.dataset.tab === name;
+        t.classList.toggle("active", on);
+        t.setAttribute("aria-selected", String(on));
+      }
+      for (const f of figs) f.hidden = f.dataset.group !== name;
+    };
+    tabs.forEach((t) => t.addEventListener("click", () => selectTab(t.dataset.tab!)));
+
+    // Viewer
+    const render = () => {
+      const it = items[list[pos]];
+      const useDark = dark && !!it.dark;
+      img.src = useDark ? it.dark! : it.light;
+      img.alt = it.caption;
+      // Shown at the size it was captured for (screenshots at 2x, animations at 1x), never wider than the stage.
+      img.style.width = it.w ? `min(100%, ${Math.round(it.anim ? it.w : it.w / 2)}px)` : "";
+      stage.classList.toggle("is-dark", useDark || (!it.dark && siteDark()));
+      stage.scrollTop = 0;
+      capEl.textContent = it.caption;
+      subEl.textContent = it.caption === it.group ? `${pos + 1} / ${list.length}` : `${it.group} · ${pos + 1} / ${list.length}`;
+      if (!it.dark && themeBox.contains(document.activeElement)) dialog.querySelector<HTMLElement>(".v-close")!.focus();
+      themeBox.hidden = !it.dark;
+      for (const b of themeBox.querySelectorAll<HTMLButtonElement>("button")) {
+        b.classList.toggle("on", (b.dataset.theme === "dark") === useDark);
+      }
+      openLink.href = img.src;
+      strip.querySelectorAll<HTMLElement>(".s").forEach((s, i) => {
+        const t = items[list[i]];
+        const thumb = s.querySelector("img")!;
+        const want = dark && t.dark ? t.dark : t.light;
+        if (thumb.getAttribute("src") !== want) thumb.src = want;
+        s.classList.toggle("on", i === pos);
+        if (i === pos) s.scrollIntoView({ block: "nearest", inline: "center" });
+      });
+      dialog.classList.toggle("single", list.length < 2);
+      // Warm the neighbours
+      for (const d of [-1, 1]) {
+        const n = items[list[(pos + d + list.length) % list.length]];
+        if (n) new Image().src = dark && n.dark ? n.dark : n.light;
+      }
+    };
+    const open = (index: number) => {
+      const g = items[index].group;
+      list = items.map((_, i) => i).filter((i) => items[i].group === g);
+      pos = list.indexOf(index);
+      dark = siteDark();
+      strip.innerHTML = "";
+      list.forEach((i, k) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "s";
+        b.setAttribute("aria-label", items[i].caption);
+        const t = document.createElement("img");
+        t.src = dark && items[i].dark ? items[i].dark! : items[i].light;
+        t.alt = "";
+        t.loading = "lazy";
+        b.append(t);
+        b.addEventListener("click", () => { pos = k; render(); });
+        strip.append(b);
+      });
+      render();
+      if (!dialog.open) dialog.showModal();
+    };
+    const step = (d: number) => {
+      if (list.length < 2) return;
+      pos = (pos + d + list.length) % list.length;
+      render();
+    };
+
+    section.querySelectorAll<HTMLButtonElement>(".tile-btn").forEach((b) =>
+      b.addEventListener("click", () => open(Number(b.dataset.index))),
+    );
+    // The hero of the page opens the viewer on the first screenshot.
+    document.querySelectorAll<HTMLElement>("[data-open-gallery]").forEach((el) =>
+      el.addEventListener("click", () => { selectTab(items[0].group); open(0); }),
+    );
+    dialog.querySelector(".prev")!.addEventListener("click", () => step(-1));
+    dialog.querySelector(".next")!.addEventListener("click", () => step(1));
+    dialog.querySelector(".v-close")!.addEventListener("click", () => dialog.close());
+    themeBox.querySelectorAll<HTMLButtonElement>("button").forEach((b) =>
+      b.addEventListener("click", () => { dark = b.dataset.theme === "dark"; render(); }),
+    );
+    // A click on the backdrop closes; clicks inside the viewer don't.
+    dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
+    document.addEventListener("keydown", (e) => {
+      if (!dialog.open) return;
+      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    });
+    // Swipe
+    let x0: number | null = null;
+    stage.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+      x0 = null;
+    });
+    dialog.addEventListener("close", () => img.removeAttribute("src"));
+  }
+</script>
+
+<style>
+  .gallery { padding: 16px 20px 20px; scroll-margin-top: 120px; }
+  .g-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 16px; }
+  .g-head .section-title { margin: 0; }
+  .count { letter-spacing: 0; text-transform: none; }
+
+  /* Tabs: one per card or variant */
+  .tabs {
+    display: flex; gap: 4px; padding: 4px; margin-left: auto;
+    background: var(--secondary-background-color); border-radius: 22px;
+    overflow-x: auto; scrollbar-width: none; max-width: 100%;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    all: unset; cursor: pointer; flex: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 18px;
+    font-size: 13px; font-weight: 500; color: var(--secondary-text-color);
+    transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+  .tab :global(svg) { width: 16px; height: 16px; }
+  .tab .n { font-weight: 400; opacity: .7; }
+  .tab:hover { color: var(--primary-text-color); }
+  .tab.active { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .tab:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+
+  /* Even tiles: whole capture, or its top for portrait captures */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px 16px; }
+  .tile-fig { margin: 0; min-width: 0; }
+  .tile-fig[hidden] { display: none; }
+  .tile-btn {
+    all: unset; cursor: zoom-in; position: relative; display: block; width: 100%; box-sizing: border-box;
+    aspect-ratio: 4 / 3; overflow: hidden;
+    background: var(--primary-background-color);
+    border: 1px solid var(--divider-color); border-radius: var(--radius);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .tile-btn :global(img) { width: 100%; height: 100%; object-fit: contain; transition: transform .4s ease; }
+  .tile-btn :global(img[data-tall]) {
+    object-fit: cover; object-position: top center;
+    mask-image: linear-gradient(#000 70%, transparent);
+  }
+  .tile-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--c) 45%, var(--divider-color)); }
+  .tile-btn:hover :global(img) { transform: scale(1.025); }
+  .tile-btn:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+  .badge, .expand {
+    position: absolute; z-index: 1;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: color-mix(in srgb, var(--card-background-color) 82%, transparent);
+    backdrop-filter: blur(6px);
+    color: var(--secondary-text-color);
+    border: 1px solid var(--divider-color);
+  }
+  .badge :global(svg), .expand :global(svg) { width: 16px; height: 16px; }
+  .badge { left: 8px; bottom: 8px; }
+  .badge.play { color: var(--c); }
+  .expand { right: 8px; top: 8px; opacity: 0; transform: scale(.9); transition: opacity .2s ease, transform .2s ease; color: var(--primary-text-color); }
+  .tile-btn:hover .expand, .tile-btn:focus-visible .expand { opacity: 1; transform: none; }
+  figcaption { margin-top: 8px; padding: 0 2px; font-size: 13px; color: var(--secondary-text-color); line-height: 1.35; }
+
+  /* Viewer, near the top of the viewport */
+  .viewer {
+    margin: 16px auto auto; padding: 0;
+    width: min(1100px, calc(100vw - 24px)); max-height: calc(100dvh - 32px);
+    border: 1px solid var(--divider-color); border-radius: 16px;
+    background: var(--card-background-color); color: var(--primary-text-color);
+    box-shadow: 0 24px 64px -16px rgba(0,0,0,.45);
+    overflow: hidden;
+  }
+  .viewer[open] { display: flex; flex-direction: column; animation: pop .2s ease; }
+  @keyframes pop { from { opacity: 0; transform: translateY(-8px) scale(.99); } }
+  .viewer::backdrop { background: rgba(0,0,0,.6); backdrop-filter: blur(10px); }
+  .v-bar { display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 18px; border-bottom: 1px solid var(--divider-color); }
+  .v-titles { flex: 1; min-width: 0; }
+  .v-caption { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .v-sub { font-size: 12px; color: var(--secondary-text-color); }
+  .v-theme { display: flex; gap: 2px; padding: 3px; border-radius: 18px; background: var(--secondary-background-color); }
+  .v-theme[hidden] { display: none; }
+  .v-theme button {
+    all: unset; cursor: pointer; width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--secondary-text-color);
+  }
+  .v-theme button :global(svg) { width: 18px; height: 18px; }
+  .v-theme button.on { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  /* The stage takes the page colour of the variant shown, like the captures' own background */
+  .v-stage {
+    flex: 1; min-height: min(62vh, 620px); overflow: auto; overscroll-behavior: contain;
+    padding: 24px 72px; background: #e8eaed;
+    display: flex; transition: background-color .25s ease;
+  }
+  .v-stage.is-dark { background: #111111; }
+  .v-stage img { margin: auto; border-radius: 8px; height: auto; }
+  .v-nav {
+    all: unset; cursor: pointer; position: absolute; top: 50%;
+    width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: color-mix(in srgb, var(--card-background-color) 85%, transparent);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--divider-color); box-shadow: var(--shadow);
+    color: var(--primary-text-color); transition: background-color .2s ease;
+  }
+  .v-nav:hover { background: var(--card-background-color); }
+  .v-nav :global(svg) { width: 26px; height: 26px; }
+  .v-nav.prev { left: 12px; }
+  .v-nav.next { right: 12px; }
+  .viewer.single .v-nav, .viewer.single .v-strip { display: none; }
+  .v-strip {
+    display: flex; gap: 8px; padding: 10px 14px; overflow-x: auto;
+    border-top: 1px solid var(--divider-color); scrollbar-width: thin;
+  }
+  .v-strip :global(.s) {
+    all: unset; cursor: pointer; flex: none; width: 76px; height: 54px; border-radius: 8px; overflow: hidden;
+    background: var(--primary-background-color); border: 2px solid transparent; opacity: .6;
+    transition: opacity .2s ease, border-color .2s ease;
+  }
+  .v-strip :global(.s img) { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .v-strip :global(.s:hover) { opacity: 1; }
+  .v-strip :global(.s.on) { opacity: 1; border-color: var(--c); }
+
+  @media (max-width: 600px) {
+    .gallery { padding: 14px 14px 16px; }
+    .tabs { margin-left: 0; width: 100%; }
+    .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 10px; }
+    /* Phones: the viewer takes the whole screen */
+    .viewer { margin: 0; width: 100vw; max-width: none; height: 100dvh; max-height: none; border: 0; border-radius: 0; }
+    .v-stage { padding: 12px; min-height: 0; }
+    .v-theme button { width: 40px; height: 40px; }
+    .tabs { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
+    .v-nav { top: auto; bottom: 84px; width: 40px; height: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tile-btn:hover { transform: none; }
+    .viewer[open] { animation: none; }
+  }
+</style>

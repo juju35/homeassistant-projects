@@ -68,6 +68,13 @@ const anims = p.animations?.length ?? 0;
     object-fit: contain;
     transition: transform .4s ease;
   }
+  /* Portrait captures: framed from the top, fading out */
+  .preview :global(img[data-tall]) { object-fit: cover; object-position: top center; }
+  .preview:has(:global(img[data-tall]))::after {
+    content: ""; position: absolute; inset: auto 0 0; height: 35%;
+    background: linear-gradient(to bottom, transparent, var(--primary-background-color));
+    pointer-events: none;
+  }
   .project:hover .preview :global(img) { transform: scale(1.02); }
   .placeholder { display: grid; place-items: center; gap: 10px; }
 

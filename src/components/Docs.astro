@@ -80,7 +80,7 @@ const iconFor = (t: string) => {
 </script>
 
 <style>
-  .docs { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .docs { margin-top: 8px; scroll-margin-top: 130px; display: flex; flex-direction: column; gap: 12px; }
   .docs-head { display: flex; align-items: center; gap: 12px; }
   .docs-head .section-title { margin: 0; }
   .src { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
@@ -91,7 +91,7 @@ const iconFor = (t: string) => {
   .toc .chip:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
   .pad { padding: 16px 20px; }
 
-  .doc { padding: 0 20px; scroll-margin-top: 80px; }
+  .doc { padding: 0 20px; scroll-margin-top: 130px; }
   .doc > summary { padding: 16px 0; }
   .doc > summary .section-title { margin: 0; color: var(--primary-text-color); }
   .doc > summary .section-title :global(svg:first-child) { color: var(--c); }
@@ -100,7 +100,7 @@ const iconFor = (t: string) => {
 
   /* README content, in the cards' style */
   .md :global(.doc-anchor) { display: none; }
-  .md :global(h3) { font-size: 16px; font-weight: 500; margin: 24px 0 8px; scroll-margin-top: 80px; }
+  .md :global(h3) { font-size: 16px; font-weight: 500; margin: 24px 0 8px; scroll-margin-top: 130px; }
   .md :global(h4) { font-size: 14px; font-weight: 500; margin: 20px 0 6px; color: var(--secondary-text-color); text-transform: uppercase; letter-spacing: .05em; }
   .md :global(p), .md :global(li) { font-size: 14px; line-height: 1.6; }
   .md :global(p) { margin: 10px 0; }
@@ -125,6 +125,41 @@ const iconFor = (t: string) => {
     border-left: 3px solid var(--c);
   }
   .md :global(blockquote p) { margin: 4px 0; }
+
+  /* GitHub alerts (> [!NOTE] …) */
+  .md :global(blockquote.alert) {
+    --a: var(--c);
+    background: color-mix(in srgb, var(--a) 10%, transparent);
+    border-left-color: var(--a);
+  }
+  .md :global(blockquote.alert-important) { --a: #8e24aa; }
+  .md :global(blockquote.alert-warning) { --a: var(--warning-color); }
+  .md :global(blockquote.alert-caution) { --a: #db4437; }
+  .md :global(.alert-title) {
+    display: flex; align-items: center; gap: 6px; margin: 2px 0 4px;
+    font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em;
+    color: color-mix(in srgb, var(--a) 60%, var(--primary-text-color));
+  }
+  .md :global(.alert-title::before) {
+    content: "i"; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
+    font-size: 11px; font-weight: 700; text-transform: none; letter-spacing: 0;
+    color: var(--card-background-color, #fff); background: color-mix(in srgb, var(--a) 60%, var(--primary-text-color));
+  }
+  .md :global(.alert-tip .alert-title::before) { content: "\2713"; }
+  .md :global(.alert-important .alert-title::before),
+  .md :global(.alert-warning .alert-title::before),
+  .md :global(.alert-caution .alert-title::before) { content: "!"; }
+  .md :global(blockquote.alert a) { color: var(--primary-text-color); text-decoration: underline; }
+
+  /* my.home-assistant.io links, as a tinted button */
+  .md :global(a.ha-btn) {
+    display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 18px;
+    font-size: 13px; font-weight: 500; line-height: 1; text-decoration: none; vertical-align: middle;
+    color: color-mix(in srgb, var(--c) 60%, var(--primary-text-color));
+    background: color-mix(in srgb, var(--c) 14%, transparent);
+    transition: background .15s;
+  }
+  .md :global(a.ha-btn:hover) { text-decoration: none; background: color-mix(in srgb, var(--c) 22%, transparent); }
   .md :global(img) { display: inline-block; max-width: 100%; height: auto; border-radius: 8px; }
   .md :global(hr) { border: 0; border-top: 1px solid var(--divider-color); margin: 20px 0; }
 
@@ -143,10 +178,14 @@ const iconFor = (t: string) => {
   .md :global(thead th:last-child) { border-radius: 0 8px 8px 0; }
   .md :global(td) { padding: 8px 12px; border-bottom: 1px solid var(--divider-color); vertical-align: top; }
   .md :global(tbody tr:last-child td) { border-bottom: 0; }
-  .md :global(td:first-child code) { color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+  .md :global(td:first-child code) { color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); white-space: nowrap; }
+  .md :global(td) { min-width: 9ch; }
+  .md :global(td:last-child) { min-width: 22ch; }
 
   @media (max-width: 600px) {
     .doc { padding: 0 14px; }
-    .md :global(:not(pre) > code) { white-space: normal; word-break: break-word; }
+    .md :global(:not(pre) > code) { white-space: normal; overflow-wrap: anywhere; }
+    .md :global(td:first-child code) { white-space: nowrap; }
+    .md :global(table) { mask-image: linear-gradient(90deg, #000 88%, transparent); }
   }
 </style>

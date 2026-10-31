@@ -34,7 +34,7 @@ const groups = categories
       <div class="stats">
         <div class="tile stat" style="--c:#5b6cf0">
           <span class="logo"><Icon name="mdiViewDashboardVariant" /></span>
-          <div><div class="v">{cards}</div><div class="sub">Lovelace cards</div></div>
+          <div><div class="v">{cards}</div><div class="sub">Cards</div></div>
         </div>
         <div class="tile stat" style="--c:#26a69a">
           <span class="logo"><Icon name="mdiPuzzle" /></span>
@@ -52,6 +52,7 @@ const groups = categories
     </div>
   </section>
 
+  <div class="sticky">
   <section class="wrap toolbar" aria-label="Filter projects">
     <div class="segmented" role="tablist">
       <button class="seg active" data-filter="all" role="tab" aria-selected="true">All <span>{projects.length}</span></button>
@@ -69,6 +70,7 @@ const groups = categories
       <a class="chip neutral" href={`#${g.id}`}><Icon name={g.icon} />{g.label}</a>
     ))}
   </nav>
+  </div>
 
   <div class="wrap">
     {groups.map((g) => (
@@ -79,7 +81,11 @@ const groups = categories
         </div>
       </section>
     ))}
-    <p class="empty muted" id="empty" hidden>No project matches this search.</p>
+    <div class="empty" id="empty" hidden>
+      <span class="logo lg"><Icon name="mdiMagnifyClose" /></span>
+      <p class="muted" id="empty-text">No project matches this search.</p>
+      <button class="btn ghost" type="button" id="clear"><Icon name="mdiFilterRemoveOutline" /> Clear filters</button>
+    </div>
   </div>
 </Base>
 
@@ -105,7 +111,14 @@ const groups = categories
         any ||= !!shown;
       });
       document.getElementById("empty").hidden = any;
+      const label = { card: "cards", integration: "integrations" }[kind];
+      document.getElementById("empty-text").textContent =
+        `No ${label ?? "project"} ${term ? `matches “${q.value.trim()}”` : "here"}.`;
     };
+    document.getElementById("clear").addEventListener("click", () => {
+      q.value = "";
+      document.querySelector('.seg[data-filter="all"]').click();
+    });
     document.querySelectorAll(".seg").forEach((b) =>
       b.addEventListener("click", () => {
         document.querySelectorAll(".seg").forEach((x) => {
@@ -117,6 +130,11 @@ const groups = categories
       }),
     );
     q.addEventListener("input", apply);
+    // Divider under the filters once they stick under the top bar
+    const bar = document.querySelector(".sticky");
+    const onScroll = () => bar.classList.toggle("stuck", bar.getBoundingClientRect().top <= 62);
+    addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   })();
 </script>
 
@@ -132,7 +150,15 @@ const groups = categories
   .stat { display: flex; align-items: center; gap: 12px; padding: 12px; }
   .stat .v { font-size: 22px; font-weight: 500; line-height: 1.1; }
 
-  .toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 24px; }
+  /* Filters stay under the top bar while scrolling */
+  .sticky {
+    position: sticky; top: 61px; z-index: 5; margin-top: 16px; padding: 10px 0 12px;
+    background: color-mix(in srgb, var(--primary-background-color) 92%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid transparent; transition: border-color .2s ease;
+  }
+  .sticky.stuck { border-bottom-color: var(--divider-color); }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   .segmented {
     display: inline-flex; gap: 4px; padding: 4px;
     background: var(--card-background-color);
@@ -160,23 +186,37 @@ const groups = categories
   .search input { all: unset; flex: 1; min-width: 0; font-size: 14px; color: var(--primary-text-color); }
   .search:focus-within { border-color: var(--primary-color); }
 
-  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .jump { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump .chip { flex: none; }
   .jump .chip { padding: 4px 12px; font-size: 13px; transition: background-color .2s ease; }
   .jump .chip:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
 
-  .group { margin-top: 32px; scroll-margin-top: 80px; }
+  .group { margin-top: 24px; scroll-margin-top: 190px; }
   .count {
     font-size: 12px; letter-spacing: 0; text-transform: none;
     padding: 0 8px; border-radius: 10px; background: var(--card-background-color); border: 1px solid var(--divider-color);
   }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-  .empty { text-align: center; padding: 48px 0; }
+  .empty { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 56px 0; text-align: center; }
+  .empty p { margin: 0; }
+  .empty .logo { --c: var(--secondary-text-color); }
   [hidden] { display: none !important; }
 
   @media (max-width: 760px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat .sub { white-space: nowrap; }
     .status { display: none; }
     .search { max-width: none; margin-left: 0; }
   }
   @media (max-width: 380px) { .grid { grid-template-columns: 1fr; } }
+  /* Phones: the filters scroll with the page instead of taking a quarter of the screen,
+     bigger touch targets, and a fade hinting that the category row scrolls */
+  @media (max-width: 600px) {
+    .sticky { position: static; padding-bottom: 0; background: none; backdrop-filter: none; }
+    .group { scroll-margin-top: 76px; }
+    .seg { padding: 9px 14px; }
+    .jump .chip { min-height: 36px; padding-block: 6px; }
+    .jump { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
+  }
 </style>

@@ -3,6 +3,7 @@ import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
 import Shot from "../../components/Shot.astro";
 import Docs from "../../components/Docs.astro";
+import Gallery from "../../components/Gallery.astro";
 import {
   projects,
   repoUrl,
@@ -36,12 +37,9 @@ const category = categoryOf(project);
 const isCard = project.kind === "card";
 const cardTypes = project.cardTypes ?? [];
 const yaml = cardTypes.length ? `type: custom:${cardTypes[0]}` : "";
-const screenshots = project.screenshots ?? [];
-const animations = project.animations ?? [];
-const sections = [
-  { id: "screenshots", title: "Screenshots", icon: "mdiImageMultiple", shots: screenshots },
-  { id: "animations", title: "Animations", icon: "mdiAnimationPlay", shots: animations },
-].filter((s) => s.shots.length);
+const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + (project.animations?.length ?? 0);
+// The gallery is left out when its only capture is the hero
+const hasGallery = shotCount > 1;
 ---
 
 <Base title={project.title} description={project.tagline}>
@@ -49,7 +47,7 @@ const sections = [
     <a class="back muted" href={base}><Icon name="mdiChevronLeft" /> All projects</a>
 
     <!-- Header -->
-    <section class="ha-card intro">
+    <section class="ha-card intro" id="overview">
       <div class="header top">
         <span class="logo lg" style={accent}><Icon name={project.icon} /></span>
         <div class="titles">
@@ -76,17 +74,35 @@ const sections = [
       </div>
     </section>
 
+    <!-- Section navigation, stays under the top bar -->
+    <nav class="subnav" aria-label="On this page">
+      <span class="logo sm" style={accent}><Icon name={project.icon} /></span>
+      <span class="sn-title">{project.title}</span>
+      <div class="sn-links">
+        <a href="#overview" class="sn-link active" data-spy="overview">Overview</a>
+        {hasGallery && <a href="#gallery" class="sn-link" data-spy="gallery">Gallery <span class="n">{shotCount}</span></a>}
+        <a href="#documentation" class="sn-link" data-spy="documentation">Documentation</a>
+      </div>
+      <a class="btn sn-cta" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener"><Icon name="mdiDownload" /> <span>Add to HACS</span></a>
+    </nav>
+
     <!-- Hero + side column -->
     <div class="cols">
       <div class="hero-col">
         {
           project.hero ? (
-            <button class="frame hero zoom" type="button" aria-label={`Enlarge: ${caption(project.hero)}`}>
+            <button class="frame hero zoom" type="button" data-open-gallery aria-label={`Open the gallery: ${caption(project.hero)}`}>
               <Shot project={project} shot={project.hero} eager />
+              {shotCount > 1 && <span class="hint"><Icon name="mdiImageMultiple" /> View all {shotCount}</span>}
             </button>
           ) : (
-            <div class="frame hero empty">
-              <span class="logo lg" style={accent}><Icon name={project.icon} /></span>
+            <div class="ha-card hero empty">
+              <span class="logo xl" style={accent}><Icon name={project.icon} /></span>
+              <div class="empty-text">
+                <div class="name">Runs in the background</div>
+                <p class="muted">{project.title} has no dashboard of its own: it works on the server, with its entities, actions and notifications described in the documentation below.</p>
+              </div>
+              <a class="btn" style={accent} href="#documentation"><Icon name="mdiBookOpenPageVariantOutline" /> Read the documentation</a>
             </div>
           )
         }
@@ -157,30 +173,7 @@ const sections = [
       </div>
     </div>
 
-    <!-- Galleries -->
-    {
-      sections.map((s) => (
-        <details class="fold ha-card gallery" open>
-          <summary>
-            <h2 class="section-title">
-              <Icon name={s.icon} /> {s.title}
-              <span class="chip neutral count">{s.shots.length}</span>
-              <Icon name="mdiChevronRight" class="chev" />
-            </h2>
-          </summary>
-          <div class="grid">
-            {s.shots.map((shot) => (
-              <figure>
-                <button class="frame zoom" type="button" aria-label={`Enlarge: ${caption(shot)}`}>
-                  <Shot project={project} shot={shot} />
-                </button>
-                <figcaption class="sub">{caption(shot)}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </details>
-      ))
-    }
+    <Gallery project={project} />
 
     <Docs project={project} />
 
@@ -205,15 +198,22 @@ const sections = [
     </nav>
   </div>
 
-  <dialog class="lightbox" aria-label="Screenshot">
-    <img alt="" />
-    <button class="icon-btn close" type="button" aria-label="Close" title="Close">
-      <Icon name="mdiClose" />
-    </button>
-  </dialog>
 </Base>
 
 <script>
+  // Highlight the section in view in the section navigation.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>(".sn-link")];
+  const targets = links.map((l) => document.getElementById(l.dataset.spy!)).filter(Boolean) as HTMLElement[];
+  const spy = () => {
+    const y = 140;
+    let current = targets[0]?.id;
+    for (const t of targets) if (t.getBoundingClientRect().top <= y) current = t.id;
+    if (innerHeight + scrollY >= document.body.scrollHeight - 4) current = targets[targets.length - 1]?.id;
+    for (const l of links) l.classList.toggle("active", l.dataset.spy === current);
+  };
+  addEventListener("scroll", spy, { passive: true });
+  spy();
+
   // Copy the YAML snippet.
   for (const btn of document.querySelectorAll<HTMLButtonElement>("button.copy")) {
     let timer: number | undefined;
@@ -227,20 +227,6 @@ const sections = [
     });
   }
 
-  // Lightbox: shows the image currently visible (light or dark variant).
-  const dialog = document.querySelector<HTMLDialogElement>("dialog.lightbox")!;
-  const big = dialog.querySelector("img")!;
-  for (const zoom of document.querySelectorAll<HTMLButtonElement>("button.zoom")) {
-    zoom.addEventListener("click", () => {
-      const img = [...zoom.querySelectorAll("img")].find((i) => getComputedStyle(i).display !== "none");
-      if (!img) return;
-      big.src = img.currentSrc || img.src;
-      big.alt = img.alt;
-      dialog.showModal();
-    });
-  }
-  dialog.addEventListener("click", () => dialog.close());
-  dialog.addEventListener("close", () => big.removeAttribute("src"));
 </script>
 
 <style>
@@ -266,6 +252,30 @@ const sections = [
   .summary { margin: 0; max-width: 75ch; }
   .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 
+  /* Section navigation */
+  .intro { scroll-margin-top: 140px; }
+  .subnav {
+    position: sticky; top: 68px; z-index: 5;
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 6px 6px 10px; margin: -8px 0 -8px;
+    background: color-mix(in srgb, var(--card-background-color) 94%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    border: 1px solid var(--divider-color); border-radius: 26px;
+    box-shadow: var(--shadow);
+  }
+  .sn-title { font-weight: 500; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .sn-links { display: flex; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  .sn-links::-webkit-scrollbar { display: none; }
+  .sn-link {
+    flex: none; padding: 7px 12px; border-radius: 18px;
+    font-size: 13px; font-weight: 500; color: var(--secondary-text-color);
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .sn-link .n { font-weight: 400; opacity: .7; margin-left: 2px; }
+  .sn-link:hover { color: var(--primary-text-color); }
+  .sn-link.active { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); background: color-mix(in srgb, var(--c) 14%, transparent); }
+  .sn-cta { height: 36px; padding: 0 14px; font-size: 13px; }
+
   /* Two columns */
   .cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
   .side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
@@ -286,8 +296,34 @@ const sections = [
   .zoom { cursor: zoom-in; }
   .zoom:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
   .zoom:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
-  .hero-col { position: sticky; top: 84px; min-width: 0; }
-  .hero.empty { aspect-ratio: 4 / 3; display: grid; place-items: center; }
+  .hero-col { position: sticky; top: 136px; min-width: 0; }
+  .hero { position: relative; }
+  /* Portrait captures: framed from the top, the whole capture is one click away */
+  .hero:has(:global(img[data-tall])) { max-height: min(72vh, 760px); }
+  .hero :global(img[data-tall]) { mask-image: linear-gradient(#000 calc(100% - 140px), transparent); }
+  .hint {
+    position: absolute; right: 12px; bottom: 12px; z-index: 1;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 16px;
+    font-size: 13px; font-weight: 500; color: var(--primary-text-color);
+    background: color-mix(in srgb, var(--card-background-color) 85%, transparent);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--divider-color);
+    opacity: 0; transform: translateY(4px); transition: opacity .2s ease, transform .2s ease;
+  }
+  .hint :global(svg) { width: 16px; height: 16px; }
+  .hero:hover .hint, .hero:focus-visible .hint, .hero:has(:global(img[data-tall])) .hint { opacity: 1; transform: none; }
+  .hero.empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    min-height: 320px; padding: 32px; text-align: center;
+    background:
+      radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--c) 14%, transparent), transparent 60%),
+      var(--card-background-color);
+  }
+  .logo.xl { width: 96px; height: 96px; }
+  .logo.xl :global(svg) { width: 52px; height: 52px; }
+  .empty-text { max-width: 44ch; }
+  .empty-text p { margin: 6px 0 0; font-size: 14px; }
 
   /* Highlights */
   .highlights { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -295,7 +331,7 @@ const sections = [
   .check {
     width: 22px; height: 22px; flex: none; margin-top: -1px;
     border-radius: 50%; display: grid; place-items: center;
-    background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c);
+    background: color-mix(in srgb, var(--c) 16%, transparent); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
   }
   .check svg { width: 14px; height: 14px; }
 
@@ -321,18 +357,8 @@ const sections = [
     width: 22px; height: 22px; flex: none;
     border-radius: 50%; display: grid; place-items: center;
     font-size: 12px; font-weight: 500;
-    background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c);
+    background: color-mix(in srgb, var(--c) 16%, transparent); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
   }
-
-  /* Galleries */
-  .gallery { padding: 0 20px; }
-  .gallery summary { padding: 16px 0; }
-  .gallery summary h2 { margin: 0; }
-  .gallery[open] summary { padding-bottom: 12px; }
-  .count { letter-spacing: 0; text-transform: none; }
-  .grid { columns: 3 260px; column-gap: 16px; padding-bottom: 20px; }
-  figure { break-inside: avoid; margin: 0 0 16px; }
-  figcaption { margin-top: 6px; padding-left: 2px; }
 
   /* Prev / next */
   .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -343,35 +369,22 @@ const sections = [
   .nb.right { justify-content: flex-end; text-align: right; }
   .arrow { width: 20px; height: 20px; flex: none; color: var(--secondary-text-color); }
 
-  /* Lightbox, near the top of the viewport */
-  .lightbox {
-    margin: 24px auto auto; padding: 0;
-    max-width: min(1200px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
-    border: 1px solid var(--divider-color); border-radius: var(--radius);
-    background: var(--primary-background-color); box-shadow: var(--shadow);
-    overflow: hidden; cursor: zoom-out;
-  }
-  .lightbox::backdrop {
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .lightbox img { max-width: 100%; max-height: calc(100vh - 50px); width: auto; height: auto; margin: 0 auto; }
-  .lightbox .close {
-    position: absolute; top: 8px; right: 8px;
-    background: var(--card-background-color); box-shadow: var(--shadow);
-  }
-
   @media (max-width: 899px) {
     .cols { grid-template-columns: 1fr; }
     .hero-col { position: static; }
+    .sn-title { display: none; }
+    .sn-links { margin-left: 0; }
   }
   @media (max-width: 600px) {
     .intro { padding: 20px 16px; }
     h1 { font-size: 24px; }
     .chips { width: 100%; }
     .pager { grid-template-columns: 1fr; }
-    .grid { columns: 1; }
+    .subnav { top: 61px; margin-inline: -16px; border-radius: 0; border-inline: 0; border-top: 0; background: var(--card-background-color); }
+    .sn-links { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 20px; }
+    .subnav > .logo { display: none; }
+    .sn-cta span { display: none; }
+    .sn-cta { width: 36px; padding: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     .zoom:hover, .nb:hover { transform: none; }
