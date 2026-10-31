@@ -446,11 +446,14 @@ projects:
   screenshots:
   - src: card-low.png
     dark: card-low-dark.png
-    caption: Battery Monitor card, low batteries only
+    caption: Low batteries only
     group: Card
   - src: popup.png
     dark: popup-dark.png
     caption: Full screen by room
+    group: Full screen
+  - src: popup-type.png
+    caption: Full screen by battery type
     group: Full screen
   - src: popup-phone.png
     caption: Phone by room
