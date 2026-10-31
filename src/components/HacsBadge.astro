@@ -1,42 +1,42 @@
 ---
-// The "Open Marketplace repository on My Home Assistant" badge, the same one as in the README of every project.
-// It is loaded from my.home-assistant.io like in the READMEs; a copy in public/badges/ takes over if that fails.
+// "Add to HACS" in the style of the My Home Assistant badge of the READMEs (blue pill, white capitals, the "MY"
+// chip of the official badge), with a short label: the official one reads "Open Marketplace repository on MY".
 import { hacsUrl, type Project } from "../lib/projects";
 
 interface Props {
   project: Project;
-  /** Height in px; the badge keeps its 850×96 proportions. */
+  /** Height in px. */
   height?: number;
   class?: string;
 }
 const { project, height = 40, class: cls } = Astro.props;
-const width = Math.round((height * 850) / 96);
-const fallback = `${import.meta.env.BASE_URL}badges/hacs_repository.svg`;
+// The "MY" chip of the official badge (public/badges/hacs_repository.svg), as is
+const CHIP = `<rect width="137" height="64" x="344" y="16" fill="#f2f4f9" rx="32"/><path fill="#18bcf2" d="M394.419 37.047V60.5h-4.297V46.797L384.716 60.5h-4.157l-5.343-13.594V60.5h-4.188V37.047h4.188l7.422 18.36 7.484-18.36zm9.365 0 5.344 9.89 5.344-9.89h4.766l-7.969 14.14V60.5h-4.391v-9.312l-8.031-14.141zM457 60c0 1.65-1.35 3-3 3h-24c-1.65 0-3-1.35-3-3v-9c0-1.65.95-3.95 2.12-5.12l10.76-10.76a3 3 0 0 1 4.24 0l10.76 10.76c1.17 1.17 2.12 3.47 2.12 5.12z"/><path fill="#f2f4f9" stroke="#f2f4f9" d="M442 45.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path fill="#f2f4f9" stroke="#f2f4f9" stroke-miterlimit="10" d="M449.5 53.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM434.5 57.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path fill="none" stroke="#f2f4f9" stroke-miterlimit="10" stroke-width="2.25" d="M442 43.48V63l-7.5-7.5M449.5 51.46l-7.41 7.41"/>`;
 ---
 
-<a class:list={["hacs-badge", cls]} href={hacsUrl(project)} target="_blank" rel="noopener" style={`--h:${height}px;--w:${width}px`}>
-  <img
-    src="https://my.home-assistant.io/badges/hacs_repository.svg"
-    alt="Open your Home Assistant instance and open this repository in HACS"
-    width={width}
-    height={height}
-    decoding="async"
-    onerror={`this.onerror=null;this.src='${fallback}'`}
-  />
+<a
+  class:list={["hacs-badge", cls]}
+  href={hacsUrl(project)}
+  target="_blank"
+  rel="noopener"
+  style={`--h:${height}px`}
+  title="Open your Home Assistant instance and open this repository in HACS"
+>
+  <span class="t">Add to HACS</span>
+  <svg class="my" viewBox="344 16 137 64" aria-hidden="true" set:html={CHIP} />
 </a>
 
 <style>
+  /* Proportions of the official badge: 96 units high, chip 64 high with a 16 margin, text cap height about 1/4 */
   .hacs-badge {
-    display: inline-flex; flex: 0 1 var(--w); align-items: center; width: var(--w); max-width: 100%;
+    display: inline-flex; flex: none; align-items: center; gap: calc(var(--h) * 0.3);
+    height: var(--h); padding: 0 calc(var(--h) * 16 / 96) 0 calc(var(--h) * 0.42);
     border-radius: calc(var(--h) / 2);
-    transition: filter 0.2s ease, transform 0.2s ease;
+    background: #18bcf2; color: #fff;
+    font: 700 calc(var(--h) * 0.34) / 1 var(--font); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+    transition: filter 0.2s ease;
   }
-  /* Explicit size: the SVG declares no width of its own, which some browsers (Safari) render as 0 wide.
-     Full size, unless the line is narrower (phones): then it shrinks, keeping its proportions. */
-  .hacs-badge img {
-    display: block; width: var(--w); max-width: 100%; height: auto; aspect-ratio: 850 / 96;
-    border-radius: calc(var(--h) / 2);
-  }
+  .my { display: block; flex: none; height: calc(var(--h) * 64 / 96); width: auto; aspect-ratio: 137 / 64; }
   .hacs-badge:hover { filter: brightness(1.06); }
   .hacs-badge:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 </style>

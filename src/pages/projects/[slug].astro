@@ -78,7 +78,7 @@ const related = projects.flatMap((p) => {
       <p class="lead">{project.tagline}</p>
       <p class="summary muted">{project.summary}</p>
       <div class="actions">
-        <HacsBadge project={project} />
+        <HacsBadge project={project} class="head-cta" />
         <a class="btn ghost" href={repoUrl(project)} target="_blank" rel="noopener">
           <Icon name="mdiGithub" /> GitHub
         </a>
@@ -189,7 +189,7 @@ const related = projects.flatMap((p) => {
             <li>
               <span class="num" style={accent}>1</span>
               <span>
-                Open the repository in HACS with the <b>My Home Assistant</b> button above, or add
+                Open the repository in HACS with the <b>Add to HACS</b> button above, or add
                 <code>{repoUrl(project).replace("https://", "")}</code> as a custom repository
                 (category <b>{isCard ? "Dashboard" : "Integration"}</b>).
               </span>
@@ -264,6 +264,15 @@ const related = projects.flatMap((p) => {
         }
       } catch {}
     });
+  }
+
+  // One badge at a time: the bar's copy only shows once the header's has scrolled out of view.
+  const headCta = document.querySelector(".head-cta");
+  const subnav = document.querySelector(".subnav");
+  if (headCta && subnav) {
+    new IntersectionObserver(([e]) => subnav.classList.toggle("show-cta", !e.isIntersecting), {
+      rootMargin: "-130px 0px 0px 0px",
+    }).observe(headCta);
   }
 
   // Highlight the section in view in the section navigation.
@@ -343,7 +352,9 @@ const related = projects.flatMap((p) => {
   .sn-link .n { font-weight: 400; opacity: .7; margin-left: 2px; }
   .sn-link:hover { color: var(--primary-text-color); }
   .sn-link.active { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); background: color-mix(in srgb, var(--c) 14%, transparent); }
-  .subnav :global(.sn-cta) { margin-left: 4px; }
+  /* Hidden while the header's badge is on screen (keeps its room in the bar, no jump) */
+  .subnav :global(.sn-cta) { margin-left: 4px; opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility .2s; }
+  .subnav.show-cta :global(.sn-cta) { opacity: 1; visibility: visible; }
 
   /* Two columns */
   .cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
@@ -464,7 +475,8 @@ const related = projects.flatMap((p) => {
     /* Phones: the badge keeps its place in the bar, on a second line under the section links */
     .subnav { flex-wrap: wrap; row-gap: 6px; }
     .sn-links { flex: 1 1 100%; order: 1; }
-    .subnav :global(.sn-cta) { order: 2; margin: 0 auto; }
+    .subnav :global(.sn-cta) { order: 2; margin: 0 auto; display: none; }
+    .subnav.show-cta :global(.sn-cta) { display: inline-flex; }
   }
   @media (prefers-reduced-motion: reduce) {
     .zoom:hover, .nb:hover { transform: none; }
