@@ -1,6 +1,7 @@
 ---
-// Screenshots and animations of a project: one tab per card or variant, a grid of even tiles,
-// and a viewer with previous / next, keyboard and swipe navigation and a light / dark switch.
+// Screenshots and animations of a project: one tab per card or variant, a grid of even tiles with a
+// light / dark switch (when the project has both themes), and a viewer with previous / next, keyboard
+// and swipe navigation and the same switch.
 import Icon from "./Icon.astro";
 import Shot from "./Shot.astro";
 import { caption, shotUrl, type Project, type Shot as ShotT } from "../lib/projects";
@@ -49,6 +50,7 @@ const data = await Promise.all(
   }),
 );
 const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const hasDark = data.some((d) => d.dark);
 ---
 
 {
@@ -74,6 +76,12 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
                 <span class="n">{g.count}</span>
               </button>
             ))}
+          </div>
+        )}
+        {hasDark && (
+          <div class="themes" role="group" aria-label="Theme of the screenshots">
+            <button type="button" data-shots="light" aria-pressed="false"><Icon name="mdiWhiteBalanceSunny" /> Light</button>
+            <button type="button" data-shots="dark" aria-pressed="false"><Icon name="mdiWeatherNight" /> Dark</button>
           </div>
         )}
       </div>
@@ -105,8 +113,8 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       <div class="v-sub"></div>
     </div>
     <div class="v-theme" role="group" aria-label="Theme of the screenshot">
-      <button type="button" data-theme="light" aria-label="Light theme" title="Light theme"><Icon name="mdiWhiteBalanceSunny" /></button>
-      <button type="button" data-theme="dark" aria-label="Dark theme" title="Dark theme"><Icon name="mdiWeatherNight" /></button>
+      <button type="button" data-theme="light" title="Light theme"><Icon name="mdiWhiteBalanceSunny" /><span>Light</span></button>
+      <button type="button" data-theme="dark" title="Dark theme"><Icon name="mdiWeatherNight" /><span>Dark</span></button>
     </div>
     <a class="icon-btn v-open" target="_blank" rel="noopener" aria-label="Open the original" title="Open the original"><Icon name="mdiOpenInNew" /></a>
     <button class="icon-btn v-close" type="button" aria-label="Close" title="Close (Esc)"><Icon name="mdiClose" /></button>
@@ -142,7 +150,30 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     let group = tabs[0]?.dataset.tab ?? items[0]?.group;
     let list: number[] = [];
     let pos = 0;
-    let dark = siteDark();
+    // Theme of the screenshots: the site's until one is picked in the gallery or the viewer.
+    let chosen: boolean | null = null;
+    const shotsDark = () => chosen ?? siteDark();
+    let dark = shotsDark();
+    const themeButtons = [...section.querySelectorAll<HTMLButtonElement>(".themes button")];
+    const showTheme = () => {
+      const d = shotsDark();
+      if (chosen === null) delete section.dataset.shots;
+      else section.dataset.shots = d ? "dark" : "light";
+      for (const b of themeButtons) {
+        const on = (b.dataset.shots === "dark") === d;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", String(on));
+      }
+    };
+    const pickTheme = (d: boolean) => {
+      chosen = d;
+      showTheme();
+    };
+    themeButtons.forEach((b) => b.addEventListener("click", () => pickTheme(b.dataset.shots === "dark")));
+    // Following the site theme while none is picked (the header switch, or the system theme).
+    new MutationObserver(showTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", showTheme);
+    showTheme();
 
     // Tabs
     const selectTab = (name: string) => {
@@ -193,7 +224,7 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       const g = items[index].group;
       list = items.map((_, i) => i).filter((i) => items[i].group === g);
       pos = list.indexOf(index);
-      dark = siteDark();
+      dark = shotsDark();
       strip.innerHTML = "";
       list.forEach((i, k) => {
         const b = document.createElement("button");
@@ -228,7 +259,11 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     dialog.querySelector(".next")!.addEventListener("click", () => step(1));
     dialog.querySelector(".v-close")!.addEventListener("click", () => dialog.close());
     themeBox.querySelectorAll<HTMLButtonElement>("button").forEach((b) =>
-      b.addEventListener("click", () => { dark = b.dataset.theme === "dark"; render(); }),
+      b.addEventListener("click", () => {
+        dark = b.dataset.theme === "dark";
+        pickTheme(dark); // The tiles follow the viewer.
+        render();
+      }),
     );
     // A click on the backdrop closes; clicks inside the viewer don't.
     dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
@@ -255,6 +290,24 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   .g-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 16px; }
   .g-head .section-title { margin: 0; }
   .count { letter-spacing: 0; text-transform: none; }
+
+  /* Light / dark switch of the screenshots: labelled, so that the two themes are obvious */
+  .themes { margin-left: auto; display: flex; gap: 2px; padding: 3px; border-radius: 20px; background: var(--secondary-background-color); }
+  .tabs + .themes { margin-left: 0; }
+  .themes button {
+    all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 16px; font-size: 13px; font-weight: 500; color: var(--secondary-text-color);
+    transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+  .themes button :global(svg) { width: 16px; height: 16px; }
+  .themes button:hover { color: var(--primary-text-color); }
+  .themes button.on { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .themes button:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+  /* A theme picked here wins over the site's for the tiles */
+  .gallery[data-shots="light"] :global(.has-dark .shot-light) { display: block; }
+  .gallery[data-shots="light"] :global(.has-dark .shot-dark) { display: none; }
+  .gallery[data-shots="dark"] :global(.has-dark .shot-light) { display: none; }
+  .gallery[data-shots="dark"] :global(.has-dark .shot-dark) { display: block; }
 
   /* Tabs: one per card or variant */
   .tabs {
@@ -330,8 +383,8 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   .v-theme { display: flex; gap: 2px; padding: 3px; border-radius: 18px; background: var(--secondary-background-color); }
   .v-theme[hidden] { display: none; }
   .v-theme button {
-    all: unset; cursor: pointer; width: 34px; height: 34px; border-radius: 50%;
-    display: grid; place-items: center; color: var(--secondary-text-color);
+    all: unset; cursor: pointer; height: 34px; padding: 0 12px; border-radius: 17px;
+    display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--secondary-text-color);
   }
   .v-theme button :global(svg) { width: 18px; height: 18px; }
   .v-theme button.on { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
@@ -377,7 +430,9 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     /* Phones: the viewer takes the whole screen */
     .viewer { margin: 0; width: 100vw; max-width: none; height: 100dvh; max-height: none; border: 0; border-radius: 0; }
     .v-stage { padding: 12px; min-height: 0; }
-    .v-theme button { width: 40px; height: 40px; }
+    .v-theme button { height: 40px; padding: 0 10px; }
+    .v-theme button span { display: none; }
+    .themes { order: 3; }
     .tabs { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
     .v-nav { top: auto; bottom: 84px; width: 40px; height: 40px; }
   }
