@@ -125,6 +125,41 @@ const iconFor = (t: string) => {
     border-left: 3px solid var(--c);
   }
   .md :global(blockquote p) { margin: 4px 0; }
+
+  /* GitHub alerts (> [!NOTE] …) */
+  .md :global(blockquote.alert) {
+    --a: var(--c);
+    background: color-mix(in srgb, var(--a) 10%, transparent);
+    border-left-color: var(--a);
+  }
+  .md :global(blockquote.alert-important) { --a: #8e24aa; }
+  .md :global(blockquote.alert-warning) { --a: var(--warning-color); }
+  .md :global(blockquote.alert-caution) { --a: #db4437; }
+  .md :global(.alert-title) {
+    display: flex; align-items: center; gap: 6px; margin: 2px 0 4px;
+    font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em;
+    color: color-mix(in srgb, var(--a) 60%, var(--primary-text-color));
+  }
+  .md :global(.alert-title::before) {
+    content: "i"; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
+    font-size: 11px; font-weight: 700; text-transform: none; letter-spacing: 0;
+    color: var(--card-background-color, #fff); background: color-mix(in srgb, var(--a) 60%, var(--primary-text-color));
+  }
+  .md :global(.alert-tip .alert-title::before) { content: "\2713"; }
+  .md :global(.alert-important .alert-title::before),
+  .md :global(.alert-warning .alert-title::before),
+  .md :global(.alert-caution .alert-title::before) { content: "!"; }
+  .md :global(blockquote.alert a) { color: var(--primary-text-color); text-decoration: underline; }
+
+  /* my.home-assistant.io links, as a tinted button */
+  .md :global(a.ha-btn) {
+    display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 18px;
+    font-size: 13px; font-weight: 500; line-height: 1; text-decoration: none; vertical-align: middle;
+    color: color-mix(in srgb, var(--c) 60%, var(--primary-text-color));
+    background: color-mix(in srgb, var(--c) 14%, transparent);
+    transition: background .15s;
+  }
+  .md :global(a.ha-btn:hover) { text-decoration: none; background: color-mix(in srgb, var(--c) 22%, transparent); }
   .md :global(img) { display: inline-block; max-width: 100%; height: auto; border-radius: 8px; }
   .md :global(hr) { border: 0; border-top: 1px solid var(--divider-color); margin: 20px 0; }
 
