@@ -38,6 +38,8 @@ const isCard = project.kind === "card";
 const cardTypes = project.cardTypes ?? [];
 const yaml = cardTypes.length ? `type: custom:${cardTypes[0]}` : "";
 const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + (project.animations?.length ?? 0);
+// The gallery is left out when its only capture is the hero
+const hasGallery = shotCount > 1;
 ---
 
 <Base title={project.title} description={project.tagline}>
@@ -78,7 +80,7 @@ const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + 
       <span class="sn-title">{project.title}</span>
       <div class="sn-links">
         <a href="#overview" class="sn-link active" data-spy="overview">Overview</a>
-        {shotCount > 0 && <a href="#gallery" class="sn-link" data-spy="gallery">Gallery <span class="n">{shotCount}</span></a>}
+        {hasGallery && <a href="#gallery" class="sn-link" data-spy="gallery">Gallery <span class="n">{shotCount}</span></a>}
         <a href="#documentation" class="sn-link" data-spy="documentation">Documentation</a>
       </div>
       <a class="btn sn-cta" style={accent} href={hacsUrl(project)} target="_blank" rel="noopener"><Icon name="mdiDownload" /> <span>Add to HACS</span></a>
@@ -94,8 +96,13 @@ const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + 
               {shotCount > 1 && <span class="hint"><Icon name="mdiImageMultiple" /> View all {shotCount}</span>}
             </button>
           ) : (
-            <div class="frame hero empty">
-              <span class="logo lg" style={accent}><Icon name={project.icon} /></span>
+            <div class="ha-card hero empty">
+              <span class="logo xl" style={accent}><Icon name={project.icon} /></span>
+              <div class="empty-text">
+                <div class="name">Runs in the background</div>
+                <p class="muted">{project.title} has no dashboard of its own: it works on the server, with its entities, actions and notifications described in the documentation below.</p>
+              </div>
+              <a class="btn" style={accent} href="#documentation"><Icon name="mdiBookOpenPageVariantOutline" /> Read the documentation</a>
             </div>
           )
         }
@@ -266,7 +273,7 @@ const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + 
   }
   .sn-link .n { font-weight: 400; opacity: .7; margin-left: 2px; }
   .sn-link:hover { color: var(--primary-text-color); }
-  .sn-link.active { color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+  .sn-link.active { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); background: color-mix(in srgb, var(--c) 14%, transparent); }
   .sn-cta { height: 36px; padding: 0 14px; font-size: 13px; }
 
   /* Two columns */
@@ -293,11 +300,7 @@ const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + 
   .hero { position: relative; }
   /* Portrait captures: framed from the top, the whole capture is one click away */
   .hero:has(:global(img[data-tall])) { max-height: min(72vh, 760px); }
-  .hero:has(:global(img[data-tall]))::after {
-    content: ""; position: absolute; inset: auto 0 0; height: 120px;
-    background: linear-gradient(to bottom, transparent, var(--primary-background-color));
-    pointer-events: none;
-  }
+  .hero :global(img[data-tall]) { mask-image: linear-gradient(#000 calc(100% - 140px), transparent); }
   .hint {
     position: absolute; right: 12px; bottom: 12px; z-index: 1;
     display: inline-flex; align-items: center; gap: 6px;
@@ -310,7 +313,17 @@ const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + 
   }
   .hint :global(svg) { width: 16px; height: 16px; }
   .hero:hover .hint, .hero:focus-visible .hint, .hero:has(:global(img[data-tall])) .hint { opacity: 1; transform: none; }
-  .hero.empty { aspect-ratio: 4 / 3; display: grid; place-items: center; }
+  .hero.empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    min-height: 320px; padding: 32px; text-align: center;
+    background:
+      radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--c) 14%, transparent), transparent 60%),
+      var(--card-background-color);
+  }
+  .logo.xl { width: 96px; height: 96px; }
+  .logo.xl :global(svg) { width: 52px; height: 52px; }
+  .empty-text { max-width: 44ch; }
+  .empty-text p { margin: 6px 0 0; font-size: 14px; }
 
   /* Highlights */
   .highlights { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -318,7 +331,7 @@ const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + 
   .check {
     width: 22px; height: 22px; flex: none; margin-top: -1px;
     border-radius: 50%; display: grid; place-items: center;
-    background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c);
+    background: color-mix(in srgb, var(--c) 16%, transparent); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
   }
   .check svg { width: 14px; height: 14px; }
 
@@ -344,7 +357,7 @@ const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + 
     width: 22px; height: 22px; flex: none;
     border-radius: 50%; display: grid; place-items: center;
     font-size: 12px; font-weight: 500;
-    background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c);
+    background: color-mix(in srgb, var(--c) 16%, transparent); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
   }
 
   /* Prev / next */

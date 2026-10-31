@@ -44,7 +44,7 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 
 {
-  items.length > 0 && (
+  !(items.length === 1 && project.hero) && items.length > 0 && (
     <section class="ha-card gallery" id="gallery" data-gallery={JSON.stringify(data)}>
       <div class="g-head">
         <h2 class="section-title">
@@ -154,12 +154,13 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       const useDark = dark && !!it.dark;
       img.src = useDark ? it.dark! : it.light;
       img.alt = it.caption;
-      // Shown at the size it was captured for (2x), never wider than the stage.
-      img.style.width = it.w ? `min(100%, ${Math.round(it.w / 2)}px)` : "";
+      // Shown at the size it was captured for (screenshots at 2x, animations at 1x), never wider than the stage.
+      img.style.width = it.w ? `min(100%, ${Math.round(it.anim ? it.w : it.w / 2)}px)` : "";
       stage.classList.toggle("is-dark", useDark || (!it.dark && siteDark()));
       stage.scrollTop = 0;
       capEl.textContent = it.caption;
       subEl.textContent = it.caption === it.group ? `${pos + 1} / ${list.length}` : `${it.group} · ${pos + 1} / ${list.length}`;
+      if (!it.dark && themeBox.contains(document.activeElement)) dialog.querySelector<HTMLElement>(".v-close")!.focus();
       themeBox.hidden = !it.dark;
       for (const b of themeBox.querySelectorAll<HTMLButtonElement>("button")) {
         b.classList.toggle("on", (b.dataset.theme === "dark") === useDark);
@@ -223,7 +224,8 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     );
     // A click on the backdrop closes; clicks inside the viewer don't.
     dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
-    dialog.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", (e) => {
+      if (!dialog.open) return;
       if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
       if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
     });
@@ -263,7 +265,7 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   .tab :global(svg) { width: 16px; height: 16px; }
   .tab .n { font-weight: 400; opacity: .7; }
   .tab:hover { color: var(--primary-text-color); }
-  .tab.active { background: var(--card-background-color); color: var(--c); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .tab.active { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
   .tab:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
 
   /* Even tiles: whole capture, or its top for portrait captures */
@@ -278,11 +280,9 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
   .tile-btn :global(img) { width: 100%; height: 100%; object-fit: contain; transition: transform .4s ease; }
-  .tile-btn :global(img[data-tall]) { object-fit: cover; object-position: top center; }
-  .tile-btn:has(:global(img[data-tall]))::after {
-    content: ""; position: absolute; inset: auto 0 0; height: 32%;
-    background: linear-gradient(to bottom, transparent, var(--primary-background-color));
-    pointer-events: none;
+  .tile-btn :global(img[data-tall]) {
+    object-fit: cover; object-position: top center;
+    mask-image: linear-gradient(#000 70%, transparent);
   }
   .tile-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--c) 45%, var(--divider-color)); }
   .tile-btn:hover :global(img) { transform: scale(1.025); }
@@ -326,7 +326,7 @@ const slugId = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     display: grid; place-items: center; color: var(--secondary-text-color);
   }
   .v-theme button :global(svg) { width: 18px; height: 18px; }
-  .v-theme button.on { background: var(--card-background-color); color: var(--c); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  .v-theme button.on { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
   /* The stage takes the page colour of the variant shown, like the captures' own background */
   .v-stage {
     flex: 1; min-height: min(62vh, 620px); overflow: auto; overscroll-behavior: contain;
