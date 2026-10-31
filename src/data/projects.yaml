@@ -245,15 +245,16 @@ projects:
   category: climate
   icon: mdiHomeThermometer
   accent: '#26a69a'
-  tagline: Fewer, smarter comfort alerts and automatic control of climate devices, room by room.
-  summary: 'Tracks each comfort problem as an episode: notified once when it starts, again only if it gets worse. Temperature, CO₂, humidity, noise and windows to open or close, with a dedicated panel to set up every room.'
+  tagline: 'Fewer, smarter comfort alerts, and climate devices and lights that adjust themselves, room by room.'
+  summary: 'Tracks each comfort problem as an episode: notified once when it starts, again only if it gets worse. Temperature, CO₂, humidity, noise, outdoor air and windows to open or close, automatic control of air conditioners, fans and purifiers with a quiet night, and adaptive lighting. Everything is set up room by room in its own panel.'
   highlights:
-  - 'Ten alerts per room: heat, cold, windows, CO₂, humidity, noise'
-  - Episodes instead of cooldowns, with hysteresis and delay
-  - One digest notification listing every current problem
-  - Quiet hours, presence and iOS / Android interruption levels
-  - Automatic control of air conditioners, fans and purifiers
-  - Setup panel with room discovery
+  - 'Ten alerts per room: heat, cold, windows, CO₂, humidity, noise, outdoor air'
+  - Episodes instead of cooldowns, grouped in one digest notification
+  - Quiet hours, presence and iOS / Android interruption levels, with Snooze and Got it buttons
+  - Air conditioners, fans and purifiers controlled automatically, quieter at night
+  - Adaptive lighting by time of day, with a quiet morning and nap slots per room
+  - Outdoor places and air quality index to suggest opening or closing the windows
+  - Setup panel in the sidebar, with room discovery
   homeassistant: 2024.12.0
   hero:
     src: panel-overview.png
@@ -275,6 +276,12 @@ projects:
     group: Panel
   - src: panel-alerts.png
     caption: Alert settings
+    group: Panel
+  - src: panel-lighting.png
+    caption: Adaptive lighting
+    group: Panel
+  - src: panel-naps.png
+    caption: Quiet morning and naps of a bedroom
     group: Panel
 - slug: ha-room-card
   title: Room Cards
