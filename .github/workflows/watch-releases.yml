@@ -20,7 +20,7 @@ jobs:
   watch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           sparse-checkout: src/data/projects.yaml
           sparse-checkout-cone-mode: false
@@ -43,7 +43,7 @@ jobs:
       # The set of latest releases already seen is remembered as a cache entry named after its hash.
       - name: Already seen?
         id: seen
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: releases.txt
           key: ${{ steps.releases.outputs.key }}
@@ -57,7 +57,7 @@ jobs:
 
       - name: Remember these releases
         if: steps.seen.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: releases.txt
           key: ${{ steps.releases.outputs.key }}
