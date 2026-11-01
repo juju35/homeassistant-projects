@@ -26,6 +26,13 @@ categories:
 - id: maintenance
   label: Maintenance
   icon: mdiWrenchClock
+# People who contributed to the projects, shown in the Contributions section of the home page.
+contributors:
+- login: cpmarexel2f
+  contribution: Serbian translations, in Cyrillic and Latin script
+- login: nvcs
+  contribution: Fix for the discovery of Dreame robots
+  project: ha-vacuum-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
