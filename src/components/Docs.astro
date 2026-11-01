@@ -1,6 +1,8 @@
 ---
 import Icon from "./Icon.astro";
 import { getDocs } from "../lib/docs";
+import { getChangelog } from "../lib/changelog";
+import { formatDate } from "../lib/releases";
 import { repoUrl, type Project } from "../lib/projects";
 
 interface Props {
@@ -8,6 +10,7 @@ interface Props {
 }
 const { project } = Astro.props;
 const sections = await getDocs(project);
+const changelog = await getChangelog(project);
 
 const iconFor = (t: string) => {
   const s = t.toLowerCase();
@@ -63,6 +66,32 @@ const iconFor = (t: string) => {
     )
   }
 </section>
+
+{
+  changelog && (
+    <section class="docs" id="changelog">
+      <div class="docs-head">
+        <h2 class="section-title"><Icon name="mdiHistory" /> Changelog</h2>
+        <a class="src muted" href={changelog.url} target="_blank" rel="noopener">
+          {changelog.total > changelog.entries.length ? `All ${changelog.total} versions` : "CHANGELOG.md"} <Icon name="mdiOpenInNew" />
+        </a>
+      </div>
+      {changelog.entries.map((e, i) => (
+        <details class="fold ha-card doc" id={e.id} open={i === 0}>
+          <summary>
+            <h3 class="section-title">
+              <Icon name="mdiTagOutline" /> {e.version}
+              {e.date && <span class="when muted">{formatDate(`${e.date}T00:00:00Z`)}</span>}
+              {i === 0 && <span class="chip latest">Latest</span>}
+              <Icon name="mdiChevronRight" class="chev" />
+            </h3>
+          </summary>
+          <div class="md" set:html={e.html} />
+        </details>
+      ))}
+    </section>
+  )
+}
 
 <script is:inline>
   (() => {
@@ -158,6 +187,13 @@ const iconFor = (t: string) => {
   }
 
   .doc { padding: 0 20px; scroll-margin-top: 130px; }
+  /* Changelog: release date and "Latest" next to the version number */
+  .when { font-size: 13px; font-weight: 400; }
+  .chip.latest {
+    padding: 2px 10px; font-size: 12px; font-weight: 500;
+    color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
+    background: color-mix(in srgb, var(--c) 16%, transparent);
+  }
   .doc > summary { padding: 16px 0; }
   .doc > summary .section-title { margin: 0; color: var(--primary-text-color); }
   .doc > summary .section-title :global(svg:first-child) { color: var(--c); }
