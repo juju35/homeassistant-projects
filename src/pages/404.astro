@@ -1,0 +1,24 @@
+---
+// Served by GitHub Pages for any address of the site that doesn't exist.
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="Page not found" description="This page doesn't exist: every card and integration is listed on the home page.">
+  <section class="wrap nf">
+    <div class="ha-card nf-card">
+      <span class="logo lg"><Icon name="mdiMapMarkerQuestionOutline" /></span>
+      <h1>Page not found</h1>
+      <p class="muted">This address doesn't lead to a page of the site. Every card and integration is on the home page.</p>
+      <a class="btn" href={base}><Icon name="mdiHomeOutline" /> All projects</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { padding-top: 48px; }
+  .nf-card { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 40px 24px; text-align: center; }
+  h1 { margin: 4px 0 0; font-size: 24px; font-weight: 500; }
+  p { margin: 0 0 8px; max-width: 46ch; }
+</style>

@@ -77,22 +77,25 @@ async function limited<T>(job: () => Promise<T>): Promise<T> {
 const outputs = new Map<string, Promise<string>>();
 const files = new Map<string, Promise<void>>();
 
-/** URL of the capture re-encoded as WebP at `width` (never wider than the original). */
-export function optimizedUrl(url: string, width: number): Promise<string> {
+/**
+ * URL of the capture re-encoded as WebP at `width` (never wider than the original). `still`: only the first frame
+ * of an animation, shown instead of it when the visitor asks for reduced motion.
+ */
+export function optimizedUrl(url: string, width: number, still = false): Promise<string> {
   if (!enabled) return Promise.resolve(url);
-  const key = `${url}@${width}`;
-  if (!outputs.has(key)) outputs.set(key, encode(url, width));
+  const key = `${url}@${width}${still ? "/still" : ""}`;
+  if (!outputs.has(key)) outputs.set(key, encode(url, width, still));
   return outputs.get(key)!;
 }
 
-async function encode(url: string, width: number): Promise<string> {
+async function encode(url: string, width: number, still = false): Promise<string> {
   try {
     const [size, buf] = await Promise.all([imageSize(url), source(url)]);
     if (!size || !buf) return url;
     const w = Math.min(width, size.w);
-    const hash = createHash("sha1").update(buf).update(`${VERSION}/${QUALITY}/${w}`).digest("hex").slice(0, 10);
+    const hash = createHash("sha1").update(buf).update(`${VERSION}/${QUALITY}/${w}${still ? "/still" : ""}`).digest("hex").slice(0, 10);
     const stem = (url.split("/").pop() ?? "img").replace(/\.\w+$/, "").replace(/[^\w-]/g, "_");
-    const name = `${stem}-${w}-${hash}.webp`;
+    const name = `${stem}-${w}${still ? "-still" : ""}-${hash}.webp`;
     const file = join(CACHE_DIR, name);
     // Several requested widths can clamp to the same file (e.g. 1600 and 984 for a 984px capture): encode it once
     if (!files.has(name)) {
@@ -102,7 +105,7 @@ async function encode(url: string, width: number): Promise<string> {
           ? Promise.resolve()
           : limited(async () => {
               sharp ??= (await import("sharp")).default;
-              const animated = /\.gif$/i.test(url);
+              const animated = !still && /\.gif$/i.test(url);
               const data = await sharp(buf, { animated, failOn: "none" })
                 .resize({ width: w, withoutEnlargement: true })
                 .webp({ quality: QUALITY, ...(animated ? { loop: 0 } : {}) })
@@ -129,13 +132,16 @@ function usableWidths(size: Size, wanted: number[]): number[] {
   return ws;
 }
 
-/** `src` / `srcset` of the capture in WebP at the given widths, for an `<img sizes=…>`. */
-export async function optimizedSet(url: string, { widths = CARD_WIDTHS }: { widths?: number[] } = {}): Promise<OptimizedSet> {
+/** `src` / `srcset` of the capture in WebP at the given widths, for an `<img sizes=…>` (`still`: first frame only). */
+export async function optimizedSet(
+  url: string,
+  { widths = CARD_WIDTHS, still = false }: { widths?: number[]; still?: boolean } = {},
+): Promise<OptimizedSet> {
   const size = await imageSize(url);
   if (!size) return { src: url };
   if (!enabled) return { src: url, width: size.w, height: size.h };
   const ws = usableWidths(size, widths);
-  const urls = await Promise.all(ws.map((w) => optimizedUrl(url, w)));
+  const urls = await Promise.all(ws.map((w) => optimizedUrl(url, w, still)));
   // Nothing could be processed: keep the original
   if (urls.some((u) => u === url)) return { src: url, width: size.w, height: size.h };
   return {

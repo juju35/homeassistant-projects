@@ -23,10 +23,6 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Ask browsers not to keep the pages (GitHub Pages can't send real HTTP headers: it serves max-age=600) -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={pageTitle} />
@@ -39,11 +35,16 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
     <meta name="theme-color" content="#e8eaed" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <link rel="sitemap" href={`${base}sitemap.xml`} type="application/xml" />
     <script is:inline>
       // Before first paint, so the page never flashes the wrong theme.
       try {
         const t = localStorage.getItem("theme");
-        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+        if (t === "light" || t === "dark") {
+          document.documentElement.dataset.theme = t;
+          // The browser bar follows the chosen theme, not only the system one
+          for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = t === "dark" ? "#111111" : "#e8eaed";
+        }
       } catch {}
     </script>
   </head>
@@ -57,7 +58,7 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
         </a>
         <nav class="actions">
           <a class="icon-btn" href={`https://github.com/${OWNER}`} title="GitHub" aria-label="GitHub profile"><Icon name="mdiGithub" /></a>
-          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Dark theme" aria-pressed="false" title="Dark theme">
             <Icon name="mdiWeatherNight" class="to-dark" />
             <Icon name="mdiWhiteBalanceSunny" class="to-light" />
           </button>
@@ -81,10 +82,17 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
         const root = document.documentElement;
         const dark = () =>
           root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-        document.getElementById("theme-toggle").addEventListener("click", () => {
+        // A toggle button: "Dark theme", pressed when the page is dark
+        const toggle = document.getElementById("theme-toggle");
+        const sync = () => toggle.setAttribute("aria-pressed", String(dark()));
+        sync();
+        matchMedia("(prefers-color-scheme: dark)").addEventListener("change", sync);
+        toggle.addEventListener("click", () => {
           const next = dark() ? "light" : "dark";
           root.dataset.theme = next;
+          for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = next === "dark" ? "#111111" : "#e8eaed";
           try { localStorage.setItem("theme", next); } catch {}
+          sync();
         });
         // Back to top, once the page has been scrolled for two screens
         const up = document.getElementById("to-top");

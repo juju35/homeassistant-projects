@@ -21,6 +21,7 @@ const CHIP = `<rect width="137" height="64" x="344" y="16" fill="#f2f4f9" rx="32
   rel="noopener"
   style={`--h:${height}px`}
   title="Open your Home Assistant instance and open this repository in HACS"
+  aria-label={`Add to HACS: ${project.title}`}
 >
   <span class="t">Add to HACS</span>
   <svg class="my" viewBox="344 16 137 64" aria-hidden="true" set:html={CHIP} />
@@ -32,11 +33,12 @@ const CHIP = `<rect width="137" height="64" x="344" y="16" fill="#f2f4f9" rx="32
     display: inline-flex; flex: none; align-items: center; gap: calc(var(--h) * 0.3);
     height: var(--h); padding: 0 calc(var(--h) * 16 / 96) 0 calc(var(--h) * 0.42);
     border-radius: calc(var(--h) / 2);
-    background: #18bcf2; color: #fff;
+    /* The badge's blue, darkened for its small white text (4.5:1); the "MY" chip keeps the official colours */
+    background: #0b7aa6; color: #fff;
     font: 700 calc(var(--h) * 0.34) / 1 var(--font); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
     transition: filter 0.2s ease;
   }
   .my { display: block; flex: none; height: calc(var(--h) * 64 / 96); width: auto; aspect-ratio: 137 / 64; }
   .hacs-badge:hover { filter: brightness(1.06); }
-  .hacs-badge:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+  .hacs-badge:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
 </style>

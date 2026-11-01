@@ -13,9 +13,12 @@ import {
   caption,
   categoryOf,
   shotUrl,
+  shotCount as countShots,
+  hasGallery as showsGallery,
   type Project,
 } from "../../lib/projects";
 import { latestRelease, formatDate } from "../../lib/releases";
+import { imageSize } from "../../lib/imgsize";
 import { getChangelog } from "../../lib/changelog";
 
 export function getStaticPaths() {
@@ -41,10 +44,13 @@ const category = categoryOf(project);
 const isCard = project.kind === "card";
 const cardTypes = project.cardTypes ?? [];
 const yaml = cardTypes.length ? `type: custom:${cardTypes[0]}` : "";
-const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + (project.animations?.length ?? 0);
+const shotCount = countShots(project);
 // The gallery is left out when its only capture is the hero
-const hasGallery = shotCount > 1;
+const hasGallery = showsGallery(project);
 const release = await latestRelease(project);
+// Captures are taken at 2x: the hero is shown at most at its own size (half its pixels), never enlarged.
+const heroSize = project.hero ? await imageSize(shotUrl(project, project.hero.src)) : null;
+const heroStyle = heroSize ? `--shot-w:${Math.round(heroSize.w / 2)}px` : undefined;
 const changelog = await getChangelog(project);
 // Projects this one works with, declared on either side
 const related = projects.flatMap((p) => {
@@ -112,7 +118,7 @@ const related = projects.flatMap((p) => {
       <div class="hero-col">
         {
           project.hero ? (
-            <button class="frame hero zoom" type="button" data-open-gallery aria-label={`Open the gallery: ${caption(project.hero)}`}>
+            <button class="frame hero zoom" type="button" data-open-gallery style={heroStyle} aria-label={`Open the gallery: ${caption(project.hero)}`}>
               <Shot project={project} shot={project.hero} eager />
               {shotCount > 1 && <span class="hint"><Icon name="mdiImageMultiple" /> View all {shotCount}</span>}
             </button>
@@ -352,7 +358,7 @@ const related = projects.flatMap((p) => {
     font-size: 13px; font-weight: 500; color: var(--secondary-text-color);
     transition: background-color .2s ease, color .2s ease;
   }
-  .sn-link .n { font-weight: 400; opacity: .7; margin-left: 2px; }
+  .sn-link .n { font-weight: 400; margin-left: 2px; }
   .sn-link:hover { color: var(--primary-text-color); }
   .sn-link.active { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); background: color-mix(in srgb, var(--c) 14%, transparent); }
   /* Hidden while the header's badge is on screen (keeps its room in the bar, no jump) */
@@ -375,10 +381,11 @@ const related = projects.flatMap((p) => {
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.3s ease;
   }
-  .frame :global(img) { width: 100%; height: auto; }
+  /* At most the capture's own size, centred on the frame (whose colour is the capture's background) */
+  .frame :global(img) { width: 100%; max-width: var(--shot-w, 100%); height: auto; margin-inline: auto; }
   .zoom { cursor: zoom-in; }
   .zoom:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-  .zoom:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+  .zoom:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
   .hero-col { position: sticky; top: 136px; min-width: 0; }
   .hero { position: relative; }
   /* Portrait captures: framed from the top, the whole capture is one click away */
@@ -475,10 +482,10 @@ const related = projects.flatMap((p) => {
     .subnav { top: 61px; margin-inline: -16px; border-radius: 0; border-inline: 0; border-top: 0; background: var(--card-background-color); }
     .sn-links { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 20px; }
     .subnav > .logo { display: none; }
-    /* Phones: the badge keeps its place in the bar, on a second line under the section links */
-    .subnav { flex-wrap: wrap; row-gap: 6px; }
-    .sn-links { flex: 1 1 100%; order: 1; }
-    .subnav :global(.sn-cta) { order: 2; margin: 0 auto; display: none; }
+    /* Phones: one row (the bar stays ~50px high): the section links scroll, the badge, smaller, ends the row once
+       the header's has scrolled away */
+    .sn-links { flex: 1 1 auto; min-width: 0; }
+    .subnav :global(.sn-cta) { --h: 28px !important; margin: 0; display: none; }
     .subnav.show-cta :global(.sn-cta) { display: inline-flex; }
   }
   @media (prefers-reduced-motion: reduce) {

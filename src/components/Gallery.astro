@@ -584,7 +584,7 @@ const hasDark = data.some((d) => d.dark);
   .themes button :global(svg) { width: 16px; height: 16px; }
   .themes button:hover { color: var(--primary-text-color); }
   .themes button.on { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
-  .themes button:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+  .themes button:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 1px; }
   /* A theme picked here wins over the site's for the tiles */
   .gallery[data-shots="light"] :global(.has-dark .shot-light) { display: block; }
   .gallery[data-shots="light"] :global(.has-dark .shot-dark) { display: none; }
@@ -606,10 +606,10 @@ const hasDark = data.some((d) => d.dark);
     transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
   }
   .tab :global(svg) { width: 16px; height: 16px; }
-  .tab .n { font-weight: 400; opacity: .7; }
+  .tab .n { font-weight: 400; }
   .tab:hover { color: var(--primary-text-color); }
   .tab.active { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
-  .tab:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+  .tab:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 1px; }
 
   /* Even tiles: whole capture, or its top for portrait captures */
   .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px 16px; }
@@ -629,7 +629,7 @@ const hasDark = data.some((d) => d.dark);
   }
   .tile-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--c) 45%, var(--divider-color)); }
   .tile-btn:hover :global(img) { transform: scale(1.025); }
-  .tile-btn:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+  .tile-btn:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
   .badge, .expand {
     position: absolute; z-index: 1;
     width: 28px; height: 28px; border-radius: 50%;
@@ -670,7 +670,7 @@ const hasDark = data.some((d) => d.dark);
   }
   .v-theme button :global(svg) { width: 18px; height: 18px; }
   .v-theme button.on { background: var(--card-background-color); color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
-  .v-theme button:focus-visible, .v-cmp:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+  .v-theme button:focus-visible, .v-cmp:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 1px; }
   /* Compare: a tinted toggle, like the switches */
   .v-cmp {
     all: unset; cursor: pointer; flex: none; height: 40px; padding: 0 12px; border-radius: 20px; box-sizing: border-box;
@@ -693,7 +693,7 @@ const hasDark = data.some((d) => d.dark);
   .v-zoom.out { cursor: zoom-out; }
   .v-zoom:disabled { cursor: default; }
   .v-zoom[hidden] { display: none; }
-  .v-zoom:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 3px; }
+  .v-zoom:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 3px; }
   .v-zoom img { display: block; max-width: none; border-radius: 8px; height: auto; }
   .v-stage:not(.zoomed) .v-zoom img { max-width: 100%; }
   /* Light and dark side by side; on narrow screens, dark over light with a split */
@@ -713,7 +713,7 @@ const hasDark = data.some((d) => d.dark);
   .v-split { display: none; align-items: center; gap: 10px; padding: 8px 16px; border-top: 1px solid var(--divider-color); color: var(--secondary-text-color); }
   .v-split :global(svg) { width: 18px; height: 18px; flex: none; }
   .v-split input { flex: 1; min-width: 0; height: 32px; margin: 0; accent-color: var(--c); cursor: ew-resize; }
-  .v-split input:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; border-radius: 4px; }
+  .v-split input:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; border-radius: 4px; }
   @media (max-width: 720px) {
     .v-compare { grid-template-columns: auto; }
     .cmp { grid-area: 1 / 1; }
