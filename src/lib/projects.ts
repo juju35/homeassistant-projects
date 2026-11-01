@@ -54,6 +54,11 @@ export const categories = data.categories;
 export const projects = data.projects;
 export const contributors = data.contributors ?? [];
 
+/** Screenshots and animations of a project, the hero included. */
+export const shotCount = (p: Project) => (p.hero ? 1 : 0) + (p.screenshots?.length ?? 0) + (p.animations?.length ?? 0);
+/** The page shows a gallery unless its only capture is the hero (same rule as Gallery.astro). */
+export const hasGallery = (p: Project) => shotCount(p) > 1 || (shotCount(p) === 1 && !p.hero);
+
 export const repoUrl = (p: Project) => `https://github.com/${OWNER}/${p.slug}`;
 
 export const shotUrl = (p: Project, file: string) =>

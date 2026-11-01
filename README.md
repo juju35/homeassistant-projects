@@ -24,6 +24,8 @@ Images are fetched from `raw.githubusercontent.com` at build time and re-encoded
 
 The documentation of each project (features, prerequisites, configuration and options, entities, actions, how it works) is taken from its `README.md` at build time (`src/lib/docs.ts`) and rendered on the project page, followed by the last versions of its `CHANGELOG.md` (`src/lib/changelog.ts`). Installation, screenshots, development and translation sections are left out. The site is rebuilt every day to pick up README changes.
 
+The HTML of the READMEs and CHANGELOGs is sanitized at build time (`src/lib/readme-html.ts`, [sanitize-html](https://github.com/apostrophecms/sanitize-html)): pictures, folds, tables, links and alerts are kept; scripts, event handlers, frames, forms, styles and `javascript:` / `data:` links (data images excepted) are dropped. Ids coming from a README are prefixed with `readme-` so they never collide with the page's own sections (`#overview`, `#install`…); a GitHub-style `#options` link still lands on `#readme-options`.
+
 ## Add a project
 
 1. Add an entry to `src/data/projects.yaml`.
@@ -34,13 +36,15 @@ The documentation of each project (features, prerequisites, configuration and op
 
 ```sh
 npm ci        # install dependencies
+npm test      # unit tests (node --test)
 npm run dev   # start the dev server
 npm run build # build the static site into dist/
+ALLOW_MISSING_SOURCES=1 npm run build # offline: build without the READMEs, CHANGELOGs or releases that can't be fetched
 ```
 
 ## Deployment
 
-The site is built and deployed by GitHub Actions (`.github/workflows/deploy.yml`) on every push to `main`, every day, or manually with `workflow_dispatch`. `.github/workflows/watch-releases.yml` also checks the latest release of every project every 15 minutes and starts a deployment as soon as one of them changed, so a new release shows up on its page (version, changelog, documentation) within about 15 minutes, without anything to set up in the project repositories. The build needs network access to `raw.githubusercontent.com` for the READMEs; a README that cannot be loaded shows a link to GitHub instead. In the repository's Settings → Pages, Source must be set to "GitHub Actions".
+The site is built and deployed by GitHub Actions (`.github/workflows/deploy.yml`) on every push to `main`, every day, or manually with `workflow_dispatch`. `.github/workflows/watch-releases.yml` also checks the latest release of every project every 15 minutes and starts a deployment as soon as one of them changed, so a new release shows up on its page (version, changelog, documentation) within about 15 minutes, without anything to set up in the project repositories. The build needs network access to `raw.githubusercontent.com` (READMEs, CHANGELOGs, screenshots) and `api.github.com` (releases). Every request is tried three times (`src/lib/sources.ts`); a source that stays unavailable fails the build with a message naming it, so nothing is deployed and the site already online stays as it is (a repository without a release or a `CHANGELOG.md` simply shows none). The build also fails when a page has an id twice or mentions IPTV (`src/lib/dist-check.mjs`). `.github/workflows/keepalive.yml` re-enables the scheduled workflows every week, so GitHub doesn't turn them off after 60 days without a commit. In the repository's Settings → Pages, Source must be set to "GitHub Actions".
 
 ## License
 
