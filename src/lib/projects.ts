@@ -40,10 +40,19 @@ export interface Project {
   animations?: Shot[];
 }
 
-const data = load(raw) as { categories: Category[]; projects: Project[] };
+export interface Contributor {
+  /** GitHub login. */
+  login: string;
+  contribution: string;
+  /** Slug of the project it went into, when it is about one project. */
+  project?: string;
+}
+
+const data = load(raw) as { categories: Category[]; projects: Project[]; contributors?: Contributor[] };
 
 export const categories = data.categories;
 export const projects = data.projects;
+export const contributors = data.contributors ?? [];
 
 export const repoUrl = (p: Project) => `https://github.com/${OWNER}/${p.slug}`;
 

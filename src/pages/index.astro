@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { categories, projects, OWNER } from "../lib/projects";
+import { categories, contributors, projects, OWNER } from "../lib/projects";
 
 const cards = projects.filter((p) => p.kind === "card").length;
 const integrations = projects.length - cards;
@@ -29,9 +29,9 @@ const groups = categories
       <p class="lead">
         Dashboard cards that look at home in Home Assistant and find their entities by themselves,
         and integrations that keep things quiet until something really needs you. Light and dark themes,
-        English, French, German and Spanish.
+        English, French, German, Spanish and Serbian.
       </p>
-      <p class="stats-inline muted">{cards} cards · {integrations} integrations · {animations} animations · 4 languages</p>
+      <p class="stats-inline muted">{cards} cards · {integrations} integrations · {animations} animations · 5 languages</p>
       <div class="stats">
         <div class="tile stat" style="--c:#5b6cf0">
           <span class="logo"><Icon name="mdiViewDashboardVariant" /></span>
@@ -47,7 +47,7 @@ const groups = categories
         </div>
         <div class="tile stat" style="--c:#41bdf5">
           <span class="logo"><Icon name="mdiTranslate" /></span>
-          <div><div class="v">4</div><div class="sub">Languages</div></div>
+          <div><div class="v">5</div><div class="sub">Languages</div></div>
         </div>
       </div>
     </div>
@@ -94,6 +94,55 @@ const groups = categories
       <p class="muted" id="empty-text">No project matches this search.</p>
       <button class="btn ghost" type="button" id="clear"><Icon name="mdiFilterRemoveOutline" /> Clear filters</button>
     </div>
+
+    <section class="contrib" id="contributing" aria-labelledby="contributing-title">
+      <h2 class="section-title" id="contributing-title"><Icon name="mdiHandHeartOutline" />Contributions</h2>
+      <div class="ha-card contrib-card">
+        {contributors.length > 0 && (
+          <div class="people">
+            <h3 class="contrib-h">Thanks to</h3>
+            <ul class="people-list">
+              {contributors.map((c) => {
+                const p = c.project ? projects.find((x) => x.slug === c.project) : undefined;
+                return (
+                  <li class="person tile">
+                    <span class="avatar" aria-hidden="true">
+                      {c.login[0].toUpperCase()}
+                      <img src={`https://github.com/${c.login}.png?size=96`} alt="" width="40" height="40" loading="lazy" decoding="async" onerror="this.remove()" />
+                    </span>
+                    <span class="who">
+                      <a class="login" href={`https://github.com/${c.login}`} target="_blank" rel="noopener">@{c.login}</a>
+                      <span class="muted">
+                        {c.contribution}
+                        {p && <> · <a class="on" href={`${import.meta.env.BASE_URL}projects/${p.slug}/`}>{p.title}</a></>}
+                      </span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+        <div class="ways">
+          <h3 class="contrib-h">Want to help?</h3>
+          <div class="ways-grid">
+            <div class="way" style="--c:#41bdf5">
+              <span class="logo sm"><Icon name="mdiTranslate" /></span>
+              <div><b>Translate</b><p class="muted">Each card and integration keeps its texts in one file per language: add yours in a pull request on its repository.</p></div>
+            </div>
+            <div class="way" style="--c:#db4437">
+              <span class="logo sm"><Icon name="mdiBugOutline" /></span>
+              <div><b>Report a bug</b><p class="muted">Open an issue on the project's repository, with your Home Assistant version and what you see.</p></div>
+            </div>
+            <div class="way" style="--c:#f5a623">
+              <span class="logo sm"><Icon name="mdiLightbulbOnOutline" /></span>
+              <div><b>Suggest an idea</b><p class="muted">A brand to support, an option, a new card: issues are open for ideas too.</p></div>
+            </div>
+          </div>
+          <a class="btn ghost repos" href={`https://github.com/${OWNER}?tab=repositories`} target="_blank" rel="noopener"><Icon name="mdiGithub" /> Every repository on GitHub</a>
+        </div>
+      </div>
+    </section>
   </div>
 </Base>
 
@@ -246,6 +295,37 @@ const groups = categories
   .empty { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 56px 0; text-align: center; }
   .empty p { margin: 0; }
   .empty .logo { --c: var(--secondary-text-color); }
+
+  /* Contributions */
+  .contrib { margin-top: 40px; scroll-margin-top: 130px; }
+  .contrib-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; padding: 20px; }
+  .contrib-h { margin: 0 0 12px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--secondary-text-color); }
+  .people-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .person { display: flex; align-items: center; gap: 12px; padding: 10px 12px; }
+  /* Initial under the GitHub avatar, left alone if the avatar can't load */
+  .avatar {
+    position: relative; width: 40px; height: 40px; flex: none; border-radius: 50%; overflow: hidden;
+    display: grid; place-items: center; font-weight: 500; color: var(--primary-color);
+    background: color-mix(in srgb, var(--primary-color) 16%, transparent);
+  }
+  .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .who { display: flex; flex-direction: column; gap: 2px; min-width: 0; font-size: 14px; }
+  .who .login { font-weight: 500; }
+  .who a:hover { text-decoration: underline; }
+  .who .on { color: var(--primary-text-color); white-space: nowrap; }
+  .who .muted { font-size: 13px; }
+  .ways-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .way { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; }
+  .way b { font-weight: 500; }
+  .way p { margin: 4px 0 0; font-size: 13px; line-height: 1.45; }
+  .repos { margin-top: 16px; }
+  @media (max-width: 900px) {
+    .contrib-card { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .contrib-card { padding: 16px; }
+    .ways-grid { grid-template-columns: 1fr; gap: 12px; }
+  }
 
   @media (max-width: 760px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
