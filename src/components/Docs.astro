@@ -267,15 +267,17 @@ const iconFor = (t: string) => {
   .md :global(blockquote.alert-important) { --a: #8e24aa; }
   .md :global(blockquote.alert-warning) { --a: var(--warning-color); }
   .md :global(blockquote.alert-caution) { --a: #db4437; }
+  /* Title and icon in the accent darkened (light) or lightened (dark) like the other accent texts: 4.5:1 for
+     every alert type and project accent, in both themes (test/css-rules.test.mjs) */
   .md :global(.alert-title) {
     display: flex; align-items: center; gap: 6px; margin: 2px 0 4px;
     font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em;
-    color: color-mix(in srgb, var(--a) 60%, var(--primary-text-color));
+    color: color-mix(in srgb, var(--a), var(--ink) var(--ink-amt));
   }
   .md :global(.alert-title::before) {
     content: "i"; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
     font-size: 11px; font-weight: 700; text-transform: none; letter-spacing: 0;
-    color: var(--card-background-color, #fff); background: color-mix(in srgb, var(--a) 60%, var(--primary-text-color));
+    color: var(--card-background-color, #fff); background: color-mix(in srgb, var(--a), var(--ink) var(--ink-amt));
   }
   .md :global(.alert-tip .alert-title::before) { content: "\2713"; }
   .md :global(.alert-important .alert-title::before),
