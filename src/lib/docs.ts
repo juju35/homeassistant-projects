@@ -57,14 +57,14 @@ function renderer(slug: string) {
 }
 
 // Relative src/href inside raw HTML of the README (logos, <picture>).
-const fixHtml = (html: string, slug: string) =>
+export const fixHtml = (html: string, slug: string) =>
   html
     .replace(/(src|srcset)="([^"]+)"/g, (m, attr, url) => (isRelative(url) ? `${attr}="${raw(slug, url)}"` : m))
     .replace(/<a href="(https?:)/g, '<a target="_blank" rel="noopener" href="$1');
 
 // GitHub alerts: "> [!NOTE]" becomes a titled callout instead of showing the marker.
 const ALERTS: Record<string, string> = { note: "Note", tip: "Tip", important: "Important", warning: "Warning", caution: "Caution" };
-const alerts = (html: string) =>
+export const alerts = (html: string) =>
   html.replace(
     /<blockquote>\s*<p>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(?:<br\s*\/?>)?\s*(<\/p>\s*)?/gi,
     (_m, type: string, closed?: string) => {
@@ -138,7 +138,7 @@ const codeCopy = (html: string) => html.replace(/<pre\b[\s\S]*?<\/pre>/gi, (m) =
 // Links to another project's repository (root or #readme) go to its page on this site, in the same tab;
 // links to files in a repository keep going to GitHub. ha-iptv is never linked.
 const SLUGS = new Set(projects.map((p) => p.slug));
-const siteLinks = (html: string, self: string) =>
+export const siteLinks = (html: string, self: string) =>
   html
     .replace(/<a\b[^>]*\bhref="https:\/\/github\.com\/juju35\/ha-iptv\b[^"]*"[^>]*>([\s\S]*?)<\/a>/gi, "$1")
     .replace(

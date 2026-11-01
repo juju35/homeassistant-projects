@@ -16,6 +16,7 @@ import {
   type Project,
 } from "../../lib/projects";
 import { latestRelease, formatDate } from "../../lib/releases";
+import { getChangelog } from "../../lib/changelog";
 
 export function getStaticPaths() {
   return projects.map((project, i) => ({
@@ -44,6 +45,7 @@ const shotCount = (project.hero ? 1 : 0) + (project.screenshots?.length ?? 0) + 
 // The gallery is left out when its only capture is the hero
 const hasGallery = shotCount > 1;
 const release = await latestRelease(project);
+const changelog = await getChangelog(project);
 // Projects this one works with, declared on either side
 const related = projects.flatMap((p) => {
   if (p.slug === project.slug) return [];
@@ -100,6 +102,7 @@ const related = projects.flatMap((p) => {
         <a href="#install" class="sn-link" data-spy="install">Install</a>
         {hasGallery && <a href="#gallery" class="sn-link" data-spy="gallery">Gallery <span class="n">{shotCount}</span></a>}
         <a href="#documentation" class="sn-link" data-spy="documentation">Documentation</a>
+        {changelog && <a href="#changelog" class="sn-link" data-spy="changelog">Changelog</a>}
       </div>
       <HacsBadge project={project} height={36} class="sn-cta" />
     </nav>
