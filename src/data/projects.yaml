@@ -33,6 +33,12 @@ contributors:
 - login: nvcs
   contribution: Fix for the discovery of Dreame robots
   project: ha-vacuum-card
+- login: domwu0001
+  contribution: German translation proposal
+  project: ha-vacuum-card
+- login: Maxxiime
+  contribution: Idea of the Xiaomi Home support
+  project: ha-vacuum-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
