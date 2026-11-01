@@ -1512,11 +1512,12 @@ projects:
   highlights:
   - Check every repository with a button or an action
   - Check only selected repositories
+  - Update all from the card or an action, one update after the other
   - Automatic check at your interval
   - Status sensor with progress and failures
   - Card with the check, its progress and the updates available
   homeassistant: 2024.12.0
-  keywords: "hacs updates refresh repositories card"
+  keywords: "hacs updates refresh repositories card install update all"
   cardTypes:
   - hacs-refresh-card
   hero:
@@ -1528,6 +1529,10 @@ projects:
   - src: card-checking.png
     dark: card-checking-dark.png
     caption: Check running
+    group: Card
+  - src: card-installing.png
+    dark: card-installing-dark.png
+    caption: Installing the updates
     group: Card
   - src: card-ok.png
     dark: card-ok-dark.png
