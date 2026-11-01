@@ -340,7 +340,8 @@ const groups = categories
     .status { display: none; }
     .search { max-width: none; margin-left: 0; }
   }
-  @media (max-width: 380px) { .grid { grid-template-columns: 1fr; } }
+  /* minmax(0, 1fr), not 1fr (= minmax(auto, 1fr)): the column must not grow to a card's min-content width (316px at 320px) */
+  @media (max-width: 380px) { .grid { grid-template-columns: minmax(0, 1fr); } }
   /* Phones: the filters scroll with the page instead of taking a quarter of the screen,
      bigger touch targets, and a fade hinting that the category row scrolls */
   /* Phones: a short header, and only one compact row (type icons + search) stays under the top bar */
