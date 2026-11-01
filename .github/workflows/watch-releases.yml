@@ -1,0 +1,63 @@
+name: Rebuild on new release
+
+# Every 15 minutes, read the latest release of each project listed in src/data/projects.yaml.
+# When one of them changed since the last check, the site is rebuilt (deploy.yml), so a new
+# version shows up on its page (tag, changelog, documentation) without touching the ha-* repos.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: watch-releases
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: src/data/projects.yaml
+          sparse-checkout-cone-mode: false
+
+      - name: Latest release of each project
+        id: releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          set -euo pipefail
+          : > releases.txt
+          for slug in $(sed -n 's/^- slug: *//p' src/data/projects.yaml | sort); do
+            tag=$(gh api "repos/$OWNER/$slug/releases/latest" -q .tag_name 2>/dev/null || echo none)
+            echo "$slug $tag" >> releases.txt
+          done
+          cat releases.txt
+          echo "key=releases-$(sha256sum releases.txt | cut -c1-16)" >> "$GITHUB_OUTPUT"
+
+      # The set of latest releases already seen is remembered as a cache entry named after its hash.
+      - name: Already seen?
+        id: seen
+        uses: actions/cache/restore@v4
+        with:
+          path: releases.txt
+          key: ${{ steps.releases.outputs.key }}
+          lookup-only: true
+
+      - name: Rebuild the site
+        if: steps.seen.outputs.cache-hit != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --repo "$GITHUB_REPOSITORY" --ref main
+
+      - name: Remember these releases
+        if: steps.seen.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: releases.txt
+          key: ${{ steps.releases.outputs.key }}
