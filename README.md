@@ -22,7 +22,7 @@ The site is a static [Astro](https://astro.build) site. Every project is an entr
 
 Images are fetched from `raw.githubusercontent.com` at build time and re-encoded as WebP at the widths the pages need (animated GIFs as animated WebP) by `src/lib/optimize.ts`, so new captures show at the next (daily) build. Their sizes are read at build time (`src/lib/imgsize.ts`) to reserve their space and to frame portrait captures from the top. When an entry has no `dark`, the build looks for a twin in the repository (`src/lib/twins.ts`): `X-dark.png` for a light `X.png`, or `X-light.png` for a dark-default `X.png` (same for `.gif` animations), so a twin added to a repository shows on the site at the next build. `dark` gives the dark-theme twin of an image.
 
-The documentation of each project (features, prerequisites, configuration and options, entities, actions, how it works) is taken from its `README.md` at build time (`src/lib/docs.ts`) and rendered on the project page. Installation, screenshots, development and translation sections are left out. The site is rebuilt every day to pick up README changes.
+The documentation of each project (features, prerequisites, configuration and options, entities, actions, how it works) is taken from its `README.md` at build time (`src/lib/docs.ts`) and rendered on the project page, followed by the last versions of its `CHANGELOG.md` (`src/lib/changelog.ts`). Installation, screenshots, development and translation sections are left out. The site is rebuilt every day to pick up README changes.
 
 ## Add a project
 
@@ -40,7 +40,7 @@ npm run build # build the static site into dist/
 
 ## Deployment
 
-The site is built and deployed by GitHub Actions (`.github/workflows/deploy.yml`) on every push to `main`, every day, or manually with `workflow_dispatch`. The build needs network access to `raw.githubusercontent.com` for the READMEs; a README that cannot be loaded shows a link to GitHub instead. In the repository's Settings → Pages, Source must be set to "GitHub Actions".
+The site is built and deployed by GitHub Actions (`.github/workflows/deploy.yml`) on every push to `main`, every day, or manually with `workflow_dispatch`. `.github/workflows/watch-releases.yml` also checks the latest release of every project every 15 minutes and starts a deployment as soon as one of them changed, so a new release shows up on its page (version, changelog, documentation) within about 15 minutes, without anything to set up in the project repositories. The build needs network access to `raw.githubusercontent.com` for the READMEs; a README that cannot be loaded shows a link to GitHub instead. In the repository's Settings → Pages, Source must be set to "GitHub Actions".
 
 ## License
 
