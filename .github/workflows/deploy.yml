@@ -8,10 +8,9 @@ on:
   schedule:
     - cron: "17 4 * * *"
 
+# Each job gets only what it needs: the build (which runs npm ci) can't publish
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
@@ -20,33 +19,47 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: npm
       - run: npm ci
-      # Optimised screenshots, reused across builds (npm ci empties node_modules)
-      - uses: actions/cache@v4
+      - run: npm test
+      # Optimised screenshots, reused across builds (npm ci empties node_modules). One cache entry per day and
+      # list of projects at most, instead of one per run.
+      - name: Cache key
+        id: cache-key
+        run: echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: node_modules/.cache/hp-images
-          key: hp-images-${{ github.run_id }}
-          restore-keys: hp-images-
+          key: hp-images-${{ hashFiles('src/data/projects.yaml', 'src/lib/optimize.ts') }}-${{ steps.cache-key.outputs.day }}
+          restore-keys: |
+            hp-images-${{ hashFiles('src/data/projects.yaml', 'src/lib/optimize.ts') }}-
+            hp-images-
+      # A README, CHANGELOG or release that can't be fetched fails the build (src/lib/sources.ts), as does a page
+      # with a duplicate id or an IPTV mention (src/lib/dist-check.mjs): the site already online then stays as is.
       - run: npm run build
         env:
           # Latest release of each project, read from the GitHub API at build time
           GITHUB_TOKEN: ${{ github.token }}
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
           path: dist
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

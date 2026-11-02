@@ -2,7 +2,9 @@
 // so the site always documents the options and behaviour of the released version.
 import { Marked } from "marked";
 import { gfmHeadingId, resetHeadings } from "marked-gfm-heading-id";
-import { OWNER, icon, projects, type Project } from "./projects";
+import { OWNER, hasGallery, icon, projects, repoUrl, type Project } from "./projects";
+import { fetchSource, tolerant } from "./sources";
+import { idsOf, resolveAnchors, sanitizeReadme } from "./readme-html";
 
 export interface DocSection {
   id: string;
@@ -166,26 +168,38 @@ export function getDocs(p: Project): Promise<DocSection[] | null> {
 }
 
 async function load(p: Project): Promise<DocSection[] | null> {
-  let md: string;
-  try {
-    const res = await fetch(raw(p.slug, "README.md"));
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    md = await res.text();
-  } catch (e) {
-    console.warn(`[docs] ${p.slug}: README not loaded (${(e as Error).message})`);
-    return null;
-  }
+  // Every project has a README: when it can't be fetched (after retries), the build stops rather than publishing
+  // a page without documentation (ALLOW_MISSING_SOURCES=1, or `astro dev`, builds without it).
+  const res = await fetchSource(raw(p.slug, "README.md"), {
+    what: `${p.slug} README`,
+    tolerant: import.meta.env.DEV || tolerant(),
+  });
+  if (!res) return null;
+  const md = await res.text();
   const marked = renderer(p.slug);
   resetHeadings(); // the sections below are parsed synchronously, in order, with one shared slugger
-  return splitSections(md)
+  const sections = splitSections(md)
     .filter((s) => !SKIP.test(plain(s.title)))
     .map((s) => {
       const title = plain(s.title);
       const id = `doc-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
       // Re-add the heading so the README's own #anchors to it keep working, then hide it (the fold shows it).
-      const parsed = siteLinks(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string, p.slug);
+      // Sanitized first: what follows only adds the site's own markup.
+      const safe = sanitizeReadme(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string);
+      const parsed = siteLinks(safe, p.slug);
       const html = permalinks(codeCopy(tableLabels(haButtons(dropScreenshots(alerts(fixHtml(parsed, p.slug)))))));
       return { id, title, html: html.replace(/^<h2/, '<h2 class="doc-anchor"'), open: OPEN.test(title) };
     })
     .filter((s) => s.html.replace(/<h2[^>]*>.*?<\/h2>/s, "").trim());
+  // #links to a section that isn't on the page: the gallery or the install card for those the page shows
+  // its own way, the README on GitHub otherwise.
+  const ids = new Set(sections.flatMap((s) => [...idsOf(s.html)]));
+  const gallery = hasGallery(p);
+  const resolve = (anchor: string) =>
+    /^(screenshots|animations|animated-scenes)/.test(anchor) && gallery
+      ? "#gallery"
+      : /^install/.test(anchor)
+        ? "#install"
+        : `${repoUrl(p)}#${anchor}`;
+  return sections.map((s) => ({ ...s, html: resolveAnchors(s.html, ids, resolve) }));
 }

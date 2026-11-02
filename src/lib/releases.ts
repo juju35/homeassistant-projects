@@ -1,7 +1,8 @@
 // Latest release of each repository, read at build time from the GitHub API.
-// In GitHub Actions the workflow passes GITHUB_TOKEN; without it (or when the API is unreachable)
-// the page simply shows no version.
+// In GitHub Actions the workflow passes GITHUB_TOKEN. A repository without a release shows no version; an API
+// that can't be reached stops the build (see sources.ts), unless ALLOW_MISSING_SOURCES is set.
 import { OWNER, type Project } from "./projects";
+import { fetchSource, tolerant } from "./sources";
 
 export interface Release {
   tag: string;
@@ -20,16 +21,17 @@ async function load(slug: string): Promise<Release | null> {
   const headers: Record<string, string> = { Accept: "application/vnd.github+json", "User-Agent": "homeassistant-projects" };
   const token = process.env.GITHUB_TOKEN;
   if (token) headers.Authorization = `Bearer ${token}`;
-  try {
-    const api = process.env.GITHUB_API_URL ?? "https://api.github.com";
-    const res = await fetch(`${api}/repos/${OWNER}/${slug}/releases/latest`, { headers });
-    if (!res.ok) return null;
-    const r = (await res.json()) as { tag_name?: string; published_at?: string; html_url?: string };
-    if (!r.tag_name || !r.published_at || !r.html_url) return null;
-    return { tag: r.tag_name, date: r.published_at, url: r.html_url };
-  } catch {
-    return null;
-  }
+  const api = process.env.GITHUB_API_URL ?? "https://api.github.com";
+  const res = await fetchSource(`${api}/repos/${OWNER}/${slug}/releases/latest`, {
+    what: `${slug} latest release`,
+    optional: true,
+    init: { headers },
+    tolerant: import.meta.env.DEV || tolerant(),
+  });
+  if (!res) return null;
+  const r = (await res.json()) as { tag_name?: string; published_at?: string; html_url?: string };
+  if (!r.tag_name || !r.published_at || !r.html_url) return null;
+  return { tag: r.tag_name, date: r.published_at, url: r.html_url };
 }
 
 // "Oct 29, 2026"

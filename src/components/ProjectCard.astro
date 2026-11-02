@@ -30,7 +30,6 @@ const release = await latestRelease(p);
   class="ha-card project"
   style={`--c:${p.accent}`}
   data-kind={p.kind}
-  data-with-card={p.withCard ? "1" : undefined}
   data-search={search}
 >
   <div class="header">
@@ -80,7 +79,7 @@ const release = await latestRelease(p);
   .open { color: inherit; outline: none; }
   /* The title link covers the whole card */
   .open::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
-  .project:has(.open:focus-visible) { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+  .project:has(.open:focus-visible) { outline: 2px solid var(--focus-color); outline-offset: 2px; }
   /* The badge stays clickable above it */
   .project :global(.card-cta) { position: relative; z-index: 2; }
 

@@ -28,6 +28,13 @@ const height = size?.h;
 // Portrait captures (much taller than wide) get framed from the top in fixed-size frames.
 const tall = size ? size.h > size.w * 1.15 : false;
 const [l, d] = await Promise.all([optimizedSet(light, { widths }), dark ? optimizedSet(dark, { widths }) : undefined]);
+// Animations: their first frame instead when the visitor asks for reduced motion (WCAG 2.2.2); the viewer, opened
+// on purpose, still plays them.
+const animated = /\.gif$/i.test(shot.src);
+const [ls, ds] = animated
+  ? await Promise.all([optimizedSet(light, { widths, still: true }), dark ? optimizedSet(dark, { widths, still: true }) : undefined])
+  : [undefined, undefined];
+const still = (s?: { src: string; srcset?: string }) => (s ? (s.srcset ?? s.src) : undefined);
 // Without a twin the only image is the visible one. With a twin, which one shows depends on the theme, only known
 // in the browser: both start lazy (a lazy image that isn't displayed is never fetched), and the script below
 // promotes the displayed one when `eager`.
@@ -35,6 +42,8 @@ const solo = eager && !dark;
 ---
 
 <span class:list={["shot", { "has-dark": !!dark }]}>
+  <picture>
+  {ls && <source media="(prefers-reduced-motion: reduce)" srcset={still(ls)} sizes={ls.srcset ? sizes : undefined} />}
   <img
     class="shot-light"
     src={l.src}
@@ -48,8 +57,11 @@ const solo = eager && !dark;
     height={height}
     data-tall={tall ? "" : undefined}
   />
+  </picture>
   {
     d && (
+      <picture>
+      {ds && <source media="(prefers-reduced-motion: reduce)" srcset={still(ds)} sizes={ds.srcset ? sizes : undefined} />}
       <img
         class="shot-dark"
         src={d.src}
@@ -62,6 +74,7 @@ const solo = eager && !dark;
         height={height}
         data-tall={tall ? "" : undefined}
       />
+      </picture>
     )
   }
 </span>
@@ -75,5 +88,5 @@ const solo = eager && !dark;
 }
 
 <style>
-  .shot { display: contents; }
+  .shot, .shot picture { display: contents; }
 </style>

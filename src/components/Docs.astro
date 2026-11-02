@@ -100,7 +100,8 @@ const iconFor = (t: string) => {
       if (!hash || hash.length < 2) return null;
       let id = hash.slice(1);
       try { id = decodeURIComponent(id); } catch {}
-      return document.getElementById(id);
+      // README anchors carry a prefix on this site (#readme-options): links made for GitHub (#options) still land
+      return document.getElementById(id) || document.getElementById(`readme-${id}`);
     };
     const openFor = (hash, scroll) => {
       const el = target(hash);
@@ -224,14 +225,14 @@ const iconFor = (t: string) => {
   }
   .md :global(h3:hover a.hl), .md :global(h4:hover a.hl), .md :global(a.hl:focus-visible) { opacity: 1; }
   .md :global(a.hl:hover) { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); text-decoration: none; }
-  .md :global(a.hl:focus-visible) { outline: 2px solid var(--primary-color); outline-offset: 1px; }
+  .md :global(a.hl:focus-visible) { outline: 2px solid var(--focus-color); outline-offset: 1px; }
   @media (hover: none) { .md :global(a.hl) { opacity: .5; } }
   .md :global(p), .md :global(li) { font-size: 14px; line-height: 1.6; }
   .md :global(p) { margin: 10px 0; }
   .md :global(ul), .md :global(ol) { padding-left: 20px; margin: 10px 0; }
   .md :global(li) { margin: 4px 0; }
   .md :global(li::marker) { color: var(--c); }
-  .md :global(a) { color: var(--c); font-weight: 500; }
+  .md :global(a) { color: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt)); font-weight: 500; }
   .md :global(a:hover) { text-decoration: underline; }
   .md :global(strong) { font-weight: 500; }
   .md :global(:not(pre) > code) {
@@ -266,15 +267,17 @@ const iconFor = (t: string) => {
   .md :global(blockquote.alert-important) { --a: #8e24aa; }
   .md :global(blockquote.alert-warning) { --a: var(--warning-color); }
   .md :global(blockquote.alert-caution) { --a: #db4437; }
+  /* Title and icon in the accent darkened (light) or lightened (dark) like the other accent texts: 4.5:1 for
+     every alert type and project accent, in both themes (test/css-rules.test.mjs) */
   .md :global(.alert-title) {
     display: flex; align-items: center; gap: 6px; margin: 2px 0 4px;
     font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em;
-    color: color-mix(in srgb, var(--a) 60%, var(--primary-text-color));
+    color: color-mix(in srgb, var(--a), var(--ink) var(--ink-amt));
   }
   .md :global(.alert-title::before) {
     content: "i"; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
     font-size: 11px; font-weight: 700; text-transform: none; letter-spacing: 0;
-    color: var(--card-background-color, #fff); background: color-mix(in srgb, var(--a) 60%, var(--primary-text-color));
+    color: var(--card-background-color, #fff); background: color-mix(in srgb, var(--a), var(--ink) var(--ink-amt));
   }
   .md :global(.alert-tip .alert-title::before) { content: "\2713"; }
   .md :global(.alert-important .alert-title::before),

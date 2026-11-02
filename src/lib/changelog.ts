@@ -3,6 +3,8 @@
 import { Marked } from "marked";
 import { OWNER, type Project } from "./projects";
 import { alerts, fixHtml, siteLinks } from "./docs";
+import { fetchSource, tolerant } from "./sources";
+import { sanitizeReadme } from "./readme-html";
 
 export interface ChangelogEntry {
   id: string;
@@ -46,16 +48,17 @@ async function releaseDates(slug: string): Promise<Map<string, string>> {
   const dates = new Map<string, string>();
   const headers: Record<string, string> = { Accept: "application/vnd.github+json", "User-Agent": "homeassistant-projects" };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-  try {
-    const api = process.env.GITHUB_API_URL ?? "https://api.github.com";
-    const res = await fetch(`${api}/repos/${OWNER}/${slug}/releases?per_page=100`, { headers });
-    if (!res.ok) return dates;
-    for (const r of (await res.json()) as { tag_name?: string; published_at?: string; draft?: boolean }[]) {
-      if (r.draft || !r.tag_name || !r.published_at) continue;
-      dates.set(r.tag_name.replace(/^v/, ""), r.published_at.slice(0, 10));
-    }
-  } catch {
-    // No dates then: the versions are still listed.
+  const api = process.env.GITHUB_API_URL ?? "https://api.github.com";
+  const res = await fetchSource(`${api}/repos/${OWNER}/${slug}/releases?per_page=100`, {
+    what: `${slug} releases`,
+    optional: true,
+    init: { headers },
+    tolerant: import.meta.env.DEV || tolerant(),
+  });
+  if (!res) return dates;
+  for (const r of (await res.json()) as { tag_name?: string; published_at?: string; draft?: boolean }[]) {
+    if (r.draft || !r.tag_name || !r.published_at) continue;
+    dates.set(r.tag_name.replace(/^v/, ""), r.published_at.slice(0, 10));
   }
   return dates;
 }
@@ -94,15 +97,14 @@ export function getChangelog(p: Project): Promise<Changelog | null> {
 }
 
 async function load(p: Project): Promise<Changelog | null> {
-  let md: string;
-  try {
-    const res = await fetch(raw(p.slug));
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    md = await res.text();
-  } catch (e) {
-    console.warn(`[changelog] ${p.slug}: CHANGELOG.md not loaded (${(e as Error).message})`);
-    return null;
-  }
+  // A repository without CHANGELOG.md (404) has no changelog section; any other failure stops the build.
+  const res = await fetchSource(raw(p.slug), {
+    what: `${p.slug} CHANGELOG`,
+    optional: true,
+    tolerant: import.meta.env.DEV || tolerant(),
+  });
+  if (!res) return null;
+  const md = await res.text();
   const versions = splitVersions(md);
   if (!versions.length) return null;
   const shown = versions.slice(0, SHOWN);
@@ -113,7 +115,8 @@ async function load(p: Project): Promise<Changelog | null> {
     const date = DATE.exec(v.heading)?.[1] ?? dates.get(version) ?? null;
     // Sub-headings of a version ("### Fixed") are shown one level down, without ids of their own.
     const body = v.body.join("\n").replace(/^###(#?) /gm, "####$1 ");
-    const html = siteLinks(githubRefs(alerts(fixHtml(marked.parse(body) as string, p.slug)), p.slug), p.slug);
+    const safe = sanitizeReadme(marked.parse(body) as string);
+    const html = siteLinks(githubRefs(alerts(fixHtml(safe, p.slug)), p.slug), p.slug);
     return { id: `changelog-${version.replace(/[^\w]+/g, "-")}`, version, date, html };
   });
   return { entries, total: versions.length, url: blob(p.slug, "CHANGELOG.md") };

@@ -1,5 +1,8 @@
 // Width and height of the hot-linked screenshots, read at build time from the first bytes of each file,
 // so pages reserve their space (no layout shift) and very tall captures can be framed differently.
+// A 404 is an answer (twins.ts probes for `-dark` captures that may not exist); a capture that can't be reached
+// stops the build like the other sources (sources.ts).
+import { fetchSource, tolerant } from "./sources";
 export interface Size {
   w: number;
   h: number;
@@ -13,13 +16,14 @@ export function imageSize(url: string): Promise<Size | null> {
 }
 
 async function probe(url: string): Promise<Size | null> {
-  try {
-    const res = await fetch(url, { headers: { Range: "bytes=0-65535" } });
-    if (!res.ok) return null;
-    return parse(new Uint8Array(await res.arrayBuffer()));
-  } catch {
-    return null;
-  }
+  const res = await fetchSource(url, {
+    what: "screenshot",
+    optional: true,
+    init: { headers: { Range: "bytes=0-65535" } },
+    tolerant: import.meta.env.DEV || tolerant(),
+  });
+  if (!res) return null;
+  return parse(new Uint8Array(await res.arrayBuffer()));
 }
 
 function parse(b: Uint8Array): Size | null {
