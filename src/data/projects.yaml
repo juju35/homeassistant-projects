@@ -1109,25 +1109,26 @@ projects:
     caption: Install all
   - src: wd-checking.gif
     caption: Watchdog check
-- slug: ha-dockhand-card
-  title: Dockhand Card
+- slug: ha-docker-card
+  title: Docker Card
   kind: card
   category: network
   icon: mdiDocker
   accent: '#2496ed'
-  tagline: 'Docker environments managed by Dockhand: CPU, memory, containers, stacks and updates.'
-  summary: 'Built on the Dockhand integration, with every environment discovered automatically: gauges, counters, stacks with their Git status and containers with available updates.'
+  tagline: 'Docker hosts from Dockhand, Monitor Docker or Portainer: CPU, memory, containers, stacks and updates.'
+  summary: 'Works with the Dockhand, Monitor Docker and Portainer integrations, with every host discovered automatically: gauges, counters, stacks with their status and containers with health, available updates, start / stop and restart.'
   highlights:
+  - Dockhand, Monitor Docker and Portainer supported
   - Several environments supported
   - CPU, memory and running containers gauges
   - Stacks, images, volumes and networks counters
   - Stacks and containers with pending updates
   - Compact mini card
   homeassistant: 2024.8.0
-  keywords: "docker containers stacks dockhand portainer"
+  keywords: "docker containers stacks dockhand portainer monitor_docker monitor docker"
   cardTypes:
-  - dockhand-card
-  - dockhand-mini-card
+  - docker-card
+  - docker-mini-card
   hero:
     src: card.png
     dark: card-dark.png
@@ -1149,6 +1150,22 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
+  - src: card-monitor-docker.png
+    dark: card-monitor-docker-dark.png
+    caption: Card with Monitor Docker
+    group: Monitor Docker
+  - src: mini-card-monitor-docker.png
+    dark: mini-card-monitor-docker-dark.png
+    caption: Mini card with Monitor Docker
+    group: Monitor Docker
+  - src: card-portainer.png
+    dark: card-portainer-dark.png
+    caption: Card with Portainer
+    group: Portainer
+  - src: mini-card-portainer.png
+    dark: mini-card-portainer-dark.png
+    caption: Mini card with Portainer
+    group: Portainer
   animations:
   - src: card-sections.gif
     caption: Sections folding and unfolding
