@@ -1100,10 +1100,28 @@ projects:
   animations:
   - src: printing.gif
     dark: printing-dark.gif
-    caption: Printer printing
+    caption: HP printer printing
   - src: printing-mini.gif
     dark: printing-mini-dark.gif
-    caption: Mini card printing
+    caption: HP mini card printing
+  - src: brother-printing.gif
+    dark: brother-printing-dark.gif
+    caption: Brother printer printing
+  - src: brother-printing-mini.gif
+    dark: brother-printing-mini-dark.gif
+    caption: Brother mini card printing
+  - src: epson-printing.gif
+    dark: epson-printing-dark.gif
+    caption: Epson printer printing
+  - src: epson-printing-mini.gif
+    dark: epson-printing-mini-dark.gif
+    caption: Epson mini card printing
+  - src: canon-printing.gif
+    dark: canon-printing-dark.gif
+    caption: Canon printer printing
+  - src: canon-printing-mini.gif
+    dark: canon-printing-mini-dark.gif
+    caption: Canon mini card printing
 - slug: ha-internet-box-card
   title: Internet Box Card
   kind: card
