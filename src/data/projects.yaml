@@ -699,70 +699,216 @@ projects:
     caption: Live
   - src: loading.gif
     caption: Loading
-- slug: ha-home-connect-card
-  title: Home Connect Card
+- slug: ha-smart-appliance-card
+  title: Smart Appliance Card
   kind: card
   category: appliances
   icon: mdiDishwasher
   accent: '#039be5'
-  tagline: Dishwasher and washing machine cards for Home Connect (Bosch, Siemens, Neff, Gaggenau).
-  summary: 'One card per appliance type: status, progress, finish time, program picker and options, start, pause and stop, with animated illustrations while running.'
+  tagline: Animated cards for home appliances, from Home Connect, Miele, SmartThings, LG ThinQ, Whirlpool and Matter.
+  summary: 'One card for 13 kinds of appliances, from washing machines to wine cabinets: it works out the type and the brand, finds the entities, and shows the status, progress and finish time, the programs and their options, start, pause and stop, with an illustration animated by what the appliance is doing.'
   highlights:
-  - Dishwasher and washing machine cards, with mini cards
-  - Status, progress bar, finish time and time left
-  - Program picker and options before starting
-  - Door state, salt and rinse aid alerts
+  - 13 appliance types detected by themselves, each with its animated illustration
+  - Home Connect, Miele, SmartThings, LG ThinQ, Whirlpool and Matter
+  - Brand logo next to the title, buttons in the brand's colour
+  - Status, progress bar, finish time and program step
+  - Program picker and options, start, pause, resume and stop
+  - Temperatures, door, salt, rinse aid and coffee machine alerts
+  - Mini card with a detail button unfolding the full card
   homeassistant: 2024.8.0
-  keywords: "bosch siemens neff gaggenau dishwasher washer washing machine appliance"
+  keywords: "home connect bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance"
   cardTypes:
-  - home-connect-dishwasher-card
-  - home-connect-washer-card
+  - smart-appliance-card
+  - smart-appliance-mini-card
   hero:
     src: dishwasher.png
     dark: dishwasher-dark.png
-    caption: Dishwasher card
-    group: Dishwasher
+    caption: Bosch dishwasher
+    group: Bosch
   screenshots:
-  - src: dishwasher-options.png
-    caption: Dishwasher with program options
-    group: Dishwasher
   - src: dishwasher-mini.png
     dark: dishwasher-mini-dark.png
-    caption: Dishwasher mini card
-    group: Dishwasher
+    caption: Bosch dishwasher mini card
+    group: Bosch
+  - src: dishwasher-options.png
+    dark: dishwasher-options-dark.png
+    caption: Dishwasher with program options
+    group: Bosch
   - src: dishwasher-open.png
+    dark: dishwasher-open-dark.png
     caption: Dishwasher door open
-    group: Dishwasher
+    group: Bosch
+  - src: fridge.png
+    dark: fridge-dark.png
+    caption: Bosch fridge-freezer
+    group: Bosch
+  - src: mini-bosch.png
+    dark: mini-bosch-dark.png
+    caption: Fridge-freezer mini card
+    group: Bosch
   - src: washer.png
     dark: washer-dark.png
-    caption: Washing machine card
-    group: Washing machine
-  - src: washer-mini-zoom.png
-    caption: Washer mini card unfolded
-    group: Washing machine
+    caption: Siemens washing machine
+    group: Siemens
   - src: washer-mini.png
-    caption: Washer mini card
-    group: Washing machine
+    dark: washer-mini-dark.png
+    caption: Washing machine mini card
+    group: Siemens
+  - src: washer-mini-zoom.png
+    dark: washer-mini-zoom-dark.png
+    caption: Mini card unfolded
+    group: Siemens
   - src: washer-open.png
-    caption: Washer door open
-    group: Washing machine
+    dark: washer-open-dark.png
+    caption: Washing machine door open
+    group: Siemens
+  - src: coffee-machine.png
+    dark: coffee-machine-dark.png
+    caption: Siemens coffee machine
+    group: Siemens
+  - src: mini-siemens.png
+    dark: mini-siemens-dark.png
+    caption: Coffee machine mini card
+    group: Siemens
+  - src: oven.png
+    dark: oven-dark.png
+    caption: Neff oven
+    group: Neff
+  - src: mini-neff.png
+    dark: mini-neff-dark.png
+    caption: Oven mini card
+    group: Neff
+  - src: hood.png
+    dark: hood-dark.png
+    caption: Gaggenau cooker hood
+    group: Gaggenau
+  - src: mini-gaggenau.png
+    dark: mini-gaggenau-dark.png
+    caption: Cooker hood mini card
+    group: Gaggenau
+  - src: dryer.png
+    dark: dryer-dark.png
+    caption: Miele tumble dryer
+    group: Miele
+  - src: freezer.png
+    dark: freezer-dark.png
+    caption: Miele freezer
+    group: Miele
+  - src: wine-cabinet.png
+    dark: wine-cabinet-dark.png
+    caption: Miele wine cabinet
+    group: Miele
+  - src: mini-miele.png
+    dark: mini-miele-dark.png
+    caption: Tumble dryer mini card
+    group: Miele
+  - src: samsung-washer.png
+    dark: samsung-washer-dark.png
+    caption: Samsung washing machine
+    group: Samsung
+  - src: mini-samsung.png
+    dark: mini-samsung-dark.png
+    caption: Washing machine mini card
+    group: Samsung
+  - src: washer-dryer.png
+    dark: washer-dryer-dark.png
+    caption: LG washer-dryer
+    group: LG
+  - src: microwave.png
+    dark: microwave-dark.png
+    caption: LG microwave
+    group: LG
+  - src: hob.png
+    dark: hob-dark.png
+    caption: LG hob
+    group: LG
+  - src: styler.png
+    dark: styler-dark.png
+    caption: LG Styler
+    group: LG
+  - src: mini-lg.png
+    dark: mini-lg-dark.png
+    caption: Styler mini card
+    group: LG
+  - src: maytag-dryer.png
+    dark: maytag-dryer-dark.png
+    caption: Maytag tumble dryer
+    group: Whirlpool
+  - src: kitchenaid-oven.png
+    dark: kitchenaid-oven-dark.png
+    caption: KitchenAid wall oven
+    group: Whirlpool
+  - src: mini-whirlpool.png
+    dark: mini-whirlpool-dark.png
+    caption: Wall oven mini card
+    group: Whirlpool
   animations:
   - src: dishwasher-running.gif
+    dark: dishwasher-running-dark.gif
     caption: Dishwasher running
   - src: washer-running.gif
+    dark: washer-running-dark.gif
     caption: Washing machine running
+  - src: dryer-running.gif
+    dark: dryer-running-dark.gif
+    caption: Tumble dryer running
+  - src: washer-dryer-running.gif
+    dark: washer-dryer-running-dark.gif
+    caption: Washer-dryer running
+  - src: oven-running.gif
+    dark: oven-running-dark.gif
+    caption: Oven cooking
+  - src: microwave-running.gif
+    dark: microwave-running-dark.gif
+    caption: Microwave running
+  - src: hob-running.gif
+    dark: hob-running-dark.gif
+    caption: Hob cooking
+  - src: coffee-machine-running.gif
+    dark: coffee-machine-running-dark.gif
+    caption: Coffee machine pouring
+  - src: hood-running.gif
+    dark: hood-running-dark.gif
+    caption: Cooker hood drawing air
+  - src: fridge-running.gif
+    dark: fridge-running-dark.gif
+    caption: Fridge-freezer in super mode
+  - src: freezer-running.gif
+    dark: freezer-running-dark.gif
+    caption: Freezer in super mode
+  - src: wine-cabinet-running.gif
+    dark: wine-cabinet-running-dark.gif
+    caption: Wine cabinet cooling
+  - src: styler-running.gif
+    dark: styler-running-dark.gif
+    caption: LG Styler running
+  - src: samsung-washer-running.gif
+    dark: samsung-washer-running-dark.gif
+    caption: Samsung washing machine running
+  - src: maytag-dryer-running.gif
+    dark: maytag-dryer-running-dark.gif
+    caption: Maytag tumble dryer running
+  - src: kitchenaid-oven-running.gif
+    dark: kitchenaid-oven-running-dark.gif
+    caption: KitchenAid wall oven cooking
   - src: dishwasher-finished.gif
+    dark: dishwasher-finished-dark.gif
     caption: Dishwasher finished
   - src: washer-finished.gif
-    caption: Washer finished
+    dark: washer-finished-dark.gif
+    caption: Washing machine finished
   - src: dishwasher-paused.gif
+    dark: dishwasher-paused-dark.gif
     caption: Dishwasher paused
   - src: washer-paused.gif
-    caption: Washer paused
+    dark: washer-paused-dark.gif
+    caption: Washing machine paused
   - src: dishwasher-delayed.gif
+    dark: dishwasher-delayed-dark.gif
     caption: Dishwasher delayed start
   - src: washer-delayed.gif
-    caption: Washer delayed start
+    dark: washer-delayed-dark.gif
+    caption: Washing machine delayed start
 - slug: ha-vacuum-card
   title: Vacuum Card
   kind: card
@@ -889,48 +1035,74 @@ projects:
   category: appliances
   icon: mdiPrinter
   accent: '#0096d6'
-  tagline: 'HP printers and any IPP printer: status, ink or toner levels and alerts.'
-  summary: Built for HP printers and working with any IPP printer (Brother, Canon, Epson, Xerox…). The control panel lights up in the status colour, and the card simply says offline when the printer is off.
+  tagline: 'HP, Brother and any IPP printer (Epson, Canon…): status, ink or toner levels and alerts.'
+  summary: Works with the HP Printer and Brother integrations and with any IPP printer. The brand logo sits on the header icon, the drawing follows the brand and range, the control panel lights up in the status colour, and the card simply says offline when the printer is off.
   highlights:
+  - HP Printer, Brother and IPP integrations
+  - Brand logo badge for HP, Brother, Epson and Canon
+  - Drawings by brand and range, picked from the model
   - Status with colour and a pulsing control panel while printing
   - Ink or toner tanks in slot order, with a warning threshold
   - Paper, cover and cartridge alerts
-  - Drawing per HP range, generic printer for other brands
   - Mini card with an offline state
   homeassistant: 2024.8.0
-  keywords: "printer hp hpprinter ipp ink toner brother canon epson"
+  keywords: "printer hp hpprinter brother ipp ink toner canon epson ecotank pixma maxify megatank laserjet officejet"
   cardTypes:
   - printer-card
   - printer-mini-card
   hero:
     src: card.png
     dark: card-dark.png
-    caption: Printer card
-    group: Card
+    caption: HP printer
+    group: HP
   screenshots:
   - src: offline.png
-    caption: Printer card, printer offline
-    group: Card
-  - src: ipp.png
-    caption: Printer card, IPP laser printer
-    group: Card
+    dark: offline-dark.png
+    caption: Printer offline
+    group: HP
   - src: mini-card.png
     dark: mini-card-dark.png
-    caption: Printer mini card
-    group: Mini card
+    caption: HP mini card
+    group: HP
   - src: mini-zoom.png
     dark: mini-zoom-dark.png
-    caption: Printer mini card, full view
-    group: Mini card
+    caption: Mini card, full view
+    group: HP
   - src: mini-offline.png
     dark: mini-offline-dark.png
     caption: Mini card offline
-    group: Mini card
+    group: HP
+  - src: ipp.png
+    dark: ipp-dark.png
+    caption: Brother printer
+    group: Brother
+  - src: mini-ipp.png
+    dark: mini-ipp-dark.png
+    caption: Brother mini card
+    group: Brother
+  - src: epson.png
+    dark: epson-dark.png
+    caption: Epson printer
+    group: Epson
+  - src: mini-epson.png
+    dark: mini-epson-dark.png
+    caption: Epson mini card
+    group: Epson
+  - src: canon.png
+    dark: canon-dark.png
+    caption: Canon printer
+    group: Canon
+  - src: mini-canon.png
+    dark: mini-canon-dark.png
+    caption: Canon mini card
+    group: Canon
   animations:
   - src: printing.gif
+    dark: printing-dark.gif
     caption: Printer printing
   - src: printing-mini.gif
-    caption: Printer mini card printing
+    dark: printing-mini-dark.gif
+    caption: Mini card printing
 - slug: ha-internet-box-card
   title: Internet Box Card
   kind: card
