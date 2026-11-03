@@ -919,7 +919,8 @@ projects:
   summary: A drawn device picture matching about 130 models, brand colours, battery, status, current room, cleaning settings and room cleaning, with animations while cleaning, returning or washing the mop.
   highlights:
   - About 130 models recognised, drawn picture per model
-  - Brand logo and colours, readable in light and dark
+  - Header icon by kind of device (robot vacuum, mopping robot, wet-dry vacuum) with the brand logo as a badge
+  - Brand colours, readable in light and dark
   - Battery, status, current room, progress and errors
   - Cleaning mode, suction, mop intensity and route
   - Room selection and dock actions
@@ -1110,9 +1111,10 @@ projects:
   icon: mdiRouterWireless
   accent: '#cd1e25'
   tagline: Freebox, Livebox, SFR Box and Bbox at a glance.
-  summary: Download and upload rates, connection, temperatures, fans, storage, Wi-Fi, missed calls and connected devices. The operator's logo, colours and links follow the detected box.
+  summary: Download and upload rates, connection, temperatures, fans, storage, Wi-Fi, missed calls and connected devices. The header icon shows the kind of connection with the operator's logo as a badge, and the colours and links follow the detected box.
   highlights:
   - Freebox, Livebox, SFR Box and Bbox
+  - Header icon by connection type (fibre, xDSL, 4G / 5G) with the operator logo badge
   - Box picture and model detected automatically
   - Connection type, public IP and uptime
   - Wi-Fi networks, connected devices and missed calls
@@ -1161,6 +1163,7 @@ projects:
   summary: Gauges for CPU, RAM and temperature, network rates, RAID volumes, disks and fans for three NAS integrations, discovered automatically, brands can be mixed.
   highlights:
   - UGREEN NAS, Synology DSM and QNAP
+  - Status-tinted NAS icon with the brand logo badge
   - CPU, RAM and temperature gauges
   - Volumes with RAID level and used space
   - Disks with temperature and power-on hours
