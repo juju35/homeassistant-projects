@@ -61,7 +61,7 @@ const related = projects.flatMap((p) => {
 });
 ---
 
-<Base title={project.title} description={project.tagline} image={project.hero ? shotUrl(project, project.hero.src) : undefined}>
+<Base title={project.title} description={project.tagline} image={`og/${project.slug}.png`}>
   <div class="wrap page" style={accent}>
     <a class="back muted" href={base}><Icon name="mdiChevronLeft" /> All projects</a>
 
