@@ -96,6 +96,10 @@ const related = projects.flatMap((p) => {
         <button class="btn ghost share" type="button" data-title={project.title}>
           <Icon name="mdiShareVariantOutline" /> <span class="share-l">Share</span>
         </button>
+        <a class="bmc" href="https://buymeacoffee.com/julienstep9" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+          <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="" width="143" height="40" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-img')" />
+          <span class="bmc-t" aria-hidden="true">☕ Buy me a coffee</span>
+        </a>
       </div>
     </section>
 
@@ -338,6 +342,20 @@ const related = projects.flatMap((p) => {
   .lead { margin: 20px 0 6px; font-size: 18px; line-height: 1.45; max-width: 70ch; }
   .summary { margin: 0; max-width: 75ch; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; }
+  /* Buy Me a Coffee: the official button of the READMEs, in a pill as round as the other buttons. The pill is the
+     image's own yellow, so the image's square corners blend into it */
+  .bmc {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    height: 40px; padding: 0 8px; border-radius: 20px; overflow: hidden;
+    background: #ffdd00; color: #000; transition: filter 0.2s ease;
+  }
+  .bmc img { display: block; height: 40px; width: auto; }
+  .bmc:hover { filter: brightness(1.04); }
+  .bmc:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
+  /* If the image can't load, the same pill with the text */
+  .bmc-t { display: none; padding: 0 8px; font: 500 14px/1 var(--font); white-space: nowrap; }
+  .bmc.no-img img { display: none; }
+  .bmc.no-img .bmc-t { display: inline; }
 
   /* Section navigation */
   .intro, #install { scroll-margin-top: 140px; }
