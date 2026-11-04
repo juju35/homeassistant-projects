@@ -1,0 +1,78 @@
+---
+// Buy Me a Coffee: a way to support the projects
+import Icon from "./Icon.astro";
+
+const URL = "https://buymeacoffee.com/julienstep9";
+---
+
+<section class="support" id="support" aria-labelledby="support-title">
+  <h2 class="section-title" id="support-title"><Icon name="mdiCoffeeOutline" />Support</h2>
+  <div class="ha-card coffee">
+    <span class="glow" aria-hidden="true"></span>
+    <div class="header">
+      <span class="logo lg cup" aria-hidden="true">
+        <span class="steam"><i></i><i></i><i></i></span>
+        <Icon name="mdiCoffee" />
+      </span>
+      <div class="titles">
+        <div class="kicker">Like the projects?</div>
+        <h3>Buy me a coffee</h3>
+      </div>
+    </div>
+    <p class="muted">
+      Every card and integration here is free and open source, built and maintained on spare evenings.
+      If one of them makes your Home Assistant nicer, a coffee helps keep them updated, translated and growing.
+    </p>
+    <a class="btn more" href={URL} target="_blank" rel="noopener"><Icon name="mdiCoffee" /> Buy me a coffee <Icon name="mdiOpenInNew" /></a>
+  </div>
+</section>
+
+<style>
+  .support { margin-top: 40px; scroll-margin-top: 130px; }
+  /* Buy Me a Coffee yellow, deepened so the tinted button text keeps 4.5:1 in the light theme */
+  .coffee {
+    --c: #e8a200;
+    position: relative; overflow: hidden; padding: 20px;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "head btn" "text btn";
+    column-gap: 24px; row-gap: 12px; align-items: center;
+  }
+  .coffee > *:not(.glow) { position: relative; }
+  .header { grid-area: head; align-items: center; }
+  .coffee p { grid-area: text; margin: 0; max-width: 70ch; font-size: 14px; line-height: 1.55; }
+  /* .btn sets its own --c: take the card's amber again */
+  .more { grid-area: btn; --c: #e8a200; }
+  .more svg:last-child { width: 16px; height: 16px; }
+  h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.15; }
+  .kicker { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--secondary-text-color); }
+  .glow {
+    position: absolute; width: 280px; height: 280px; right: -80px; top: -130px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, color-mix(in srgb, #ffdd00 24%, transparent), transparent 70%);
+  }
+
+  /* Steam rising from the cup */
+  .cup { position: relative; overflow: visible; }
+  .steam { position: absolute; left: 44%; top: 6px; transform: translateX(-50%); display: flex; gap: 3px; }
+  .steam i {
+    width: 3px; height: 9px; border-radius: 2px; opacity: 0;
+    background: color-mix(in srgb, var(--c), var(--ink) var(--ink-amt));
+    animation: steam 2.4s ease-in-out infinite;
+  }
+  .steam i:nth-child(2) { animation-delay: .5s; }
+  .steam i:nth-child(3) { animation-delay: 1s; }
+  @keyframes steam {
+    0% { transform: translateY(4px) scaleY(.6); opacity: 0; }
+    40% { opacity: .55; }
+    100% { transform: translateY(-8px) scaleY(1); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .steam { display: none; }
+  }
+
+  @media (max-width: 760px) {
+    .coffee { grid-template-columns: 1fr; grid-template-areas: "head" "text" "btn"; }
+    .more { justify-self: start; }
+  }
+  @media (max-width: 600px) {
+    .coffee { padding: 16px; }
+  }
+</style>
