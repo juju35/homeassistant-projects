@@ -9,13 +9,14 @@ import { OWNER } from "../lib/projects";
 interface Props {
   title: string;
   description: string;
-  /** Absolute URL of the image shown when the page is shared. */
+  /** Path, under the site's base, of the 1200×630 picture shown when the page is shared (default: og.png). */
   image?: string;
 }
-const { title, description, image } = Astro.props;
+const { title, description, image: imagePath = "og.png" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const base = import.meta.env.BASE_URL;
 const pageTitle = title === "Home Assistant projects" ? title : `${title} · Home Assistant projects`;
+const image = new URL(`${base}${imagePath}`, Astro.site).href;
 ---
 
 <!doctype html>
@@ -30,8 +31,17 @@ const pageTitle = title === "Home Assistant projects" ? title : `${title} · Hom
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <link rel="canonical" href={canonical} />
-    {image && <meta property="og:image" content={image} />}
-    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    <meta property="og:site_name" content="Home Assistant projects" />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${title}: ${description}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
+    <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
+    <link rel="manifest" href={`${base}manifest.webmanifest`} />
+    <meta name="apple-mobile-web-app-title" content="HA projects" />
     <meta name="theme-color" content="#e8eaed" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
