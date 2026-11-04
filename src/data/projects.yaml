@@ -1823,6 +1823,66 @@ projects:
   worksWith:
   - slug: ha-system-monitor-card
     why: "Shows the unavailable integrations and reloads on the dashboard"
+  - slug: ha-orphan-entities
+    why: "Lists the entities no longer provided once integrations are back"
+- slug: ha-orphan-entities
+  title: Orphan Entities
+  kind: integration
+  withCard: true
+  category: maintenance
+  icon: mdiGhostOutline
+  accent: '#7e57c2'
+  tagline: Tracks the entities their integration no longer provides, and removes them in bulk.
+  summary: Removed integrations, renamed devices and old YAML platforms leave entities behind in the registry. Orphan Entities lists them all with the reason, and its card filters, selects and removes them in one go.
+  highlights:
+  - Five reasons, from integration removed to unknown for too long
+  - Never during startup, nor during the grace period after it
+  - Bulk removal limited to the listed entities, with a confirmation
+  - Ignored integrations and entities
+  - Card with search, integration and reason filters and selection
+  - Mini card by reason, with a detail button showing the full card
+  homeassistant: 2024.12.0
+  keywords: "orphan orphaned entities registry not provided unavailable unknown cleanup remove bulk card mini"
+  cardTypes:
+  - orphan-entities-card
+  - orphan-entities-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Orphaned entities
+    group: Card
+  screenshots:
+  - src: card-selected.png
+    dark: card-selected-dark.png
+    caption: Two entities selected
+    group: Card
+  - src: card-confirm.png
+    dark: card-confirm-dark.png
+    caption: Removal confirmation
+    group: Card
+  - src: card-filtered.png
+    dark: card-filtered-dark.png
+    caption: Filtered on a reason
+    group: Card
+  - src: card-ok.png
+    dark: card-ok-dark.png
+    caption: No orphan
+    group: Card
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Orphans by reason
+    group: Mini card
+  - src: mini-ok.png
+    dark: mini-ok-dark.png
+    caption: No orphan
+    group: Mini card
+  - src: mini-zoom.png
+    dark: mini-zoom-dark.png
+    caption: Mini card zoomed in to the full card
+    group: Mini card
+  worksWith:
+  - slug: ha-integration-watchdog
+    why: "Reloads the integrations that failed, whose entities are left out here"
 - slug: ha-git-sync
   title: Git Sync
   kind: integration
