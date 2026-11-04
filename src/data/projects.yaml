@@ -273,9 +273,11 @@ projects:
   - Outdoor places and air quality index to suggest opening or closing the windows
   - Setup panel in the sidebar, with room discovery, a day schedule and the YAML of the setup
   - Activity log in the panel and in an activity card for the dashboard
+  - Mini card with the alerts of the moment and the switches, opening the full card
   homeassistant: 2024.12.0
-  keywords: "comfort notifications alerts co2 humidity temperature noise windows lights lighting adaptive presence motion nap night activity log"
+  keywords: "comfort notifications alerts co2 humidity temperature noise windows lights lighting adaptive presence motion nap night activity log mini card"
   cardTypes:
+  - smart-comfort-mini-card
   - smart-comfort-activity-card
   hero:
     src: panel-overview.png
@@ -316,6 +318,14 @@ projects:
   - src: panel-yaml.png
     caption: YAML
     group: Panel
+  - src: card-mini.png
+    dark: card-mini-dark.png
+    caption: 'Mini card: alerts of the moment and switches'
+    group: Mini card
+  - src: card-mini-full.png
+    dark: card-mini-full-dark.png
+    caption: 'Mini card switched to the full card: alerts, rooms and activity'
+    group: Mini card
 - slug: ha-room-card
   title: Room Cards
   kind: card
@@ -1702,6 +1712,7 @@ projects:
   - Trace and Edit shortcuts
   - Clear a failure with confirmation
   - Compact mini card
+  - Option to hide the cards while all is good
   homeassistant: 2024.8.0
   keywords: "automation errors failures unavailable entities traces"
   cardTypes:
