@@ -114,6 +114,16 @@ const haButtons = (html: string) =>
     },
   );
 
+// Buy Me a Coffee: the official button at the end of the READMEs, 40px high like the page's buttons (the README's
+// height attribute alone would be overridden by the docs' height: auto), rounded like them.
+const BMC_RATIO = 545 / 153;
+const bmcButtons = (html: string) =>
+  html.replace(
+    /<a\b[^>]*\bhref="(https:\/\/(?:www\.)?buymeacoffee\.com\/[^"]*)"[^>]*>\s*<img\b[^>]*\bsrc="(https:\/\/cdn\.buymeacoffee\.com\/[^"]*)"[^>]*>\s*<\/a>/gi,
+    (_m, href: string, src: string) =>
+      `<a class="bmc-badge" href="${href}" target="_blank" rel="noopener"><img src="${src}" alt="Buy Me a Coffee" width="${Math.round(40 * BMC_RATIO)}" height="40" loading="lazy" decoding="async"></a>`,
+  );
+
 const strip = (html: string) => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 const attr = (text: string) => text.replace(/"/g, "&quot;");
 
@@ -187,7 +197,7 @@ async function load(p: Project): Promise<DocSection[] | null> {
       // Sanitized first: what follows only adds the site's own markup.
       const safe = sanitizeReadme(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string);
       const parsed = siteLinks(safe, p.slug);
-      const html = permalinks(codeCopy(tableLabels(haButtons(dropScreenshots(alerts(fixHtml(parsed, p.slug)))))));
+      const html = permalinks(codeCopy(tableLabels(bmcButtons(haButtons(dropScreenshots(alerts(fixHtml(parsed, p.slug))))))));
       return { id, title, html: html.replace(/^<h2/, '<h2 class="doc-anchor"'), open: OPEN.test(title) };
     })
     .filter((s) => s.html.replace(/<h2[^>]*>.*?<\/h2>/s, "").trim());
