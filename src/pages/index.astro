@@ -2,6 +2,8 @@
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import Languages from "../components/Languages.astro";
+import MadeIn from "../components/MadeIn.astro";
 import { categories, contributors, projects, OWNER } from "../lib/projects";
 import { kindCounts } from "../lib/kinds";
 
@@ -101,6 +103,9 @@ const groups = categories
       <p class="muted" id="empty-text">No project matches this search.</p>
       <button class="btn ghost" type="button" id="clear"><Icon name="mdiFilterRemoveOutline" /> Clear filters</button>
     </div>
+
+    <Languages />
+    <MadeIn />
 
     <section class="contrib" id="contributing" aria-labelledby="contributing-title">
       <h2 class="section-title" id="contributing-title"><Icon name="mdiHandHeartOutline" />Contributions</h2>

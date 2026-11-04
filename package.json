@@ -12,6 +12,7 @@
     "@fontsource/roboto": "^5.3.0",
     "@mdi/js": "^7.4.47",
     "astro": "^7.4.4",
+    "flag-icons": "7.5.0",
     "js-yaml": "^5.5.0",
     "marked": "^18.1.2",
     "marked-gfm-heading-id": "^4.1.4",

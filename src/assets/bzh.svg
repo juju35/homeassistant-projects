@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+<rect width="800" height="600" fill="#fff"/>
+<rect y="0.00" width="800" height="66.67" fill="#000"/>
+<rect y="133.33" width="800" height="66.67" fill="#000"/>
+<rect y="266.67" width="800" height="66.67" fill="#000"/>
+<rect y="400.00" width="800" height="66.67" fill="#000"/>
+<rect y="533.33" width="800" height="66.67" fill="#000"/>
+<rect width="360" height="333.33" fill="#fff"/>
+<defs><g id="e" transform="scale(1.45)"><path d="M0-30c-6 0-9 5-9 9s3 7 9 7 9-3 9-7-3-9-9-9zM-17-20c-4 0-6 3-6 6s2 5 6 5 6-2 6-5-2-6-6-6zM17-20c-4 0-6 3-6 6s2 5 6 5 6-2 6-5-2-6-6-6zM0-12c-4 6-8 22-16 34 6-2 11-6 16-12 5 6 10 10 16 12-8-12-12-28-16-34z"/></g></defs>
+<use href="#e" x="45.0" y="64.6"/>
+<use href="#e" x="135.0" y="64.6"/>
+<use href="#e" x="225.0" y="64.6"/>
+<use href="#e" x="315.0" y="64.6"/>
+<use href="#e" x="90.0" y="175.7"/>
+<use href="#e" x="180.0" y="175.7"/>
+<use href="#e" x="270.0" y="175.7"/>
+<use href="#e" x="45.0" y="286.8"/>
+<use href="#e" x="135.0" y="286.8"/>
+<use href="#e" x="225.0" y="286.8"/>
+<use href="#e" x="315.0" y="286.8"/>
+</svg>
