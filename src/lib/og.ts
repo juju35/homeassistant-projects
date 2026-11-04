@@ -111,7 +111,7 @@ export async function projectImage(p: Project) {
             h("div", { fontSize: 24, color: MUTED }, `${kindLabel(p)} · ${category}`)),
           h("div", { fontSize: 32, color: TEXT, lineHeight: 1.35 }, p.tagline)),
         h("div", { alignItems: "center", gap: 16 },
-          h("div", { padding: "9px 18px", borderRadius: 22, background: "#0b7aa6", color: "#fff", fontSize: 20, fontWeight: 700, letterSpacing: 1 }, "HACS"),
+          h("div", { padding: "9px 18px", borderRadius: 22, background: "#18bcf2", color: "#fff", fontSize: 20, fontWeight: 700, letterSpacing: 1 }, "HACS"),
           footer())),
       ...(shot
         ? [h("div", { width: box.w, height: box.h, alignItems: "center", justifyContent: "center", flex: "none" },
