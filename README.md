@@ -1,5 +1,7 @@
 # Home Assistant projects
 
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/julienstep9)
+
 Showcase site for my Home Assistant custom integrations and Lovelace cards.
 
 Live site: https://juju35.github.io/homeassistant-projects/
