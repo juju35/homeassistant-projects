@@ -23,7 +23,10 @@ const URL = "https://buymeacoffee.com/julienstep9";
       Every card and integration here is free and open source, built and maintained on spare evenings.
       If one of them makes your Home Assistant nicer, a coffee helps keep them updated, translated and growing.
     </p>
-    <a class="btn more" href={URL} target="_blank" rel="noopener"><Icon name="mdiCoffee" /> Buy me a coffee <Icon name="mdiOpenInNew" /></a>
+    <a class="bmc more" href={URL} target="_blank" rel="noopener" aria-label="Buy me a coffee">
+      <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="" width="142" height="40" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-img')" />
+      <span class="bmc-t" aria-hidden="true">☕ Buy me a coffee</span>
+    </a>
   </div>
 </section>
 
@@ -39,9 +42,16 @@ const URL = "https://buymeacoffee.com/julienstep9";
   .coffee > *:not(.glow) { position: relative; }
   .header { grid-area: head; align-items: center; }
   .coffee p { grid-area: text; margin: 0; max-width: 70ch; font-size: 14px; line-height: 1.55; }
-  /* .btn sets its own --c: take the card's amber again */
-  .more { grid-area: btn; --c: #e8a200; }
-  .more svg:last-child { width: 16px; height: 16px; }
+  .more { grid-area: btn; }
+  /* The official Buy Me a Coffee button, 40px high and as round as the site's buttons (as on the project pages) */
+  .bmc { display: inline-flex; flex: none; border-radius: 20px; transition: filter 0.2s ease; }
+  .bmc img { display: block; height: 40px; width: auto; border-radius: 20px; }
+  .bmc:hover { filter: brightness(1.04); }
+  .bmc:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
+  /* If the image can't load: a yellow pill with the text */
+  .bmc-t { display: none; align-items: center; height: 40px; padding: 0 16px; border-radius: 20px; background: #ffdd00; color: #000; font: 500 14px/1 var(--font); white-space: nowrap; }
+  .bmc.no-img img { display: none; }
+  .bmc.no-img .bmc-t { display: inline-flex; }
   h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.15; }
   .kicker { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--secondary-text-color); }
   .glow {
