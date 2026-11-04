@@ -4,6 +4,7 @@ import Icon from "../components/Icon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Languages from "../components/Languages.astro";
 import MadeIn from "../components/MadeIn.astro";
+import Support from "../components/Support.astro";
 import { categories, contributors, projects, OWNER } from "../lib/projects";
 import { kindCounts } from "../lib/kinds";
 
@@ -106,6 +107,7 @@ const groups = categories
 
     <Languages />
     <MadeIn />
+    <Support />
 
     <section class="contrib" id="contributing" aria-labelledby="contributing-title">
       <h2 class="section-title" id="contributing-title"><Icon name="mdiHandHeartOutline" />Contributions</h2>
