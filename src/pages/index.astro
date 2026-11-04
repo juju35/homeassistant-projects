@@ -8,8 +8,9 @@ import { kindCounts } from "../lib/kinds";
 const counts = kindCounts(projects);
 const cards = counts.card;
 const integrations = counts.integration;
-// en, fr, de, es, it, nl, pt, pl, sr (Cyrillic) and sr-Latn
-const LANGUAGES = 10;
+// en, fr, de, es, it, nl, pt, pl, sr (Cyrillic), sr-Latn, ro, da, sv, bg, ru, uk, hu, sk, cs, sl, lv
+// and el
+const LANGUAGES = 22;
 const animations = projects.reduce((n, p) => n + (p.animations?.length ?? 0), 0);
 const groups = categories
   .map((c) => ({ ...c, items: projects.filter((p) => p.category === c.id) }))
@@ -33,8 +34,9 @@ const groups = categories
       <p class="lead">
         Dashboard cards that look at home in Home Assistant and find their entities by themselves,
         and integrations that keep things quiet until something really needs you. Light and dark themes,
-        ten languages: English, Français, Deutsch, Español, Italiano, Nederlands, Português, Polski,
-        Српски and Srpski.
+        22 languages: English, Français, Deutsch, Español, Italiano, Nederlands, Português, Polski,
+        Српски, Srpski, Română, Dansk, Svenska, Български, Русский, Українська, Magyar,
+        Slovenčina, Čeština, Slovenščina, Latviešu and Ελληνικά.
       </p>
       <p class="stats-inline muted">{cards} cards · {integrations} integrations · {animations} animations · {LANGUAGES} languages</p>
       <div class="stats">
