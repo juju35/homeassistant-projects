@@ -2,6 +2,7 @@
 // Made in France, and built with Claude
 import Icon from "./Icon.astro";
 import fr from "flag-icons/flags/4x3/fr.svg";
+import bzh from "../assets/bzh.svg";
 import { OWNER } from "../lib/projects";
 ---
 
@@ -11,18 +12,21 @@ import { OWNER } from "../lib/projects";
     <div class="ha-card france">
       <span class="ribbon" aria-hidden="true"></span>
       <div class="header">
-        <span class="flag"><img src={fr.src} alt="" width="56" height="42" loading="lazy" decoding="async" /></span>
+        <span class="flags">
+          <span class="flag"><img src={fr.src} alt="" width="56" height="42" loading="lazy" decoding="async" /></span>
+          <span class="flag bzh" title="Gwenn-ha-du, the flag of Brittany"><img src={bzh.src} alt="" width="56" height="42" loading="lazy" decoding="async" /></span>
+        </span>
         <div class="titles">
           <div class="kicker">Cocorico</div>
           <h3>Made in France</h3>
         </div>
       </div>
       <p class="muted">
-        Designed, coded and tested in France by <a href={`https://github.com/${OWNER}`} target="_blank" rel="noopener">@{OWNER}</a>,
+        Designed, coded and tested in Brittany, France, by <a href={`https://github.com/${OWNER}`} target="_blank" rel="noopener">@{OWNER}</a>,
         and used every day on a real Home Assistant at home: a card ships once it has earned its place on the dashboard.
       </p>
       <ul class="facts">
-        <li class="chip neutral"><Icon name="mdiMapMarkerOutline" />France</li>
+        <li class="chip neutral"><Icon name="mdiMapMarkerOutline" />Breizh · France</li>
         <li class="chip neutral"><Icon name="mdiHomeAssistant" />Home Assistant</li>
         <li class="chip neutral"><Icon name="mdiCheckDecagram" />Open source</li>
       </ul>
@@ -81,6 +85,9 @@ import { OWNER } from "../lib/projects";
     transform-origin: left center; animation: wave 3.2s ease-in-out infinite;
   }
   .flag img { width: 100%; height: 100%; object-fit: cover; }
+  /* The Breton flag next to the French one, waving half a beat later */
+  .flags { display: flex; flex: none; gap: 8px; }
+  .flags .bzh { animation-delay: -1.6s; }
   .flag::after {
     content: ""; position: absolute; inset: 0;
     background: linear-gradient(105deg, rgb(255 255 255 / .3), transparent 40%, rgb(0 0 0 / .1) 70%, rgb(255 255 255 / .15));
