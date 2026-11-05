@@ -31,7 +31,7 @@ contributors:
 - login: cpmarexel2f
   contribution: Serbian translations, in Cyrillic and Latin script
 - login: nvcs
-  contribution: Fix for the discovery of Dreame robots
+  contribution: Fixes for the discovery of Dreame robots and the flickering map
   project: ha-vacuum-card
 - login: domwu0001
   contribution: German translation proposal
