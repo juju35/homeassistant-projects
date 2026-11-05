@@ -80,7 +80,7 @@ const related = projects.flatMap((p) => {
             </a>
           )}
           <span class="chip neutral"><Icon name="mdiHomeAssistant" /> HA {project.homeassistant}+</span>
-          <span class="chip" style={accent}><Icon name="mdiStorefrontOutline" /> HACS</span>
+          <span class="chip" style={accent}><Icon name="mdiStorefrontOutline" /> Marketplace</span>
         </div>
       </div>
       <p class="lead">{project.tagline}</p>
@@ -202,14 +202,14 @@ const related = projects.flatMap((p) => {
             <li>
               <span class="num" style={accent}>1</span>
               <span>
-                Open the repository in HACS with the <b>Add to HACS</b> button above, or add
+                Open the repository in the Marketplace with the <b>Add to Marketplace</b> button above, or add
                 <code>{repoUrl(project).replace("https://", "")}</code> as a custom repository
                 (category <b>{isCard ? "Dashboard" : "Integration"}</b>).
               </span>
             </li>
             <li>
               <span class="num" style={accent}>2</span>
-              <span>Download it from HACS.</span>
+              <span>Download it from the Marketplace.</span>
             </li>
             <li>
               <span class="num" style={accent}>3</span>

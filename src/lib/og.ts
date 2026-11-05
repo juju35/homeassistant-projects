@@ -79,7 +79,7 @@ export async function homeImage() {
         h("div", { flexDirection: "column", gap: 24 },
           pastille("mdiHomeAssistant", HA, 104),
           h("div", { fontSize: 54, fontWeight: 500, color: TEXT, letterSpacing: -1, lineHeight: 1.05, whiteSpace: "nowrap" }, "Home Assistant projects"),
-          h("div", { fontSize: 26, color: MUTED, lineHeight: 1.35 }, "Custom cards and integrations, all HACS-ready")),
+          h("div", { fontSize: 26, color: MUTED, lineHeight: 1.35 }, "Custom cards and integrations, all on the Marketplace")),
         h("div", { flexDirection: "column", gap: 22 },
           h("div", { gap: 12 },
             stat(`${counts.card}`, "Cards", "#5b6cf0", "mdiViewDashboardVariant"),
@@ -111,7 +111,7 @@ export async function projectImage(p: Project) {
             h("div", { fontSize: 24, color: MUTED }, `${kindLabel(p)} · ${category}`)),
           h("div", { fontSize: 32, color: TEXT, lineHeight: 1.35 }, p.tagline)),
         h("div", { alignItems: "center", gap: 16 },
-          h("div", { padding: "9px 18px", borderRadius: 22, background: "#18bcf2", color: "#fff", fontSize: 20, fontWeight: 700, letterSpacing: 1 }, "HACS"),
+          h("div", { padding: "9px 18px", borderRadius: 22, background: "#18bcf2", color: "#fff", fontSize: 20, fontWeight: 700, letterSpacing: 1 }, "MARKETPLACE"),
           footer())),
       ...(shot
         ? [h("div", { width: box.w, height: box.h, alignItems: "center", justifyContent: "center", flex: "none" },
