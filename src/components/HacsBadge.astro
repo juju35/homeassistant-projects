@@ -1,5 +1,5 @@
 ---
-// "Add to HACS" in the style of the My Home Assistant badge of the READMEs (blue pill, white capitals, the "MY"
+// "Add to Marketplace" in the style of the My Home Assistant badge of the READMEs (blue pill, white capitals, the "MY"
 // chip of the official badge), with a short label: the official one reads "Open Marketplace repository on MY".
 import { hacsUrl, type Project } from "../lib/projects";
 
@@ -20,10 +20,10 @@ const CHIP = `<rect width="137" height="64" x="344" y="16" fill="#f2f4f9" rx="32
   target="_blank"
   rel="noopener"
   style={`--h:${height}px`}
-  title="Open your Home Assistant instance and open this repository in HACS"
-  aria-label={`Add to HACS: ${project.title}`}
+  title="Open your Home Assistant instance and open this repository in the Marketplace"
+  aria-label={`Add to Marketplace: ${project.title}`}
 >
-  <span class="t">Add to HACS</span>
+  <span class="t">Add to Marketplace</span>
   <svg class="my" viewBox="344 16 137 64" aria-hidden="true" set:html={CHIP} />
 </a>
 

@@ -64,7 +64,7 @@ export const repoUrl = (p: Project) => `https://github.com/${OWNER}/${p.slug}`;
 export const shotUrl = (p: Project, file: string) =>
   `https://raw.githubusercontent.com/${OWNER}/${p.slug}/main/screenshots/${file}`;
 
-// Opens the "add custom repository" dialog of HACS on the visitor's instance.
+// Opens the "add custom repository" dialog of the Marketplace on the visitor's instance.
 export const hacsUrl = (p: Project) =>
   `https://my.home-assistant.io/redirect/hacs_repository/?owner=${OWNER}&repository=${p.slug}&category=${
     p.kind === "integration" ? "integration" : "plugin"
