@@ -1434,6 +1434,7 @@ projects:
   - Ports up out of all next to the status
   - Incoming and outgoing rates with their last 24 hours, gaps shown as gaps
   - Custom image with an adjustable port overlay
+  - Confirmation popup before turning the switch off
   - Mini card with the front panel and the rates, opening the full card
   homeassistant: 2024.8.0
   keywords: "network switch snmp netgear gs308t ports"
@@ -1449,6 +1450,10 @@ projects:
   - src: card-gs308t.png
     dark: card-gs308t-dark.png
     caption: GS308T
+    group: Card
+  - src: card-confirm-off.png
+    dark: card-confirm-off-dark.png
+    caption: Confirmation before turning the switch off
     group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
@@ -1808,6 +1813,7 @@ projects:
   - Countdown and Now badge for today's events
   - Event details in a popup
   - New event form from the card
+  - Edit and delete events, recurring ones too
   - Mini card with the next event
   homeassistant: 2024.8.0
   keywords: "calendar agenda google caldav events"
@@ -1831,6 +1837,14 @@ projects:
   - src: agenda-details.png
     dark: agenda-details-dark.png
     caption: Event details
+    group: Agenda
+  - src: agenda-edit.png
+    dark: agenda-edit-dark.png
+    caption: Edit an event
+    group: Agenda
+  - src: agenda-delete.png
+    dark: agenda-delete-dark.png
+    caption: Delete confirmation
     group: Agenda
   - src: mini.png
     dark: mini-dark.png
@@ -2116,6 +2130,7 @@ projects:
   - Orphan devices too, left without entities
   - Never during startup, nor during the grace period after it
   - Bulk removal limited to the listed entities, with a confirmation
+  - Used by badge listing the automations, scripts, scenes and dashboards still using an entity
   - Ignored integrations and entities
   - Diagnostics of the last scan
   - Card with search, integration and reason filters and selection
@@ -2134,6 +2149,10 @@ projects:
   - src: card-selected.png
     dark: card-selected-dark.png
     caption: Two entities selected
+    group: Card
+  - src: card-used.png
+    dark: card-used-dark.png
+    caption: Used by an automation or a dashboard
     group: Card
   - src: card-confirm.png
     dark: card-confirm-dark.png
