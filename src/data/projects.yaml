@@ -1360,13 +1360,16 @@ projects:
   summary: Live state of every port on a drawn front panel, traffic, connectivity and uptime. Pure JavaScript with no dependencies, fully configurable from the visual editor.
   highlights:
   - Drawn generic front panel (1–52 ports) or Netgear GS308T
-  - Live state of every port
-  - Incoming and outgoing traffic, auto-scaled
+  - Live state of every port, with port names and watched ports
+  - Ports up out of all next to the status
+  - Incoming and outgoing rates with their last 24 hours
   - Custom image with an adjustable port overlay
+  - Mini card with the front panel and the rates, opening the full card
   homeassistant: 2024.8.0
   keywords: "network switch snmp netgear gs308t ports"
   cardTypes:
   - ha-switch-card
+  - ha-switch-mini-card
   hero:
     src: card.png
     dark: card-dark.png
@@ -1377,6 +1380,14 @@ projects:
     dark: card-gs308t-dark.png
     caption: GS308T
     group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Front panel and rates
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: Mini card on a phone
+    group: Mini card
 - slug: ha-system-monitor-card
   title: System Monitor Card
   kind: card
@@ -1790,15 +1801,26 @@ projects:
   - Password hidden by default
   - Visual editor, no YAML needed
   - Light and dark mode
+  - Mini card on one row, its QR opening the full card
   homeassistant: 2024.8.0
   keywords: "wifi qr code guest network"
   cardTypes:
   - wifi-qr-card
+  - wifi-qr-mini-card
   hero:
     src: card.png
     dark: card-dark.png
     caption: Default view
     group: Card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Network and QR code
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: Mini card on a phone
+    group: Mini card
 - slug: ha-wero-card
   title: Wero QR Card
   kind: card
@@ -1812,15 +1834,26 @@ projects:
   - Copy-link button
   - Tap for full screen
   - Visual editor
+  - Mini card on one row, its QR opening the full card
   homeassistant: 2024.8.0
   keywords: "wero payment qr code pay"
   cardTypes:
   - wero-card
+  - wero-mini-card
   hero:
     src: card.png
     dark: card-dark.png
     caption: Default view
     group: Card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Payee and QR code
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: Mini card on a phone
+    group: Mini card
 - slug: ha-automation-monitor-card
   title: Automation Monitor Card
   kind: card
