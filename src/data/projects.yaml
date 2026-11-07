@@ -298,6 +298,7 @@ projects:
   - Outdoor places and air quality index to suggest opening or closing the windows
   - Setup panel in the sidebar, with room discovery, a day schedule and the YAML of the setup
   - Activity log in the panel and in an activity card for the dashboard
+  - Calendar of past alerts, with the peak of each episode
   - Mini card with the alerts of the moment and the switches, opening the full card
   homeassistant: 2024.12.0
   keywords: "comfort notifications alerts co2 humidity temperature noise windows lights lighting adaptive presence motion nap night activity log mini card"
@@ -491,8 +492,9 @@ projects:
   - Load gauge against the subscribed power
   - Consumption and cost from long-term statistics
   - 24 h power curve with its peak
+  - Tempo colours of today and tomorrow
   homeassistant: 2024.8.0
-  keywords: "linky lixee zha zigbee2mqtt energy electricity tic meter power"
+  keywords: "linky lixee zha zigbee2mqtt energy electricity tic meter power tempo"
   cardTypes:
   - zlinky-card
   - zlinky-mini-card
@@ -502,6 +504,10 @@ projects:
     caption: ZLinky card
     group: Card
   screenshots:
+  - src: card-tempo.png
+    dark: card-tempo-dark.png
+    caption: Tempo colours of today and tomorrow
+    group: Card
   - src: mini.png
     dark: mini-dark.png
     caption: ZLinky mini card
@@ -531,7 +537,8 @@ projects:
   - Threshold and duration before notifying
   - Unavailable batteries reported too
   - Two notifications a day, at times you choose
-  - Lovelace card with a full screen view by room or type
+  - Replacement forecast from each battery's drain, with a Next replacement sensor
+  - Lovelace card with a full screen view by room, type or replacement date, and a CSV export
   homeassistant: 2024.12.0
   keywords: "battery batteries low notification"
   cardTypes:
@@ -553,6 +560,10 @@ projects:
   - src: popup-type.png
     dark: popup-type-dark.png
     caption: Full screen by battery type
+    group: Full screen
+  - src: popup-forecast.png
+    dark: popup-forecast-dark.png
+    caption: Full screen by replacement date
     group: Full screen
   - src: popup-phone.png
     dark: popup-phone-dark.png
@@ -579,6 +590,7 @@ projects:
   - 'Badge and colour per state: home, zone, away, unknown'
   - Time in the current place and distance from home
   - Phone battery level
+  - Movements of the last 24 hours
   - Mini card on a single row with a zoom button
   homeassistant: 2024.8.0
   keywords: "person people home away zone device tracker"
@@ -591,6 +603,10 @@ projects:
     caption: Default view
     group: Card
   screenshots:
+  - src: card-moves.png
+    dark: card-moves-dark.png
+    caption: Movements of the last 24 hours
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
     caption: Default view
@@ -1241,6 +1257,7 @@ projects:
   - Header icon by connection type (fibre, xDSL, 4G / 5G) with the operator logo badge
   - Box picture and model detected automatically
   - Connection type, public IP and uptime
+  - Download and upload rates with their last 24 hours
   - Wi-Fi networks, connected devices and missed calls
   - Compact mini card
   homeassistant: 2024.8.0
@@ -1290,6 +1307,7 @@ projects:
   - UGREEN NAS, Synology DSM and QNAP
   - Status-tinted NAS icon with the brand logo badge
   - CPU, RAM and temperature gauges
+  - Network rates with their last 24 hours
   - Volumes with RAID level and used space
   - Disks with temperature and power-on hours
   - Compact mini card
@@ -1372,7 +1390,7 @@ projects:
   - CPU, RAM, disk and temperature gauges
   - Core and OS versions with update badges
   - Storage, swap and database size
-  - Network rates per interface
+  - Network rates per interface, with their last 24 hours
   - Monitored processes with their status
   homeassistant: 2024.8.0
   keywords: "systemmonitor cpu ram disk server processes network storage"
@@ -1410,6 +1428,7 @@ projects:
   - Dockhand, Monitor Docker and Portainer supported
   - Several environments supported
   - CPU, memory and running containers gauges
+  - CPU and memory over the last 24 hours
   - Stacks, images, volumes and networks counters
   - Stacks and containers with pending updates
   - Compact mini card
@@ -1577,6 +1596,7 @@ projects:
   - Trips with distance, consumption and cost
   - Past trips, refuels and charges rebuilt from the recorder history, up to two years back
   - Cost of the month and cost per km, with prices from a sensor or fixed
+  - CO₂ emitted per trip, per month and per km
   - Card with gauges, monthly chart and recent trips, refuels and charges
   homeassistant: 2024.12.0
   keywords: "car vehicle fuel consumption ev charging cost renault"
@@ -1630,6 +1650,8 @@ projects:
   - Station search around home, by town or postcode
   - Price and in-stock sensors per station and fuel
   - Best price per fuel across your stations
+  - 30-day trend: average, lowest, highest and change
+  - Target price with a low-price binary sensor
   - 42 French networks' logos built in
   - Card and map card included
   homeassistant: 2024.12.0
@@ -1685,6 +1707,7 @@ projects:
   - Several calendars merged, each with its colour
   - Countdown and Now badge for today's events
   - Event details in a popup
+  - New event form from the card
   - Mini card with the next event
   homeassistant: 2024.8.0
   keywords: "calendar agenda google caldav events"
@@ -1700,6 +1723,10 @@ projects:
   - src: agenda-more.png
     dark: agenda-more-dark.png
     caption: Agenda with folded events
+    group: Agenda
+  - src: agenda-add.png
+    dark: agenda-add-dark.png
+    caption: New event
     group: Agenda
   - src: agenda-details.png
     dark: agenda-details-dark.png
@@ -1903,6 +1930,7 @@ projects:
   - Never during startup, no reload loop
   - Notification for each reload
   - Ignored integrations
+  - Reloads of the last 24 hours as a sensor
   - Card with the overall status, the unavailable integrations and the recent reloads
   - Mini card on two lines, with a detail button showing the full card
   homeassistant: 2024.12.0
@@ -1948,6 +1976,7 @@ projects:
   summary: Removed integrations, renamed devices and old YAML platforms leave entities behind in the registry. Orphan Entities lists them all with the reason, and its card filters, selects and removes them in one go.
   highlights:
   - Five reasons, from integration removed to unknown for too long
+  - Orphan devices too, left without entities
   - Never during startup, nor during the grace period after it
   - Bulk removal limited to the listed entities, with a confirmation
   - Ignored integrations and entities
@@ -1975,6 +2004,10 @@ projects:
   - src: card-filtered.png
     dark: card-filtered-dark.png
     caption: Filtered on a reason
+    group: Card
+  - src: card-devices.png
+    dark: card-devices-dark.png
+    caption: Orphan devices
     group: Card
   - src: card-ok.png
     dark: card-ok-dark.png
@@ -2011,6 +2044,7 @@ projects:
   - Dashboards exported as JSON or readable YAML, daily or before each commit
   - SSH deploy key generated by an action, no ssh-keyscan needed
   - Card with the status, the last commit and push, the changed files, and a ✨ button that writes the message before committing
+  - Full screen diff, file by file, like a code editor
   - Mini card for a compact dashboard, with a detail button showing the full card
   homeassistant: 2024.12.0
   keywords: "git github backup version configuration commit push ai dashboards export ssh mini"
@@ -2035,6 +2069,14 @@ projects:
     dark: card-error-dark.png
     caption: Push failed
     group: Card
+  - src: diff.png
+    dark: diff-dark.png
+    caption: Full screen diff, file by file
+    group: Diff
+  - src: diff-phone.png
+    dark: diff-phone-dark.png
+    caption: Diff on a phone
+    group: Diff
   - src: mini.png
     dark: mini-dark.png
     caption: Changes pending
