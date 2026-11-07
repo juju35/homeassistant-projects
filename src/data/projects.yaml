@@ -51,11 +51,12 @@ projects:
   highlights:
   - Animated scene for every condition, by day and by night, with the real moon phase
   - Rain in the next hour, hourly and daily forecasts
-  - Weather warnings, lightning nearby, drought restrictions
+  - Weather warnings banner from Meteoalarm, DWD, NWS or Météo-France, lightning nearby, drought restrictions
   - Air quality, pollutants, UV index and pollen with tomorrow's forecast
   - Full screen view and a refresh button for fresh data
+  - Animations paused while the card is off-screen
   homeassistant: 2024.8.0
-  keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no"
+  keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no meteoalarm dwd nws warnings"
   cardTypes:
   - weather-plus-card
   - weather-plus-mini-card
@@ -180,6 +181,8 @@ projects:
   - Overview of every device, grouped by kind or by area
   - 'Animated illustrations: turning blades, air flowing, swinging head'
   - Automatic discovery of devices and their sensors
+  - Heat / cool range of air conditioners on the overview
+  - Chips opening the more-info dialog of their entity
   homeassistant: 2024.8.0
   keywords: "air conditioner ac clim climatisation purifier dyson xiaomi fan ventilateur climate"
   cardTypes:
@@ -249,6 +252,10 @@ projects:
     dark: aircon-heat-dark.png
     group: Air conditioner
     caption: Heat
+  - src: aircon-range.png
+    dark: aircon-range-dark.png
+    caption: Heat / cool range
+    group: Air conditioner
   - src: aircon-portable.png
     dark: aircon-portable-dark.png
     group: Air conditioner
@@ -298,6 +305,7 @@ projects:
   - Outdoor places and air quality index to suggest opening or closing the windows
   - Setup panel in the sidebar, with room discovery, a day schedule and the YAML of the setup
   - Activity log in the panel and in an activity card for the dashboard
+  - Diagnostics with the notifiers redacted
   - Calendar of past alerts, with the peak of each episode
   - Mini card with the alerts of the moment and the switches, opening the full card
   homeassistant: 2024.12.0
@@ -375,6 +383,7 @@ projects:
   - Overview of every room, coloured by leaks, openings and presence
   - 'Sensors card: what is open comes first, with how long'
   - Lights and plugs cards with power draw
+  - Lights and plugs mini cards on two lines, with an all off button and a zoom to the full card
   - Environment cards for temperature, humidity and air quality
   - Automatic discovery from Home Assistant areas
   homeassistant: 2024.8.0
@@ -382,9 +391,13 @@ projects:
   cardTypes:
   - room-overview-card
   - room-sensors-card
+  - room-sensors-mini-card
   - room-lights-card
+  - room-lights-mini-card
   - room-switch-card
+  - room-switch-mini-card
   - room-environment-card
+  - room-environment-mini-card
   - room-environment-overview-card
   hero:
     src: overview-all.png
@@ -428,6 +441,18 @@ projects:
     dark: lights-off-dark.png
     caption: All off
     group: Lights
+  - src: lights-mini-on.png
+    dark: lights-mini-on-dark.png
+    caption: Mini lights on
+    group: Lights
+  - src: lights-mini-off.png
+    dark: lights-mini-off-dark.png
+    caption: Mini all off
+    group: Lights
+  - src: lights-mini-zoom.png
+    dark: lights-mini-zoom-dark.png
+    caption: Mini zoomed in
+    group: Lights
   - src: switch-on.png
     dark: switch-on-dark.png
     caption: Plugs
@@ -435,6 +460,18 @@ projects:
   - src: switch-off.png
     dark: switch-off-dark.png
     caption: All off
+    group: Plugs
+  - src: switch-mini-on.png
+    dark: switch-mini-on-dark.png
+    caption: Mini plugs on
+    group: Plugs
+  - src: switch-mini-off.png
+    dark: switch-mini-off-dark.png
+    caption: Mini all off
+    group: Plugs
+  - src: switch-mini-zoom.png
+    dark: switch-mini-zoom-dark.png
+    caption: Mini zoomed in
     group: Plugs
   - src: environment-stuffy.png
     dark: environment-stuffy-dark.png
@@ -539,10 +576,14 @@ projects:
   - Two notifications a day, at times you choose
   - Replacement forecast from each battery's drain, with a Next replacement sensor
   - Lovelace card with a full screen view by room, type or replacement date, and a CSV export
+  - Mini card with only the batteries needing attention, with a detail button showing the full card
+  - Low and replaced battery events for automations
+  - Diagnostics with the notify actions redacted
   homeassistant: 2024.12.0
   keywords: "battery batteries low notification"
   cardTypes:
   - battery-monitor-card
+  - battery-monitor-mini-card
   hero:
     src: card.png
     dark: card-dark.png
@@ -553,6 +594,10 @@ projects:
     dark: card-low-dark.png
     caption: Low batteries only
     group: Card
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Batteries needing attention
+    group: Mini card
   - src: popup.png
     dark: popup-dark.png
     caption: Full screen by room
@@ -591,9 +636,10 @@ projects:
   - Time in the current place and distance from home
   - Phone battery level
   - Movements of the last 24 hours
+  - Direction of travel from the Proximity integration
   - Mini card on a single row with a zoom button
   homeassistant: 2024.8.0
-  keywords: "person people home away zone device tracker"
+  keywords: "person people home away zone device tracker proximity"
   cardTypes:
   - presence-card
   - presence-mini-card
@@ -628,6 +674,8 @@ projects:
   - Exit and entry delay countdown with a progress bar
   - Code pad when the panel needs a code
   - Open sensors and the last person who changed the state
+  - Activity of the latest arm, disarm and trigger changes, with who made them
+  - Alarmo refusing to arm lists the open sensors, with Arm anyway
   - Single-row mini card
   homeassistant: 2024.8.0
   keywords: "alarmo alarm control panel security verisure ajax manual"
@@ -651,6 +699,14 @@ projects:
   - src: card-code.png
     dark: card-code-dark.png
     caption: Code pad
+    group: Card
+  - src: card-activity.png
+    dark: card-activity-dark.png
+    caption: Activity
+    group: Card
+  - src: card-failed-arm.png
+    dark: card-failed-arm-dark.png
+    caption: Open sensors when Alarmo refuses to arm
     group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
@@ -680,6 +736,7 @@ projects:
   - Drawn lock picture matching the model, animated while it moves
   - Lock, Unlock and Open with a confirmation popup
   - Door sensor, battery, keypad and activity
+  - Warning when the door is open while unlocked
   - Compact mini card
   homeassistant: 2024.8.0
   keywords: "lock door nuki tedee yale august switchbot aqara matter zwave"
@@ -761,10 +818,13 @@ projects:
   - HD / SD switch shared across dashboards
   - Pan and tilt controls
   - Full screen view
+  - Mini card with a snapshot per camera, opening the full card
+  - Streams paused while the card is off-screen
   homeassistant: 2024.8.0
   keywords: "camera cctv privacy ptz frigate reolink"
   cardTypes:
   - home-camera-card
+  - home-camera-mini-card
   hero:
     src: card.png
     dark: card-dark.png
@@ -787,6 +847,10 @@ projects:
     dark: card-fullscreen.png
     caption: Fullscreen camera with the round pan and tilt pad
     group: Card
+  - src: card-mini.png
+    dark: card-mini-dark.png
+    caption: A snapshot per camera
+    group: Mini card
   animations:
   - src: live.gif
     dark: live-dark.gif
@@ -809,6 +873,7 @@ projects:
   - Status, progress bar, finish time and program step
   - Program picker and options, start, pause, resume and stop
   - Temperatures, door, salt, rinse aid and coffee machine alerts
+  - Chips opening the more-info dialog of their entity
   - Mini card with a detail button unfolding the full card
   homeassistant: 2024.8.0
   keywords: "home connect bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance"
@@ -1019,6 +1084,7 @@ projects:
   - Battery, status, current room, progress and errors
   - Cleaning mode, suction, mop intensity and route
   - Room selection and dock actions
+  - Map paused while the card is off-screen
   homeassistant: 2024.8.0
   keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop"
   cardTypes:
@@ -1167,6 +1233,7 @@ projects:
   - Status with colour and a pulsing control panel while printing
   - Ink or toner tanks in slot order, with a warning threshold
   - Paper, cover and cartridge alerts
+  - Chips opening the more-info dialog of their entity
   - Mini card with an offline state
   homeassistant: 2024.8.0
   keywords: "printer hp hpprinter brother ipp ink toner canon epson ecotank pixma maxify megatank laserjet officejet"
@@ -1257,7 +1324,9 @@ projects:
   - Header icon by connection type (fibre, xDSL, 4G / 5G) with the operator logo badge
   - Box picture and model detected automatically
   - Connection type, public IP and uptime
-  - Download and upload rates with their last 24 hours
+  - Real link status of the Livebox and the SFR Box
+  - Download and upload rates with their last 24 hours, gaps shown as gaps
+  - Temperature and disk thresholds you can set
   - Wi-Fi networks, connected devices and missed calls
   - Compact mini card
   homeassistant: 2024.8.0
@@ -1307,7 +1376,8 @@ projects:
   - UGREEN NAS, Synology DSM and QNAP
   - Status-tinted NAS icon with the brand logo badge
   - CPU, RAM and temperature gauges
-  - Network rates with their last 24 hours
+  - Network rates with their last 24 hours, gaps shown as gaps
+  - Alert thresholds you can set
   - Volumes with RAID level and used space
   - Disks with temperature and power-on hours
   - Compact mini card
@@ -1362,7 +1432,7 @@ projects:
   - Drawn generic front panel (1–52 ports) or Netgear GS308T
   - Live state of every port, with port names and watched ports
   - Ports up out of all next to the status
-  - Incoming and outgoing rates with their last 24 hours
+  - Incoming and outgoing rates with their last 24 hours, gaps shown as gaps
   - Custom image with an adjustable port overlay
   - Mini card with the front panel and the rates, opening the full card
   homeassistant: 2024.8.0
@@ -1401,7 +1471,8 @@ projects:
   - CPU, RAM, disk and temperature gauges
   - Core and OS versions with update badges
   - Storage, swap and database size
-  - Network rates per interface, with their last 24 hours
+  - Network rates per interface, with their last 24 hours, gaps shown as gaps
+  - CPU, RAM, disk, temperature and swap thresholds you can set
   - Monitored processes with their status
   homeassistant: 2024.8.0
   keywords: "systemmonitor cpu ram disk server processes network storage"
@@ -1439,9 +1510,10 @@ projects:
   - Dockhand, Monitor Docker and Portainer supported
   - Several environments supported
   - CPU, memory and running containers gauges
-  - CPU and memory over the last 24 hours
+  - CPU and memory over the last 24 hours, gaps shown as gaps
   - Stacks, images, volumes and networks counters
-  - Stacks and containers with pending updates
+  - Stacks and containers with pending updates, and an update button with a confirmation
+  - Containers list with search and a sort by name, CPU or memory
   - Compact mini card
   homeassistant: 2024.8.0
   keywords: "docker containers stacks dockhand portainer monitor_docker monitor docker"
@@ -1510,6 +1582,8 @@ projects:
   - Expiry sensor and ACME renewal button per certificate
   - Switches for HTTPS redirect and port 80
   - Toggle proxy rules from automations
+  - Address and credentials changed with Reconfigure
+  - Diagnostics with the address and credentials redacted
   - Card and mini card included
   homeassistant: 2024.12.0
   keywords: "reverse proxy zoraxy certificates acme tls"
@@ -1544,6 +1618,7 @@ projects:
   - Map card with the last location
   - Action buttons with a confirmation tap
   - Lease section and official vehicle picture
+  - Mini card with the picture, battery, range and charging, opening the full card
   homeassistant: 2024.8.0
   keywords: "renault espace captur megane zoe ev car vehicle tank fuel charge"
   worksWith:
@@ -1551,6 +1626,7 @@ projects:
     why: "Shows the official MyRenault photo of your car on the card"
   cardTypes:
   - renault-card
+  - renault-mini-card
   - renault-map-card
   hero:
     src: espace.png
@@ -1566,6 +1642,10 @@ projects:
     dark: lease-dark.png
     caption: Lease tracking
     group: Vehicle card
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Renault mini card
+    group: Mini card
   - src: map.png
     dark: map-dark.png
     caption: Map card
@@ -1586,6 +1666,7 @@ projects:
   - One picture sensor per vehicle, on the existing device
   - Picture shown as the entity thumbnail
   - No credentials and no network calls
+  - Diagnostics with the VIN, account and tokens redacted
   homeassistant: 2025.8.0
   keywords: "renault myrenault car picture photo"
   worksWith:
@@ -1608,6 +1689,8 @@ projects:
   - Past trips, refuels and charges rebuilt from the recorder history, up to two years back
   - Cost of the month and cost per km, with prices from a sensor or fixed
   - CO₂ emitted per trip, per month and per km
+  - Trip ended event for automations
+  - Diagnostics with VINs, plates and positions redacted
   - Card with gauges, monthly chart and recent trips, refuels and charges
   homeassistant: 2024.12.0
   keywords: "car vehicle fuel consumption ev charging cost renault"
@@ -1664,7 +1747,8 @@ projects:
   - 30-day trend: average, lowest, highest and change
   - Target price with a low-price binary sensor
   - 42 French networks' logos built in
-  - Card and map card included
+  - Card, mini card with the cheapest price, and map card included
+  - Diagnostics with addresses and positions redacted
   homeassistant: 2024.12.0
   keywords: "fuel gas station prix carburants essence gazole diesel e10 sp95 france"
   worksWith:
@@ -1672,6 +1756,7 @@ projects:
     why: "Uses your station prices to compute the cost per km"
   cardTypes:
   - carburants-france-card
+  - carburants-france-mini-card
   - carburants-france-map-card
   hero:
     src: card.png
@@ -1687,6 +1772,10 @@ projects:
     dark: card-expanded-dark.png
     caption: Station expanded, sorted by distance
     group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Cheapest price of a fuel
+    group: Mini card
   - src: map.png
     dark: map-dark.png
     caption: Map card
@@ -1774,16 +1863,25 @@ projects:
   - Deliveries sensor with every delivery's events
   - Add a delivery with an action or from the card
   - Card included, with carrier search
+  - Mini card with the active deliveries and those arriving today
+  - Out for delivery and delivered events for automations
   - API key entered in the UI
+  - Diagnostics with the API key, tracking numbers and addresses redacted
   homeassistant: 2024.12.0
   keywords: "parcel delivery package tracking colis"
   cardTypes:
   - parcel-card
+  - parcel-mini-card
   hero:
     src: card.png
     dark: card-dark.png
     caption: Default view
     group: Card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Active deliveries and arriving today
+    group: Mini card
   animations:
   - src: refreshing.gif
     dark: refreshing-dark.gif
@@ -1799,6 +1897,8 @@ projects:
   highlights:
   - QR code generated in pure JS
   - Password hidden by default
+  - Network name and password read from entities, updated live
+  - Hidden networks supported
   - Visual editor, no YAML needed
   - Light and dark mode
   - Mini card on one row, its QR opening the full card
@@ -1922,6 +2022,8 @@ projects:
   - Update all from the card or an action, one update after the other
   - Automatic check at your interval
   - Status sensor with progress and failures
+  - Updates found event for automations
+  - Diagnostics with secrets redacted
   - Card with the check, its progress and the updates available
   homeassistant: 2026.11.0
   keywords: "marketplace hacs updates refresh repositories card install update all"
@@ -1964,6 +2066,8 @@ projects:
   - Notification for each reload
   - Ignored integrations
   - Reloads of the last 24 hours as a sensor
+  - Repairs issue when it gives up on an integration
+  - Diagnostics with titles and notify actions redacted
   - Card with the overall status, the unavailable integrations and the recent reloads
   - Mini card on two lines, with a detail button showing the full card
   homeassistant: 2024.12.0
@@ -2013,6 +2117,7 @@ projects:
   - Never during startup, nor during the grace period after it
   - Bulk removal limited to the listed entities, with a confirmation
   - Ignored integrations and entities
+  - Diagnostics of the last scan
   - Card with search, integration and reason filters and selection
   - Mini card by reason, with a detail button showing the full card
   homeassistant: 2024.12.0
@@ -2076,6 +2181,7 @@ projects:
   - AI commit messages through any AI task entity, with a safe fallback
   - Dashboards exported as JSON or readable YAML, daily or before each commit
   - SSH deploy key generated by an action, no ssh-keyscan needed
+  - Diagnostics with the key path, author and credentials redacted
   - Card with the status, the last commit and push, the changed files, and a ✨ button that writes the message before committing
   - Full screen diff, file by file, like a code editor
   - Mini card for a compact dashboard, with a detail button showing the full card
