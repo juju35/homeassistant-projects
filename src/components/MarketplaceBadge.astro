@@ -1,7 +1,7 @@
 ---
 // "Add to Marketplace" in the style of the My Home Assistant badge of the READMEs (blue pill, white capitals, the "MY"
 // chip of the official badge), with a short label: the official one reads "Open Marketplace repository on MY".
-import { hacsUrl, type Project } from "../lib/projects";
+import { marketplaceUrl, type Project } from "../lib/projects";
 
 interface Props {
   project: Project;
@@ -15,8 +15,8 @@ const CHIP = `<rect width="137" height="64" x="344" y="16" fill="#f2f4f9" rx="32
 ---
 
 <a
-  class:list={["hacs-badge", cls]}
-  href={hacsUrl(project)}
+  class:list={["mp-badge", cls]}
+  href={marketplaceUrl(project)}
   target="_blank"
   rel="noopener"
   style={`--h:${height}px`}
@@ -29,7 +29,7 @@ const CHIP = `<rect width="137" height="64" x="344" y="16" fill="#f2f4f9" rx="32
 
 <style>
   /* Proportions of the official badge: 96 units high, chip 64 high with a 16 margin, text cap height about 1/4 */
-  .hacs-badge {
+  .mp-badge {
     display: inline-flex; flex: none; align-items: center; gap: calc(var(--h) * 0.3);
     height: var(--h); padding: 0 calc(var(--h) * 16 / 96) 0 calc(var(--h) * 0.42);
     border-radius: calc(var(--h) / 2);
@@ -39,6 +39,6 @@ const CHIP = `<rect width="137" height="64" x="344" y="16" fill="#f2f4f9" rx="32
     transition: filter 0.2s ease;
   }
   .my { display: block; flex: none; height: calc(var(--h) * 64 / 96); width: auto; aspect-ratio: 137 / 64; }
-  .hacs-badge:hover { filter: brightness(1.06); }
-  .hacs-badge:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
+  .mp-badge:hover { filter: brightness(1.06); }
+  .mp-badge:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
 </style>

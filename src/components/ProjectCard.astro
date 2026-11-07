@@ -1,7 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import Shot from "./Shot.astro";
-import HacsBadge from "./HacsBadge.astro";
+import MarketplaceBadge from "./MarketplaceBadge.astro";
 import { kindLabel, projects, type Project } from "../lib/projects";
 import { latestRelease } from "../lib/releases";
 
@@ -38,7 +38,7 @@ const release = await latestRelease(p);
       <h3 class="name"><a class="open" href={`${base}projects/${p.slug}/`}>{p.title}</a></h3>
       <div class="sub">{kindLabel(p)}</div>
     </div>
-    <HacsBadge project={p} height={28} class="card-cta" />
+    <MarketplaceBadge project={p} height={28} class="card-cta" />
   </div>
 
   {p.hero ? (

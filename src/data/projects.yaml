@@ -1366,46 +1366,30 @@ projects:
   icon: mdiMonitorDashboard
   accent: '#039be5'
   tagline: 'The machine running Home Assistant: CPU, RAM, disk, temperature, network and updates.'
-  summary: Three cards built on the core System Monitor integration, with Home Assistant versions, HACS updates and the integration watchdog status.
+  summary: Two cards built on the core System Monitor integration, with Home Assistant versions, storage, network and monitored processes.
   highlights:
-  - Full, mini and status cards
+  - Full and mini cards, with a zoom between them
   - CPU, RAM, disk and temperature gauges
   - Core and OS versions with update badges
-  - HACS updates and integration watchdog sections
+  - Storage, swap and database size
   - Network rates per interface
+  - Monitored processes with their status
   homeassistant: 2024.8.0
-  keywords: "systemmonitor cpu ram disk server hacs updates watchdog"
+  keywords: "systemmonitor cpu ram disk server processes network storage"
   worksWith:
-  - slug: ha-hacs-refresh
-    why: "Powers the Check for updates button of the HACS section"
+  - slug: ha-marketplace-refresh
+    why: "Shows the Marketplace updates next to it"
   - slug: ha-integration-watchdog
-    why: "Fills the Unavailable integrations section"
+    why: "Shows the unavailable integrations next to it"
   cardTypes:
   - system-monitor-card
   - system-monitor-mini-card
-  - system-monitor-status-card
   hero:
     src: card.png
     dark: card-dark.png
     caption: Default view
     group: Card
   screenshots:
-  - src: card-hacs.png
-    dark: card-hacs-dark.png
-    caption: HACS extensions
-    group: Card
-  - src: card-watchdog.png
-    dark: card-watchdog-dark.png
-    caption: Unavailable integrations
-    group: Card
-  - src: card-hacs-search-light.png
-    dark: card-hacs-search.png
-    caption: HACS search
-    group: Card
-  - src: card-install-light.png
-    dark: card-install.png
-    caption: Install confirmation
-    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
     caption: Default view
@@ -1414,24 +1398,6 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
-  - src: status-card.png
-    dark: status-card-dark.png
-    caption: Default view
-    group: Status card
-  - src: status-card-zoom.png
-    dark: status-card-zoom-dark.png
-    caption: Status card zoomed in
-    group: Status card
-  animations:
-  - src: hacs-checking.gif
-    dark: hacs-checking-dark.gif
-    caption: HACS check
-  - src: hacs-installing.gif
-    dark: hacs-installing-dark.gif
-    caption: Install all
-  - src: wd-checking.gif
-    dark: wd-checking-dark.gif
-    caption: Watchdog check
 - slug: ha-docker-card
   title: Docker Card
   kind: card
@@ -1881,15 +1847,15 @@ projects:
   - src: folding.gif
     dark: folding-dark.gif
     caption: Fold
-- slug: ha-hacs-refresh
-  title: HACS Refresh
+- slug: ha-marketplace-refresh
+  title: Marketplace Refresh
   kind: integration
   withCard: true
   category: maintenance
   icon: mdiCloudRefreshVariant
   accent: '#41bdf5'
-  tagline: Checks every HACS repository for updates, on the server.
-  summary: HACS only checks downloaded repositories every 48 hours, one at a time from the browser. HACS Refresh checks them all at once in the background, with a button, an action and a progress sensor.
+  tagline: Checks every Marketplace repository for updates, on the server.
+  summary: The Marketplace reads its catalog every 6 hours and checks custom repositories every 48 hours, one at a time from the browser. Marketplace Refresh checks them all at once in the background, with a button, an action and a progress sensor. Formerly HACS Refresh.
   highlights:
   - Check every repository with a button or an action
   - Check only selected repositories
@@ -1897,10 +1863,10 @@ projects:
   - Automatic check at your interval
   - Status sensor with progress and failures
   - Card with the check, its progress and the updates available
-  homeassistant: 2024.12.0
-  keywords: "hacs updates refresh repositories card install update all"
+  homeassistant: 2026.11.0
+  keywords: "marketplace hacs updates refresh repositories card install update all"
   cardTypes:
-  - hacs-refresh-card
+  - marketplace-refresh-card
   hero:
     src: card.png
     dark: card-dark.png
@@ -1921,7 +1887,7 @@ projects:
     group: Card
   worksWith:
   - slug: ha-system-monitor-card
-    why: "Its HACS section runs the check from the dashboard"
+    why: "The machine's health next to the updates"
 - slug: ha-integration-watchdog
   title: Integration Watchdog
   kind: integration

@@ -4,11 +4,11 @@ import Icon from "../../components/Icon.astro";
 import Shot from "../../components/Shot.astro";
 import Docs from "../../components/Docs.astro";
 import Gallery from "../../components/Gallery.astro";
-import HacsBadge from "../../components/HacsBadge.astro";
+import MarketplaceBadge from "../../components/MarketplaceBadge.astro";
 import {
   projects,
   repoUrl,
-  hacsUrl,
+  marketplaceUrl,
   kindLabel,
   caption,
   categoryOf,
@@ -86,7 +86,7 @@ const related = projects.flatMap((p) => {
       <p class="lead">{project.tagline}</p>
       <p class="summary muted">{project.summary}</p>
       <div class="actions">
-        <HacsBadge project={project} class="head-cta" />
+        <MarketplaceBadge project={project} class="head-cta" />
         <a class="btn ghost" href={repoUrl(project)} target="_blank" rel="noopener">
           <Icon name="mdiGithub" /> GitHub
         </a>
@@ -114,7 +114,7 @@ const related = projects.flatMap((p) => {
         <a href="#documentation" class="sn-link" data-spy="documentation">Documentation</a>
         {changelog && <a href="#changelog" class="sn-link" data-spy="changelog">Changelog</a>}
       </div>
-      <HacsBadge project={project} height={36} class="sn-cta" />
+      <MarketplaceBadge project={project} height={36} class="sn-cta" />
     </nav>
 
     <!-- Hero + side column -->
