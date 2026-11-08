@@ -596,6 +596,7 @@ projects:
   - Battery type from Battery Notes in the notifications and the CSV export
   - Lovelace card with a full screen view by room, type or replacement date, and a CSV export
   - Mini card with only the batteries needing attention, with a detail button showing the full card
+  - Sidebar panel for administrators with the card, every setting and the Notify now and Export CSV actions
   - Low and replaced battery events for automations
   - Diagnostics with the notify actions redacted
   homeassistant: 2024.12.0
@@ -637,6 +638,10 @@ projects:
     dark: popup-phone-type-dark.png
     caption: Phone by type
     group: Full screen
+  - src: panel.png
+    dark: panel-dark.png
+    caption: Batteries, settings and actions
+    group: Panel
   animations:
   - src: due.gif
     dark: due-dark.gif
@@ -1400,13 +1405,13 @@ projects:
   highlights:
   - UGREEN NAS, Synology DSM and QNAP
   - Status-tinted NAS icon with the brand logo badge
-  - CPU, RAM and temperature gauges
+  - CPU, RAM and temperature gauges, with the last 24 hours of CPU and RAM behind them
   - Network rates with their last 24 hours, gaps shown as gaps
   - Alert thresholds you can set
   - Volumes with RAID level and used space
   - Disks with temperature, power-on hours and SMART status
   - Synology DSM update chip and reboot button with a confirmation
-  - Compact mini card
+  - Compact mini card, its CPU and RAM bars with their last 24 hours
   homeassistant: 2024.8.0
   keywords: "nas ugreen synology synology_dsm dsm qnap storage disks raid"
   cardTypes:
