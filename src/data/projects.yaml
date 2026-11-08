@@ -132,10 +132,12 @@ projects:
   highlights:
   - Animated icon for every UV index, bundled in the card
   - WHO risk level from Low to Extreme, in the level's colour
+  - UV sensors or weather entities such as Met.no
+  - Max UV of the day and the sun protection window, highlighted while protection is needed
   - Horizontal or vertical layout, transparent mode
   - Sections view support and card picker preview
   homeassistant: 2024.11.0
-  keywords: "sun ultraviolet openuv sunscreen"
+  keywords: "sun ultraviolet openuv sunscreen met.no weather protection"
   cardTypes:
   - ha-uv-card
   hero:
@@ -147,6 +149,10 @@ projects:
   - src: card-vertical.png
     dark: card-vertical-dark.png
     caption: Vertical
+    group: Card
+  - src: card-extra.png
+    dark: card-extra-dark.png
+    caption: Max UV and protection window
     group: Card
   - src: card-unavailable.png
     dark: card-unavailable-dark.png
@@ -182,6 +188,7 @@ projects:
   - 'Animated illustrations: turning blades, air flowing, swinging head'
   - Automatic discovery of devices and their sensors
   - Heat / cool range of air conditioners on the overview
+  - Horizontal swing for the air conditioners that support it
   - Chips opening the more-info dialog of their entity
   homeassistant: 2024.8.0
   keywords: "air conditioner ac clim climatisation purifier dyson xiaomi fan ventilateur climate"
@@ -526,8 +533,8 @@ projects:
   highlights:
   - Automatic discovery for ZHA and Zigbee2MQTT
   - Live power, current and voltage
-  - Load gauge against the subscribed power
-  - Consumption and cost from long-term statistics
+  - Load gauge against the subscribed power, fixed or from a sensor
+  - Consumption and cost from long-term statistics, priced per tier or from a price sensor
   - 24 h power curve with its peak
   - Tempo colours of today and tomorrow
   homeassistant: 2024.8.0
@@ -737,6 +744,7 @@ projects:
   - Lock, Unlock and Open with a confirmation popup
   - Door sensor, battery, keypad and activity
   - Warning when the door is open while unlocked
+  - Warning when the lock stays unlocked longer than you set
   - Compact mini card
   homeassistant: 2024.8.0
   keywords: "lock door nuki tedee yale august switchbot aqara matter zwave"
@@ -817,6 +825,7 @@ projects:
   - 'Privacy badge per camera: live dot or lock'
   - HD / SD switch shared across dashboards
   - Pan and tilt controls
+  - Motion badge while a motion, occupancy or person sensor of the camera is on
   - Full screen view
   - Mini card with a snapshot per camera, opening the full card
   - Streams paused while the card is off-screen
@@ -873,6 +882,7 @@ projects:
   - Status, progress bar, finish time and program step
   - Program picker and options, start, pause, resume and stop
   - Temperatures, door, salt, rinse aid and coffee machine alerts
+  - Reminder when a program has finished and the door is still closed
   - Chips opening the more-info dialog of their entity
   - Mini card with a detail button unfolding the full card
   homeassistant: 2024.8.0
@@ -1083,7 +1093,7 @@ projects:
   - Brand colours, readable in light and dark
   - Battery, status, current room, progress and errors
   - Cleaning mode, suction, mop intensity and route
-  - Room selection and dock actions
+  - Room selection and dock actions, Dreame and Xiaomi Miio included, with your own list of rooms if needed
   - Map paused while the card is off-screen
   homeassistant: 2024.8.0
   keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop"
@@ -1233,6 +1243,7 @@ projects:
   - Status with colour and a pulsing control panel while printing
   - Ink or toner tanks in slot order, with a warning threshold
   - Paper, cover and cartridge alerts
+  - Brother drum, belt unit, fuser and paper feed kits by remaining life
   - Chips opening the more-info dialog of their entity
   - Mini card with an offline state
   homeassistant: 2024.8.0
@@ -1379,7 +1390,8 @@ projects:
   - Network rates with their last 24 hours, gaps shown as gaps
   - Alert thresholds you can set
   - Volumes with RAID level and used space
-  - Disks with temperature and power-on hours
+  - Disks with temperature, power-on hours and SMART status
+  - Synology DSM update chip and reboot button with a confirmation
   - Compact mini card
   homeassistant: 2024.8.0
   keywords: "nas ugreen synology synology_dsm dsm qnap storage disks raid"
@@ -1519,7 +1531,7 @@ projects:
   - Stacks, images, volumes and networks counters
   - Stacks and containers with pending updates, and an update button with a confirmation
   - Containers list with search and a sort by name, CPU or memory
-  - Compact mini card
+  - Compact mini card with the 24 h CPU and memory curves
   homeassistant: 2024.8.0
   keywords: "docker containers stacks dockhand portainer monitor_docker monitor docker"
   cardTypes:
@@ -1587,11 +1599,13 @@ projects:
   - Expiry sensor and ACME renewal button per certificate
   - Switches for HTTPS redirect and port 80
   - Toggle proxy rules from automations
+  - Upstream health per proxy rule, with a Down badge in the cards
+  - Several Zoraxy instances, each card picking its own
   - Address and credentials changed with Reconfigure
   - Diagnostics with the address and credentials redacted
   - Card and mini card included
   homeassistant: 2024.12.0
-  keywords: "reverse proxy zoraxy certificates acme tls"
+  keywords: "reverse proxy zoraxy certificates acme tls upstream uptime"
   cardTypes:
   - zoraxy-card
   - zoraxy-mini-card
@@ -1619,13 +1633,14 @@ projects:
   summary: Range, fuel, battery, mileage, tyres, charging, location and actions, whatever your car exposes, with an optional section for the Orange Internet On the move data plan.
   highlights:
   - Range, fuel gauge, battery and mileage
+  - Tyre pressures by position, with a low pressure warning
   - Charging status, plug, lock and doors
   - Map card with the last location
   - Action buttons with a confirmation tap
   - Lease section and official vehicle picture
   - Mini card with the picture, battery, range and charging, opening the full card
   homeassistant: 2024.8.0
-  keywords: "renault espace captur megane zoe ev car vehicle tank fuel charge"
+  keywords: "renault espace captur megane zoe ev car vehicle tank fuel charge tyre tire pressure"
   worksWith:
   - slug: ha-renault-picture
     why: "Shows the official MyRenault photo of your car on the card"
@@ -1669,11 +1684,12 @@ projects:
   summary: 'Reads the picture URL already loaded by the core Renault integration and publishes it as a sensor: no credentials, no extra API call. Used by the Renault Card.'
   highlights:
   - One picture sensor per vehicle, on the existing device
+  - Image entity per vehicle serving the picture through Home Assistant
   - Picture shown as the entity thumbnail
-  - No credentials and no network calls
+  - No credentials and no extra API calls
   - Diagnostics with the VIN, account and tokens redacted
   homeassistant: 2025.8.0
-  keywords: "renault myrenault car picture photo"
+  keywords: "renault myrenault car picture photo image"
   worksWith:
   - slug: ha-renault-card
     why: "Its picture is shown by the Renault Card"
@@ -1689,6 +1705,7 @@ projects:
   highlights:
   - Odometer, fuel and battery sensors detected from the vehicle's device
   - Fuel, electric and plug-in hybrid, in L/100 km and kWh/100 km
+  - Imperial units too, with miles, US gallons, mpg and mi/kWh
   - Refuels and charges detected automatically, or logged with an action
   - Trips with distance, consumption and cost
   - Past trips, refuels and charges rebuilt from the recorder history, up to two years back
@@ -1698,7 +1715,7 @@ projects:
   - Diagnostics with VINs, plates and positions redacted
   - Card with gauges, monthly chart and recent trips, refuels and charges
   homeassistant: 2024.12.0
-  keywords: "car vehicle fuel consumption ev charging cost renault"
+  keywords: "car vehicle fuel consumption ev charging cost renault mpg miles imperial"
   worksWith:
   - slug: ha-carburants-france
     why: "A station price sensor for the fuel cost"
@@ -1749,8 +1766,9 @@ projects:
   - Station search around home, by town or postcode
   - Price and in-stock sensors per station and fuel
   - Best price per fuel across your stations
-  - 30-day trend: average, lowest, highest and change
+  - 30-day trend with the average, lowest, highest and change
   - Target price with a low-price binary sensor
+  - Prices not updated for too long left out of the best price
   - 42 French networks' logos built in
   - Card, mini card with the cheapest price, and map card included
   - Diagnostics with addresses and positions redacted
@@ -1812,7 +1830,7 @@ projects:
   - Several calendars merged, each with its colour
   - Countdown and Now badge for today's events
   - Event details in a popup
-  - New event form from the card
+  - New event form from the card, with an end date and a description
   - Edit and delete events, recurring ones too
   - Mini card with the next event
   homeassistant: 2024.8.0
@@ -1879,6 +1897,7 @@ projects:
   - Card included, with carrier search
   - Mini card with the active deliveries and those arriving today
   - Out for delivery and delivered events for automations
+  - Calendar of the expected deliveries
   - API key entered in the UI
   - Diagnostics with the API key, tracking numbers and addresses redacted
   homeassistant: 2024.12.0
@@ -1981,6 +2000,7 @@ projects:
   - Error message, failed step and consecutive failures
   - Trace and Edit shortcuts
   - Clear a failure with confirmation
+  - Ignored entities, with * and ? patterns
   - Compact mini card
   - Option to hide the cards while all is good
   homeassistant: 2024.8.0
@@ -2081,6 +2101,7 @@ projects:
   - Ignored integrations and single entries
   - Reloads of the last 24 hours as a sensor
   - Repairs issue when it gives up on an integration
+  - Try again from Repairs or the card, and a reset action, to start an integration's reloads over
   - Diagnostics with titles and notify actions redacted
   - Card with the overall status, the unavailable integrations and the recent reloads
   - Mini card on two lines, with a detail button showing the full card
@@ -2128,6 +2149,8 @@ projects:
   highlights:
   - Five reasons, from integration removed to unknown for too long
   - Devices of removed integrations, removed with their entities
+  - Orphan devices selected one by one, to ignore or remove
+  - Each orphan checked again just before its removal
   - Never during startup, nor during the grace period after it
   - Bulk removal limited to the listed entities, with a confirmation
   - Used by badge listing the automations, scripts, scenes and dashboards still using an entity
@@ -2199,6 +2222,7 @@ projects:
   - Commit and push on a schedule or on demand
   - Remote fetched on a schedule, behind and diverged states
   - Pull before push, a diverged branch or a rebase conflict never pushed
+  - Pull button and action bringing in the remote commits when behind
   - Secret guard refusing secrets.yaml, .storage, keys and logs, secret values hidden from the AI
   - Repair adding secrets.yaml and .storage to .gitignore
   - AI commit messages through any AI task entity, with a safe fallback
