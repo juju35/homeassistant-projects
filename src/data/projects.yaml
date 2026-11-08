@@ -322,9 +322,11 @@ projects:
   - Diagnostics with the notifiers redacted
   - Calendar of past alerts, with the peak of each episode
   - Mini card with the alerts of the moment and the switches, opening the full card
+  - Full card a section wide, with every alert, a tile per room, the switches and the latest activity
   homeassistant: 2024.12.0
   keywords: "comfort notifications alerts co2 humidity temperature noise windows lights lighting adaptive presence motion nap night activity log mini card"
   cardTypes:
+  - smart-comfort-card
   - smart-comfort-mini-card
   - smart-comfort-activity-card
   hero:
@@ -377,6 +379,10 @@ projects:
     dark: panel-yaml-dark.png
     caption: YAML
     group: Panel
+  - src: card.png
+    dark: card-dark.png
+    caption: Alerts, rooms, switches and activity
+    group: Card
   - src: card-mini.png
     dark: card-mini-dark.png
     caption: 'Mini card: alerts of the moment and switches'
@@ -385,6 +391,10 @@ projects:
     dark: card-mini-full-dark.png
     caption: 'Mini card switched to the full card: alerts, rooms and activity'
     group: Mini card
+  - src: card-activity.png
+    dark: card-activity-dark.png
+    caption: Latest alerts, device commands and lighting changes
+    group: Activity card
 - slug: ha-room-card
   title: Room Cards
   kind: card
