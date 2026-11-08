@@ -37,9 +37,23 @@ const distChecks = {
   },
 };
 
+// Former names of renamed repositories: their old project pages redirect to the new ones.
+const renamed = {
+  "ha-zoraxy": "ha-reverse-proxy",
+  "ha-dockhand-card": "ha-docker-card",
+  "ha-freebox-card": "ha-internet-box-card",
+  "ha-ugreen-nas-card": "ha-nas-card",
+  "ha-hp-printer-card": "ha-printer-card",
+  "ha-home-connect-card": "ha-smart-appliance-card",
+  "ha-roborock-card": "ha-vacuum-card",
+  "ha-switch": "ha-switch-card",
+  "ha-hacs-refresh": "ha-marketplace-refresh",
+};
+
 export default defineConfig({
   site: "https://juju35.github.io",
   base: "/homeassistant-projects",
   trailingSlash: "always",
+  redirects: Object.fromEntries(Object.entries(renamed).map(([o, n]) => [`/projects/${o}/`, `/homeassistant-projects/projects/${n}/`])),
   integrations: [optimizedImages, distChecks],
 });
