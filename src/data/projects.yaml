@@ -54,6 +54,7 @@ projects:
   - Weather warnings banner from Meteoalarm, DWD, NWS or Météo-France, lightning nearby, drought restrictions
   - Air quality, pollutants, UV index and pollen with tomorrow's forecast
   - Full screen view and a refresh button for fresh data
+  - Today and the sun and moon times in the server time zone when your profile uses it
   - Animations paused while the card is off-screen
   homeassistant: 2024.8.0
   keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no meteoalarm dwd nws warnings"
@@ -189,6 +190,8 @@ projects:
   - Automatic discovery of devices and their sensors
   - Heat / cool range of air conditioners on the overview
   - Horizontal swing for the air conditioners that support it
+  - Target humidity slider for the air conditioners that support it
+  - Sliders showing their fill and value while they move
   - Chips opening the more-info dialog of their entity
   homeassistant: 2024.8.0
   keywords: "air conditioner ac clim climatisation purifier dyson xiaomi fan ventilateur climate"
@@ -262,6 +265,10 @@ projects:
   - src: aircon-range.png
     dark: aircon-range-dark.png
     caption: Heat / cool range
+    group: Air conditioner
+  - src: aircon-dry.png
+    dark: aircon-dry-dark.png
+    caption: Drying to a target humidity
     group: Air conditioner
   - src: aircon-portable.png
     dark: aircon-portable-dark.png
@@ -391,7 +398,7 @@ projects:
   - 'Sensors card: what is open comes first, with how long'
   - Lights and plugs cards with power draw
   - Lights and plugs mini cards on two lines, with an all off button and a zoom to the full card
-  - Environment cards for temperature, humidity and air quality
+  - Environment cards for temperature, humidity and air quality, unavailable sensors grouped in a muted tile
   - Automatic discovery from Home Assistant areas
   homeassistant: 2024.8.0
   keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity"
@@ -533,10 +540,10 @@ projects:
   highlights:
   - Automatic discovery for ZHA and Zigbee2MQTT
   - Live power, current and voltage
-  - Load gauge against the subscribed power, fixed or from a sensor
+  - Load gauge against the subscribed power, fixed or from a sensor, with thresholds you can set
   - Consumption and cost from long-term statistics, priced per tier or from a price sensor
-  - 24 h power curve with its peak
-  - Tempo colours of today and tomorrow
+  - 24 h power curve with the real peak of the day
+  - Tempo colours of today and tomorrow, on the mini card too
   homeassistant: 2024.8.0
   keywords: "linky lixee zha zigbee2mqtt energy electricity tic meter power tempo"
   cardTypes:
@@ -555,6 +562,10 @@ projects:
   - src: mini.png
     dark: mini-dark.png
     caption: ZLinky mini card
+    group: Mini card
+  - src: mini-tempo.png
+    dark: mini-tempo-dark.png
+    caption: Tempo dots of today and tomorrow
     group: Mini card
   - src: mini-narrow.png
     dark: mini-narrow-dark.png
@@ -581,7 +592,8 @@ projects:
   - Threshold and duration before notifying
   - Unavailable batteries reported too
   - Two notifications a day, at times you choose
-  - Replacement forecast from each battery's drain, with a Next replacement sensor
+  - Replacement forecast from each battery's drain, kept across restarts, with a Next replacement sensor
+  - Battery type from Battery Notes in the notifications and the CSV export
   - Lovelace card with a full screen view by room, type or replacement date, and a CSV export
   - Mini card with only the batteries needing attention, with a detail button showing the full card
   - Low and replaced battery events for automations
@@ -1243,7 +1255,8 @@ projects:
   - Status with colour and a pulsing control panel while printing
   - Ink or toner tanks in slot order, with a warning threshold
   - Paper, cover and cartridge alerts
-  - Brother drum, belt unit, fuser and paper feed kits by remaining life
+  - Brother drum, belt unit, fuser and paper feed kits by remaining life, in a section you can hide
+  - A Brother drum at its end shown as a stopped printer
   - Chips opening the more-info dialog of their entity
   - Mini card with an offline state
   homeassistant: 2024.8.0
@@ -1339,6 +1352,7 @@ projects:
   - Download and upload rates with their last 24 hours, gaps shown as gaps
   - Temperature and disk thresholds you can set
   - Wi-Fi networks, connected devices and missed calls
+  - Wi-Fi switch turning the box's Wi-Fi on, or off after a confirmation
   - Compact mini card
   homeassistant: 2024.8.0
   keywords: "freebox free livebox orange sfr bbox bouygues router internet box wifi"
@@ -1485,12 +1499,12 @@ projects:
   summary: Two cards built on the core System Monitor integration, with Home Assistant versions, storage, network and monitored processes.
   highlights:
   - Full and mini cards, with a zoom between them
-  - CPU, RAM, disk and temperature gauges
+  - CPU, RAM, disk and temperature gauges, with the CPU and RAM curves of the last 24 hours
   - Core and OS versions with update badges
   - Storage, swap and database size
   - Network rates per interface, with their last 24 hours, gaps shown as gaps
   - CPU, RAM, disk, temperature and swap thresholds you can set
-  - Monitored processes with their status
+  - Monitored processes with their status, stopped ones flagged in red on the mini card
   homeassistant: 2024.8.0
   keywords: "systemmonitor cpu ram disk server processes network storage"
   worksWith:
@@ -1528,6 +1542,7 @@ projects:
   - Several environments supported
   - CPU, memory and running containers gauges
   - CPU and memory over the last 24 hours, gaps shown as gaps
+  - CPU and memory alert thresholds you can set
   - Stacks, images, volumes and networks counters
   - Stacks and containers with pending updates, and an update button with a confirmation
   - Containers list with search and a sort by name, CPU or memory
@@ -1597,8 +1612,8 @@ projects:
   highlights:
   - Sensors for proxy rules, certificates and access rules
   - Expiry sensor and ACME renewal button per certificate
-  - Switches for HTTPS redirect and port 80
-  - Toggle proxy rules from automations
+  - Switches for HTTPS redirect, port 80 and development mode
+  - Toggle proxy rules from automations or the cards, for administrators only
   - Upstream health per proxy rule, with a Down badge in the cards
   - Several Zoraxy instances, each card picking its own
   - Address and credentials changed with Reconfigure
@@ -1705,15 +1720,16 @@ projects:
   highlights:
   - Odometer, fuel and battery sensors detected from the vehicle's device
   - Fuel, electric and plug-in hybrid, in L/100 km and kWh/100 km
-  - Imperial units too, with miles, US gallons, mpg and mi/kWh
+  - Imperial units too, with miles, US gallons, mpg and mi/kWh, in the forms as well
   - Refuels and charges detected automatically, or logged with an action
-  - Trips with distance, consumption and cost
+  - Trips with distance, consumption and cost, short ones estimated from the recent average when the fuel sensor is too coarse
   - Past trips, refuels and charges rebuilt from the recorder history, up to two years back
   - Cost of the month and cost per km, with prices from a sensor or fixed
   - CO₂ emitted per trip, per month and per km
   - Trip ended event for automations
   - Diagnostics with VINs, plates and positions redacted
   - Card with gauges, monthly chart and recent trips, refuels and charges
+  - Mini card with the gauges, last trip and average, with a detail button showing the full card
   homeassistant: 2024.12.0
   keywords: "car vehicle fuel consumption ev charging cost renault mpg miles imperial"
   worksWith:
@@ -1721,6 +1737,7 @@ projects:
     why: "A station price sensor for the fuel cost"
   cardTypes:
   - vehicle-consumption-card
+  - vehicle-consumption-mini-card
   hero:
     src: card-fuel.png
     dark: card-fuel-dark.png
@@ -1743,6 +1760,10 @@ projects:
     dark: popup-dark.png
     caption: Add a refuel
     group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Gauges, last trip and average
+    group: Mini card
   animations:
   - src: driving.gif
     dark: driving-dark.gif
@@ -1832,7 +1853,8 @@ projects:
   - Event details in a popup
   - New event form from the card, with an end date and a description
   - Edit and delete events, recurring ones too
-  - Mini card with the next event
+  - Times in the browser's or the server's time zone, as set in your profile
+  - Mini card with the next event, opening its details
   homeassistant: 2024.8.0
   keywords: "calendar agenda google caldav events"
   cardTypes:
@@ -1893,10 +1915,11 @@ projects:
   summary: See the deliveries tracked in Parcel and add new ones from an automation, a script or the card shipped with the integration.
   highlights:
   - Deliveries sensor with every delivery's events
-  - Add a delivery with an action or from the card
+  - Add a delivery with an action or from the card, for administrators only
   - Card included, with carrier search
   - Mini card with the active deliveries and those arriving today
-  - Out for delivery and delivered events for automations
+  - Out for delivery and delivered events for automations, with the Active filter too
+  - Last deliveries kept through a timeout or a server error
   - Calendar of the expected deliveries
   - API key entered in the UI
   - Diagnostics with the API key, tracking numbers and addresses redacted
@@ -1929,7 +1952,7 @@ projects:
   summary: 'The QR code is generated in pure JavaScript with no external dependency: no CDN, no network request. The password stays hidden until you reveal it.'
   highlights:
   - QR code generated in pure JS
-  - Password hidden by default
+  - Password hidden by default, with a copy button
   - Network name and password read from entities, updated live
   - Hidden networks supported
   - Visual editor, no YAML needed
@@ -2054,7 +2077,8 @@ projects:
   - Check every repository with a button or an action
   - Check only selected repositories
   - Update all from the card or an action, one update after the other
-  - Automatic check at your interval
+  - Automatic check at your interval, a failed one tried again within the hour
+  - Check actions and installs for administrators only, the check button open to every user
   - Status sensor with progress and failures
   - Updates found event for automations
   - Diagnostics with secrets redacted
@@ -2097,11 +2121,11 @@ projects:
   - Periodic check of every loaded integration
   - Reload after a grace period
   - Never during startup, no reload loop
-  - Notification for each reload
+  - Notification for each reload, dismissed once the integration recovers
   - Ignored integrations and single entries
   - Reloads of the last 24 hours as a sensor
   - Repairs issue when it gives up on an integration
-  - Try again from Repairs or the card, and a reset action, to start an integration's reloads over
+  - Try again from Repairs or the card, running in the background, and a reset action, to start an integration's reloads over
   - Diagnostics with titles and notify actions redacted
   - Card with the overall status, the unavailable integrations and the recent reloads
   - Mini card on two lines, with a detail button showing the full card
@@ -2149,11 +2173,11 @@ projects:
   highlights:
   - Five reasons, from integration removed to unknown for too long
   - Devices of removed integrations, removed with their entities
-  - Orphan devices selected one by one, to ignore or remove
+  - Orphan devices selected one by one to ignore or remove, or all removed at once
   - Each orphan checked again just before its removal
   - Never during startup, nor during the grace period after it
   - Bulk removal limited to the listed entities, with a confirmation
-  - Used by badge listing the automations, scripts, scenes and dashboards still using an entity
+  - Used by badge listing the automations, scripts, scenes and dashboards still using an entity, and the automations and scripts using a device
   - Ignored integrations and entities
   - Diagnostics of the last scan
   - Card with search, integration and reason filters and selection
@@ -2222,7 +2246,7 @@ projects:
   - Commit and push on a schedule or on demand
   - Remote fetched on a schedule, behind and diverged states
   - Pull before push, a diverged branch or a rebase conflict never pushed
-  - Pull button and action bringing in the remote commits when behind
+  - Pull button and action bringing in the remote commits whenever the remote has new ones
   - Secret guard refusing secrets.yaml, .storage, keys and logs, secret values hidden from the AI
   - Repair adding secrets.yaml and .storage to .gitignore
   - AI commit messages through any AI task entity, with a safe fallback
@@ -2230,6 +2254,7 @@ projects:
   - SSH deploy key generated by an action, no ssh-keyscan needed
   - Diagnostics with the key path, author and credentials redacted
   - Card with the status, the last commit and push, the changed files, and a ✨ button that writes the message before committing
+  - Actions in the cards for administrators only, other users seeing the status
   - Full screen diff, file by file, like a code editor
   - Mini card for a compact dashboard, with a detail button showing the full card
   homeassistant: 2024.12.0
