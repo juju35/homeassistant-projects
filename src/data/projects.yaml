@@ -308,9 +308,11 @@ projects:
   icon: mdiHomeThermometer
   accent: '#26a69a'
   tagline: 'Fewer, smarter comfort alerts, and climate devices and lights that adjust themselves, room by room.'
-  summary: 'Tracks each comfort problem as an episode: notified once when it starts, again only if it gets worse. Temperature, CO₂, humidity, noise, outdoor air and windows to open or close, automatic control of air conditioners, fans and purifiers with a quiet night, and adaptive lighting. Everything is set up room by room in its own panel.'
+  summary: 'Tracks each comfort problem as an episode: notified once when it starts, again only if it gets worse. Temperature, CO₂, humidity, noise, indoor and outdoor air quality and windows to open or close, automatic control of air conditioners, fans and purifiers with a quiet night, and adaptive lighting. Everything is set up room by room in its own panel.'
   highlights:
-  - 'Ten alerts per room: heat, cold, windows, CO₂, humidity, noise, outdoor air'
+  - Eleven alerts per room for heat, cold, windows, CO₂, humidity, polluted air, noise and outdoor air
+  - Indoor air quality from PM2.5, PM10 and air quality index sensors per room, the purifiers' own sensors found by Discover
+  - Polluted air alert with its reading, the room's purifiers boosted until the air is clean, then back to their previous state
   - Episodes instead of cooldowns, grouped in one digest notification
   - Quiet hours, presence and iOS / Android interruption levels, with Snooze and Got it buttons
   - Air conditioners, fans and purifiers controlled automatically, quieter at night
@@ -324,7 +326,7 @@ projects:
   - Mini card with the alerts of the moment and the switches, opening the full card
   - Full card a section wide, with every alert, a tile per room, the switches and the latest activity
   homeassistant: 2024.12.0
-  keywords: "comfort notifications alerts co2 humidity temperature noise windows lights lighting adaptive presence motion nap night activity log mini card"
+  keywords: "comfort notifications alerts co2 humidity temperature noise pm2.5 pm10 air quality purifier windows lights lighting adaptive presence motion nap night activity log mini card"
   cardTypes:
   - smart-comfort-card
   - smart-comfort-mini-card
@@ -353,7 +355,7 @@ projects:
     group: Panel
   - src: panel-alerts.png
     dark: panel-alerts-dark.png
-    caption: Alert settings
+    caption: Alert settings, with the polluted air thresholds
     group: Panel
   - src: panel-lighting.png
     dark: panel-lighting-dark.png
