@@ -1463,7 +1463,7 @@ projects:
   - Drawn generic front panel (1–52 ports) or Netgear GS308T
   - Live state of every port, with port names and watched ports
   - Ports up out of all next to the status
-  - Incoming and outgoing rates with their last 24 hours, gaps shown as gaps
+  - Download and upload rates with their last 24 hours, gaps shown as gaps
   - Custom image with an adjustable port overlay
   - Confirmation popup before turning the switch off
   - Mini card with the front panel and the rates, opening the full card
@@ -1540,18 +1540,17 @@ projects:
   category: network
   icon: mdiDocker
   accent: '#2496ed'
-  tagline: 'Docker hosts from Dockhand, Monitor Docker or Portainer: CPU, memory, containers, stacks and updates.'
+  tagline: 'Docker hosts from Dockhand, Monitor Docker or Portainer: CPU, RAM, containers, stacks and updates.'
   summary: 'Works with the Dockhand, Monitor Docker and Portainer integrations, with every host discovered automatically: gauges, counters, stacks with their status and containers with health, available updates, start / stop and restart.'
   highlights:
   - Dockhand, Monitor Docker and Portainer supported
   - Several environments supported
-  - CPU, memory and running containers gauges
-  - CPU and memory over the last 24 hours, gaps shown as gaps
-  - CPU and memory alert thresholds you can set
+  - CPU, RAM and running containers gauges, with the last 24 hours of CPU and RAM behind them
+  - CPU and RAM alert thresholds you can set
   - Stacks, images, volumes and networks counters
   - Stacks and containers with pending updates, and an update button with a confirmation
   - Containers list with search and a sort by name, CPU or memory
-  - Compact mini card with the 24 h CPU and memory curves
+  - Compact mini card with the 24 h CPU and RAM curves
   homeassistant: 2024.8.0
   keywords: "docker containers stacks dockhand portainer monitor_docker monitor docker"
   cardTypes:
