@@ -200,6 +200,9 @@ projects:
   - climate-air-purifier-card
   - climate-air-fan-card
   - climate-air-aircon-card
+  - climate-air-purifier-mini-card
+  - climate-air-fan-mini-card
+  - climate-air-aircon-mini-card
   hero:
     src: overview-all.png
     dark: overview-all-dark.png
@@ -652,7 +655,15 @@ projects:
     group: Full screen
   - src: panel.png
     dark: panel-dark.png
-    caption: Batteries, settings and actions
+    caption: Batteries tab
+    group: Panel
+  - src: panel-actions.png
+    dark: panel-actions-dark.png
+    caption: Actions tab
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: Settings tab
     group: Panel
   animations:
   - src: due.gif
@@ -1257,6 +1268,109 @@ projects:
   - src: braava-mopping-light.gif
     dark: braava-mopping.gif
     caption: Braava mopping
+- slug: ha-mower-card
+  title: Mower Card
+  kind: card
+  category: appliances
+  icon: mdiRobotMower
+  accent: '#5a9e3c'
+  tagline: 'Robot lawn mowers from Husqvarna, Worx, Ecovacs, Mammotion, ZCS, Bosch and Gardena: status, battery, actions, map.'
+  summary: 'Works on top of the integrations you already use (Husqvarna Automower, Landroid Cloud, Ecovacs, Mammotion, ZCS Mower, Bosch Indego, Gardena Smart System) and any other lawn_mower entity, with automatic discovery: a drawn mower in the brand''s colours animated by what it does, battery, next start, settings, errors, actions, options, maintenance, statistics, live cameras and map.'
+  highlights:
+  - Husqvarna, Worx (Landroid, Kress, Landxcape), Ecovacs GOAT, Mammotion, ZCS, Bosch Indego and Gardena supported, plus any lawn_mower entity
+  - Drawn mower picture in the brand's colours, animated while mowing, returning, charging, in error or under rain delay
+  - Battery, status, next start, progress, work area, cutting height and mower settings as tags
+  - Start / pause, stop and dock buttons following the entity's supported features
+  - Integration buttons as one-tap actions with a confirmation, switches as options
+  - Blade usage, charge cycles and collisions with reset buttons, and session statistics
+  - Live vision cameras (Mammotion) and garden map (Ecovacs GOAT, Bosch Indego) in collapsible sections
+  - Mini card with a detail button switching to the full card
+  homeassistant: 2024.8.0
+  keywords: "lawn mower robot tondeuse automower husqvarna landroid worx goat ecovacs mammotion luba indego gardena"
+  cardTypes:
+  - mower-card
+  - mower-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Husqvarna Automower
+    group: Card
+  screenshots:
+  - src: card-landroid.png
+    dark: card-landroid-dark.png
+    caption: Worx Landroid
+    group: Card
+  - src: card-ecovacs-light.png
+    dark: card-ecovacs.png
+    caption: Ecovacs GOAT
+    group: Card
+  - src: card-mammotion-light.png
+    dark: card-mammotion.png
+    caption: Mammotion
+    group: Card
+  - src: card-indego.png
+    dark: card-indego-dark.png
+    caption: Bosch Indego
+    group: Card
+  - src: card-camera-light.png
+    dark: card-camera.png
+    caption: Camera section
+    group: Card
+  - src: card-confirm.png
+    dark: card-confirm-dark.png
+    caption: Confirmation before an action
+    group: Card
+  - src: card-narrow.png
+    dark: card-narrow-dark.png
+    caption: Narrowest width
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Husqvarna Automower
+    group: Mini card
+  - src: mini-card-landroid.png
+    dark: mini-card-landroid-dark.png
+    caption: Worx Landroid
+    group: Mini card
+  - src: mini-card-ecovacs-light.png
+    dark: mini-card-ecovacs.png
+    caption: Ecovacs GOAT
+    group: Mini card
+  - src: mini-card-mammotion-light.png
+    dark: mini-card-mammotion.png
+    caption: Mammotion
+    group: Mini card
+  - src: mini-card-indego.png
+    dark: mini-card-indego-dark.png
+    caption: Bosch Indego
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Mini card zoomed in
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: Mini card on a phone
+    group: Mini card
+  animations:
+  - src: mowing.gif
+    dark: mowing-dark.gif
+    caption: Mowing
+  - src: returning.gif
+    dark: returning-dark.gif
+    caption: Returning to the station
+  - src: charging-light.gif
+    dark: charging.gif
+    caption: Charging
+  - src: error-light.gif
+    dark: error.gif
+    caption: Error
+  - src: rain-delay.gif
+    dark: rain-delay-dark.gif
+    caption: Rain delay
+  - src: mammotion-charging-light.gif
+    dark: mammotion-charging.gif
+    caption: Mini card charging
 - slug: ha-printer-card
   title: Printer Card
   kind: card
@@ -1616,43 +1730,99 @@ projects:
   - src: mini-card-zoom.gif
     dark: mini-card-zoom-dark.gif
     caption: Mini card switching to the full card and back
-- slug: ha-zoraxy
-  title: Zoraxy
+- slug: ha-dns-filter-card
+  title: DNS Filter Card
+  kind: card
+  category: network
+  icon: mdiShieldCheck
+  accent: '#68bc71'
+  tagline: 'AdGuard Home or Pi-hole at a glance: queries, blocked, protection and pause.'
+  summary: 'Built on the AdGuard Home and Pi-hole integrations included in Home Assistant, with every instance discovered automatically: four statistics tiles with their last 24 hours, detail counters, protection status, AdGuard setting switches and Pi-hole pause durations.'
+  highlights:
+  - AdGuard Home and Pi-hole supported, several instances, both can be mixed
+  - DNS queries, blocked queries, blocked ratio and processing time or block lists, with their last 24 hours behind them
+  - Detail counters per integration (parental control, safe browsing, clients, cached and forwarded queries…)
+  - Status pill turning the AdGuard protection on or off, or pausing Pi-hole blocking
+  - 'AdGuard Home: the six setting switches as chips, and a filter lists refresh button'
+  - 'Pi-hole: pause popup with durations, resume button while paused'
+  - Versions in the footer with an update chip for each pending update
+  - Mini card with a detail button switching to the full card
+  homeassistant: 2024.8.0
+  keywords: "adguard pihole pi-hole dns blocker ads filter queries blocked"
+  cardTypes:
+  - dns-filter-card
+  - dns-filter-mini-card
+  hero:
+    src: card-adguard.png
+    dark: card-adguard-dark.png
+    caption: AdGuard Home
+    group: Card
+  screenshots:
+  - src: card-pihole.png
+    dark: card-pihole-dark.png
+    caption: Pi-hole
+    group: Card
+  - src: pause.png
+    dark: pause-dark.png
+    caption: Pi-hole pause popup
+    group: Card
+  - src: mini-card-adguard.png
+    dark: mini-card-adguard-dark.png
+    caption: AdGuard Home
+    group: Mini card
+  - src: mini-card-pihole.png
+    dark: mini-card-pihole-dark.png
+    caption: Pi-hole
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Mini card zoomed in
+    group: Mini card
+- slug: ha-reverse-proxy
+  title: Reverse Proxy
   kind: integration
   withCard: true
   category: network
   icon: mdiServerNetwork
   accent: '#5b6cf0'
-  tagline: Integration and card for the Zoraxy reverse proxy.
-  summary: Proxy status and controls, TLS certificates with ACME renewal and proxy rules you can switch on and off from the dashboard, with a card shipped in the integration.
+  tagline: 'Integration and cards for your reverse proxy: Zoraxy or Traefik.'
+  summary: 'Proxy status, proxy rules with their upstream health, redirects and, where the proxy''s API allows it, controls, TLS certificates with ACME renewal and rules you can switch on and off from the dashboard, with a card and a mini card shipped in the integration. Formerly ha-zoraxy.'
   highlights:
-  - Sensors for proxy rules, certificates and access rules
-  - Expiry sensor and ACME renewal button per certificate
-  - Switches for HTTPS redirect, port 80 and development mode
-  - Toggle proxy rules from automations or the cards, for administrators only
+  - Zoraxy and Traefik supported, several instances of either
+  - Sensors for proxy rules, active rules and the inbound port
   - Upstream health per proxy rule, with a Down badge in the cards
-  - Several Zoraxy instances, each card picking its own
-  - Address and credentials changed with Reconfigure
-  - Diagnostics with the address and credentials redacted
-  - Card and mini card included
+  - 'Zoraxy: expiry sensor and ACME renewal button per certificate'
+  - 'Zoraxy: switches for HTTPS redirect, port 80 and development mode'
+  - 'Zoraxy: toggle proxy rules from automations or the cards, for administrators only'
+  - 'Traefik: middlewares, version and redirect middlewares, read-only'
+  - Address and credentials changed with Reconfigure, TLS verification optional
+  - Card and mini card included, showing only the controls the proxy has
   homeassistant: 2024.12.0
-  keywords: "reverse proxy zoraxy certificates acme tls upstream uptime"
+  keywords: "reverse proxy zoraxy traefik certificates acme tls upstream uptime routers middlewares"
   cardTypes:
-  - zoraxy-card
-  - zoraxy-mini-card
+  - reverse-proxy-card
+  - reverse-proxy-mini-card
   hero:
     src: card.png
     dark: card-dark.png
-    caption: Default view
+    caption: Zoraxy
     group: Card
   screenshots:
+  - src: card-traefik.png
+    dark: card-traefik-dark.png
+    caption: Traefik
+    group: Card
   - src: mini.png
     dark: mini-dark.png
-    caption: Default view
+    caption: Zoraxy
+    group: Mini card
+  - src: mini-traefik.png
+    dark: mini-traefik-dark.png
+    caption: Traefik
     group: Mini card
   - src: mini-zoom.png
     dark: mini-zoom-dark.png
-    caption: Mini zoomed
+    caption: Mini card zoomed in
     group: Mini card
 - slug: ha-renault-card
   title: Renault Card

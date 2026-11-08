@@ -10,7 +10,7 @@ Live site: https://juju35.github.io/homeassistant-projects/
 
 The site is a static [Astro](https://astro.build) site. Every project is an entry of `src/data/projects.yaml`:
 
-- `slug`: the repository name (`github.com/juju35/<slug>`)
+- `slug`: the repository name (`github.com/juju35/<slug>`); when a repository is renamed, add its former name to `renamed` in `astro.config.mjs` so its old page redirects to the new one
 - `title`: the display name
 - `kind`: `card` or `integration`
 - `withCard`: for an integration, whether it ships its own Lovelace card
