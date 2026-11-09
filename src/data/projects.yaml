@@ -2638,11 +2638,15 @@ projects:
   - github-card
   - github-mini-card
   hero:
-    src: panel-repos.png
+    src: card.png
+    dark: card-dark.png
+    caption: Default view
+    group: Card
+  screenshots:
+  - src: panel-repos.png
     dark: panel-repos-dark.png
     caption: Repositories tab
     group: Panel
-  screenshots:
   - src: panel-issues.png
     dark: panel-issues-dark.png
     caption: Issues tab
@@ -2659,10 +2663,6 @@ projects:
     dark: panel-settings-dark.png
     caption: Settings tab
     group: Panel
-  - src: card.png
-    dark: card-dark.png
-    caption: Default view
-    group: Card
   - src: card-single.png
     dark: card-single-dark.png
     caption: A single repository
