@@ -1437,7 +1437,11 @@ projects:
     group: Card
   - src: card-camera-light.png
     dark: card-camera.png
-    caption: Camera section
+    caption: Camera section, left camera
+    group: Card
+  - src: card-camera-rear.png
+    dark: card-camera-rear-dark.png
+    caption: Camera section, rear camera
     group: Card
   - src: card-confirm.png
     dark: card-confirm-dark.png
