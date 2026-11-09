@@ -39,6 +39,9 @@ contributors:
 - login: Maxxiime
   contribution: Idea of the Xiaomi Home support
   project: ha-vacuum-card
+- login: ytorres
+  contribution: Diagnosis and patches for the Livebox Fibre (Arcadyan GPON) detection and the missed calls count
+  project: ha-internet-box-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
