@@ -1600,6 +1600,7 @@ projects:
   - Box picture and model detected automatically
   - Connection type, public IP and uptime
   - Real link status of the Livebox and the SFR Box
+  - Livebox fibre rates read from the GPON or SFP interface, Arcadyan Livebox Fibre included
   - Download and upload rates with their last 24 hours, gaps shown as gaps
   - Temperature and disk thresholds you can set
   - Wi-Fi networks, connected devices and missed calls
@@ -2609,4 +2610,48 @@ projects:
   - src: mini-zoomed.png
     dark: mini-zoomed-dark.png
     caption: Mini card zoomed in to the full card
+    group: Mini card
+- slug: ha-github-card
+  title: GitHub Card
+  kind: card
+  category: maintenance
+  icon: mdiGithub
+  accent: '#8250df'
+  tagline: 'Your GitHub repositories at a glance: stars, issues, pull requests and latest release.'
+  summary: 'Built on the GitHub integration included in Home Assistant, with the repositories and the account discovered automatically: one foldable section per repository with its counters and its latest release, commit, pull request, issue and discussion, plus the account''s followers and repositories.'
+  highlights:
+  - Repositories and account discovered automatically, in any language
+  - One foldable section per repository, its stars, open issues and pull requests at a glance
+  - Stars, forks, watchers, open and merged pull requests, discussions and release downloads
+  - Latest release, tag, commit, pull request, issue and discussion, each linking to GitHub
+  - Account followers, following, public repositories and gists
+  - Status pill with the open issues and pull requests, or Nothing open
+  - Repositories chosen and ordered, or sorted by name, stars or open items
+  - Mini card with a detail button switching to the full card
+  homeassistant: 2024.8.0
+  keywords: "github repositories repos stars issues pull requests releases commits git"
+  cardTypes:
+  - github-card
+  - github-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Default view
+    group: Card
+  screenshots:
+  - src: card-single.png
+    dark: card-single-dark.png
+    caption: A single repository
+    group: Card
+  - src: card-empty.png
+    dark: card-empty-dark.png
+    caption: No repository followed
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Default view
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Mini card zoomed in
     group: Mini card
