@@ -42,6 +42,9 @@ contributors:
 - login: ytorres
   contribution: Diagnosis and patches for the Livebox Fibre (Arcadyan GPON) detection and the missed calls count
   project: ha-internet-box-card
+- login: ctournayre
+  contribution: Idea of the Home Connect Local support
+  project: ha-smart-appliance-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
@@ -1033,11 +1036,11 @@ projects:
   category: appliances
   icon: mdiDishwasher
   accent: '#039be5'
-  tagline: Animated cards for home appliances, from Home Connect, Miele, SmartThings, LG ThinQ, Whirlpool and Matter.
+  tagline: Animated cards for home appliances, from Home Connect (cloud or local), Miele, SmartThings, LG ThinQ, Whirlpool and Matter.
   summary: 'One card for 13 kinds of appliances, from washing machines to wine cabinets: it works out the type and the brand, finds the entities, and shows the status, progress and finish time, the programs and their options, start, pause and stop, with an illustration animated by what the appliance is doing.'
   highlights:
   - 13 appliance types detected by themselves, each with its animated illustration
-  - Home Connect, Miele, SmartThings, LG ThinQ, Whirlpool and Matter
+  - Home Connect (cloud or local), Miele, SmartThings, LG ThinQ, Whirlpool and Matter
   - Brand logo next to the title, buttons in the brand's colour
   - Status, progress bar, finish time and program step
   - Program picker and options, start, pause, resume and stop
@@ -1046,7 +1049,7 @@ projects:
   - Chips opening the more-info dialog of their entity
   - Mini card with a detail button unfolding the full card
   homeassistant: 2024.8.0
-  keywords: "home connect bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance"
+  keywords: "home connect home connect local bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance"
   cardTypes:
   - smart-appliance-card
   - smart-appliance-mini-card
