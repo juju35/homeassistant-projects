@@ -2614,34 +2614,55 @@ projects:
     dark: mini-zoomed-dark.png
     caption: Mini card zoomed in to the full card
     group: Mini card
-- slug: ha-github-card
-  title: GitHub Card
-  kind: card
+- slug: ha-github
+  title: GitHub
+  kind: integration
+  withCard: true
   category: maintenance
   icon: mdiGithub
   accent: '#8250df'
-  tagline: 'Your GitHub repositories at a glance: stars, issues, pull requests and latest release.'
-  summary: 'Built on the GitHub integration included in Home Assistant, with the repositories and the account discovered automatically: one foldable section per repository with its counters and its latest release, commit, pull request, issue and discussion, plus the account''s followers and repositories.'
+  tagline: 'Follow your GitHub repositories from Home Assistant: admin panel, open issues and pull requests, and cards.'
+  summary: 'Built on the GitHub integration included in Home Assistant, with no token of its own: an admin sidebar panel to follow your repositories and see their open issues and pull requests, and cards with their stars, issues, pull requests and latest release. Formerly ha-github-card.'
   highlights:
-  - Repositories and account discovered automatically, in any language
-  - One foldable section per repository, its stars, open issues and pull requests at a glance
-  - Stars, forks, watchers, open and merged pull requests, discussions and release downloads
-  - Latest release, tag, commit, pull request, issue and discussion, each linking to GitHub
+  - Admin sidebar panel with Repositories, Issues, Pull requests, Activity and Settings tabs
+  - Follow or stop following any repository of your account, or all at once, in a single reload
+  - Open issues and pull requests of every followed repository, with labels and review state
+  - Repositories offered by name pattern (juju35/ha-*) and starred ones
+  - Notification for each new issue or pull request
+  - Card and mini card loaded by the integration, no resource to add
+  - Stars, forks, open and merged pull requests, latest release, commit, issue and discussion per repository
   - Account followers, following, public repositories and gists
-  - Status pill with the open issues and pull requests, or Nothing open
-  - Repositories chosen and ordered, or sorted by name, stars or open items
-  - Mini card with a detail button switching to the full card
-  homeassistant: 2024.8.0
-  keywords: "github repositories repos stars issues pull requests releases commits git"
+  homeassistant: 2026.11.0
+  keywords: "github repositories repos stars issues pull requests releases commits git panel notifications"
   cardTypes:
   - github-card
   - github-mini-card
   hero:
-    src: card.png
+    src: panel-repos.png
+    dark: panel-repos-dark.png
+    caption: Repositories tab
+    group: Panel
+  screenshots:
+  - src: panel-issues.png
+    dark: panel-issues-dark.png
+    caption: Issues tab
+    group: Panel
+  - src: panel-pulls.png
+    dark: panel-pulls-dark.png
+    caption: Pull requests tab
+    group: Panel
+  - src: panel-activity.png
+    dark: panel-activity-dark.png
+    caption: Activity tab
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: Settings tab
+    group: Panel
+  - src: card.png
     dark: card-dark.png
     caption: Default view
     group: Card
-  screenshots:
   - src: card-single.png
     dark: card-single-dark.png
     caption: A single repository
