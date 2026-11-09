@@ -2624,8 +2624,10 @@ projects:
   tagline: 'Follow your GitHub repositories from Home Assistant: admin panel, open issues and pull requests, and cards.'
   summary: 'Built on the GitHub integration included in Home Assistant, with no token of its own: an admin sidebar panel to follow your repositories and see their open issues and pull requests, and cards with their stars, issues, pull requests and latest release. Formerly ha-github-card.'
   highlights:
-  - Admin sidebar panel with Repositories, Issues, Pull requests, Activity and Settings tabs
+  - Admin sidebar panel with Repositories, Issues, Pull requests and Settings tabs
   - Follow or stop following any repository of your account, or all at once, in a single reload
+  - Live stars, issues, pull requests and release on each repository, which unfolds the card's details
+  - Repositories sorted by name, stars, open issues or open pull requests, with totals
   - Open issues and pull requests of every followed repository, with labels and review state
   - Repositories offered by name pattern (juju35/ha-*) and starred ones
   - Notification for each new issue or pull request
@@ -2640,7 +2642,7 @@ projects:
   hero:
     src: panel-repos.png
     dark: panel-repos-dark.png
-    caption: Repositories tab
+    caption: Repositories tab, a repository unfolded
     group: Panel
   screenshots:
   - src: panel-issues.png
@@ -2650,10 +2652,6 @@ projects:
   - src: panel-pulls.png
     dark: panel-pulls-dark.png
     caption: Pull requests tab
-    group: Panel
-  - src: panel-activity.png
-    dark: panel-activity-dark.png
-    caption: Activity tab
     group: Panel
   - src: panel-settings.png
     dark: panel-settings-dark.png
