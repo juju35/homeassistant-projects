@@ -453,6 +453,7 @@ projects:
   - Lights and plugs cards with power draw
   - Lights and plugs mini cards on two lines, with an all off button and a zoom to the full card
   - Environment cards for temperature, humidity and air quality, unavailable sensors grouped in a muted tile
+  - The last 24 hours of each reading drawn behind its tile
   - Automatic discovery from Home Assistant areas
   homeassistant: 2024.8.0
   keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity"
@@ -699,6 +700,10 @@ projects:
   - src: card-tempo.png
     dark: card-tempo-dark.png
     caption: Tempo colours of today and tomorrow
+    group: Card
+  - src: card-compare.png
+    dark: card-compare-dark.png
+    caption: Base or Off-peak / Peak over the last 12 months
     group: Card
   - src: mini.png
     dark: mini-dark.png
@@ -2419,7 +2424,9 @@ projects:
   - Updates found event for automations
   - Diagnostics with secrets redacted
   - Card with the check, its progress and the updates available
-  - 'Install every available update with one action or the card''s Update all button'
+  - Optional Home Assistant backup before installing
+  - A failed install tried again twice, GitHub sometimes failing to serve a file
+  - No check started without enough GitHub requests left, tried again once the limit resets
   homeassistant: 2026.11.0
   keywords: "marketplace hacs updates refresh repositories card install update all"
   cardTypes:
@@ -2466,6 +2473,7 @@ projects:
   - Diagnostics with titles and notify actions redacted
   - Card with the overall status, the unavailable integrations and the recent reloads
   - 'Pause entity: nothing is reloaded while it is on (maintenance, the night)'
+  - Grace period per integration, for one that takes longer to come back
   - Mini card on two lines, with a detail button showing the full card
   homeassistant: 2024.12.0
   keywords: "integrations unavailable reload watchdog card mini history"
