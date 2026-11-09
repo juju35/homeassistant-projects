@@ -181,10 +181,11 @@ projects:
   category: climate
   icon: mdiAirConditioner
   accent: '#039be5'
-  tagline: Cards for air purifiers, fans and air conditioners, with an overview of every device.
+  tagline: Cards for air purifiers, fans, air conditioners and thermostats, with an overview of every device.
   summary: One card per kind of device, each with a mini card, and an overview of the whole home. Add a card and it finds the device and its sensors by itself; the illustrations come alive while a device runs.
   highlights:
-  - Air purifier, fan and air conditioner cards, each with a mini card
+  - Air purifier, fan, air conditioner and thermostat cards, each with a mini card
+  - 'Thermostats, radiators and radiator valves: target, presets, mode, valve, open window and battery'
   - Overview of every device, grouped by kind or by area
   - 'Animated illustrations: turning blades, air flowing, swinging head'
   - Automatic discovery of devices and their sensors
@@ -194,15 +195,17 @@ projects:
   - Sliders showing their fill and value while they move
   - Chips opening the more-info dialog of their entity
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi fan ventilateur climate"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi fan ventilateur climate thermostat radiator valve chauffage heating"
   cardTypes:
   - climate-air-overview-card
   - climate-air-purifier-card
   - climate-air-fan-card
   - climate-air-aircon-card
+  - climate-air-thermostat-card
   - climate-air-purifier-mini-card
   - climate-air-fan-mini-card
   - climate-air-aircon-mini-card
+  - climate-air-thermostat-mini-card
   hero:
     src: overview-all.png
     dark: overview-all-dark.png
@@ -281,6 +284,26 @@ projects:
     dark: aircon-window-dark.png
     group: Air conditioner
     caption: Window
+  - src: thermostat-card.png
+    dark: thermostat-card-dark.png
+    caption: Thermostat
+    group: Thermostat
+  - src: thermostat-mini.png
+    dark: thermostat-mini-dark.png
+    caption: Thermostat mini
+    group: Thermostat
+  - src: thermostat-alert.png
+    dark: thermostat-alert-dark.png
+    caption: Open window and low battery
+    group: Thermostat
+  - src: thermostat-dial.png
+    dark: thermostat-dial-dark.png
+    caption: Wall thermostat
+    group: Thermostat
+  - src: thermostat-radiator.png
+    dark: thermostat-radiator-dark.png
+    caption: Radiator
+    group: Thermostat
   animations:
   - src: purifier.gif
     dark: purifier-dark.gif
@@ -300,6 +323,15 @@ projects:
   - src: aircon-dry.gif
     dark: aircon-dry-dark.gif
     caption: Air conditioner drying
+  - src: thermostat.gif
+    dark: thermostat-dark.gif
+    caption: Thermostat heating
+  - src: thermostat-dial.gif
+    dark: thermostat-dial-dark.gif
+    caption: Wall thermostat
+  - src: thermostat-radiator.gif
+    dark: thermostat-radiator-dark.gif
+    caption: Radiator
   - src: overview.gif
     dark: overview-dark.gif
     caption: Overview
@@ -544,6 +576,91 @@ projects:
   - src: lights-dim.gif
     dark: lights-dim-dark.gif
     caption: Drag to dim
+- slug: ha-energy-card
+  title: Energy Card
+  kind: card
+  category: home
+  icon: mdiSolarPowerVariant
+  accent: '#f9a825'
+  tagline: 'Solar inverters and home batteries from Enphase, SolarEdge, Fronius, Huawei, SMA, Tesla and more: live power flow, battery, today.'
+  summary: 'Works on top of the integrations you already use (Enphase Envoy, SolarEdge, Fronius, Huawei Solar, SMA, Tesla Powerwall, Growatt, APsystems, SolaX, GoodWe) and any other power sensors, with automatic discovery and each integration''s sign conventions handled: live power flow between the sun, the grid, the home and the battery, battery level and time left, today''s energy, self-consumption and self-sufficiency, and the integration''s switches.'
+  highlights:
+  - Enphase, SolarEdge, Fronius, Huawei, SMA, Tesla Powerwall, Growatt, APsystems, SolaX and GoodWe supported, plus any power sensors
+  - Live power flow between the sun, the grid, the home and the battery, in the energy dashboard colours
+  - Triangle layout without a battery, or without solar panels; grid outage shown crossed out
+  - Battery level with the backup reserve, charging or discharging power and time to full or to the reserve
+  - Produced, consumed, imported, exported, charged and discharged energy today, self-consumption and self-sufficiency
+  - The integration's switches and selects (charge from the grid, off-grid, work mode) with a confirmation
+  - Every role discovered automatically, or set by hand
+  - Mini card with a detail button switching to the full card
+  homeassistant: 2024.8.0
+  keywords: "solar photovoltaic pv panneaux solaires inverter onduleur battery batterie powerwall enphase solaredge fronius huawei sma growatt apsystems solax goodwe energy"
+  cardTypes:
+  - energy-card
+  - energy-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Enphase
+    group: Card
+  screenshots:
+  - src: card-huawei-light.png
+    dark: card-huawei.png
+    caption: Huawei
+    group: Card
+  - src: card-powerwall.png
+    dark: card-powerwall-dark.png
+    caption: Tesla Powerwall
+    group: Card
+  - src: card-solaredge.png
+    dark: card-solaredge-dark.png
+    caption: SolarEdge
+    group: Card
+  - src: card-fronius-light.png
+    dark: card-fronius.png
+    caption: Fronius, no battery
+    group: Card
+  - src: card-confirm.png
+    dark: card-confirm-dark.png
+    caption: Confirmation before a switch
+    group: Card
+  - src: card-narrow.png
+    dark: card-narrow-dark.png
+    caption: Narrowest width
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Enphase
+    group: Mini card
+  - src: mini-card-huawei-light.png
+    dark: mini-card-huawei.png
+    caption: Huawei
+    group: Mini card
+  - src: mini-card-powerwall.png
+    dark: mini-card-powerwall-dark.png
+    caption: Tesla Powerwall
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Mini card zoomed in
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: Mini card on a phone
+    group: Mini card
+  animations:
+  - src: sunny.gif
+    dark: sunny-dark.gif
+    caption: Midday, the sun charges the battery and exports
+  - src: evening-light.gif
+    dark: evening.gif
+    caption: Evening, the battery takes over
+  - src: night.gif
+    dark: night-dark.gif
+    caption: Night, the grid covers the home
+  - src: outage-light.gif
+    dark: outage.gif
+    caption: Grid outage
 - slug: ha-zlinky-card
   title: ZLinky Card
   kind: card
