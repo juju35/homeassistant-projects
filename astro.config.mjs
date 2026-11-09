@@ -48,6 +48,7 @@ const renamed = {
   "ha-roborock-card": "ha-vacuum-card",
   "ha-switch": "ha-switch-card",
   "ha-hacs-refresh": "ha-marketplace-refresh",
+  "ha-github-card": "ha-github",
 };
 
 export default defineConfig({
