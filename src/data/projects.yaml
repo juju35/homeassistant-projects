@@ -366,6 +366,7 @@ projects:
   - Calendar of past alerts, with the peak of each episode
   - Mini card with the alerts of the moment and the switches, opening the full card
   - Full card a section wide, with every alert, a tile per room, the switches and the latest activity
+  - Comfort score per room, 0 to 100 %, with its statistics for the day or the week
   homeassistant: 2024.12.0
   keywords: "comfort notifications alerts co2 humidity temperature noise pm2.5 pm10 air quality purifier windows lights lighting adaptive presence motion nap night activity log mini card"
   cardTypes:
@@ -598,6 +599,7 @@ projects:
   - Produced, consumed, imported, exported, charged and discharged energy today, self-consumption and self-sufficiency
   - The integration's switches and selects (charge from the grid, off-grid, work mode) with a confirmation
   - Every role discovered automatically, or set by hand
+  - 'Last 7 days of production and consumption as daily bars, with the week''s totals'
   - Mini card with a detail button switching to the full card
   homeassistant: 2024.8.0
   keywords: "solar photovoltaic pv panneaux solaires inverter onduleur battery batterie powerwall enphase solaredge fronius huawei sma growatt apsystems solax goodwe energy"
@@ -682,6 +684,7 @@ projects:
   - Consumption and cost from long-term statistics, priced per tier or from a price sensor
   - 24 h power curve with the real peak of the day
   - Tempo colours of today and tomorrow, on the mini card too
+  - 'Contract comparison: your last 12 months priced as Base and as Off-peak / Peak'
   homeassistant: 2024.8.0
   keywords: "linky lixee zha zigbee2mqtt energy electricity tic meter power tempo"
   cardTypes:
@@ -736,6 +739,7 @@ projects:
   - Mini card with only the batteries needing attention, with a detail button showing the full card
   - Sidebar panel for administrators with the card, every setting and the Notify now and Export CSV actions
   - Low and replaced battery events for automations
+  - Spare batteries counted by type, with what to buy for the batteries low or due
   - Diagnostics with the notify actions redacted
   homeassistant: 2024.12.0
   keywords: "battery batteries low notification"
@@ -807,6 +811,7 @@ projects:
   - Phone battery level
   - Movements of the last 24 hours
   - Direction of travel from the Proximity integration
+  - Travel time home for people away, from a Waze or Google Maps sensor
   - Mini card on a single row with a zoom button
   homeassistant: 2024.8.0
   keywords: "person people home away zone device tracker proximity"
@@ -847,6 +852,7 @@ projects:
   - Activity of the latest arm, disarm and trigger changes, with who made them
   - Alarmo refusing to arm lists the open sensors, with Arm anyway
   - Single-row mini card
+  - Cameras of your choice, their snapshots shown while the alarm is triggered or counting down
   homeassistant: 2024.8.0
   keywords: "alarmo alarm control panel security verisure ajax manual"
   cardTypes:
@@ -909,6 +915,7 @@ projects:
   - Warning when the door is open while unlocked
   - Warning when the lock stays unlocked longer than you set
   - Compact mini card
+  - Auto-lock countdown while unlocked
   homeassistant: 2024.8.0
   keywords: "lock door nuki tedee yale august switchbot aqara matter zwave"
   cardTypes:
@@ -1047,6 +1054,7 @@ projects:
   - Temperatures, door, salt, rinse aid and coffee machine alerts
   - Reminder when a program has finished and the door is still closed
   - Chips opening the more-info dialog of their entity
+  - 'Energy of the current and last cycle, from the appliance''s or a smart plug''s meter'
   - Mini card with a detail button unfolding the full card
   homeassistant: 2024.8.0
   keywords: "home connect home connect local bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance"
@@ -1516,6 +1524,7 @@ projects:
   - Brother drum, belt unit, fuser and paper feed kits by remaining life, in a section you can hide
   - A Brother drum at its end shown as a stopped printer
   - Chips opening the more-info dialog of their entity
+  - Empty forecast for each cartridge and part, at the pace of the last 90 days
   - Mini card with an offline state
   homeassistant: 2024.8.0
   keywords: "printer hp hpprinter brother ipp ink toner canon epson ecotank pixma maxify megatank laserjet officejet"
@@ -1613,6 +1622,7 @@ projects:
   - Wi-Fi networks, connected devices and missed calls
   - Wi-Fi switch turning the box's Wi-Fi on, or off after a confirmation
   - Compact mini card
+  - Last Speedtest.net result (download, upload, ping) found automatically
   homeassistant: 2024.8.0
   keywords: "freebox free livebox orange sfr bbox bouygues router internet box wifi"
   cardTypes:
@@ -1666,6 +1676,7 @@ projects:
   - Disks with temperature, power-on hours and SMART status
   - Synology DSM update chip and reboot button with a confirmation
   - Compact mini card, its CPU and RAM bars with their last 24 hours
+  - 'UGREEN and Synology: update available chip and reboot button with a confirmation'
   homeassistant: 2024.8.0
   keywords: "nas ugreen synology synology_dsm dsm qnap storage disks raid"
   cardTypes:
@@ -1764,6 +1775,7 @@ projects:
   - Network rates per interface, with their last 24 hours, gaps shown as gaps
   - CPU, RAM, disk, temperature and swap thresholds you can set
   - Monitored processes with their status, stopped ones flagged in red on the mini card
+  - Last and next automatic backup, flagged when it gets old or the last one failed
   homeassistant: 2024.8.0
   keywords: "systemmonitor cpu ram disk server processes network storage"
   worksWith:
@@ -1805,6 +1817,7 @@ projects:
   - Stacks and containers with pending updates, and an update button with a confirmation
   - Containers list with search and a sort by name, CPU or memory
   - Compact mini card with the 24 h CPU and RAM curves
+  - 'Each container''s CPU over the last 24 hours drawn behind its row'
   homeassistant: 2024.8.0
   keywords: "docker containers stacks dockhand portainer monitor_docker monitor docker"
   cardTypes:
@@ -1924,6 +1937,7 @@ projects:
   - 'Zoraxy: toggle proxy rules from automations or the cards, for administrators only'
   - 'Traefik: middlewares, version and redirect middlewares, read-only'
   - Address and credentials changed with Reconfigure, TLS verification optional
+  - Repairs for certificates about to expire and rules whose upstreams are all offline
   - Card and mini card included, showing only the controls the proxy has
   homeassistant: 2024.12.0
   keywords: "reverse proxy zoraxy traefik certificates acme tls upstream uptime routers middlewares"
@@ -2043,6 +2057,7 @@ projects:
   - Trip ended event for automations
   - Diagnostics with VINs, plates and positions redacted
   - Card with gauges, monthly chart and recent trips, refuels and charges
+  - Service reminder with the distance left, and CSV export of every trip, refuel and charge
   - Mini card with the gauges, last trip and average, with a detail button showing the full card
   homeassistant: 2024.12.0
   keywords: "car vehicle fuel consumption ev charging cost renault mpg miles imperial"
@@ -2106,6 +2121,7 @@ projects:
   - Prices not updated for too long left out of the best price
   - 42 French networks' logos built in
   - Card, mini card with the cheapest price, and map card included
+  - Full tank cost at the best price, and an event each time a best price drops by a cent
   - Diagnostics with addresses and positions redacted
   homeassistant: 2024.12.0
   keywords: "fuel gas station prix carburants essence gazole diesel e10 sp95 france"
@@ -2168,6 +2184,7 @@ projects:
   - New event form from the card, with an end date and a description
   - Edit and delete events, recurring ones too
   - Times in the browser's or the server's time zone, as set in your profile
+  - Week view, the 7 days from today side by side, one day per row on a narrow card
   - Mini card with the next event, opening its details
   homeassistant: 2024.8.0
   keywords: "calendar agenda google caldav events"
@@ -2180,6 +2197,10 @@ projects:
     caption: Agenda card
     group: Agenda
   screenshots:
+  - src: week.png
+    dark: week-dark.png
+    caption: Week view
+    group: Agenda
   - src: agenda-more.png
     dark: agenda-more-dark.png
     caption: Agenda with folded events
@@ -2236,6 +2257,7 @@ projects:
   - Last deliveries kept through a timeout or a server error
   - Calendar of the expected deliveries
   - API key entered in the UI
+  - Notifications when a parcel is out for delivery or delivered, with no automation to write
   - Diagnostics with the API key, tracking numbers and addresses redacted
   homeassistant: 2024.12.0
   keywords: "parcel delivery package tracking colis"
@@ -2397,6 +2419,7 @@ projects:
   - Updates found event for automations
   - Diagnostics with secrets redacted
   - Card with the check, its progress and the updates available
+  - 'Install every available update with one action or the card''s Update all button'
   homeassistant: 2026.11.0
   keywords: "marketplace hacs updates refresh repositories card install update all"
   cardTypes:
@@ -2442,6 +2465,7 @@ projects:
   - Try again from Repairs or the card, running in the background, and a reset action, to start an integration's reloads over
   - Diagnostics with titles and notify actions redacted
   - Card with the overall status, the unavailable integrations and the recent reloads
+  - 'Pause entity: nothing is reloaded while it is on (maintenance, the night)'
   - Mini card on two lines, with a detail button showing the full card
   homeassistant: 2024.12.0
   keywords: "integrations unavailable reload watchdog card mini history"
@@ -2570,6 +2594,7 @@ projects:
   - Card with the status, the last commit and push, the changed files, and a ✨ button that writes the message before committing
   - Actions in the cards for administrators only, other users seeing the status
   - Full screen diff, file by file, like a code editor
+  - 'Commit before updates: the configuration is committed and pushed before an update installs'
   - Mini card for a compact dashboard, with a detail button showing the full card
   homeassistant: 2024.12.0
   keywords: "git github backup version configuration commit push ai dashboards export ssh mini"
@@ -2638,6 +2663,7 @@ projects:
   - Card and mini card loaded by the integration, no resource to add
   - Stars, forks, open and merged pull requests, latest release, commit, issue and discussion per repository
   - Account followers, following, public repositories and gists
+  - Notification for each new release, as for issues and pull requests
   homeassistant: 2026.11.0
   keywords: "github repositories repos stars issues pull requests releases commits git panel notifications"
   cardTypes:
