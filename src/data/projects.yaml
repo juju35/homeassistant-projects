@@ -2772,3 +2772,58 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
+- slug: ha-system-hub
+  title: System Hub
+  kind: integration
+  category: maintenance
+  icon: mdiHomeAnalytics
+  accent: '#03a9f4'
+  tagline: 'The care of your Home Assistant in one admin panel: system, containers, Marketplace, watchdog, batteries and Git.'
+  summary: 'One integration and one sidebar panel instead of five: System Monitor resources, Home Assistant''s own containers, Marketplace updates, the integration watchdog, battery levels and Git sync of the configuration. Each feature is a module you turn on or off.'
+  highlights:
+  - Modules turned on or off from the setup, Configure or the panel; a module turned off stops its checks and removes its entities
+  - 'Containers (new): Home Assistant Core, the Supervisor and every add-on, with state, version, CPU and memory and 24 hours of CPU; monitoring only, nothing is restarted'
+  - Notification when an add-on started at boot stops, and when it comes back
+  - 'Watchdog: reloads the integrations whose entities are all unavailable, power cycles through a smart plug, Repairs when it gives up'
+  - 'Marketplace: server-side check of the updates at the interval you choose, update all with an optional backup first'
+  - 'Batteries: low batteries notified twice a day, replacement forecast, spare batteries per type, CSV export'
+  - 'Git Sync: commit and push the configuration with AI commit messages, pull, dashboard export, secret guard'
+  - Sidebar panel for administrators with the System tab, a tab per module and the order of the tabs, in the address
+  - Actions and events for automations, prefixed by module
+  - Diagnostics of every module, secrets redacted; 23 languages
+  homeassistant: 2026.11.0
+  keywords: "system monitor containers add-ons supervisor marketplace updates watchdog reload batteries git sync panel admin modules"
+  hero:
+    src: panel-system.png
+    dark: panel-system-dark.png
+    caption: System tab
+    group: Panel
+  screenshots:
+  - src: panel-containers.png
+    dark: panel-containers-dark.png
+    caption: Containers tab
+    group: Panel
+  - src: panel-watchdog.png
+    dark: panel-watchdog-dark.png
+    caption: Watchdog tab
+    group: Panel
+  - src: panel-marketplace.png
+    dark: panel-marketplace-dark.png
+    caption: Marketplace tab
+    group: Panel
+  - src: panel-batteries.png
+    dark: panel-batteries-dark.png
+    caption: Batteries tab
+    group: Panel
+  - src: panel-git-sync.png
+    dark: panel-git-sync-dark.png
+    caption: Git Sync tab
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: Settings tab
+    group: Panel
+  - src: panel-phone.png
+    dark: panel-phone-dark.png
+    caption: System tab on a phone
+    group: Phone
