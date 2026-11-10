@@ -1620,12 +1620,15 @@ projects:
   category: network
   icon: mdiRouterWireless
   accent: '#cd1e25'
-  tagline: Freebox, Livebox, SFR Box and Bbox at a glance.
-  summary: Download and upload rates, connection, temperatures, fans, storage, Wi-Fi, missed calls and connected devices. The header icon shows the kind of connection with the operator's logo as a badge, and the colours and links follow the detected box.
+  tagline: Internet boxes from France to Canada at a glance, Freebox, Livebox, FRITZ!Box, Vodafone Station, Starlink and more.
+  summary: Download and upload rates, connection, temperatures, fans, storage, Wi-Fi, missed calls and connected devices for eleven box integrations. The header icon shows the kind of connection with the operator's logo as a badge, and the colours and links follow the detected box, down to the provider of a rebranded gateway.
   highlights:
-  - Freebox, Livebox, SFR Box and Bbox
-  - Header icon by connection type (fibre, xDSL, 4G / 5G) with the operator logo badge
-  - Box picture and model detected automatically
+  - Freebox, Livebox, SFR Box and Bbox (France)
+  - FRITZ!Box, Vodafone Station, Swisscom Internet-Box, KPN Box 12
+  - Sagemcom F@st gateways branded by their provider (Telekom, BT, Bell, Proximus, KPN, eir…)
+  - Huawei LTE and ZTE 4G / 5G routers, Starlink
+  - Header icon by connection type (fibre, xDSL, 4G / 5G, satellite) with the operator logo badge
+  - Box picture and model detected automatically, generic pictures in the provider's colour
   - Connection type, public IP and uptime
   - Real link status of the Livebox and the SFR Box
   - Livebox fibre rates read from the GPON or SFP interface, Arcadyan Livebox Fibre included
@@ -1636,7 +1639,7 @@ projects:
   - Compact mini card
   - Last Speedtest.net result (download, upload, ping) found automatically
   homeassistant: 2024.8.0
-  keywords: "freebox free livebox orange sfr bbox bouygues router internet box wifi"
+  keywords: "freebox free livebox orange sfr bbox bouygues fritz fritzbox avm vodafone swisscom sagemcom kpn proximus telekom speedport bt eir bell huawei lte zte starlink router internet box wifi"
   cardTypes:
   - internet-box-card
   - internet-box-mini-card
@@ -1657,6 +1660,38 @@ projects:
   - src: card-bbox.png
     dark: card-bbox-dark.png
     caption: Bbox card
+    group: Card
+  - src: card-fritz.png
+    dark: card-fritz-dark.png
+    caption: FRITZ!Box card
+    group: Card
+  - src: card-vodafone.png
+    dark: card-vodafone-dark.png
+    caption: Vodafone Station card
+    group: Card
+  - src: card-swisscom.png
+    dark: card-swisscom-dark.png
+    caption: Swisscom Internet-Box card
+    group: Card
+  - src: card-kpn.png
+    dark: card-kpn-dark.png
+    caption: KPN Box 12 card
+    group: Card
+  - src: card-sagemcom.png
+    dark: card-sagemcom-dark.png
+    caption: Bell Home Hub (Sagemcom F@st) card
+    group: Card
+  - src: card-huawei.png
+    dark: card-huawei-dark.png
+    caption: Huawei LTE card
+    group: Card
+  - src: card-zte.png
+    dark: card-zte-dark.png
+    caption: ZTE Hyperbox card
+    group: Card
+  - src: card-starlink.png
+    dark: card-starlink-dark.png
+    caption: Starlink card
     group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
