@@ -45,6 +45,9 @@ contributors:
 - login: ctournayre
   contribution: Idea of the Home Connect Local support
   project: ha-smart-appliance-card
+- login: FredM67
+  contribution: Detection of the Home Connect hob, with the analysis and the patch
+  project: ha-smart-appliance-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
