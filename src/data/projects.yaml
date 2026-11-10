@@ -460,7 +460,7 @@ projects:
   - Lights and plugs cards with power draw
   - Lights and plugs mini cards on two lines, with an all off button and a zoom to the full card
   - Environment cards for temperature, humidity and air quality, unavailable sensors grouped in a muted tile
-  - The last 24 hours of each reading drawn behind its tile
+  - The last 24 hours of each reading drawn behind its tile, its lowest and highest in the tooltip
   - Automatic discovery from Home Assistant areas
   homeassistant: 2024.8.0
   keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity"
@@ -693,6 +693,7 @@ projects:
   - 24 h power curve with the real peak of the day
   - Tempo colours of today and tomorrow, on the mini card too
   - 'Contract comparison: your last 12 months priced as Base and as Off-peak / Peak'
+  - 'Three-phase meters: apparent power per phase, each phase measured against its share of the subscribed power'
   homeassistant: 2024.8.0
   keywords: "linky lixee zha zigbee2mqtt energy electricity tic meter power tempo"
   cardTypes:
@@ -1627,7 +1628,7 @@ projects:
   - FRITZ!Box, Vodafone Station, Swisscom Internet-Box, KPN Box 12
   - Sagemcom F@st gateways branded by their provider (Telekom, BT, Bell, Proximus, KPN, eir…)
   - Huawei LTE and ZTE 4G / 5G routers, Starlink
-  - Header icon by connection type (fibre, xDSL, 4G / 5G, satellite) with the operator logo badge
+  - Header icon by connection type (fibre, xDSL, 4G / 5G, satellite) with the operator logo badge, tinted by the link state
   - Box picture and model detected automatically, generic pictures in the provider's colour
   - Connection type, public IP and uptime
   - Real link status of the Livebox and the SFR Box
@@ -2231,7 +2232,7 @@ projects:
   - New event form from the card, with an end date and a description
   - Edit and delete events, recurring ones too
   - Times in the browser's or the server's time zone, as set in your profile
-  - Week view, the 7 days from today side by side, one day per row on a narrow card
+  - Week view, the 7 days from today side by side, one day per row on a narrow card, with arrows or a swipe to the previous or next week
   - Mini card with the next event, opening its details
   homeassistant: 2024.8.0
   keywords: "calendar agenda google caldav events"
