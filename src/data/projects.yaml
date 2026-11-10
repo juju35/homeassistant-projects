@@ -26,7 +26,8 @@ categories:
 - id: maintenance
   label: Maintenance
   icon: mdiWrenchClock
-# People who contributed to the projects, shown in the Contributions section of the home page.
+# People who contributed to the projects, shown in the Contributions section of the home page: one tile per
+# person, listing each of their entries (add an entry per contribution, with the same login).
 contributors:
 - login: cpmarexel2f
   contribution: Serbian translations, in Cyrillic and Latin script
@@ -2481,8 +2482,10 @@ projects:
   - 'Pause entity: nothing is reloaded while it is on (maintenance, the night)'
   - Grace period per integration, for one that takes longer to come back
   - Mini card on two lines, with a detail button showing the full card
+  - 'Power cycles: a device that stays unavailable is switched off and on again with the smart plug that powers it, with the same safeguards'
+  - Sidebar panel for administrators with the status, the power cycles and every setting
   homeassistant: 2024.12.0
-  keywords: "integrations unavailable reload watchdog card mini history"
+  keywords: "integrations unavailable reload watchdog card mini history power cycle smart plug panel"
   cardTypes:
   - integration-watchdog-card
   - integration-watchdog-mini-card
@@ -2508,6 +2511,18 @@ projects:
     dark: mini-zoom-dark.png
     caption: Mini card zoomed in to the full card
     group: Mini card
+  - src: panel.png
+    dark: panel-dark.png
+    caption: Status tab
+    group: Panel
+  - src: panel-power-cycles.png
+    dark: panel-power-cycles-dark.png
+    caption: Power cycles tab
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: Settings tab
+    group: Panel
   worksWith:
   - slug: ha-system-monitor-card
     why: "Shows the unavailable integrations and reloads on the dashboard"
