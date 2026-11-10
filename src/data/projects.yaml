@@ -26,7 +26,8 @@ categories:
 - id: maintenance
   label: Maintenance
   icon: mdiWrenchClock
-# People who contributed to the projects, shown in the Contributions section of the home page.
+# People who contributed to the projects, shown in the Contributions section of the home page: one tile per
+# person, listing each of their entries (add an entry per contribution, with the same login).
 contributors:
 - login: cpmarexel2f
   contribution: Serbian translations, in Cyrillic and Latin script

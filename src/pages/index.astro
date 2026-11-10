@@ -5,7 +5,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import Languages from "../components/Languages.astro";
 import MadeIn from "../components/MadeIn.astro";
 import Support from "../components/Support.astro";
-import { categories, contributors, projects, OWNER } from "../lib/projects";
+import { categories, contributors, contributorsByLogin, projects, OWNER } from "../lib/projects";
 import { kindCounts } from "../lib/kinds";
 
 const counts = kindCounts(projects);
@@ -116,24 +116,26 @@ const groups = categories
           <div class="people">
             <h3 class="contrib-h">Thanks to</h3>
             <ul class="people-list">
-              {contributors.map((c) => {
-                const p = c.project ? projects.find((x) => x.slug === c.project) : undefined;
-                return (
+              {contributorsByLogin().map((c) => (
                   <li class="person tile">
-                    <span class="avatar" aria-hidden="true">
-                      {c.login[0].toUpperCase()}
-                      <img src={`https://github.com/${c.login}.png?size=96`} alt="" width="40" height="40" loading="lazy" decoding="async" onerror="this.remove()" />
-                    </span>
-                    <span class="who">
-                      <a class="login" href={`https://github.com/${c.login}`} target="_blank" rel="noopener">@{c.login}</a>
-                      <span class="muted">
-                        {c.contribution}
-                        {p && <> · <a class="on" href={`${import.meta.env.BASE_URL}projects/${p.slug}/`}>{p.title}</a></>}
-                      </span>
-                    </span>
+                  <span class="avatar" aria-hidden="true">
+                    {c.login[0].toUpperCase()}
+                    <img src={`https://github.com/${c.login}.png?size=96`} alt="" width="40" height="40" loading="lazy" decoding="async" onerror="this.remove()" />
+                  </span>
+                  <span class="who">
+                    <a class="login" href={`https://github.com/${c.login}`} target="_blank" rel="noopener">@{c.login}</a>
+                    {c.items.map((item) => {
+                      const p = item.project ? projects.find((x) => x.slug === item.project) : undefined;
+                      return (
+                        <span class="muted">
+                          {item.contribution}
+                          {p && <> · <a class="on" href={`${import.meta.env.BASE_URL}projects/${p.slug}/`}>{p.title}</a></>}
+                        </span>
+                      );
+                    })}
+                  </span>
                   </li>
-                );
-              })}
+              ))}
             </ul>
           </div>
         )}
