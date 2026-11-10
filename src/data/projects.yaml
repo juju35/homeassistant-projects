@@ -48,6 +48,9 @@ contributors:
 - login: FredM67
   contribution: Detection of the Home Connect hob, with the analysis and the patch
   project: ha-smart-appliance-card
+- login: FredM67
+  contribution: Idea and analysis of the apparent power per phase on three-phase meters
+  project: ha-zlinky-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
