@@ -2294,6 +2294,8 @@ projects:
     caption: Mini card on a phone
     group: Mini card
 - slug: ha-automation-monitor-card
+  archived: true
+  replacedBy: ha-system-hub
   title: Automation Monitor Card
   kind: card
   category: maintenance
@@ -2446,6 +2448,8 @@ projects:
   - git-sync-mini-card
   - orphan-entities-card
   - orphan-entities-mini-card
+  - automation-monitor-card
+  - automation-monitor-mini-card
   hero:
     src: panel-status.png
     dark: panel-status-dark.png
@@ -2636,6 +2640,26 @@ projects:
     dark: orphans-mini-dark.png
     caption: Orphan Entities mini card
     group: Orphan Entities cards
+  - src: card-automation-monitor.png
+    dark: card-automation-monitor-dark.png
+    caption: Automation Monitor card
+    group: Automation Monitor cards
+  - src: card-automation-monitor-open.png
+    dark: card-automation-monitor-open-dark.png
+    caption: Lists unfolded
+    group: Automation Monitor cards
+  - src: card-automation-monitor-ok.png
+    dark: card-automation-monitor-ok-dark.png
+    caption: All good
+    group: Automation Monitor cards
+  - src: card-automation-monitor-mini.png
+    dark: card-automation-monitor-mini-dark.png
+    caption: Automation Monitor mini card
+    group: Automation Monitor cards
+  - src: card-automation-monitor-mini-zoom.png
+    dark: card-automation-monitor-mini-zoom-dark.png
+    caption: Mini card zoomed in
+    group: Automation Monitor cards
 - slug: ha-system-monitor-card
   archived: true
   replacedBy: ha-system-hub
