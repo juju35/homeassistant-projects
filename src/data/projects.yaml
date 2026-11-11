@@ -2786,6 +2786,7 @@ projects:
 - slug: ha-system-hub
   title: System Hub
   kind: integration
+  withCard: true
   category: maintenance
   icon: mdiHomeAnalytics
   accent: '#03a9f4'
@@ -2800,19 +2801,36 @@ projects:
   - 'Batteries: low batteries notified twice a day, replacement forecast, spare batteries per type, CSV export'
   - 'Git Sync: commit and push the configuration with AI commit messages, pull, dashboard export, secret guard'
   - Sidebar panel for administrators with the System tab, a tab per module and the order of the tabs, in the address
+  - 'The Lovelace cards of the projects it replaces, served by the integration: System Monitor, Watchdog, Marketplace Refresh, Battery Monitor, Git Sync and Orphan Entities'
   - Actions and events for automations, prefixed by module
   - Diagnostics of every module, secrets redacted; 23 languages
   homeassistant: 2026.11.0
   keywords: "system monitor containers add-ons supervisor marketplace updates watchdog reload batteries git sync panel admin modules"
+  cardTypes:
+  - system-monitor-card
+  - system-monitor-mini-card
+  - integration-watchdog-card
+  - integration-watchdog-mini-card
+  - marketplace-refresh-card
+  - battery-monitor-card
+  - battery-monitor-mini-card
+  - git-sync-card
+  - git-sync-mini-card
+  - orphan-entities-card
+  - orphan-entities-mini-card
   hero:
     src: panel-system.png
     dark: panel-system-dark.png
     caption: System tab
     group: Panel
   screenshots:
+  - src: panel-status.png
+    dark: panel-status-dark.png
+    caption: Status tab
+    group: Panel
   - src: panel-containers.png
     dark: panel-containers-dark.png
-    caption: Containers tab
+    caption: Containers & process tab
     group: Panel
   - src: panel-watchdog.png
     dark: panel-watchdog-dark.png
@@ -2830,6 +2848,14 @@ projects:
     dark: panel-git-sync-dark.png
     caption: Git Sync tab
     group: Panel
+  - src: panel-automations.png
+    dark: panel-automations-dark.png
+    caption: Automations tab
+    group: Panel
+  - src: panel-orphans.png
+    dark: panel-orphans-dark.png
+    caption: Orphans tab
+    group: Panel
   - src: panel-settings.png
     dark: panel-settings-dark.png
     caption: Settings tab
@@ -2838,3 +2864,103 @@ projects:
     dark: panel-phone-dark.png
     caption: System tab on a phone
     group: Phone
+  - src: card-system-monitor.png
+    dark: card-system-monitor-dark.png
+    caption: System Monitor card
+    group: System Monitor cards
+  - src: card-system-monitor-mini.png
+    dark: card-system-monitor-mini-dark.png
+    caption: System Monitor mini card
+    group: System Monitor cards
+  - src: card-system-monitor-mini-zoom.png
+    dark: card-system-monitor-mini-zoom-dark.png
+    caption: Mini card zoomed in
+    group: System Monitor cards
+  - src: card-watchdog.png
+    dark: card-watchdog-dark.png
+    caption: Watchdog card
+    group: Watchdog cards
+  - src: card-watchdog-ok.png
+    dark: card-watchdog-ok-dark.png
+    caption: All available
+    group: Watchdog cards
+  - src: card-watchdog-mini.png
+    dark: card-watchdog-mini-dark.png
+    caption: Watchdog mini card
+    group: Watchdog cards
+  - src: card-watchdog-mini-zoom.png
+    dark: card-watchdog-mini-zoom-dark.png
+    caption: Mini card zoomed in
+    group: Watchdog cards
+  - src: card-marketplace.png
+    dark: card-marketplace-dark.png
+    caption: Marketplace Refresh card
+    group: Marketplace Refresh card
+  - src: card-marketplace-checking.png
+    dark: card-marketplace-checking-dark.png
+    caption: While checking
+    group: Marketplace Refresh card
+  - src: card-marketplace-installing.png
+    dark: card-marketplace-installing-dark.png
+    caption: While installing
+    group: Marketplace Refresh card
+  - src: card-marketplace-ok.png
+    dark: card-marketplace-ok-dark.png
+    caption: Up to date
+    group: Marketplace Refresh card
+  - src: card-batteries.png
+    dark: card-batteries-dark.png
+    caption: Battery Monitor card
+    group: Battery Monitor cards
+  - src: card-batteries-low.png
+    dark: card-batteries-low-dark.png
+    caption: Low batteries only
+    group: Battery Monitor cards
+  - src: card-batteries-mini.png
+    dark: card-batteries-mini-dark.png
+    caption: Battery Monitor mini card
+    group: Battery Monitor cards
+  - src: card-batteries-popup.png
+    dark: card-batteries-popup-dark.png
+    caption: Full screen by room
+    group: Battery Monitor cards
+  - src: card-batteries-popup-forecast.png
+    dark: card-batteries-popup-forecast-dark.png
+    caption: Full screen by replacement date
+    group: Battery Monitor cards
+  - src: card-git-sync.png
+    dark: card-git-sync-dark.png
+    caption: Git Sync card
+    group: Git Sync cards
+  - src: card-git-sync-clean.png
+    dark: card-git-sync-clean-dark.png
+    caption: Up to date
+    group: Git Sync cards
+  - src: card-git-sync-diff.png
+    dark: card-git-sync-diff-dark.png
+    caption: Diff viewer
+    group: Git Sync cards
+  - src: card-git-sync-mini.png
+    dark: card-git-sync-mini-dark.png
+    caption: Git Sync mini card
+    group: Git Sync cards
+  - src: orphans-card.png
+    dark: orphans-card-dark.png
+    caption: Orphan Entities card
+    group: Orphan Entities cards
+  - src: orphans-card-selected.png
+    dark: orphans-card-selected-dark.png
+    caption: Two entities selected
+    group: Orphan Entities cards
+  - src: orphans-card-used.png
+    dark: orphans-card-used-dark.png
+    caption: Used by an automation or a dashboard
+    group: Orphan Entities cards
+  - src: orphans-card-devices.png
+    dark: orphans-card-devices-dark.png
+    caption: Orphan devices
+    group: Orphan Entities cards
+  - src: orphans-mini.png
+    dark: orphans-mini-dark.png
+    caption: Orphan Entities mini card
+    group: Orphan Entities cards
