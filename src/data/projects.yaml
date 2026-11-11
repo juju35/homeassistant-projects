@@ -2447,14 +2447,14 @@ projects:
   - orphan-entities-card
   - orphan-entities-mini-card
   hero:
-    src: panel-system.png
-    dark: panel-system-dark.png
-    caption: System tab
-    group: Panel
-  screenshots:
-  - src: panel-status.png
+    src: panel-status.png
     dark: panel-status-dark.png
     caption: Status tab
+    group: Panel
+  screenshots:
+  - src: panel-system.png
+    dark: panel-system-dark.png
+    caption: System tab
     group: Panel
   - src: panel-containers.png
     dark: panel-containers-dark.png
@@ -2636,3 +2636,393 @@ projects:
     dark: orphans-mini-dark.png
     caption: Orphan Entities mini card
     group: Orphan Entities cards
+- slug: ha-system-monitor-card
+  archived: true
+  replacedBy: ha-system-hub
+  title: System Monitor Card
+  kind: card
+  category: network
+  icon: mdiMonitorDashboard
+  accent: '#039be5'
+  tagline: 'The machine running Home Assistant: CPU, RAM, disk, temperature, network and updates.'
+  summary: Two cards built on the core System Monitor integration, with Home Assistant versions, storage, network and monitored processes.
+  highlights:
+  - Full and mini cards, with a zoom between them
+  - CPU, RAM, disk and temperature gauges, with the CPU and RAM curves of the last 24 hours
+  - Core and OS versions with update badges
+  - Storage, swap and database size
+  - Network rates per interface, with their last 24 hours, gaps shown as gaps
+  - CPU, RAM, disk, temperature and swap thresholds you can set
+  - Monitored processes with their status, stopped ones flagged in red on the mini card
+  - Last and next automatic backup, flagged when it gets old or the last one failed
+  homeassistant: 2024.8.0
+  keywords: "systemmonitor cpu ram disk server processes network storage"
+  worksWith:
+  - slug: ha-marketplace-refresh
+    why: "Shows the Marketplace updates next to it"
+  - slug: ha-integration-watchdog
+    why: "Shows the unavailable integrations next to it"
+  cardTypes:
+  - system-monitor-card
+  - system-monitor-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Default view
+    group: Card
+  screenshots:
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Default view
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Mini card zoomed in
+    group: Mini card
+- slug: ha-marketplace-refresh
+  archived: true
+  replacedBy: ha-system-hub
+  title: Marketplace Refresh
+  kind: integration
+  withCard: true
+  category: maintenance
+  icon: mdiCloudRefreshVariant
+  accent: '#41bdf5'
+  tagline: Checks every Marketplace repository for updates, on the server.
+  summary: The Marketplace reads its catalog every 6 hours and checks custom repositories every 48 hours, one at a time from the browser. Marketplace Refresh checks them all at once in the background, with a button, an action and a progress sensor. Formerly HACS Refresh.
+  highlights:
+  - Check every repository with a button or an action
+  - Check only selected repositories
+  - Update all from the card or an action, one update after the other
+  - Automatic check at your interval, a failed one tried again within the hour
+  - Check actions and installs for administrators only, the check button open to every user
+  - Status sensor with progress and failures
+  - Updates found event for automations
+  - Diagnostics with secrets redacted
+  - Card with the check, its progress and the updates available
+  - Optional Home Assistant backup before installing
+  - A failed install tried again twice, GitHub sometimes failing to serve a file
+  - No check started without enough GitHub requests left, tried again once the limit resets
+  homeassistant: 2026.11.0
+  keywords: "marketplace hacs updates refresh repositories card install update all"
+  cardTypes:
+  - marketplace-refresh-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Updates available
+    group: Card
+  screenshots:
+  - src: card-checking.png
+    dark: card-checking-dark.png
+    caption: Check running
+    group: Card
+  - src: card-installing.png
+    dark: card-installing-dark.png
+    caption: Installing the updates
+    group: Card
+  - src: card-ok.png
+    dark: card-ok-dark.png
+    caption: Everything up to date
+    group: Card
+  worksWith:
+  - slug: ha-system-monitor-card
+    why: "The machine's health next to the updates"
+- slug: ha-integration-watchdog
+  archived: true
+  replacedBy: ha-system-hub
+  title: Integration Watchdog
+  kind: integration
+  withCard: true
+  category: maintenance
+  icon: mdiShieldSyncOutline
+  accent: '#41bdf5'
+  tagline: Reloads the integrations whose entities are all unavailable.
+  summary: 'Some integrations lose their connection and never recover until reloaded by hand. Integration Watchdog does it for you, safely: never during startup, never in a loop.'
+  highlights:
+  - Periodic check of every loaded integration
+  - Reload after a grace period
+  - Never during startup, no reload loop
+  - Notification for each reload, dismissed once the integration recovers
+  - Ignored integrations and single entries
+  - Reloads of the last 24 hours as a sensor
+  - Repairs issue when it gives up on an integration
+  - Try again from Repairs or the card, running in the background, and a reset action, to start an integration's reloads over
+  - Diagnostics with titles and notify actions redacted
+  - Card with the overall status, the unavailable integrations and the recent reloads
+  - 'Pause entity: nothing is reloaded while it is on (maintenance, the night)'
+  - Grace period per integration, for one that takes longer to come back
+  - Mini card on two lines, with a detail button showing the full card
+  - 'Power cycles: a device that stays unavailable is switched off and on again with the smart plug that powers it, with the same safeguards'
+  - Sidebar panel for administrators with the status, the power cycles and every setting
+  homeassistant: 2024.12.0
+  keywords: "integrations unavailable reload watchdog card mini history power cycle smart plug panel"
+  cardTypes:
+  - integration-watchdog-card
+  - integration-watchdog-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Unavailable integrations
+    group: Card
+  screenshots:
+  - src: card-ok.png
+    dark: card-ok-dark.png
+    caption: Everything available
+    group: Card
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Unavailable integrations
+    group: Mini card
+  - src: mini-ok.png
+    dark: mini-ok-dark.png
+    caption: Everything available
+    group: Mini card
+  - src: mini-zoom.png
+    dark: mini-zoom-dark.png
+    caption: Mini card zoomed in to the full card
+    group: Mini card
+  - src: panel.png
+    dark: panel-dark.png
+    caption: Status tab
+    group: Panel
+  - src: panel-power-cycles.png
+    dark: panel-power-cycles-dark.png
+    caption: Power cycles tab
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: Settings tab
+    group: Panel
+  worksWith:
+  - slug: ha-system-monitor-card
+    why: "Shows the unavailable integrations and reloads on the dashboard"
+  - slug: ha-orphan-entities
+    why: "Lists the entities no longer provided once integrations are back"
+- slug: ha-battery-monitor
+  archived: true
+  replacedBy: ha-system-hub
+  title: Battery Monitor
+  kind: integration
+  withCard: true
+  category: home
+  icon: mdiBatteryAlert
+  accent: '#ffa600'
+  tagline: Watches every battery of your home and tells you twice a day which ones are low.
+  summary: 'No more alert for a battery that dips for an hour, no more dead sensor found a week later: a battery is reported once it has stayed below the threshold for a while, with a card listing them by room.'
+  highlights:
+  - Automatic discovery of every battery
+  - Threshold and duration before notifying
+  - Unavailable batteries reported too
+  - Two notifications a day, at times you choose
+  - Replacement forecast from each battery's drain, kept across restarts, with a Next replacement sensor
+  - Battery type from Battery Notes in the notifications and the CSV export
+  - Lovelace card with a full screen view by room, type or replacement date, and a CSV export
+  - Mini card with only the batteries needing attention, with a detail button showing the full card
+  - Sidebar panel for administrators with the card, every setting and the Notify now and Export CSV actions
+  - Low and replaced battery events for automations
+  - Spare batteries counted by type, with what to buy for the batteries low or due
+  - Diagnostics with the notify actions redacted
+  homeassistant: 2024.12.0
+  keywords: "battery batteries low notification"
+  cardTypes:
+  - battery-monitor-card
+  - battery-monitor-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Battery Monitor card
+    group: Card
+  screenshots:
+  - src: card-low.png
+    dark: card-low-dark.png
+    caption: Low batteries only
+    group: Card
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Batteries needing attention
+    group: Mini card
+  - src: popup.png
+    dark: popup-dark.png
+    caption: Full screen by room
+    group: Full screen
+  - src: popup-type.png
+    dark: popup-type-dark.png
+    caption: Full screen by battery type
+    group: Full screen
+  - src: popup-forecast.png
+    dark: popup-forecast-dark.png
+    caption: Full screen by replacement date
+    group: Full screen
+  - src: popup-phone.png
+    dark: popup-phone-dark.png
+    caption: Phone by room
+    group: Full screen
+  - src: popup-phone-type.png
+    dark: popup-phone-type-dark.png
+    caption: Phone by type
+    group: Full screen
+  - src: panel.png
+    dark: panel-dark.png
+    caption: Batteries tab
+    group: Panel
+  - src: panel-actions.png
+    dark: panel-actions-dark.png
+    caption: Actions tab
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: Settings tab
+    group: Panel
+  animations:
+  - src: due.gif
+    dark: due-dark.gif
+    caption: Due battery
+- slug: ha-git-sync
+  archived: true
+  replacedBy: ha-system-hub
+  title: Git Sync
+  kind: integration
+  withCard: true
+  category: maintenance
+  icon: mdiSourceBranchSync
+  accent: '#f05032'
+  tagline: Versions your Home Assistant configuration with Git, without shell commands.
+  summary: Watches the configuration folder, commits and pushes the changes on a schedule with an AI-written Conventional Commits message, exports the dashboards out of .storage, and ships a card to follow and drive it all. It replaces the usual shell_command, command_line sensor, script and automation stack.
+  highlights:
+  - Work tree status, changed files, commits ahead and behind
+  - Commit and push on a schedule or on demand
+  - Remote fetched on a schedule, behind and diverged states
+  - Pull before push, a diverged branch or a rebase conflict never pushed
+  - Pull button and action bringing in the remote commits whenever the remote has new ones
+  - Secret guard refusing secrets.yaml, .storage, keys and logs, secret values hidden from the AI
+  - Repair adding secrets.yaml and .storage to .gitignore
+  - AI commit messages through any AI task entity, with a safe fallback
+  - Dashboards exported as JSON or readable YAML, daily or before each commit
+  - SSH deploy key generated by an action, no ssh-keyscan needed
+  - Diagnostics with the key path, author and credentials redacted
+  - Card with the status, the last commit and push, the changed files, and a ✨ button that writes the message before committing
+  - Actions in the cards for administrators only, other users seeing the status
+  - Full screen diff, file by file, like a code editor
+  - 'Commit before updates: the configuration is committed and pushed before an update installs'
+  - Mini card for a compact dashboard, with a detail button showing the full card
+  homeassistant: 2024.12.0
+  keywords: "git github backup version configuration commit push ai dashboards export ssh mini"
+  cardTypes:
+  - git-sync-card
+  - git-sync-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Changes pending
+    group: Card
+  screenshots:
+  - src: card-clean.png
+    dark: card-clean-dark.png
+    caption: Up to date
+    group: Card
+  - src: card-confirm.png
+    dark: card-confirm-dark.png
+    caption: Commit message written by the ✨ button
+    group: Card
+  - src: card-error.png
+    dark: card-error-dark.png
+    caption: Push failed
+    group: Card
+  - src: diff.png
+    dark: diff-dark.png
+    caption: Full screen diff, file by file
+    group: Diff
+  - src: diff-phone.png
+    dark: diff-phone-dark.png
+    caption: Diff on a phone
+    group: Diff
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Changes pending
+    group: Mini card
+  - src: mini-clean.png
+    dark: mini-clean-dark.png
+    caption: Up to date
+    group: Mini card
+  - src: mini-error.png
+    dark: mini-error-dark.png
+    caption: Push failed
+    group: Mini card
+  - src: mini-zoomed.png
+    dark: mini-zoomed-dark.png
+    caption: Mini card zoomed in to the full card
+    group: Mini card
+- slug: ha-orphan-entities
+  archived: true
+  replacedBy: ha-system-hub
+  title: Orphan Entities
+  kind: integration
+  withCard: true
+  category: maintenance
+  icon: mdiGhostOutline
+  accent: '#7e57c2'
+  tagline: Tracks the entities their integration no longer provides, and removes them in bulk.
+  summary: Removed integrations, renamed devices and old YAML platforms leave entities behind in the registry. Orphan Entities lists them all with the reason, and its card filters, selects and removes them in one go.
+  highlights:
+  - Five reasons, from integration removed to unknown for too long
+  - Devices of removed integrations, removed with their entities
+  - Orphan devices selected one by one to ignore or remove, or all removed at once
+  - Each orphan checked again just before its removal
+  - Never during startup, nor during the grace period after it
+  - Bulk removal limited to the listed entities, with a confirmation
+  - Used by badge listing the automations, scripts, scenes and dashboards still using an entity, and the automations and scripts using a device
+  - Ignored integrations and entities
+  - Diagnostics of the last scan
+  - Card with search, integration and reason filters and selection
+  - Mini card by reason, with a detail button showing the full card
+  homeassistant: 2024.12.0
+  keywords: "orphan orphaned entities registry not provided unavailable unknown cleanup remove bulk card mini"
+  cardTypes:
+  - orphan-entities-card
+  - orphan-entities-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Orphaned entities
+    group: Card
+  screenshots:
+  - src: card-selected.png
+    dark: card-selected-dark.png
+    caption: Two entities selected
+    group: Card
+  - src: card-used.png
+    dark: card-used-dark.png
+    caption: Used by an automation or a dashboard
+    group: Card
+  - src: card-confirm.png
+    dark: card-confirm-dark.png
+    caption: Removal confirmation
+    group: Card
+  - src: card-filtered.png
+    dark: card-filtered-dark.png
+    caption: Filtered on a reason
+    group: Card
+  - src: card-devices.png
+    dark: card-devices-dark.png
+    caption: Orphan devices
+    group: Card
+  - src: card-ok.png
+    dark: card-ok-dark.png
+    caption: No orphan
+    group: Card
+  - src: mini.png
+    dark: mini-dark.png
+    caption: Orphans by reason
+    group: Mini card
+  - src: mini-ok.png
+    dark: mini-ok-dark.png
+    caption: No orphan
+    group: Mini card
+  - src: mini-zoom.png
+    dark: mini-zoom-dark.png
+    caption: Mini card zoomed in to the full card
+    group: Mini card
+  worksWith:
+  - slug: ha-integration-watchdog
+    why: "Reloads the integrations that failed, whose entities are left out here"
