@@ -37,7 +37,8 @@ const distChecks = {
   },
 };
 
-// Former names of renamed repositories: their old project pages redirect to the new ones.
+// Former names of renamed repositories, and the archived repositories bundled in System Hub: their old project
+// pages redirect to the project that replaces them.
 const renamed = {
   "ha-zoraxy": "ha-reverse-proxy",
   "ha-dockhand-card": "ha-docker-card",
@@ -47,8 +48,14 @@ const renamed = {
   "ha-home-connect-card": "ha-smart-appliance-card",
   "ha-roborock-card": "ha-vacuum-card",
   "ha-switch": "ha-switch-card",
-  "ha-hacs-refresh": "ha-marketplace-refresh",
+  "ha-hacs-refresh": "ha-system-hub",
   "ha-github-card": "ha-github",
+  "ha-system-monitor-card": "ha-system-hub",
+  "ha-marketplace-refresh": "ha-system-hub",
+  "ha-integration-watchdog": "ha-system-hub",
+  "ha-battery-monitor": "ha-system-hub",
+  "ha-git-sync": "ha-system-hub",
+  "ha-orphan-entities": "ha-system-hub",
 };
 
 export default defineConfig({
