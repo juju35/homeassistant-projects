@@ -52,6 +52,9 @@ contributors:
 - login: FredM67
   contribution: Idea and analysis of the apparent power per phase on three-phase meters
   project: ha-zlinky-card
+- login: aubierr
+  contribution: ASUSTOR support through his ha-asustor integration, with the drawings of the 83 models
+  project: ha-nas-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
@@ -1712,10 +1715,10 @@ projects:
   category: network
   icon: mdiNas
   accent: '#00b46e'
-  tagline: 'UGREEN, Synology and QNAP NAS: CPU, RAM, disks, volumes and network.'
-  summary: Gauges for CPU, RAM and temperature, network rates, RAID volumes, disks and fans for three NAS integrations, discovered automatically, brands can be mixed.
+  tagline: 'UGREEN, Synology, QNAP and ASUSTOR NAS: CPU, RAM, disks, volumes and network.'
+  summary: Gauges for CPU, RAM and temperature, network rates, RAID volumes, disks and fans for four NAS integrations, discovered automatically, brands can be mixed.
   highlights:
-  - UGREEN NAS, Synology DSM and QNAP
+  - UGREEN NAS, Synology DSM, QNAP and ASUSTOR
   - Status-tinted NAS icon with the brand logo badge
   - CPU, RAM and temperature gauges, with the last 24 hours of CPU and RAM behind them
   - Network rates with their last 24 hours, gaps shown as gaps
@@ -1726,7 +1729,7 @@ projects:
   - Compact mini card, its CPU and RAM bars with their last 24 hours
   - 'UGREEN and Synology: update available chip and reboot button with a confirmation'
   homeassistant: 2024.8.0
-  keywords: "nas ugreen synology synology_dsm dsm qnap storage disks raid"
+  keywords: "nas ugreen synology synology_dsm dsm qnap asustor adm storage disks raid"
   cardTypes:
   - nas-card
   - nas-mini-card
@@ -1744,6 +1747,10 @@ projects:
     dark: card-qnap-dark.png
     caption: Qnap card
     group: Card
+  - src: card-asustor.png
+    dark: card-asustor-dark.png
+    caption: Asustor card
+    group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
     caption: Ugreen mini card
@@ -1755,6 +1762,10 @@ projects:
   - src: mini-card-qnap.png
     dark: mini-card-qnap-dark.png
     caption: Qnap mini card
+    group: Mini card
+  - src: mini-card-asustor.png
+    dark: mini-card-asustor-dark.png
+    caption: Asustor mini card
     group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
