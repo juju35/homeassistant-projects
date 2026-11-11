@@ -5,18 +5,19 @@ import ProjectCard from "../components/ProjectCard.astro";
 import Languages from "../components/Languages.astro";
 import MadeIn from "../components/MadeIn.astro";
 import Support from "../components/Support.astro";
-import { categories, contributors, contributorsByLogin, projects, OWNER } from "../lib/projects";
+import { archived, categories, contributors, contributorsByLogin, current, projects, OWNER } from "../lib/projects";
 import { kindCounts } from "../lib/kinds";
 
-const counts = kindCounts(projects);
+const counts = kindCounts(current);
 const cards = counts.card;
 const integrations = counts.integration;
 // en, fr, de, es, it, nl, pt, pl, sr (Cyrillic), sr-Latn, ro, da, sv, bg, ru, uk, hu, sk, cs, sl, lv
 // and el
 const LANGUAGES = 22;
-const animations = projects.reduce((n, p) => n + (p.animations?.length ?? 0), 0);
+const base = import.meta.env.BASE_URL;
+const animations = current.reduce((n, p) => n + (p.animations?.length ?? 0), 0);
 const groups = categories
-  .map((c) => ({ ...c, items: projects.filter((p) => p.category === c.id) }))
+  .map((c) => ({ ...c, items: current.filter((p) => p.category === c.id) }))
   .filter((g) => g.items.length);
 ---
 
@@ -61,12 +62,25 @@ const groups = categories
         </div>
       </div>
     </div>
+    <aside class="ha-card notice" aria-labelledby="notice-title">
+      <span class="logo" style="--c:var(--warning-color)"><Icon name="mdiArchiveArrowDownOutline" /></span>
+      <div>
+        <h2 id="notice-title" class="notice-title">Six projects are now part of System Hub</h2>
+        <p class="muted">
+          The System Monitor cards, Marketplace Refresh, Integration Watchdog, Battery Monitor, Git Sync and Orphan
+          Entities are modules of <a href={`${base}projects/ha-system-hub/`}>System Hub</a>. Their repositories are
+          archived and no longer updated. A module turned on in System Hub takes over the settings of the integration
+          it replaces, and a repair reminds you to remove the old one.
+          They are listed under <a href="#archived">Archived</a>. <a href="https://github.com/juju35/ha-system-hub#migrating">How to migrate</a>
+        </p>
+      </div>
+    </aside>
   </section>
 
   <div class="sticky">
   <section class="wrap toolbar" aria-label="Filter projects">
     <div class="segmented" role="group" aria-label="Type">
-      <button class="seg active" type="button" data-filter="all" aria-pressed="true"><Icon name="mdiViewGridOutline" class="seg-i" /><span class="seg-l">All</span> <span class="n">{projects.length}</span></button>
+      <button class="seg active" type="button" data-filter="all" aria-pressed="true"><Icon name="mdiViewGridOutline" class="seg-i" /><span class="seg-l">All</span> <span class="n">{current.length}</span></button>
       <button class="seg" type="button" data-filter="card" aria-pressed="false"><Icon name="mdiViewDashboardVariant" class="seg-i" /><span class="seg-l">Cards</span> <span class="n">{cards}</span></button>
       <button class="seg" type="button" data-filter="integration" aria-pressed="false"><Icon name="mdiPuzzle" class="seg-i" /><span class="seg-l">Integrations</span> <span class="n">{integrations}</span></button>
     </div>
@@ -99,6 +113,17 @@ const groups = categories
         </div>
       </section>
     ))}
+    {archived.length > 0 && (
+      <section class="group archived-group" id="archived" data-group>
+        <h2 class="section-title"><Icon name="mdiArchiveOutline" />Archived<span class="count">{archived.length}</span></h2>
+        <p class="muted archived-note">
+          No longer updated: these projects are now modules of <a href={`${base}projects/ha-system-hub/`}>System Hub</a>.
+        </p>
+        <div class="grid">
+          {archived.map((p) => <ProjectCard project={p} />)}
+        </div>
+      </section>
+    )}
     <div class="empty" id="empty" hidden>
       <span class="logo lg"><Icon name="mdiMagnifyClose" /></span>
       <p class="muted" id="empty-text">No project matches this search.</p>
@@ -251,6 +276,11 @@ const groups = categories
   .stat { display: flex; align-items: center; gap: 12px; padding: 12px; }
   .stat .v { font-size: 22px; font-weight: 500; line-height: 1.1; }
   .stats-inline { display: none; margin: -4px 0 0; font-size: 13px; }
+  .notice { margin-top: 12px; padding: 16px 20px; display: flex; gap: 14px; align-items: flex-start; }
+  .notice .logo { flex: none; }
+  .notice-title { margin: 2px 0 4px; font-size: 16px; font-weight: 500; }
+  .notice p { margin: 0; font-size: 14px; max-width: 80ch; }
+  .archived-note { margin: -4px 0 12px; font-size: 14px; }
 
   /* Filters stay under the top bar while scrolling */
   .sticky {

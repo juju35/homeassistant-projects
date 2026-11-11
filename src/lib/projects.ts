@@ -38,6 +38,10 @@ export interface Project {
   hero?: Shot;
   screenshots?: Shot[];
   animations?: Shot[];
+  /** Archived repository: no more updates, no install link; listed apart and left out of the counts. */
+  archived?: boolean;
+  /** Slug of the project that replaces an archived one. */
+  replacedBy?: string;
 }
 
 export interface Contributor {
@@ -52,6 +56,9 @@ const data = load(raw) as { categories: Category[]; projects: Project[]; contrib
 
 export const categories = data.categories;
 export const projects = data.projects;
+/** The maintained projects, and the archived ones (listed apart, left out of the counts). */
+export const current = projects.filter((p) => !p.archived);
+export const archived = projects.filter((p) => p.archived);
 export const contributors = data.contributors ?? [];
 
 /** One entry per person, with every contribution in the order of the list (a person may contribute several times). */

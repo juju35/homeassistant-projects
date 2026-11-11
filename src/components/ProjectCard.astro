@@ -27,7 +27,7 @@ const release = await latestRelease(p);
 
 <!-- The whole card opens the project (its title link covers it); the Add to Marketplace badge sits on top -->
 <article
-  class="ha-card project"
+  class:list={["ha-card", "project", { archived: p.archived }]}
   style={`--c:${p.accent}`}
   data-kind={p.kind}
   data-search={search}
@@ -38,11 +38,23 @@ const release = await latestRelease(p);
       <h3 class="name"><a class="open" href={`${base}projects/${p.slug}/`}>{p.title}</a></h3>
       <div class="sub">{kindLabel(p)}</div>
     </div>
-    <MarketplaceBadge project={p} height={28} class="card-cta" />
+    {p.archived ? (
+      <span class="chip archived-chip" title={`Archived: now part of ${projects.find((o) => o.slug === p.replacedBy)?.title ?? "another project"}`}><Icon name="mdiArchiveOutline" />Archived</span>
+    ) : (
+      <MarketplaceBadge project={p} height={28} class="card-cta" />
+    )}
   </div>
 
   {p.hero ? (
-    <div class="preview"><Shot project={p} shot={p.hero} /></div>
+    <div class="preview">
+      <Shot project={p} shot={p.hero} />
+      {p.archived && (
+        <div class="tapes" aria-hidden="true">
+          <div class="tape t1"><span>{"ARCHIVED · NO LONGER UPDATED · ".repeat(6)}</span></div>
+          <div class="tape t2"><span>{"ARCHIVED · DO NOT INSTALL · ".repeat(6)}</span></div>
+        </div>
+      )}
+    </div>
   ) : (
     <div class="preview compact">
       <span class="logo lg"><Icon name={p.icon} /></span>
@@ -68,6 +80,24 @@ const release = await latestRelease(p);
 </article>
 
 <style>
+  .project.archived .preview { position: relative; overflow: hidden; }
+  .project.archived .preview :global(img) { filter: grayscale(.85) brightness(.92); }
+  /* Crime scene tape across the preview of an archived project */
+  .tapes { position: absolute; inset: 0; pointer-events: none; }
+  .tape {
+    position: absolute; left: -20%; right: -20%; height: 30px;
+    display: flex; align-items: center; overflow: hidden; white-space: nowrap;
+    background: #f7d117; color: #111; box-shadow: 0 3px 10px rgba(0,0,0,.35);
+    border-top: 3px solid #111; border-bottom: 3px solid #111;
+    font: 800 13px/1 system-ui, sans-serif; letter-spacing: .14em;
+  }
+  .tape span { padding-left: 8px; }
+  .t1 { top: 32%; transform: rotate(-9deg); }
+  .t2 { top: 58%; transform: rotate(7deg); }
+  .archived-chip {
+    --c: #111; flex: none; background: #f7d117; color: #111; font-weight: 700;
+    border: 2px solid #111; letter-spacing: .06em; text-transform: uppercase;
+  }
   .project {
     display: flex; flex-direction: column; gap: 12px;
     padding: 12px;
