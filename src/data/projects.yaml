@@ -2864,6 +2864,50 @@ projects:
     dark: panel-phone-dark.png
     caption: System tab on a phone
     group: Phone
+  - src: config-system.png
+    dark: config-system-dark.png
+    caption: System thresholds
+    group: Settings
+  - src: config-containers.png
+    dark: config-containers-dark.png
+    caption: Containers
+    group: Settings
+  - src: config-watchdog.png
+    dark: config-watchdog-dark.png
+    caption: Watchdog
+    group: Settings
+  - src: config-watchdog-power-cycle.png
+    dark: config-watchdog-power-cycle-dark.png
+    caption: 'Watchdog: power cycle a device'
+    group: Settings
+  - src: config-marketplace.png
+    dark: config-marketplace-dark.png
+    caption: Marketplace
+    group: Settings
+  - src: config-batteries.png
+    dark: config-batteries-dark.png
+    caption: Batteries
+    group: Settings
+  - src: config-batteries-types.png
+    dark: config-batteries-types-dark.png
+    caption: 'Batteries: battery types'
+    group: Settings
+  - src: config-batteries-import.png
+    dark: config-batteries-import-dark.png
+    caption: 'Batteries: import from Battery Monitor'
+    group: Settings
+  - src: config-git-sync-repository.png
+    dark: config-git-sync-repository-dark.png
+    caption: 'Git Sync: repository'
+    group: Settings
+  - src: config-git-sync.png
+    dark: config-git-sync-dark.png
+    caption: Git Sync
+    group: Settings
+  - src: config-orphans.png
+    dark: config-orphans-dark.png
+    caption: Orphans
+    group: Settings
   - src: card-system-monitor.png
     dark: card-system-monitor-dark.png
     caption: System Monitor card
