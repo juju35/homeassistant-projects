@@ -61,6 +61,18 @@ contributors:
 - login: FredM67
   contribution: Idea and analysis of the deprecation of the repositories bundled in System Hub, and of the settings taken over
   project: ha-system-hub
+- login: tschoiss
+  contribution: Idea of hiding the title and subtitle of the cards, now in every card
+  project: ha-vehicle-card
+- login: Matssa56
+  contribution: Idea of the restart button of the system
+  project: ha-system-hub
+- login: mielikki33
+  contribution: Idea of the Nginx Proxy Manager support
+  project: ha-reverse-proxy
+- login: mielikki33
+  contribution: Idea of a Proxmox dashboard, which became the Proxmox panel
+  project: ha-proxmox
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
@@ -951,6 +963,7 @@ projects:
   - Motion badge while a motion, occupancy or person sensor of the camera is on
   - Low latency streams, WebRTC alone when the camera offers it, with its sound
   - Mini card with a snapshot per camera, opening the full card
+  - Cameras without a live stream (HomeKit, a Tapo in privacy mode…) shown as stills refreshed every second, Safari included
   - Streams paused while the card is off-screen
   homeassistant: 2024.12.0
   keywords: "camera cctv privacy ptz frigate reolink tapo webrtc go2rtc panel"
@@ -1503,10 +1516,11 @@ projects:
   category: appliances
   icon: mdiPrinter
   accent: '#0096d6'
-  tagline: 'HP, Brother and any IPP printer (Epson, Canon…): status, ink or toner levels and alerts.'
-  summary: Works with the HP Printer and Brother integrations and with any IPP printer. The brand logo sits on the header icon, the drawing follows the brand and range, the control panel lights up in the status colour, and the card simply says offline when the printer is off.
+  tagline: 'HP, Brother and any IPP printer (Epson, Canon…): status, ink or toner levels, alerts and scanning.'
+  summary: Works with HP Printer (ha-hp), the core HP Printer and Brother integrations and any IPP printer, and scans with ha-hp. The brand logo sits on the header icon, the drawing follows the brand and range, the control panel lights up in the status colour, and the card simply says offline when the printer is off.
   highlights:
-  - HP Printer, Brother and IPP integrations
+  - HP Printer (ha-hp, found first), core HP Printer, Brother and IPP integrations
+  - 'Scan section with ha-hp: source, format, resolution and color mode, scan and add a page, download the file'
   - Brand logo badge for HP, Brother, Epson and Canon
   - Drawings by brand and range, picked from the model
   - Status with colour and a pulsing control panel while printing
@@ -1516,9 +1530,12 @@ projects:
   - A Brother drum at its end shown as a stopped printer
   - Chips opening the more-info dialog of their entity
   - Empty forecast for each cartridge and part, at the pace of the last 90 days
-  - Mini card with an offline state
+  - Offline state that keeps the ink or toner levels still known, on the card and the mini card
   homeassistant: 2024.8.0
-  keywords: "printer hp hpprinter brother ipp ink toner canon epson ecotank pixma maxify megatank laserjet officejet"
+  keywords: "printer hp hpprinter brother ipp ink toner canon epson ecotank pixma maxify megatank laserjet officejet scan scanner pdf"
+  worksWith:
+  - slug: ha-hp
+    why: "Its printers are found first, with their last values while off and the Scan section"
   cardTypes:
   - printer-card
   - printer-mini-card
@@ -1528,6 +1545,14 @@ projects:
     caption: HP printer
     group: HP
   screenshots:
+  - src: scan.png
+    dark: scan-dark.png
+    caption: Scan section
+    group: HP
+  - src: scan-error.png
+    dark: scan-error-dark.png
+    caption: Scan error
+    group: HP
   - src: offline.png
     dark: offline-dark.png
     caption: Printer offline
@@ -1569,6 +1594,9 @@ projects:
     caption: Canon mini card
     group: Canon
   animations:
+  - src: scan-busy.gif
+    dark: scan-busy-dark.gif
+    caption: HP printer scanning
   - src: printing.gif
     dark: printing-dark.gif
     caption: HP printer printing
@@ -1593,6 +1621,28 @@ projects:
   - src: canon-printing-mini.gif
     dark: canon-printing-mini-dark.gif
     caption: Canon mini card printing
+- slug: ha-hp
+  title: HP Printer
+  kind: integration
+  category: appliances
+  icon: mdiPrinterWireless
+  accent: '#0096d6'
+  tagline: HP printers fully local, with sensors that keep their values while the printer sleeps, and scanning to PDF.
+  summary: 'Status, ink or toner levels, pages remaining and page counters from the printer''s built-in web server, and scanning to PDF, JPEG or PNG from the glass or the feeder, multi-page PDFs included. Built to replace the core HP Printer integration where it is fragile: no unavailable entities when the printer is off, nothing written when nothing changes.'
+  highlights:
+  - Last values kept while the printer is off or asleep, and across a restart; only the status turns off
+  - Page counters that never go down, for clean long-term statistics
+  - Tiered polling, ETags and at most two requests at a time, light on the printer
+  - Status never unknown, paper jams and open doors recognized, cartridge details on each level sensor
+  - 'Scan to PDF, JPEG or PNG: glass, feeder or double-sided feeder, resolution, color mode and page size, Scan and add page'
+  - Last scan as a sensor and an image, files downloaded through signed links then deleted
+  - Zeroconf discovery following address changes, reconfigure, firmware updates, diagnostics
+  - No Python dependency; 22 languages
+  homeassistant: 2025.8.0
+  keywords: "hp printer officejet envy deskjet laserjet smart tank ink toner pages scan scanner escl airscan pdf local"
+  worksWith:
+  - slug: ha-printer-card
+    why: "Shows its printers, with their last values while off and the Scan section"
 - slug: ha-internet-box-card
   title: Internet Box Card
   kind: card
@@ -1929,21 +1979,22 @@ projects:
   category: network
   icon: mdiServerNetwork
   accent: '#5b6cf0'
-  tagline: 'Integration and cards for your reverse proxy: Zoraxy or Traefik.'
+  tagline: 'Integration and cards for your reverse proxy: Zoraxy, Traefik or Nginx Proxy Manager.'
   summary: 'Proxy status, proxy rules with their upstream health, redirects and, where the proxy''s API allows it, controls, TLS certificates with ACME renewal and rules you can switch on and off from the dashboard, with a card and a mini card shipped in the integration. Formerly ha-zoraxy.'
   highlights:
-  - Zoraxy and Traefik supported, several instances of either
+  - Zoraxy, Traefik and Nginx Proxy Manager supported, several instances of each
   - Sensors for proxy rules, active rules and the inbound port
   - Upstream health per proxy rule, with a Down badge in the cards
   - 'Zoraxy: expiry sensor and ACME renewal button per certificate'
   - 'Zoraxy: switches for HTTPS redirect, port 80 and development mode'
   - 'Zoraxy: toggle proxy rules from automations or the cards, for administrators only'
   - 'Traefik: middlewares, version and redirect middlewares, read-only'
+  - 'Nginx Proxy Manager: proxy hosts to switch on and off, redirection hosts, access lists, certificates with their expiry and renewal'
   - Address and credentials changed with Reconfigure, TLS verification optional
   - Repairs for certificates about to expire and rules whose upstreams are all offline
   - Card and mini card included, showing only the controls the proxy has
   homeassistant: 2024.12.0
-  keywords: "reverse proxy zoraxy traefik certificates acme tls upstream uptime routers middlewares"
+  keywords: "reverse proxy zoraxy traefik nginx proxy manager npm certificates acme tls upstream uptime routers middlewares"
   cardTypes:
   - reverse-proxy-card
   - reverse-proxy-mini-card
@@ -1957,6 +2008,10 @@ projects:
     dark: card-traefik-dark.png
     caption: Traefik
     group: Card
+  - src: card-npm.png
+    dark: card-npm-dark.png
+    caption: Nginx Proxy Manager
+    group: Card
   - src: mini.png
     dark: mini-dark.png
     caption: Zoraxy
@@ -1965,10 +2020,61 @@ projects:
     dark: mini-traefik-dark.png
     caption: Traefik
     group: Mini card
+  - src: mini-npm.png
+    dark: mini-npm-dark.png
+    caption: Nginx Proxy Manager
+    group: Mini card
   - src: mini-zoom.png
     dark: mini-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
+- slug: ha-proxmox
+  title: Proxmox Panel
+  kind: integration
+  category: network
+  icon: mdiServer
+  accent: '#e57000'
+  tagline: A Proxmox sidebar panel for the nodes, virtual machines, containers, storage and backups of Proxmox VE.
+  summary: 'An admin panel over the built-in Proxmox VE integration, with the Proxmox logo in the sidebar: your nodes with their rings and 24-hour curves, every virtual machine and LXC container with the action that fits, storage gauges and backups. It reads the integration''s entities and presses its buttons, with nothing more to configure.'
+  highlights:
+  - 'Nodes: CPU, RAM and disk rings with 24-hour curves, uptime, version, pending update, node-wide actions'
+  - 'VMs and containers: status, CPU, RAM and uptime, start, shut down, restart, snapshot and more, search and node filter'
+  - Details unfolded under each machine, with every action that fits its status
+  - Confirmation before stopping or restarting anything
+  - Storage gauges with used, free and total space; last backup of each node and manual snapshots
+  - Administrators only; light and dark themes; 22 languages
+  homeassistant: 2026.11.0
+  keywords: "proxmox pve virtual machines vm lxc containers node storage backups snapshot homelab panel admin"
+  hero:
+    src: panel-nodes.png
+    dark: panel-nodes-dark.png
+    caption: Nodes tab
+    group: Panel
+  screenshots:
+  - src: panel-vms.png
+    dark: panel-vms-dark.png
+    caption: VMs tab, a machine unfolded
+    group: Panel
+  - src: panel-containers.png
+    dark: panel-containers-dark.png
+    caption: Containers tab
+    group: Panel
+  - src: panel-confirm.png
+    dark: panel-confirm-dark.png
+    caption: Confirmation of an action
+    group: Panel
+  - src: panel-storage.png
+    dark: panel-storage-dark.png
+    caption: Storage tab
+    group: Panel
+  - src: panel-backups.png
+    dark: panel-backups-dark.png
+    caption: Backups tab
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: Settings tab
+    group: Panel
 - slug: ha-vehicle-card
   title: Vehicle Card
   kind: card
@@ -1979,12 +2085,14 @@ projects:
   summary: Range, fuel, battery, mileage, charging, lock, location and actions for Renault, Tesla, Volvo, Stellantis, the VW group, Kia and Hyundai, Toyota, Mercedes-Benz and more, with the brand's logo, the car's picture and an optional section for the Orange Internet On the move data plan.
   highlights:
   - 18 car integrations found by themselves, entities matched by their translation keys
+  - The maker's spelling of the model, and no model repeated when it is the device's name
   - Brand logo for 33 brands and the picture the integration gives (Renault Picture, Volvo, VW group, Stellantis, Toyota)
   - Range, fuel level or gauge, battery, mileage and outside temperature
   - Charging and time left, plug, lock, doors, air conditioning and tyre pressures
   - The car's action buttons, plus buttons of your choice (a wallbox, a script, a lock…), with a confirmation tap
   - Connected services subscription (VW group) and an offline chip (Teslemetry)
   - Map card with every vehicle and its picture, lease section, mini card
+  - Orange Internet On the move section, with ha-orange-internet-on-the-move
   homeassistant: 2024.8.0
   keywords: "car vehicle ev renault dacia tesla volvo skoda subaru nissan peugeot citroen opel fiat jeep stellantis kia hyundai toyota lexus volkswagen audi seat cupra mercedes polestar ford tank fuel charge tyre tire pressure"
   worksWith:
@@ -1992,6 +2100,8 @@ projects:
     why: "Shows the official MyRenault photo of your Renault on the card"
   - slug: ha-vehicle-consumption
     why: "Tracks the fuel and energy consumption of the same car"
+  - slug: ha-orange-internet-on-the-move
+    why: "Its data plan is shown in the card's Orange Internet On the move section"
   cardTypes:
   - vehicle-card
   - vehicle-mini-card
@@ -2121,6 +2231,26 @@ projects:
   worksWith:
   - slug: ha-vehicle-card
     why: "Its picture is shown by the Vehicle Card"
+- slug: ha-orange-internet-on-the-move
+  title: Orange Internet On the move
+  kind: integration
+  category: car
+  icon: mdiCarWireless
+  accent: '#ff7900'
+  tagline: The in-car data plan of Renault vehicles, from the Orange Internet On the move portal.
+  summary: 'Data left, data used, plan size and dates for every car of the account. A maintained rewrite of rexave''s integration and a drop-in replacement for it: same domain, devices and entity IDs, so history and dashboards are kept.'
+  highlights:
+  - Every car of the account as a device, cars added later showing up on their own
+  - The running plan, even when the portal also lists past or upcoming ones
+  - Data left, data used, plan data, percentage left, plan start, expiry and type
+  - One login reused across updates, the plans of all cars fetched in parallel
+  - Reauthentication and reconfiguration from the UI, entities unavailable rather than stale
+  - Diagnostics with credentials and serial numbers redacted; 22 languages
+  homeassistant: 2025.8.0
+  keywords: "orange internet on the move renault car data plan sim mobile data rexave"
+  worksWith:
+  - slug: ha-vehicle-card
+    why: "Shows its data plan in the card's Orange Internet On the move section"
 - slug: ha-vehicle-consumption
   title: Vehicle Consumption
   kind: integration
@@ -2558,39 +2688,29 @@ projects:
   category: maintenance
   icon: mdiHomeAnalytics
   accent: '#03a9f4'
-  tagline: 'The care of your Home Assistant in one admin panel: system, containers, Marketplace, watchdog, batteries and Git.'
-  summary: 'One integration and one sidebar panel instead of five: System Monitor resources, Home Assistant''s own containers, Marketplace updates, the integration watchdog, battery levels and Git sync of the configuration. Each feature is a module you turn on or off.'
+  tagline: 'The care of your Home Assistant in one admin panel: resources, updates, backups, logs, security, devices and Git.'
+  summary: 'One integration and one sidebar panel for everything that keeps Home Assistant healthy: System Monitor resources, Home Assistant''s own containers, the database, security, logs, every update, backups, the integration sentinel, silent devices, batteries, Git versioning, failed automations and cleanup. Each feature is a module you turn on or off, in four groups, with a Status tab that sums them up.'
   highlights:
-  - Modules turned on or off from the setup, Configure or the panel; a module turned off stops its checks and removes its entities
-  - 'Containers (new): Home Assistant Core, the Supervisor and every add-on, with state, version, CPU and memory and 24 hours of CPU; monitoring only, nothing is restarted'
-  - Notification when an add-on started at boot stops, and when it comes back
-  - 'Watchdog: reloads the integrations whose entities are all unavailable, power cycles through a smart plug, Repairs when it gives up'
-  - 'Marketplace: server-side check of the updates at the interval you choose, update all with an optional backup first'
-  - 'Batteries: low batteries notified twice a day, replacement forecast, spare batteries per type, CSV export'
-  - 'Git Sync: commit and push the configuration with AI commit messages, pull, dashboard export, secret guard, several repositories'
-  - 'Automations: failed automations and unavailable linked entities, with devices and entities to leave out'
-  - Restart Home Assistant and reload the configuration from the System tab, each confirmed in a dialog
-  - Sidebar panel for administrators with the System tab, a tab per module and the order of the tabs, in the address
-  - 'The Lovelace cards of the projects it replaces, served by the integration: System Monitor (with sensors of your choice), Automation Monitor, Watchdog, Marketplace Refresh, Battery Monitor, Git Sync and Orphan Entities'
+  - 'Status tab: an emblem, the points to check and a score, each area by group; the sidebar icon follows the status'
+  - 'Panel in four groups: System, Reliability, Maintenance and Devices, the modules as sub-tabs, ordered as you like'
+  - 'Resources: System Monitor sensors, restart Home Assistant and reload the configuration, each confirmed'
+  - 'Containers: Home Assistant Core, the Supervisor and every add-on, with state, version, CPU and memory; monitoring only'
+  - 'Database: size, retention and the entities that write the most, purge their history or copy the recorder exclusion, purge and repack'
+  - 'Security: refused logins with notifications, accounts and 2FA, long-lived tokens to revoke, exposure, add-ons not protected, credentials in clear'
+  - 'Logs: errors and warnings grouped by integration, with their traceback, reload or ignore'
+  - 'Updates: Home Assistant, add-ons, devices and the Marketplace in one tab, Update all with an optional backup first'
+  - 'Backups: the last one, the next one, each location and the last 30 days, Back up now'
+  - 'Sentinel: reloads the integrations whose entities are all unavailable, power cycles through a smart plug'
+  - 'Silent devices: ZHA, Zigbee2MQTT, Z-Wave, Matter, ESPHome and deCONZ devices not heard from, and weak signals'
+  - Batteries, Versioning (Git) of the configuration, failed automations and Cleanup of orphan entities and devices
+  - One card and one mini card for every module, status cards included, the visual editor picking the module first
   - A module turned on takes over the settings of the standalone integration it replaces
-  - Actions and events for automations, prefixed by module
   - Diagnostics of every module, secrets redacted; 23 languages
   homeassistant: 2024.12.0
-  keywords: "system monitor containers add-ons supervisor marketplace updates watchdog reload batteries git sync panel admin modules"
+  keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status"
   cardTypes:
-  - system-monitor-card
-  - system-monitor-mini-card
-  - integration-watchdog-card
-  - integration-watchdog-mini-card
-  - marketplace-refresh-card
-  - battery-monitor-card
-  - battery-monitor-mini-card
-  - git-sync-card
-  - git-sync-mini-card
-  - orphan-entities-card
-  - orphan-entities-mini-card
-  - automation-monitor-card
-  - automation-monitor-mini-card
+  - system-hub-card
+  - system-hub-mini-card
   hero:
     src: panel-status.png
     dark: panel-status-dark.png
@@ -2599,19 +2719,19 @@ projects:
   screenshots:
   - src: panel-system.png
     dark: panel-system-dark.png
-    caption: System tab
+    caption: Resources tab
     group: Panel
   - src: panel-containers.png
     dark: panel-containers-dark.png
-    caption: Containers & process tab
+    caption: Containers tab
     group: Panel
   - src: panel-watchdog.png
     dark: panel-watchdog-dark.png
-    caption: Watchdog tab
+    caption: Sentinel tab
     group: Panel
   - src: panel-marketplace.png
     dark: panel-marketplace-dark.png
-    caption: Marketplace tab
+    caption: Updates tab
     group: Panel
   - src: panel-batteries.png
     dark: panel-batteries-dark.png
@@ -2619,7 +2739,7 @@ projects:
     group: Panel
   - src: panel-git-sync.png
     dark: panel-git-sync-dark.png
-    caption: Git Sync tab
+    caption: Versioning tab
     group: Panel
   - src: panel-automations.png
     dark: panel-automations-dark.png
@@ -2627,7 +2747,27 @@ projects:
     group: Panel
   - src: panel-orphans.png
     dark: panel-orphans-dark.png
-    caption: Orphans tab
+    caption: Cleanup tab
+    group: Panel
+  - src: panel-database.png
+    dark: panel-database-dark.png
+    caption: Database tab
+    group: Panel
+  - src: panel-security.png
+    dark: panel-security-dark.png
+    caption: Security tab
+    group: Panel
+  - src: panel-logs.png
+    dark: panel-logs-dark.png
+    caption: Logs tab
+    group: Panel
+  - src: panel-backups.png
+    dark: panel-backups-dark.png
+    caption: Backups tab
+    group: Panel
+  - src: panel-silent.png
+    dark: panel-silent-dark.png
+    caption: Silent devices tab
     group: Panel
   - src: panel-settings.png
     dark: panel-settings-dark.png
@@ -2635,11 +2775,11 @@ projects:
     group: Panel
   - src: panel-phone.png
     dark: panel-phone-dark.png
-    caption: System tab on a phone
+    caption: Resources tab on a phone
     group: Phone
   - src: config-system.png
     dark: config-system-dark.png
-    caption: System thresholds
+    caption: Resources thresholds
     group: Settings
   - src: config-containers.png
     dark: config-containers-dark.png
@@ -2647,15 +2787,15 @@ projects:
     group: Settings
   - src: config-watchdog.png
     dark: config-watchdog-dark.png
-    caption: Watchdog
+    caption: Sentinel
     group: Settings
   - src: config-watchdog-power-cycle.png
     dark: config-watchdog-power-cycle-dark.png
-    caption: 'Watchdog: power cycle a device'
+    caption: 'Sentinel: power cycle a device'
     group: Settings
   - src: config-marketplace.png
     dark: config-marketplace-dark.png
-    caption: Marketplace
+    caption: Updates
     group: Settings
   - src: config-batteries.png
     dark: config-batteries-dark.png
@@ -2671,11 +2811,11 @@ projects:
     group: Settings
   - src: config-git-sync-repository.png
     dark: config-git-sync-repository-dark.png
-    caption: 'Git Sync: repository'
+    caption: 'Versioning: repository'
     group: Settings
   - src: config-git-sync.png
     dark: config-git-sync-dark.png
-    caption: Git Sync
+    caption: Versioning
     group: Settings
   - src: config-automations.png
     dark: config-automations-dark.png
@@ -2683,128 +2823,156 @@ projects:
     group: Settings
   - src: config-orphans.png
     dark: config-orphans-dark.png
-    caption: Orphans
+    caption: Cleanup
     group: Settings
+  - src: config-database.png
+    dark: config-database-dark.png
+    caption: Database
+    group: Settings
+  - src: config-security.png
+    dark: config-security-dark.png
+    caption: Security
+    group: Settings
+  - src: config-logs.png
+    dark: config-logs-dark.png
+    caption: Logs
+    group: Settings
+  - src: config-backups.png
+    dark: config-backups-dark.png
+    caption: Backups
+    group: Settings
+  - src: config-silent.png
+    dark: config-silent-dark.png
+    caption: Silent devices
+    group: Settings
+  - src: card-status.png
+    dark: card-status-dark.png
+    caption: Status card
+    group: Status cards
+  - src: card-status-mini.png
+    dark: card-status-mini-dark.png
+    caption: Status mini card
+    group: Status cards
   - src: card-system-monitor.png
     dark: card-system-monitor-dark.png
-    caption: System Monitor card
-    group: System Monitor cards
+    caption: Resources card
+    group: Resources cards
   - src: card-system-monitor-mini.png
     dark: card-system-monitor-mini-dark.png
-    caption: System Monitor mini card
-    group: System Monitor cards
+    caption: Resources mini card
+    group: Resources cards
   - src: card-system-monitor-mini-zoom.png
     dark: card-system-monitor-mini-zoom-dark.png
     caption: Mini card zoomed in
-    group: System Monitor cards
+    group: Resources cards
   - src: card-watchdog.png
     dark: card-watchdog-dark.png
-    caption: Watchdog card
-    group: Watchdog cards
+    caption: Sentinel card
+    group: Sentinel cards
   - src: card-watchdog-ok.png
     dark: card-watchdog-ok-dark.png
     caption: All available
-    group: Watchdog cards
+    group: Sentinel cards
   - src: card-watchdog-mini.png
     dark: card-watchdog-mini-dark.png
-    caption: Watchdog mini card
-    group: Watchdog cards
+    caption: Sentinel mini card
+    group: Sentinel cards
   - src: card-watchdog-mini-zoom.png
     dark: card-watchdog-mini-zoom-dark.png
     caption: Mini card zoomed in
-    group: Watchdog cards
+    group: Sentinel cards
   - src: card-marketplace.png
     dark: card-marketplace-dark.png
-    caption: Marketplace Refresh card
-    group: Marketplace Refresh card
+    caption: Updates card
+    group: Updates card
   - src: card-marketplace-checking.png
     dark: card-marketplace-checking-dark.png
     caption: While checking
-    group: Marketplace Refresh card
+    group: Updates card
   - src: card-marketplace-installing.png
     dark: card-marketplace-installing-dark.png
     caption: While installing
-    group: Marketplace Refresh card
+    group: Updates card
   - src: card-marketplace-ok.png
     dark: card-marketplace-ok-dark.png
     caption: Up to date
-    group: Marketplace Refresh card
+    group: Updates card
   - src: card-batteries.png
     dark: card-batteries-dark.png
-    caption: Battery Monitor card
-    group: Battery Monitor cards
+    caption: Batteries card
+    group: Batteries cards
   - src: card-batteries-low.png
     dark: card-batteries-low-dark.png
     caption: Low batteries only
-    group: Battery Monitor cards
+    group: Batteries cards
   - src: card-batteries-mini.png
     dark: card-batteries-mini-dark.png
-    caption: Battery Monitor mini card
-    group: Battery Monitor cards
+    caption: Batteries mini card
+    group: Batteries cards
   - src: card-batteries-popup.png
     dark: card-batteries-popup-dark.png
     caption: Full screen by room
-    group: Battery Monitor cards
+    group: Batteries cards
   - src: card-batteries-popup-forecast.png
     dark: card-batteries-popup-forecast-dark.png
     caption: Full screen by replacement date
-    group: Battery Monitor cards
+    group: Batteries cards
   - src: card-git-sync.png
     dark: card-git-sync-dark.png
-    caption: Git Sync card
-    group: Git Sync cards
+    caption: Versioning card
+    group: Versioning cards
   - src: card-git-sync-clean.png
     dark: card-git-sync-clean-dark.png
     caption: Up to date
-    group: Git Sync cards
+    group: Versioning cards
   - src: card-git-sync-diff.png
     dark: card-git-sync-diff-dark.png
     caption: Diff viewer
-    group: Git Sync cards
+    group: Versioning cards
   - src: card-git-sync-mini.png
     dark: card-git-sync-mini-dark.png
-    caption: Git Sync mini card
-    group: Git Sync cards
+    caption: Versioning mini card
+    group: Versioning cards
   - src: orphans-card.png
     dark: orphans-card-dark.png
-    caption: Orphan Entities card
-    group: Orphan Entities cards
+    caption: Cleanup card
+    group: Cleanup cards
   - src: orphans-card-selected.png
     dark: orphans-card-selected-dark.png
     caption: Two entities selected
-    group: Orphan Entities cards
+    group: Cleanup cards
   - src: orphans-card-used.png
     dark: orphans-card-used-dark.png
     caption: Used by an automation or a dashboard
-    group: Orphan Entities cards
+    group: Cleanup cards
   - src: orphans-card-devices.png
     dark: orphans-card-devices-dark.png
     caption: Orphan devices
-    group: Orphan Entities cards
+    group: Cleanup cards
   - src: orphans-mini.png
     dark: orphans-mini-dark.png
-    caption: Orphan Entities mini card
-    group: Orphan Entities cards
+    caption: Cleanup mini card
+    group: Cleanup cards
   - src: card-automation-monitor.png
     dark: card-automation-monitor-dark.png
-    caption: Automation Monitor card
-    group: Automation Monitor cards
+    caption: Automations card
+    group: Automations cards
   - src: card-automation-monitor-open.png
     dark: card-automation-monitor-open-dark.png
     caption: Lists unfolded
-    group: Automation Monitor cards
+    group: Automations cards
   - src: card-automation-monitor-ok.png
     dark: card-automation-monitor-ok-dark.png
     caption: All good
-    group: Automation Monitor cards
+    group: Automations cards
   - src: card-automation-monitor-mini.png
     dark: card-automation-monitor-mini-dark.png
-    caption: Automation Monitor mini card
-    group: Automation Monitor cards
+    caption: Automations mini card
+    group: Automations cards
   - src: card-automation-monitor-mini-zoom.png
     dark: card-automation-monitor-mini-zoom-dark.png
     caption: Mini card zoomed in
-    group: Automation Monitor cards
+    group: Automations cards
 - slug: ha-system-monitor-card
   archived: true
   replacedBy: ha-system-hub
