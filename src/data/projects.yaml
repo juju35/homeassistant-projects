@@ -73,6 +73,9 @@ contributors:
 - login: mielikki33
   contribution: Idea of a Proxmox dashboard, which became the Proxmox panel
   project: ha-proxmox
+- login: ssilence5
+  contribution: Idea of the Firewalla and TP-Link Deco support, which became this card
+  project: ha-router-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
@@ -1735,6 +1738,61 @@ projects:
   - src: fan.gif
     dark: fan-dark.gif
     caption: Fan
+- slug: ha-router-card
+  title: Router Card
+  kind: card
+  category: network
+  icon: mdiRouterNetwork
+  accent: '#0277bd'
+  tagline: Firewalls, routers and mesh Wi-Fi at a glance, Firewalla, OPNsense, UniFi, TP-Link Deco, MikroTik, ASUS and more.
+  summary: WAN state, download and upload rates, CPU, RAM, temperatures, uptime, mesh units and access points, clients and Wi-Fi networks for some twenty router integrations, and for the others from what their entities say. The header icon shows the kind of device with the brand's logo as a badge, tinted by the WAN state.
+  highlights:
+  - Firewalla, OPNsense and pfSense firewalls
+  - UniFi, Omada, TP-Link, MikroTik, ASUS, NETGEAR, Keenetic, OpenWrt, GL.iNet and Xiaomi routers
+  - TP-Link Deco, eero, Linksys Velop and Ruckus mesh systems, every unit with its state and clients
+  - Any other router integration, recognised from the kind and the names of its entities
+  - Download and upload rates of the WAN with their last 24 hours
+  - CPU, RAM and disk gauges with their last 24 hours, temperatures, fans and load average
+  - WAN IP, uptime, latency, packet loss and the last speed test
+  - Wi-Fi switches turning a network on, or off after a confirmation
+  - Restart button with a confirmation, firmware update chip
+  - Thresholds you can set, sensors of your choice
+  - Compact mini card with a detail view
+  homeassistant: 2024.8.0
+  keywords: "router firewall mesh wifi firewalla opnsense pfsense unifi ubiquiti omada tp-link deco mikrotik asus netgear orbi keenetic openwrt glinet xiaomi eero velop linksys ruckus wan access point speedtest"
+  cardTypes:
+  - router-card
+  - router-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: UniFi gateway
+    group: Card
+  screenshots:
+  - src: card-firewalla.png
+    dark: card-firewalla-dark.png
+    caption: Firewalla card
+    group: Card
+  - src: card-deco.png
+    dark: card-deco-dark.png
+    caption: TP-Link Deco card
+    group: Card
+  - src: card-opnsense.png
+    dark: card-opnsense-dark.png
+    caption: OPNsense card
+    group: Card
+  - src: card-asuswrt.png
+    dark: card-asuswrt-dark.png
+    caption: ASUS router card
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Default view
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Mini card, detail view
+    group: Mini card
 - slug: ha-nas-card
   title: NAS Card
   kind: card
