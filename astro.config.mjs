@@ -49,6 +49,8 @@ const renamed = {
   "ha-switch": "ha-switch-card",
   "ha-hacs-refresh": "ha-marketplace-refresh",
   "ha-github-card": "ha-github",
+  "ha-renault-card": "ha-vehicle-card",
+  "ha-home-camera-card": "ha-camera",
 };
 
 export default defineConfig({

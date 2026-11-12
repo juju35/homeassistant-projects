@@ -798,8 +798,10 @@ projects:
   - Alarmo refusing to arm lists the open sensors, with Arm anyway
   - Single-row mini card
   - Cameras of your choice, their snapshots shown while the alarm is triggered or counting down
+  - Buttons section with switches, lights, scripts and scenes of your choice, such as the plugs of the cameras
+  - Display names for the sensors, cameras and buttons, set in the visual editor
   homeassistant: 2024.8.0
-  keywords: "alarmo alarm control panel security verisure ajax manual"
+  keywords: "alarmo alarm control panel security verisure ajax manual buttons switch"
   cardTypes:
   - alarm-card
   - alarm-mini-card
@@ -828,6 +830,10 @@ projects:
   - src: card-failed-arm.png
     dark: card-failed-arm-dark.png
     caption: Open sensors when Alarmo refuses to arm
+    group: Card
+  - src: card-buttons.png
+    dark: card-buttons-dark.png
+    caption: Buttons section
     group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
@@ -927,34 +933,43 @@ projects:
   - src: padlock-unlocking.gif
     dark: padlock-unlocking-dark.gif
     caption: Padlock unlocking
-- slug: ha-home-camera-card
-  title: Home Camera Card
-  kind: card
+- slug: ha-camera
+  title: Home Camera
+  kind: integration
+  withCard: true
   category: security
   icon: mdiCctv
   accent: '#e5484d'
-  tagline: Every home camera in one grid, with a privacy badge per camera, HD / SD and PTZ.
-  summary: List the cameras and the card finds their privacy switch, SD stream and PTZ buttons by itself. Hidden cameras leave the grid, and a live dot shows which ones are filming.
+  tagline: A Cameras panel for every user and camera cards, with a privacy badge per camera, HD / SD and PTZ.
+  summary: An integration with a Cameras sidebar panel open to every user, not only administrators, and the Lovelace cards behind it. List the cameras and it finds their privacy switch, SD stream and PTZ buttons by itself; hidden cameras leave the grid, and a live dot shows which ones are filming.
   highlights:
-  - One grid for every camera
+  - Cameras panel in the sidebar for every user, a video wall edge to edge
+  - Settings tab for administrators, with camera discovery and a copy of an existing camera card
   - 'Privacy badge per camera: live dot or lock'
-  - HD / SD switch shared across dashboards
-  - Pan and tilt controls
+  - HD / SD switch, setting each Tapo camera's own stream quality
+  - Pan and tilt controls, round pad in full screen
   - Motion badge while a motion, occupancy or person sensor of the camera is on
-  - Full screen view
+  - Low latency streams, WebRTC alone when the camera offers it, with its sound
   - Mini card with a snapshot per camera, opening the full card
   - Streams paused while the card is off-screen
-  homeassistant: 2024.8.0
-  keywords: "camera cctv privacy ptz frigate reolink"
+  homeassistant: 2024.12.0
+  keywords: "camera cctv privacy ptz frigate reolink tapo webrtc go2rtc panel"
+  worksWith:
+  - slug: ha-tapo
+    why: "Its privacy mode, pan and tilt and stream quality are found by the cards"
   cardTypes:
   - home-camera-card
   - home-camera-mini-card
   hero:
-    src: card.png
+    src: panel.png
+    dark: panel-dark.png
+    caption: Cameras panel
+    group: Panel
+  screenshots:
+  - src: card.png
     dark: card-dark.png
     caption: Camera card
     group: Card
-  screenshots:
   - src: card-ptz.png
     dark: card-ptz-dark.png
     caption: Pan and tilt arrows
@@ -965,7 +980,7 @@ projects:
     group: Card
   - src: card-hidden-light.png
     dark: card-hidden.png
-    caption: Camera card with every camera hidden, dark theme
+    caption: Camera card with every camera hidden
     group: Card
   - src: card-fullscreen-light.png
     dark: card-fullscreen.png
@@ -982,6 +997,28 @@ projects:
   - src: loading.gif
     dark: loading-dark.gif
     caption: Loading
+- slug: ha-tapo
+  title: Tapo Cameras
+  kind: integration
+  category: security
+  icon: mdiCctv
+  accent: '#4acbd6'
+  tagline: TP-Link Tapo cameras, fully local, with detections that come back on their own after a reboot.
+  summary: 'Live stream, privacy mode, pan and tilt with presets, detection settings, and motion, person, vehicle, pet… sensors created from the start. Built for the cameras'' quirks: one request at a time, events renewed before they expire, no login storms.'
+  highlights:
+  - One camera entity per camera, with a stream quality select (HD or SD)
+  - Privacy mode shown as a crossed-out camera, its stream stopped
+  - Detection sensors created at setup for every detection the camera supports
+  - ONVIF events renewed before they expire and after a reboot, steady detections
+  - Switches, selects and numbers for the camera's settings, siren, spotlight, firmware update
+  - Pan and tilt by an angle, presets to go to, save or delete
+  - DHCP discovery, reconfigure, re-authentication and diagnostics
+  homeassistant: 2025.8.0
+  keywords: "tapo tp-link camera onvif privacy ptz detection motion person local"
+  worksWith:
+  - slug: ha-camera
+    why: "Shows its cameras with their privacy badge, HD / SD and pan and tilt"
+
 - slug: ha-smart-appliance-card
   title: Smart Appliance Card
   kind: card
@@ -1350,11 +1387,12 @@ projects:
   category: appliances
   icon: mdiRobotMower
   accent: '#5a9e3c'
-  tagline: 'Robot lawn mowers from Husqvarna, Worx, Ecovacs, Mammotion, ZCS, Bosch and Gardena: status, battery, actions, map.'
-  summary: 'Works on top of the integrations you already use (Husqvarna Automower, Landroid Cloud, Ecovacs, Mammotion, ZCS Mower, Bosch Indego, Gardena Smart System) and any other lawn_mower entity, with automatic discovery: a drawn mower in the brand''s colours animated by what it does, battery, next start, settings, errors, actions, options, maintenance, statistics, live cameras and map.'
+  tagline: 'Robot lawn mowers from Husqvarna, Worx, Ecovacs, Mammotion, ZCS, Bosch, Gardena and Dreame: status, battery, actions, map.'
+  summary: 'Works on top of the integrations you already use (Husqvarna Automower, Landroid Cloud, Ecovacs, Mammotion, ZCS Mower, Bosch Indego, Gardena Smart System, Dreame Mower) and any other lawn_mower entity, with automatic discovery: a drawn mower in the brand''s colours animated by what it does, battery, next start, settings, errors, actions, options, maintenance, statistics, live cameras and map.'
   highlights:
-  - Husqvarna, Worx (Landroid, Kress, Landxcape), Ecovacs GOAT, Mammotion, ZCS, Bosch Indego and Gardena supported, plus any lawn_mower entity
-  - Drawn mower picture in the brand's colours, animated while mowing, returning, charging, in error or under rain delay
+  - Husqvarna, Worx (Landroid, Kress, Landxcape), Ecovacs GOAT, Mammotion, ZCS, Bosch Indego, Gardena and Dreame supported, plus any lawn_mower entity
+  - Entities of your choice for an integration the cards do not know or a sensor of your own
+  - Drawn mower picture in the brand's colours (Dreame with its LiDAR turret), animated while mowing, returning, charging, in error or under rain delay
   - Battery, status, next start, progress, work area, cutting height and mower settings as tags
   - Start / pause, stop and dock buttons following the entity's supported features
   - Integration buttons as one-tap actions with a confirmation, switches as options
@@ -1362,7 +1400,7 @@ projects:
   - Live vision cameras (Mammotion) and garden map (Ecovacs GOAT, Bosch Indego) in collapsible sections
   - Mini card with a detail button switching to the full card
   homeassistant: 2024.8.0
-  keywords: "lawn mower robot tondeuse automower husqvarna landroid worx goat ecovacs mammotion luba indego gardena"
+  keywords: "lawn mower robot tondeuse automower husqvarna landroid worx goat ecovacs mammotion luba indego gardena dreame"
   cardTypes:
   - mower-card
   - mower-mini-card
@@ -1387,6 +1425,10 @@ projects:
   - src: card-indego.png
     dark: card-indego-dark.png
     caption: Bosch Indego
+    group: Card
+  - src: card-dreame.png
+    dark: card-dreame-dark.png
+    caption: Dreame
     group: Card
   - src: card-camera-light.png
     dark: card-camera.png
@@ -1423,6 +1465,10 @@ projects:
   - src: mini-card-indego.png
     dark: mini-card-indego-dark.png
     caption: Bosch Indego
+    group: Mini card
+  - src: mini-card-dreame.png
+    dark: mini-card-dreame-dark.png
+    caption: Dreame
     group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
@@ -1556,7 +1602,7 @@ projects:
   tagline: Internet boxes from France to Canada at a glance, Freebox, Livebox, FRITZ!Box, Vodafone Station, Starlink and more.
   summary: Download and upload rates, connection, temperatures, fans, storage, Wi-Fi, missed calls and connected devices for eleven box integrations. The header icon shows the kind of connection with the operator's logo as a badge, and the colours and links follow the detected box, down to the provider of a rebranded gateway.
   highlights:
-  - Freebox, Livebox, SFR Box and Bbox (France)
+  - Freebox, Livebox, SFR Box and Bbox (France), the Bbox through either of its integrations
   - FRITZ!Box, Vodafone Station, Swisscom Internet-Box, KPN Box 12
   - Sagemcom F@st gateways branded by their provider (Telekom, BT, Bell, Proximus, KPN, eir…)
   - Huawei LTE and ZTE 4G / 5G routers, Starlink
@@ -1564,15 +1610,16 @@ projects:
   - Box picture and model detected automatically, generic pictures in the provider's colour
   - Connection type, public IP and uptime
   - Real link status of the Livebox and the SFR Box
-  - Livebox fibre rates read from the GPON or SFP interface, Arcadyan Livebox Fibre included
+  - Livebox fibre rates read from the GPON or SFP interface, Arcadyan and Sagemcom Livebox Fibre included
   - Download and upload rates with their last 24 hours, gaps shown as gaps
   - Temperature and disk thresholds you can set
   - Wi-Fi networks, connected devices and missed calls
   - Wi-Fi switch turning the box's Wi-Fi on, or off after a confirmation
   - Compact mini card
-  - Last Speedtest.net result (download, upload, ping) found automatically
+  - Last Speedtest.net result (download, upload, ping) found automatically, or Fast.com
+  - Sensors of your choice, for another speed test (LibreSpeed, Speedtest Tracker…) or the box's own values
   homeassistant: 2024.8.0
-  keywords: "freebox free livebox orange sfr bbox bouygues fritz fritzbox avm vodafone swisscom sagemcom kpn proximus telekom speedport bt eir bell huawei lte zte starlink router internet box wifi"
+  keywords: "freebox free livebox orange sfr bbox bouygues fritz fritzbox avm vodafone swisscom sagemcom kpn proximus telekom speedport bt eir bell huawei lte zte starlink router internet box wifi speedtest librespeed fast.com"
   cardTypes:
   - internet-box-card
   - internet-box-mini-card
@@ -1824,19 +1871,20 @@ projects:
   category: network
   icon: mdiShieldCheck
   accent: '#68bc71'
-  tagline: 'AdGuard Home or Pi-hole at a glance: queries, blocked, protection and pause.'
-  summary: 'Built on the AdGuard Home and Pi-hole integrations included in Home Assistant, with every instance discovered automatically: four statistics tiles with their last 24 hours, detail counters, protection status, AdGuard setting switches and Pi-hole pause durations.'
+  tagline: 'AdGuard Home, Pi-hole or Technitium DNS at a glance: queries, blocked, protection and pause.'
+  summary: 'Built on the AdGuard Home and Pi-hole integrations included in Home Assistant and the Technitium DNS integration of the Marketplace, with every instance discovered automatically: four statistics tiles with their last 24 hours, detail counters, protection status, AdGuard setting switches and Pi-hole pause durations.'
   highlights:
-  - AdGuard Home and Pi-hole supported, several instances, both can be mixed
+  - AdGuard Home, Pi-hole and Technitium DNS supported, several instances, all can be mixed
   - DNS queries, blocked queries, blocked ratio and processing time or block lists, with their last 24 hours behind them
   - Detail counters per integration (parental control, safe browsing, clients, cached and forwarded queries…)
   - Status pill turning the AdGuard protection on or off, or pausing Pi-hole blocking
   - 'AdGuard Home: the six setting switches as chips, and a filter lists refresh button'
-  - 'Pi-hole: pause popup with durations, resume button while paused'
+  - 'Pi-hole and Technitium DNS: pause popup with durations, resume button while paused'
+  - Sensors of your choice for a tile, a counter or the blocking switch
   - Versions in the footer with an update chip for each pending update
   - Mini card with a detail button switching to the full card
   homeassistant: 2024.8.0
-  keywords: "adguard pihole pi-hole dns blocker ads filter queries blocked"
+  keywords: "adguard pihole pi-hole technitium dns blocker ads filter queries blocked"
   cardTypes:
   - dns-filter-card
   - dns-filter-mini-card
@@ -1850,6 +1898,10 @@ projects:
     dark: card-pihole-dark.png
     caption: Pi-hole
     group: Card
+  - src: card-technitium.png
+    dark: card-technitium-dark.png
+    caption: Technitium DNS
+    group: Card
   - src: pause.png
     dark: pause-dark.png
     caption: Pi-hole pause popup
@@ -1861,6 +1913,10 @@ projects:
   - src: mini-card-pihole.png
     dark: mini-card-pihole-dark.png
     caption: Pi-hole
+    group: Mini card
+  - src: mini-card-technitium.png
+    dark: mini-card-technitium-dark.png
+    caption: Technitium DNS
     group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
@@ -1913,40 +1969,82 @@ projects:
     dark: mini-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
-- slug: ha-renault-card
-  title: Renault Card
+- slug: ha-vehicle-card
+  title: Vehicle Card
   kind: card
   category: car
   icon: mdiCar
   accent: '#e1b000'
-  tagline: Vehicle and map cards for the Renault integration.
-  summary: Range, fuel, battery, mileage, tyres, charging, location and actions, whatever your car exposes, with an optional section for the Orange Internet On the move data plan.
+  tagline: Vehicle and map cards for connected cars of any brand.
+  summary: Range, fuel, battery, mileage, charging, lock, location and actions for Renault, Tesla, Volvo, Stellantis, the VW group, Kia and Hyundai, Toyota, Mercedes-Benz and more, with the brand's logo, the car's picture and an optional section for the Orange Internet On the move data plan.
   highlights:
-  - Range, fuel gauge, battery and mileage
-  - Tyre pressures by position, with a low pressure warning
-  - Charging status, plug, lock and doors
-  - Map card with the last location
-  - Action buttons with a confirmation tap
-  - Lease section and official vehicle picture
-  - Mini card with the picture, battery, range and charging, opening the full card
+  - 18 car integrations found by themselves, entities matched by their translation keys
+  - Brand logo for 33 brands and the picture the integration gives (Renault Picture, Volvo, VW group, Stellantis, Toyota)
+  - Range, fuel level or gauge, battery, mileage and outside temperature
+  - Charging and time left, plug, lock, doors, air conditioning and tyre pressures
+  - The car's action buttons, plus buttons of your choice (a wallbox, a script, a lock…), with a confirmation tap
+  - Connected services subscription (VW group) and an offline chip (Teslemetry)
+  - Map card with every vehicle and its picture, lease section, mini card
   homeassistant: 2024.8.0
-  keywords: "renault espace captur megane zoe ev car vehicle tank fuel charge tyre tire pressure"
+  keywords: "car vehicle ev renault dacia tesla volvo skoda subaru nissan peugeot citroen opel fiat jeep stellantis kia hyundai toyota lexus volkswagen audi seat cupra mercedes polestar ford tank fuel charge tyre tire pressure"
   worksWith:
   - slug: ha-renault-picture
-    why: "Shows the official MyRenault photo of your car on the card"
+    why: "Shows the official MyRenault photo of your Renault on the card"
+  - slug: ha-vehicle-consumption
+    why: "Tracks the fuel and energy consumption of the same car"
   cardTypes:
-  - renault-card
-  - renault-mini-card
-  - renault-map-card
+  - vehicle-card
+  - vehicle-mini-card
+  - vehicle-map-card
   hero:
     src: espace.png
     dark: espace-dark.png
-    caption: Renault Espace card
+    caption: Renault Espace
     group: Vehicle card
   screenshots:
   - src: captur.png
     dark: captur-dark.png
-    caption: Renault Captur card
+    caption: Renault Captur
+    group: Vehicle card
+  - src: tesla.png
+    dark: tesla-dark.png
+    caption: Tesla Model 3
+    group: Vehicle card
+  - src: xc60.png
+    dark: xc60-dark.png
+    caption: Volvo XC60
+    group: Vehicle card
+  - src: octavia.png
+    dark: octavia-dark.png
+    caption: Škoda Octavia
+    group: Vehicle card
+  - src: outback.png
+    dark: outback-dark.png
+    caption: Subaru Outback
+    group: Vehicle card
+  - src: e208.png
+    dark: e208-dark.png
+    caption: Peugeot e-208
+    group: Vehicle card
+  - src: ev6.png
+    dark: ev6-dark.png
+    caption: Kia EV6
+    group: Vehicle card
+  - src: chr.png
+    dark: chr-dark.png
+    caption: Toyota C-HR
+    group: Vehicle card
+  - src: id4.png
+    dark: id4-dark.png
+    caption: Volkswagen ID.4
+    group: Vehicle card
+  - src: formentor.png
+    dark: formentor-dark.png
+    caption: CUPRA Formentor
+    group: Vehicle card
+  - src: glc.png
+    dark: glc-dark.png
+    caption: Mercedes-Benz GLC
     group: Vehicle card
   - src: lease.png
     dark: lease-dark.png
@@ -1954,11 +2052,51 @@ projects:
     group: Vehicle card
   - src: mini.png
     dark: mini-dark.png
-    caption: Renault mini card
+    caption: Renault Captur
+    group: Mini card
+  - src: mini-tesla.png
+    dark: mini-tesla-dark.png
+    caption: Tesla Model 3
+    group: Mini card
+  - src: mini-xc60.png
+    dark: mini-xc60-dark.png
+    caption: Volvo XC60
+    group: Mini card
+  - src: mini-octavia.png
+    dark: mini-octavia-dark.png
+    caption: Škoda Octavia
+    group: Mini card
+  - src: mini-outback.png
+    dark: mini-outback-dark.png
+    caption: Subaru Outback
+    group: Mini card
+  - src: mini-e208.png
+    dark: mini-e208-dark.png
+    caption: Peugeot e-208
+    group: Mini card
+  - src: mini-ev6.png
+    dark: mini-ev6-dark.png
+    caption: Kia EV6
+    group: Mini card
+  - src: mini-chr.png
+    dark: mini-chr-dark.png
+    caption: Toyota C-HR
+    group: Mini card
+  - src: mini-id4.png
+    dark: mini-id4-dark.png
+    caption: Volkswagen ID.4
+    group: Mini card
+  - src: mini-formentor.png
+    dark: mini-formentor-dark.png
+    caption: CUPRA Formentor
+    group: Mini card
+  - src: mini-glc.png
+    dark: mini-glc-dark.png
+    caption: Mercedes-Benz GLC
     group: Mini card
   - src: map.png
     dark: map-dark.png
-    caption: Map card
+    caption: Vehicles of two brands
     group: Map card
   animations:
   - src: lease.gif
@@ -1971,7 +2109,7 @@ projects:
   icon: mdiCarInfo
   accent: '#e1b000'
   tagline: The official MyRenault picture of each vehicle, as a sensor.
-  summary: 'Reads the picture URL already loaded by the core Renault integration and publishes it as a sensor: no credentials, no extra API call. Used by the Renault Card.'
+  summary: 'Reads the picture URL already loaded by the core Renault integration and publishes it as a sensor: no credentials, no extra API call. Used by the Vehicle Card.'
   highlights:
   - One picture sensor per vehicle, on the existing device
   - Image entity per vehicle serving the picture through Home Assistant
@@ -1981,8 +2119,8 @@ projects:
   homeassistant: 2025.8.0
   keywords: "renault myrenault car picture photo image"
   worksWith:
-  - slug: ha-renault-card
-    why: "Its picture is shown by the Renault Card"
+  - slug: ha-vehicle-card
+    why: "Its picture is shown by the Vehicle Card"
 - slug: ha-vehicle-consumption
   title: Vehicle Consumption
   kind: integration
@@ -2429,12 +2567,15 @@ projects:
   - 'Watchdog: reloads the integrations whose entities are all unavailable, power cycles through a smart plug, Repairs when it gives up'
   - 'Marketplace: server-side check of the updates at the interval you choose, update all with an optional backup first'
   - 'Batteries: low batteries notified twice a day, replacement forecast, spare batteries per type, CSV export'
-  - 'Git Sync: commit and push the configuration with AI commit messages, pull, dashboard export, secret guard'
+  - 'Git Sync: commit and push the configuration with AI commit messages, pull, dashboard export, secret guard, several repositories'
+  - 'Automations: failed automations and unavailable linked entities, with devices and entities to leave out'
+  - Restart Home Assistant and reload the configuration from the System tab, each confirmed in a dialog
   - Sidebar panel for administrators with the System tab, a tab per module and the order of the tabs, in the address
-  - 'The Lovelace cards of the projects it replaces, served by the integration: System Monitor, Watchdog, Marketplace Refresh, Battery Monitor, Git Sync and Orphan Entities'
+  - 'The Lovelace cards of the projects it replaces, served by the integration: System Monitor (with sensors of your choice), Automation Monitor, Watchdog, Marketplace Refresh, Battery Monitor, Git Sync and Orphan Entities'
+  - A module turned on takes over the settings of the standalone integration it replaces
   - Actions and events for automations, prefixed by module
   - Diagnostics of every module, secrets redacted; 23 languages
-  homeassistant: 2026.11.0
+  homeassistant: 2024.12.0
   keywords: "system monitor containers add-ons supervisor marketplace updates watchdog reload batteries git sync panel admin modules"
   cardTypes:
   - system-monitor-card
@@ -2535,6 +2676,10 @@ projects:
   - src: config-git-sync.png
     dark: config-git-sync-dark.png
     caption: Git Sync
+    group: Settings
+  - src: config-automations.png
+    dark: config-automations-dark.png
+    caption: 'Automations: devices and entities left out'
     group: Settings
   - src: config-orphans.png
     dark: config-orphans-dark.png
