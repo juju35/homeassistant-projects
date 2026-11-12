@@ -2089,20 +2089,29 @@ projects:
 - slug: ha-proxmox
   title: Proxmox Panel
   kind: integration
+  withCard: true
   category: network
   icon: mdiServer
   accent: '#e57000'
-  tagline: A Proxmox sidebar panel for the nodes, virtual machines, containers, storage and backups of Proxmox VE.
-  summary: 'An admin panel over the built-in Proxmox VE integration, with the Proxmox logo in the sidebar: your nodes with their rings and 24-hour curves, every virtual machine and LXC container with the action that fits, storage gauges and backups. It reads the integration''s entities and presses its buttons, with nothing more to configure.'
+  tagline: A Proxmox sidebar panel and cards for the nodes, virtual machines, containers, storage and backups of Proxmox VE.
+  summary: 'An admin panel over the built-in Proxmox VE integration, with the Proxmox logo in the sidebar: your nodes with their rings and 24-hour curves, every virtual machine and LXC container with the action that fits, storage gauges and backups, and cards for your dashboards: a node card, a machine card and their mini cards. It reads the integration''s entities and presses its buttons, with nothing more to configure.'
   highlights:
   - 'Nodes: CPU, RAM and disk rings with 24-hour curves, uptime, version, pending update, node-wide actions'
   - 'VMs and containers: status, CPU, RAM and uptime, start, shut down, restart, snapshot and more, search and node filter'
   - Details unfolded under each machine, with every action that fits its status
   - Confirmation before stopping or restarting anything
   - Storage gauges with used, free and total space; last backup of each node and manual snapshots
-  - Administrators only; light and dark themes; 22 languages
+  - 'Node card: rings, machines running first, storage gauges; a mini card with one line per node'
+  - 'Machine card for a VM or a container: rings, network and the actions that fit; a mini card with a quick Start'
+  - Cards seen by every user, their actions offered to administrators only; visual editors
+  - Panel for administrators only; light and dark themes; 22 languages
   homeassistant: 2026.11.0
-  keywords: "proxmox pve virtual machines vm lxc containers node storage backups snapshot homelab panel admin"
+  keywords: "proxmox pve virtual machines vm lxc containers node storage backups snapshot homelab panel admin card mini card"
+  cardTypes:
+  - proxmox-card
+  - proxmox-mini-card
+  - proxmox-guest-card
+  - proxmox-guest-mini-card
   hero:
     src: panel-nodes.png
     dark: panel-nodes-dark.png
@@ -2133,6 +2142,42 @@ projects:
     dark: panel-settings-dark.png
     caption: Settings tab
     group: Panel
+  - src: card.png
+    dark: card-dark.png
+    caption: Node card
+    group: Node card
+  - src: card-options.png
+    dark: card-options-dark.png
+    caption: Two machines per list, no stopped machine
+    group: Node card
+  - src: card-confirm.png
+    dark: card-confirm-dark.png
+    caption: Confirmation of a restart
+    group: Node card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Node mini card
+    group: Node mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Zoomed in to the full card
+    group: Node mini card
+  - src: guest-card.png
+    dark: guest-card-dark.png
+    caption: Virtual machine
+    group: Machine card
+  - src: guest-card-stopped.png
+    dark: guest-card-stopped-dark.png
+    caption: Stopped container
+    group: Machine card
+  - src: guest-mini-card.png
+    dark: guest-mini-card-dark.png
+    caption: Machine mini card
+    group: Machine mini card
+  - src: guest-mini-card-zoom.png
+    dark: guest-mini-card-zoom-dark.png
+    caption: Zoomed in to the full card
+    group: Machine mini card
 - slug: ha-vehicle-card
   title: Vehicle Card
   kind: card
