@@ -796,11 +796,12 @@ projects:
   - Load gauge against the subscribed power, fixed or from a sensor, with thresholds you can set
   - Consumption and cost from long-term statistics, priced per tier or from a price sensor
   - 24 h power curve with the real peak of the day
-  - Tempo colours of today and tomorrow, on the mini card too
+  - "Tempo colours and EDF Zen Flex day types (Éco, Sobriété, Bonus) of today and tomorrow, on the mini card too"
+  - "ESPHome teleinfo too, its indexes found by their names"
   - 'Contract comparison: your last 12 months priced as Base and as Off-peak / Peak'
   - 'Three-phase meters: apparent power per phase, each phase measured against its share of the subscribed power'
   homeassistant: 2024.8.0
-  keywords: "linky lixee zha zigbee2mqtt energy electricity tic meter power tempo"
+  keywords: "linky lixee zha zigbee2mqtt esphome teleinfo energy electricity tic meter power tempo zen flex"
   worksWith:
   - slug: ha-energy-card
     why: "Solar production and home batteries"
@@ -853,7 +854,7 @@ projects:
   - "The picture is the position slider, dragged the way the cover moves"
   - "Tilt slider for slats that tilt, only when the cover supports it"
   - "Favorite positions in one tap, Open all / Stop / Close all for a group"
-  - "Every cover of an area in one card"
+  - "Every cover of an area in one card, in a list or in two or three columns of unfolded tiles"
   - "Confirmation before moving a garage door, a gate or a door"
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
@@ -2276,7 +2277,8 @@ projects:
   tagline: "PetKit feeders and water fountains: food, water, filter and a manual feed in two taps."
   summary: "Cards for smart pet devices: food and water levels, filter and desiccant, today's meals and a manual feed from a popup. PetKit feeders and fountains are found on their own."
   highlights:
-  - "PetKit feeders (Fresh Element Infinity, Solo, Gemini, Mini Pro) and Eversweet fountains"
+  - "PetKit feeders (Fresh Element Infinity, Solo, Gemini, Mini Pro, YumShare Dual-Hopper with its camera) and Eversweet fountains, Max cordless included"
+  - "Both PetKit integrations: RobertD502's and Jezza34000's"
   - "Food level per hopper, meals and food dispensed today"
   - "Manual feed in a popup, in the feeder's own amounts"
   - "Water level, filter left, mode and switches of the fountains"
@@ -2800,7 +2802,7 @@ projects:
   - Details unfolded under each machine, with every action that fits its status
   - Confirmation before stopping or restarting anything
   - Storage gauges with used, free and total space; last backup of each node and manual snapshots
-  - 'Node card: rings, machines running first, storage gauges; a mini card with one line per node'
+  - "Node card: CPU, RAM and disk gauges as the other cards, machines running first, storage; sections that fold, a title of your own; a mini card with one line per node"
   - 'Machine card for a VM or a container: rings, network and the actions that fit; a mini card with a quick Start'
   - Cards seen by every user, their actions offered to administrators only; visual editors
   - Panel for administrators only; light and dark themes; 22 languages
@@ -3729,9 +3731,10 @@ projects:
   category: everyday
   icon: mdiBusClock
   accent: '#00897b'
-  tagline: "The next departures at your public transport stops, with traffic alerts."
-  summary: "Lines, direction, minutes left, real time or timetable, and the traffic alerts of your stops, set up in the UI. The first network is STAR, the bus and metro of Rennes Métropole; cards are bundled with the integration."
+  tagline: "The next departures at your public transport stops, in more than 200 French cities, with traffic alerts."
+  summary: "Lines, direction, minutes left, real time or timetable, and the traffic alerts of your stops, set up in the UI. Rennes (STAR), Paris and Île-de-France (IDFM), Lyon (TCL) and Strasbourg (CTS) have providers of their own; Toulouse, Bordeaux, Montpellier, Nantes, Lille and every other network publishing real time on transport.data.gouv.fr come through GTFS-RT. Cards are bundled with the integration."
   highlights:
+  - "More than 200 networks: STAR, IDFM, TCL and CTS, and every GTFS-RT network of transport.data.gouv.fr"
   - "Stops set up in the UI: pick the network, search the stop, choose the lines"
   - "Next departure sensor per stop and a sensor per followed line"
   - "Real time with its delay, or timetable"
@@ -3740,7 +3743,7 @@ projects:
   - "Card with line badges in their official colours and a live countdown"
   - "Mini card with the next three departures of each stop"
   homeassistant: 2024.12.0
-  keywords: "transports en commun bus métro metro tram star rennes public transport departures horaires gtfs"
+  keywords: "transports en commun bus métro metro tram star rennes paris idfm île-de-france lyon tcl strasbourg cts toulouse tisséo bordeaux tbm montpellier tam nantes naolib lille ilévia brest bibus rouen nice tours angers le havre public transport departures horaires gtfs gtfs-rt"
   cardTypes:
   - public-transport-card
   - public-transport-mini-card
@@ -3808,7 +3811,8 @@ projects:
   - "Several students, one tab each"
   - "Timetable with canceled and changed lessons standing out"
   - "Homework grouped by due day, done or to do"
-  - "Latest grades and averages with the class average"
+  - "Latest grades and averages with the class average, its lowest and highest, and each grade's coefficient"
+  - "Grades of the past terms, one button each"
   - "School life: absences, late arrivals, punishments, menu"
   - "Animated school picture following the day"
   - "Mini card with the next lesson and homework"
@@ -3865,6 +3869,7 @@ projects:
   - "Price in its currency and the change of the day, green or red"
   - "Sparkline over 24 hours, 5 days, 1 month, 3 months or 1 year"
   - "Optional portfolio: value per position, total, change of the day and gain"
+  - "Total and gain in the currency you choose, converted with an exchange rate sensor"
   - "Market status: open, pre-market, after hours, closed"
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0

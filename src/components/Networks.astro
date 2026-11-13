@@ -1,0 +1,157 @@
+---
+// Cities and networks of a public transport project (ha-public-transport), read from its README (lib/networks.ts):
+// the networks with a provider of their own as tiles, then every network reached through GTFS-RT, searchable by city
+// or network name, the first ones shown and the rest behind "Show all". Nothing for a project without the list.
+import Icon from "./Icon.astro";
+import { networks as readNetworks } from "../lib/networks";
+import { readme } from "../lib/readme";
+import type { Project } from "../lib/projects";
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const md = await readme(project);
+const list = md ? readNetworks(md) : null;
+const SHOWN = 24;
+const total = list ? list.own.length + list.gtfs.length : 0;
+---
+
+{
+  list && (
+    <section class="ha-card pad networks" id="cities" style={`--c:${project.accent}`}>
+      <h2 class="section-title">
+        <Icon name="mdiMapMarkerMultipleOutline" /> Cities &amp; networks <span class="count">{total}</span>
+      </h2>
+
+      {list.own.length > 0 && (
+        <>
+          <p class="muted lead-in">With a provider of their own:</p>
+          <ul class="own">
+            {list.own.map((n) => (
+              <li>
+                <a class="tile own-net" href={n.url} target="_blank" rel="noopener">
+                  <span class="badge"><Icon name="mdiBusClock" /></span>
+                  <span class="titles">
+                    <span class="name">{n.area.replace(/\s*\(France\)$/, "")}</span>
+                    <span class="sub">{n.name}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {list.gtfs.length > 0 && (
+        <>
+          <div class="search-row">
+            <p class="muted lead-in">
+              And {list.gtfs.length} networks through GTFS-RT, from{" "}
+              <a href="https://transport.data.gouv.fr" target="_blank" rel="noopener">transport.data.gouv.fr</a>:
+            </p>
+            <label class="search tile">
+              <Icon name="mdiMagnify" />
+              <input type="search" placeholder="Search a city or a network" aria-label="Search a city or a network" data-net-search />
+            </label>
+          </div>
+          <ul class="gtfs" data-net-list>
+            {list.gtfs.map((n, i) => (
+              <li class:list={["net tile", { extra: i >= SHOWN }]} data-text={`${n.area} ${n.name}`}>
+                <a href={n.url} target="_blank" rel="noopener">
+                  <span class="name">{n.area || n.name}</span>
+                  {n.area && <span class="sub">{n.name}</span>}
+                </a>
+                {n.alerts && (
+                  <span class="alerts" title="Publishes traffic alerts">
+                    <Icon name="mdiAlertOutline" />
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p class="muted none" data-net-none hidden>No network matches that search.</p>
+          {list.gtfs.length > SHOWN && (
+            <button class="btn more" type="button" data-net-more>
+              <Icon name="mdiChevronDown" /> Show all {list.gtfs.length}
+            </button>
+          )}
+        </>
+      )}
+    </section>
+  )
+}
+
+<script>
+  // Accents and case ignored, every word must match
+  const fold = (s: string) =>
+    s
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .toLowerCase();
+  for (const section of document.querySelectorAll<HTMLElement>("section.networks")) {
+    const input = section.querySelector<HTMLInputElement>("[data-net-search]");
+    const list = section.querySelector<HTMLElement>("[data-net-list]");
+    const more = section.querySelector<HTMLButtonElement>("[data-net-more]");
+    const none = section.querySelector<HTMLElement>("[data-net-none]");
+    if (!input || !list) continue;
+    const items = [...list.querySelectorAll<HTMLElement>("li")];
+    const texts = items.map((li) => fold(li.dataset.text || ""));
+    const apply = () => {
+      const words = fold(input.value).split(/\s+/).filter(Boolean);
+      // A search looks through every network; without one, the list as it was (folded or not)
+      list.classList.toggle("searching", words.length > 0);
+      let shown = 0;
+      items.forEach((li, i) => {
+        const hit = words.every((w) => texts[i].includes(w));
+        li.hidden = !hit;
+        if (hit) shown++;
+      });
+      if (none) none.hidden = shown > 0;
+      if (more) more.hidden = words.length > 0 || list.classList.contains("all");
+    };
+    input.addEventListener("input", apply);
+    more?.addEventListener("click", () => {
+      list.classList.add("all");
+      more.hidden = true;
+    });
+  }
+</script>
+
+<style>
+  .networks { margin-top: 16px; }
+  .count {
+    font-size: 12px; font-weight: 500; letter-spacing: 0; padding: 1px 8px; border-radius: 12px;
+    color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent);
+  }
+  .lead-in { margin: 0 0 10px; font-size: 14px; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .own { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-bottom: 20px; }
+  .own-net { display: flex; align-items: center; gap: 12px; padding: 10px 12px; color: inherit; text-decoration: none; }
+  .own-net .titles { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .own-net:hover { background: color-mix(in srgb, var(--c) 10%, var(--secondary-background-color)); }
+  .badge {
+    width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
+    color: var(--c); background: color-mix(in srgb, var(--c) 18%, transparent);
+  }
+  .badge svg { width: 22px; height: 22px; }
+  .search-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 10px; }
+  .search-row .lead-in { margin: 0; }
+  .search { display: flex; align-items: center; gap: 8px; padding: 0 12px; height: 40px; flex: 0 1 300px; min-width: 200px; }
+  .search svg { width: 18px; height: 18px; color: var(--secondary-text-color); flex: none; }
+  .search input { all: unset; flex: 1; min-width: 0; font-size: 14px; color: var(--primary-text-color); }
+  .search:focus-within { outline: 2px solid var(--c); outline-offset: 1px; }
+  .gtfs { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .net { display: flex; align-items: center; gap: 8px; padding: 8px 12px; min-width: 0; }
+  .net a { flex: 1; min-width: 0; display: flex; flex-direction: column; color: inherit; text-decoration: none; }
+  .net a:hover .name { color: var(--c); }
+  .net .name, .net .sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .net .name { font-size: 14px; font-weight: 500; }
+  .alerts { color: var(--c); flex: none; display: grid; }
+  .alerts svg { width: 16px; height: 16px; }
+  /* The first ones, the rest behind "Show all"; a search looks through all of them */
+  .gtfs:not(.all):not(.searching) .extra { display: none; }
+  .net[hidden] { display: none; }
+  .more { margin: 14px auto 0; display: flex; --c: var(--primary-color); }
+  .none { margin: 10px 0 0; }
+</style>
