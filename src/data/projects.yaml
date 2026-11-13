@@ -37,69 +37,15 @@ contributors:
 - login: domwu0001
   contribution: German translation proposal
   project: ha-vacuum-card
-- login: Maxxiime
-  contribution: Idea of the Xiaomi Home support
-  project: ha-vacuum-card
-- login: ytorres
-  contribution: Diagnosis and patches for the Livebox Fibre (Arcadyan GPON) detection and the missed calls count
-  project: ha-internet-box-card
-- login: ctournayre
-  contribution: Idea of the Home Connect Local support
-  project: ha-smart-appliance-card
 - login: FredM67
   contribution: Detection of the Home Connect hob, with the analysis and the patch
   project: ha-smart-appliance-card
-- login: FredM67
-  contribution: Idea and analysis of the apparent power per phase on three-phase meters
-  project: ha-zlinky-card
 - login: aubierr
   contribution: ASUSTOR support through his ha-asustor integration, with the drawings of the 83 models
   project: ha-nas-card
 - login: FredM67
   contribution: Detection of the sub-device warning in the discovery, with the patch
   project: ha-smart-comfort
-- login: FredM67
-  contribution: Idea and analysis of the deprecation of the repositories bundled in System Hub, and of the settings taken over
-  project: ha-system-hub
-- login: tschoiss
-  contribution: Idea of hiding the title and subtitle of the cards, now in every card
-  project: ha-vehicle-card
-- login: Matssa56
-  contribution: Idea of the restart button of the system
-  project: ha-system-hub
-- login: mielikki33
-  contribution: Idea of the Nginx Proxy Manager support
-  project: ha-reverse-proxy
-- login: mielikki33
-  contribution: Idea of a Proxmox dashboard, which became the Proxmox panel
-  project: ha-proxmox
-- login: mielikki33
-  contribution: Idea of the Proxmox cards, to place in any dashboard view
-  project: ha-proxmox
-- login: Matssa56
-  contribution: Idea of the button that runs a speed test, with its turning icon
-  project: ha-internet-box-card
-- login: ssilence5
-  contribution: Idea of the Firewalla and TP-Link Deco support, which became this card
-  project: ha-router-card
-- login: mielikki33
-  contribution: Idea of the saint of the day
-  project: ha-saint-of-the-day
-- login: mielikki33
-  contribution: Idea of the seedbox card (Transmission and others)
-  project: ha-seedbox-card
-- login: mielikki33
-  contribution: Idea of the DNS and certificate supervision
-  project: ha-certificate-card
-- login: mielikki33
-  contribution: Idea of the stock market card
-  project: ha-stock-card
-- login: mielikki33
-  contribution: Idea of the Petkit feeder and fountain card
-  project: ha-pet-card
-- login: mielikki33
-  contribution: Idea of the Jellyfin and Echo support
-  project: ha-media-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
