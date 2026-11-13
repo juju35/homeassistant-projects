@@ -82,6 +82,24 @@ contributors:
 - login: ssilence5
   contribution: Idea of the Firewalla and TP-Link Deco support, which became this card
   project: ha-router-card
+- login: mielikki33
+  contribution: Idea of the saint of the day
+  project: ha-saint-of-the-day
+- login: mielikki33
+  contribution: Idea of the seedbox card (Transmission and others)
+  project: ha-seedbox-card
+- login: mielikki33
+  contribution: Idea of the DNS and certificate supervision
+  project: ha-certificate-card
+- login: mielikki33
+  contribution: Idea of the stock market card
+  project: ha-stock-card
+- login: mielikki33
+  contribution: Idea of the Petkit feeder and fountain card
+  project: ha-pet-card
+- login: mielikki33
+  contribution: Idea of the Jellyfin and Echo support
+  project: ha-media-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
@@ -3540,6 +3558,10 @@ projects:
   summary: "Cards for media players: artwork over a blurred background, progress and controls, volume per room, speaker groups, source and sound mode, the Music Assistant queue and your favorites. The controls follow what each player can do."
   highlights:
   - "Sonos, Music Assistant, Squeezebox, Google Cast, AirPlay, Spotify and any media player"
+  - "Jellyfin: series and episode, client app, idle sessions hidden"
+  - "Echo (Alexa Media Player): last called, do not disturb, next alarm, timer and reminder, Alexa groups"
+  - "Apple TV and HomePod: app playing, apps as sources, optional remote"
+  - "Echo, HomePod and Apple TV drawn from their model when there is no artwork"
   - "Artwork over a blurred background, progress bar you can seek"
   - "Volume per room and speaker groups, join and unjoin"
   - "Source and sound mode, Music Assistant queue, favorites"
@@ -3547,7 +3569,7 @@ projects:
   - "Several players in one card"
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
-  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver"
+  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver jellyfin alexa echo amazon homepod apple tv"
   cardTypes:
   - media-card
   - media-mini-card
@@ -3556,6 +3578,21 @@ projects:
     caption: "Media Card"
     group: Card
   screenshots:
+  - src: card-jellyfin.png
+    caption: "Jellyfin"
+    group: Card
+  - src: card-alexa.png
+    caption: "Echo (Alexa)"
+    group: Card
+  - src: card-apple-tv.png
+    caption: "Apple TV with the remote"
+    group: Card
+  - src: card-homepod.png
+    caption: "HomePod"
+    group: Card
+  - src: card-players-jellyfin-alexa.png
+    caption: "Jellyfin and Echo players"
+    group: Card
   - src: card-narrow.png
     caption: "Narrow"
     group: Card
@@ -3598,6 +3635,9 @@ projects:
   - src: mini-card.png
     caption: "Default view"
     group: Mini card
+  - src: mini-card-alexa.png
+    caption: "Echo (Alexa)"
+    group: Mini card
   animations:
   - src: buffering.gif
     caption: "Buffering"
@@ -3611,6 +3651,28 @@ projects:
     caption: "Speaker"
   - src: tv.gif
     caption: "TV"
+  - src: picture-echo.gif
+    caption: "Echo"
+  - src: picture-echo-dot.gif
+    caption: "Echo Dot, sphere"
+  - src: picture-echo-dot-puck.gif
+    caption: "Echo Dot, puck"
+  - src: picture-echo-pop.gif
+    caption: "Echo Pop"
+  - src: picture-echo-studio.gif
+    caption: "Echo Studio"
+  - src: picture-echo-show.gif
+    caption: "Echo Show"
+  - src: picture-echo-show-small.gif
+    caption: "Echo Show, small"
+  - src: picture-homepod.gif
+    caption: "HomePod"
+  - src: picture-homepod-mini.gif
+    caption: "HomePod mini, from above"
+  - src: picture-homepod-mini-front.gif
+    caption: "HomePod mini, front"
+  - src: picture-apple-tv.gif
+    caption: "Apple TV"
 - slug: ha-public-transport
   title: Public Transport
   kind: integration
