@@ -73,6 +73,12 @@ contributors:
 - login: mielikki33
   contribution: Idea of a Proxmox dashboard, which became the Proxmox panel
   project: ha-proxmox
+- login: mielikki33
+  contribution: Idea of the Proxmox cards, to place in any dashboard view
+  project: ha-proxmox
+- login: Matssa56
+  contribution: Idea of the button that runs a speed test, with its turning icon
+  project: ha-internet-box-card
 - login: ssilence5
   contribution: Idea of the Firewalla and TP-Link Deco support, which became this card
   project: ha-router-card
@@ -1671,6 +1677,7 @@ projects:
   - Compact mini card
   - Last Speedtest.net result (download, upload, ping) found automatically, or Fast.com
   - Sensors of your choice, for another speed test (LibreSpeed, Speedtest Tracker…) or the box's own values
+  - A button to run a new speed test from the card, with Speedtest.net, Fast.com or an entity of your choice
   homeassistant: 2024.8.0
   keywords: "freebox free livebox orange sfr bbox bouygues fritz fritzbox avm vodafone swisscom sagemcom kpn proximus telekom speedport bt eir bell huawei lte zte starlink router internet box wifi speedtest librespeed fast.com"
   cardTypes:
