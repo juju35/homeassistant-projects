@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
+import ProjectLogo from "../../components/ProjectLogo.astro";
 import Shot from "../../components/Shot.astro";
 import Docs from "../../components/Docs.astro";
 import Gallery from "../../components/Gallery.astro";
@@ -20,6 +21,7 @@ import {
 import { latestRelease, formatDate } from "../../lib/releases";
 import { imageSize } from "../../lib/imgsize";
 import { getChangelog } from "../../lib/changelog";
+import { getLogos } from "../../lib/logos";
 
 export function getStaticPaths() {
   return projects.map((project, i) => ({
@@ -52,6 +54,10 @@ const release = await latestRelease(project);
 const heroSize = project.hero ? await imageSize(shotUrl(project, project.hero.src)) : null;
 const heroStyle = heroSize ? `--shot-w:${Math.round(heroSize.w / 2)}px` : undefined;
 const changelog = await getChangelog(project);
+// Brands and integrations the project supports: the logos at the top of its README
+const { brands } = await getLogos(project);
+// Long lists (a card for every car brand) show the first ones, the rest behind "Show all"
+const BRANDS_SHOWN = 12;
 // Projects this one works with, declared on either side
 const related = projects.flatMap((p) => {
   if (p.slug === project.slug) return [];
@@ -70,7 +76,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
     <!-- Header -->
     <section class="ha-card intro" id="overview">
       <div class="header top">
-        <span class="logo lg" style={accent}><Icon name={project.icon} /></span>
+        <ProjectLogo project={project} size="lg" accent />
         <div class="titles">
           <h1>{project.title}</h1>
           <div class="sub">{kindLabel(project)} · {category.label}</div>
@@ -122,7 +128,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
 
     <!-- Section navigation, stays under the top bar -->
     <nav class="subnav" aria-label="On this page">
-      <span class="logo sm" style={accent}><Icon name={project.icon} /></span>
+      <ProjectLogo project={project} size="sm" accent />
       <span class="sn-title">{project.title}</span>
       <div class="sn-links">
         <a href="#overview" class="sn-link active" data-spy="overview">Overview</a>
@@ -151,7 +157,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
             </button>
           ) : (
             <div class="ha-card hero empty">
-              <span class="logo xl" style={accent}><Icon name={project.icon} /></span>
+              <ProjectLogo project={project} size="xl" accent />
               <div class="empty-text">
                 <div class="name">Runs in the background</div>
                 <p class="muted">{project.title} has no dashboard of its own: it works on the server, with its entities, actions and notifications described in the documentation below.</p>
@@ -185,7 +191,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
                 {related.map(({ p, why }) => (
                   <li>
                     <a class="rel-item tile" href={`${base}projects/${p.slug}/`}>
-                      <span class="logo sm" style={`--c:${p.accent}`}><Icon name={p.icon} /></span>
+                      <ProjectLogo project={p} size="sm" accent />
                       <span class="titles">
                         <span class="name">{p.title}</span>
                         <span class="sub">{why}</span>
@@ -195,6 +201,38 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
                   </li>
                 ))}
               </ul>
+            </section>
+          )
+        }
+
+        {
+          brands.length > 0 && (
+            <section class="ha-card pad">
+              <h2 class="section-title"><Icon name="mdiTagMultipleOutline" /> Brands &amp; integrations</h2>
+              <ul class="brands">
+                {brands.slice(0, BRANDS_SHOWN).map((b) => (
+                  <li class="brand tile" title={b.alt}>
+                    <img src={b.src} alt="" loading="lazy" decoding="async" />
+                    <span class="brand-name">{b.alt}</span>
+                  </li>
+                ))}
+              </ul>
+              {brands.length > BRANDS_SHOWN && (
+                <details class="brands-more">
+                  <summary class="btn">
+                    <span class="when-closed"><Icon name="mdiChevronDown" /> Show all {brands.length}</span>
+                    <span class="when-open"><Icon name="mdiChevronUp" /> Show fewer</span>
+                  </summary>
+                  <ul class="brands">
+                    {brands.slice(BRANDS_SHOWN).map((b) => (
+                      <li class="brand tile" title={b.alt}>
+                        <img src={b.src} alt="" loading="lazy" decoding="async" />
+                        <span class="brand-name">{b.alt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
             </section>
           )
         }
@@ -257,7 +295,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
     <nav class="pager" aria-label="Other projects">
       <a class="ha-card nb" href={`${base}projects/${prev.slug}/`}>
         <Icon name="mdiChevronLeft" class="arrow" />
-        <span class="logo sm" style={`--c:${prev.accent}`}><Icon name={prev.icon} /></span>
+        <ProjectLogo project={prev} size="sm" accent />
         <span class="titles">
           <span class="sub">Previous</span>
           <span class="name">{prev.title}</span>
@@ -268,7 +306,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
           <span class="sub">Next</span>
           <span class="name">{next.title}</span>
         </span>
-        <span class="logo sm" style={`--c:${next.accent}`}><Icon name={next.icon} /></span>
+        <ProjectLogo project={next} size="sm" accent />
         <Icon name="mdiChevronRight" class="arrow" />
       </a>
     </nav>
@@ -472,8 +510,22 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
       radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--c) 14%, transparent), transparent 60%),
       var(--card-background-color);
   }
-  .logo.xl { width: 96px; height: 96px; }
-  .logo.xl :global(svg) { width: 52px; height: 52px; }
+  /* Brands & integrations: a grid of logo tiles, the name under each logo */
+  .brands { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+  .brand { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 6px; text-align: center; min-width: 0; }
+  /* On a white chip, so dark logos stay readable in the dark theme */
+  .brand img { height: 40px; width: auto; min-width: 40px; max-width: 80px; object-fit: contain; padding: 4px; box-sizing: border-box; background: #fff; border-radius: 10px; }
+  /* The rest of the brands below the first ones, the button after them */
+  .brands-more { display: flex; flex-direction: column; }
+  .brands-more > ul { margin-top: 8px; }
+  .brands-more > summary { order: 2; list-style: none; align-self: center; margin-top: 12px; cursor: pointer; }
+  .brands-more > summary::-webkit-details-marker { display: none; }
+  .brands-more .when-closed, .brands-more .when-open { display: inline-flex; align-items: center; gap: 4px; }
+  .brands-more .when-open, .brands-more[open] .when-closed { display: none; }
+  .brands-more[open] .when-open { display: inline-flex; }
+  .brand-name { font-size: 12px; line-height: 1.25; color: var(--secondary-text-color); overflow-wrap: anywhere; }
+  :global(.logo.xl) { width: 96px; height: 96px; }
+  :global(.logo.xl svg) { width: 52px; height: 52px; }
   .empty-text { max-width: 44ch; }
   .empty-text p { margin: 6px 0 0; font-size: 14px; }
 
@@ -543,7 +595,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
     .pager { grid-template-columns: 1fr; }
     .subnav { top: 61px; margin-inline: -16px; border-radius: 0; border-inline: 0; border-top: 0; background: var(--card-background-color); }
     .sn-links { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 20px; }
-    .subnav > .logo { display: none; }
+    .subnav > :global(.logo) { display: none; }
     /* Phones: one row (the bar stays ~50px high): the section links scroll, the badge, smaller, ends the row once
        the header's has scrolled away */
     .sn-links { flex: 1 1 auto; min-width: 0; }

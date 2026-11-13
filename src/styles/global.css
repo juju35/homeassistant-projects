@@ -110,6 +110,9 @@ code, pre { font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, mon
 .logo.lg svg { width: 32px; height: 32px; }
 .logo.sm { width: 32px; height: 32px; }
 .logo.sm svg { width: 18px; height: 18px; }
+/* The project's own logo (from its README) fills the slot: it carries its own background */
+.logo.has-img { background: none; overflow: hidden; }
+.logo.has-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 /* Chips: tinted pills */
 .chip {

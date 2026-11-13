@@ -1,0 +1,29 @@
+---
+// The project's own logo (from its README), in the round slot the site uses for icons; the site's icon in the
+// project's accent when the README has none.
+import Icon from "./Icon.astro";
+import type { Project } from "../lib/projects";
+import { getLogos } from "../lib/logos";
+
+interface Props {
+  project: Project;
+  /** Size variant of .logo: sm, lg or xl. */
+  size?: "sm" | "lg" | "xl";
+  /** Accent set on the slot (when the parent doesn't set --c). */
+  accent?: boolean;
+}
+const { project, size, accent = false } = Astro.props;
+const { own } = await getLogos(project);
+---
+
+{
+  own ? (
+    <span class:list={["logo", size, "has-img"]}>
+      <img src={own.src} alt="" loading="lazy" decoding="async" />
+    </span>
+  ) : (
+    <span class:list={["logo", size]} style={accent ? `--c:${project.accent}` : undefined}>
+      <Icon name={project.icon} />
+    </span>
+  )
+}
