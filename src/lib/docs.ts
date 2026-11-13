@@ -3,7 +3,7 @@
 import { Marked } from "marked";
 import { gfmHeadingId, resetHeadings } from "marked-gfm-heading-id";
 import { OWNER, hasGallery, icon, projects, repoUrl, type Project } from "./projects";
-import { fetchSource, tolerant } from "./sources";
+import { readme } from "./readme";
 import { idsOf, resolveAnchors, sanitizeReadme } from "./readme-html";
 
 export interface DocSection {
@@ -178,14 +178,9 @@ export function getDocs(p: Project): Promise<DocSection[] | null> {
 }
 
 async function load(p: Project): Promise<DocSection[] | null> {
-  // Every project has a README: when it can't be fetched (after retries), the build stops rather than publishing
-  // a page without documentation (ALLOW_MISSING_SOURCES=1, or `astro dev`, builds without it).
-  const res = await fetchSource(raw(p.slug, "README.md"), {
-    what: `${p.slug} README`,
-    tolerant: import.meta.env.DEV || tolerant(),
-  });
-  if (!res) return null;
-  const md = await res.text();
+  // Shared with the logos; the build stops when it can't be fetched (see readme.ts).
+  const md = await readme(p);
+  if (md === null) return null;
   const marked = renderer(p.slug);
   resetHeadings(); // the sections below are parsed synchronously, in order, with one shared slugger
   const sections = splitSections(md)

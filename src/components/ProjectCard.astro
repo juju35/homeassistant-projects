@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import ProjectLogo from "./ProjectLogo.astro";
 import Shot from "./Shot.astro";
 import MarketplaceBadge from "./MarketplaceBadge.astro";
 import { kindLabel, projects, type Project } from "../lib/projects";
@@ -33,7 +34,7 @@ const release = await latestRelease(p);
   data-search={search}
 >
   <div class="header">
-    <span class="logo"><Icon name={p.icon} /></span>
+    <ProjectLogo project={p} />
     <div class="titles">
       <h3 class="name"><a class="open" href={`${base}projects/${p.slug}/`}>{p.title}</a></h3>
       <div class="sub">{kindLabel(p)}</div>
@@ -57,7 +58,7 @@ const release = await latestRelease(p);
     </div>
   ) : (
     <div class="preview compact">
-      <span class="logo lg"><Icon name={p.icon} /></span>
+      <ProjectLogo project={p} size="lg" />
       <span class="sub">Runs in the background, no dashboard of its own</span>
     </div>
   )}
