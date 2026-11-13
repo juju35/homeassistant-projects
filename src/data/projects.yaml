@@ -37,51 +37,15 @@ contributors:
 - login: domwu0001
   contribution: German translation proposal
   project: ha-vacuum-card
-- login: Maxxiime
-  contribution: Idea of the Xiaomi Home support
-  project: ha-vacuum-card
-- login: ytorres
-  contribution: Diagnosis and patches for the Livebox Fibre (Arcadyan GPON) detection and the missed calls count
-  project: ha-internet-box-card
-- login: ctournayre
-  contribution: Idea of the Home Connect Local support
-  project: ha-smart-appliance-card
 - login: FredM67
   contribution: Detection of the Home Connect hob, with the analysis and the patch
   project: ha-smart-appliance-card
-- login: FredM67
-  contribution: Idea and analysis of the apparent power per phase on three-phase meters
-  project: ha-zlinky-card
 - login: aubierr
   contribution: ASUSTOR support through his ha-asustor integration, with the drawings of the 83 models
   project: ha-nas-card
 - login: FredM67
   contribution: Detection of the sub-device warning in the discovery, with the patch
   project: ha-smart-comfort
-- login: FredM67
-  contribution: Idea and analysis of the deprecation of the repositories bundled in System Hub, and of the settings taken over
-  project: ha-system-hub
-- login: tschoiss
-  contribution: Idea of hiding the title and subtitle of the cards, now in every card
-  project: ha-vehicle-card
-- login: Matssa56
-  contribution: Idea of the restart button of the system
-  project: ha-system-hub
-- login: mielikki33
-  contribution: Idea of the Nginx Proxy Manager support
-  project: ha-reverse-proxy
-- login: mielikki33
-  contribution: Idea of a Proxmox dashboard, which became the Proxmox panel
-  project: ha-proxmox
-- login: mielikki33
-  contribution: Idea of the Proxmox cards, to place in any dashboard view
-  project: ha-proxmox
-- login: Matssa56
-  contribution: Idea of the button that runs a speed test, with its turning icon
-  project: ha-internet-box-card
-- login: ssilence5
-  contribution: Idea of the Firewalla and TP-Link Deco support, which became this card
-  project: ha-router-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
@@ -3540,6 +3504,10 @@ projects:
   summary: "Cards for media players: artwork over a blurred background, progress and controls, volume per room, speaker groups, source and sound mode, the Music Assistant queue and your favorites. The controls follow what each player can do."
   highlights:
   - "Sonos, Music Assistant, Squeezebox, Google Cast, AirPlay, Spotify and any media player"
+  - "Jellyfin: series and episode, client app, idle sessions hidden"
+  - "Echo (Alexa Media Player): last called, do not disturb, next alarm, timer and reminder, Alexa groups"
+  - "Apple TV and HomePod: app playing, apps as sources, optional remote"
+  - "Echo, HomePod and Apple TV drawn from their model when there is no artwork"
   - "Artwork over a blurred background, progress bar you can seek"
   - "Volume per room and speaker groups, join and unjoin"
   - "Source and sound mode, Music Assistant queue, favorites"
@@ -3547,7 +3515,7 @@ projects:
   - "Several players in one card"
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
-  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver"
+  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver jellyfin alexa echo amazon homepod apple tv"
   cardTypes:
   - media-card
   - media-mini-card
@@ -3556,6 +3524,21 @@ projects:
     caption: "Media Card"
     group: Card
   screenshots:
+  - src: card-jellyfin.png
+    caption: "Jellyfin"
+    group: Card
+  - src: card-alexa.png
+    caption: "Echo (Alexa)"
+    group: Card
+  - src: card-apple-tv.png
+    caption: "Apple TV with the remote"
+    group: Card
+  - src: card-homepod.png
+    caption: "HomePod"
+    group: Card
+  - src: card-players-jellyfin-alexa.png
+    caption: "Jellyfin and Echo players"
+    group: Card
   - src: card-narrow.png
     caption: "Narrow"
     group: Card
@@ -3598,6 +3581,9 @@ projects:
   - src: mini-card.png
     caption: "Default view"
     group: Mini card
+  - src: mini-card-alexa.png
+    caption: "Echo (Alexa)"
+    group: Mini card
   animations:
   - src: buffering.gif
     caption: "Buffering"
@@ -3611,6 +3597,28 @@ projects:
     caption: "Speaker"
   - src: tv.gif
     caption: "TV"
+  - src: picture-echo.gif
+    caption: "Echo"
+  - src: picture-echo-dot.gif
+    caption: "Echo Dot, sphere"
+  - src: picture-echo-dot-puck.gif
+    caption: "Echo Dot, puck"
+  - src: picture-echo-pop.gif
+    caption: "Echo Pop"
+  - src: picture-echo-studio.gif
+    caption: "Echo Studio"
+  - src: picture-echo-show.gif
+    caption: "Echo Show"
+  - src: picture-echo-show-small.gif
+    caption: "Echo Show, small"
+  - src: picture-homepod.gif
+    caption: "HomePod"
+  - src: picture-homepod-mini.gif
+    caption: "HomePod mini, from above"
+  - src: picture-homepod-mini-front.gif
+    caption: "HomePod mini, front"
+  - src: picture-apple-tv.gif
+    caption: "Apple TV"
 - slug: ha-public-transport
   title: Public Transport
   kind: integration
