@@ -65,6 +65,11 @@ projects:
   - Animations paused while the card is off-screen
   homeassistant: 2024.8.0
   keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no meteoalarm dwd nws warnings"
+  worksWith:
+  - slug: ha-uv-card
+    why: "The UV index in detail, with the WHO risk level"
+  - slug: ha-garden-card
+    why: "Watering zones that follow the rain"
   cardTypes:
   - weather-plus-card
   - weather-plus-mini-card
@@ -146,6 +151,9 @@ projects:
   - Sections view support and card picker preview
   homeassistant: 2024.11.0
   keywords: "sun ultraviolet openuv sunscreen met.no weather protection"
+  worksWith:
+  - slug: ha-weather-card
+    why: "The full weather, UV index included"
   cardTypes:
   - ha-uv-card
   hero:
@@ -203,6 +211,9 @@ projects:
   - Chips opening the more-info dialog of their entity
   homeassistant: 2024.8.0
   keywords: "air conditioner ac clim climatisation purifier dyson xiaomi fan ventilateur climate thermostat radiator valve chauffage heating"
+  worksWith:
+  - slug: ha-smart-comfort
+    why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
   cardTypes:
   - climate-air-overview-card
   - climate-air-purifier-card
@@ -370,6 +381,11 @@ projects:
   - Comfort score per room, 0 to 100 %, with its statistics for the day or the week
   homeassistant: 2024.12.0
   keywords: "comfort notifications alerts co2 humidity temperature noise pm2.5 pm10 air quality purifier windows lights lighting adaptive presence motion nap night activity log mini card"
+  worksWith:
+  - slug: ha-climate-air-card
+    why: "Shows the air conditioners, fans and purifiers it drives"
+  - slug: ha-room-card
+    why: "Room by room view of the sensors behind its comfort alerts"
   cardTypes:
   - smart-comfort-card
   - smart-comfort-mini-card
@@ -543,6 +559,11 @@ projects:
   - Automatic discovery from Home Assistant areas
   homeassistant: 2024.8.0
   keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity"
+  worksWith:
+  - slug: ha-smart-comfort
+    why: "Comfort alerts and adaptive lighting, room by room"
+  - slug: ha-presence-card
+    why: "Who is home, and who is away"
   cardTypes:
   - room-overview-card
   - room-sensors-card
@@ -690,6 +711,11 @@ projects:
   - Mini card with a detail button switching to the full card
   homeassistant: 2024.8.0
   keywords: "solar photovoltaic pv panneaux solaires inverter onduleur battery batterie powerwall enphase solaredge fronius huawei sma growatt apsystems solax goodwe energy"
+  worksWith:
+  - slug: ha-zlinky-card
+    why: "What the Linky meter draws from the grid"
+  - slug: ha-tempo-card
+    why: "The Tempo day colors, to save the sun for red days"
   cardTypes:
   - energy-card
   - energy-mini-card
@@ -775,6 +801,9 @@ projects:
   - 'Three-phase meters: apparent power per phase, each phase measured against its share of the subscribed power'
   homeassistant: 2024.8.0
   keywords: "linky lixee zha zigbee2mqtt energy electricity tic meter power tempo"
+  worksWith:
+  - slug: ha-energy-card
+    why: "Solar production and home batteries"
   cardTypes:
   - zlinky-card
   - zlinky-mini-card
@@ -965,6 +994,8 @@ projects:
   worksWith:
   - slug: ha-zlinky-card
     why: "The Tempo indexes of the ZLinky module for the cost"
+  - slug: ha-energy-card
+    why: "Solar production to get through red days"
   cardTypes:
   - tempo-card
   - tempo-mini-card
@@ -1085,6 +1116,11 @@ projects:
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
   keywords: "jardin arrosage irrigation plante garden sprinkler watering plant mi flora gardena rain bird opensprinkler hydrawise linktap rachio bhyve soil moisture"
+  worksWith:
+  - slug: ha-weather-card
+    why: "The rain forecast and drought restrictions behind watering"
+  - slug: ha-mower-card
+    why: "The robot mower of the garden"
   cardTypes:
   - garden-card
   - garden-mini-card
@@ -1142,6 +1178,9 @@ projects:
   - "Mini card with the next collection"
   homeassistant: 2024.8.0
   keywords: "poubelle déchets collecte ordures recyclage waste garbage trash bin recycling collection schedule calendar"
+  worksWith:
+  - slug: ha-calendar-card
+    why: "The whole calendar, collections included"
   cardTypes:
   - waste-card
   - waste-mini-card
@@ -1192,6 +1231,9 @@ projects:
   - Mini card on a single row with a zoom button
   homeassistant: 2024.8.0
   keywords: "person people home away zone device tracker proximity"
+  worksWith:
+  - slug: ha-room-card
+    why: "The home room by room"
   cardTypes:
   - presence-card
   - presence-mini-card
@@ -1234,6 +1276,9 @@ projects:
   - Display names for the sensors, cameras and buttons, set in the visual editor
   homeassistant: 2024.8.0
   keywords: "alarmo alarm control panel security verisure ajax manual buttons switch"
+  worksWith:
+  - slug: ha-smartlock-card
+    why: "The connected locks of the home"
   cardTypes:
   - alarm-card
   - alarm-mini-card
@@ -1301,6 +1346,11 @@ projects:
   - Auto-lock countdown while unlocked
   homeassistant: 2024.8.0
   keywords: "lock door nuki tedee yale august switchbot aqara matter zwave"
+  worksWith:
+  - slug: ha-doorbell-card
+    why: "Opens the door from the doorbell card (lock option)"
+  - slug: ha-alarm-card
+    why: "The alarm of the home"
   cardTypes:
   - smartlock-card
   - smartlock-mini-card
@@ -1390,6 +1440,8 @@ projects:
   worksWith:
   - slug: ha-tapo
     why: "Its privacy mode, pan and tilt and stream quality are found by the cards"
+  - slug: ha-doorbell-card
+    why: "Video doorbells: ring, talk and open the door"
   cardTypes:
   - home-camera-card
   - home-camera-mini-card
@@ -1472,6 +1524,10 @@ projects:
   worksWith:
   - slug: ha-tapo
     why: "Tapo video doorbells"
+  - slug: ha-smartlock-card
+    why: "Its locks, opened from the doorbell card with the lock option"
+  - slug: ha-camera
+    why: "The doorbell's stream in the Cameras panel"
   cardTypes:
   - doorbell-card
   - doorbell-mini-card
@@ -1901,6 +1957,9 @@ projects:
   - Mini card with a detail button switching to the full card
   homeassistant: 2024.8.0
   keywords: "lawn mower robot tondeuse automower husqvarna landroid worx goat ecovacs mammotion luba indego gardena dreame"
+  worksWith:
+  - slug: ha-garden-card
+    why: "Watering and plants of the garden"
   cardTypes:
   - mower-card
   - mower-mini-card
@@ -2023,6 +2082,8 @@ projects:
   worksWith:
   - slug: ha-hp
     why: "Its printers are found first, with their last values while off and the Scan section"
+  - slug: ha-3d-printer-card
+    why: "3D printers: Bambu Lab, OctoPrint, Moonraker, PrusaLink"
   cardTypes:
   - printer-card
   - printer-mini-card
@@ -2148,6 +2209,9 @@ projects:
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
   keywords: "imprimante 3d 3d printer bambu lab ams octoprint klipper moonraker mainsail fluidd prusa prusalink voron creality"
+  worksWith:
+  - slug: ha-printer-card
+    why: "Paper printers: ink, paper and scans"
   cardTypes:
   - printer-3d-card
   - printer-3d-mini-card
@@ -2281,6 +2345,9 @@ projects:
   - A button to run a new speed test from the card, with Speedtest.net, Fast.com or an entity of your choice
   homeassistant: 2024.8.0
   keywords: "freebox free livebox orange sfr bbox bouygues fritz fritzbox avm vodafone swisscom sagemcom kpn proximus telekom speedport bt eir bell huawei lte zte starlink router internet box wifi speedtest librespeed fast.com"
+  worksWith:
+  - slug: ha-router-card
+    why: "Firewalls, routers and Wi-Fi mesh behind the box"
   cardTypes:
   - internet-box-card
   - internet-box-mini-card
@@ -2368,6 +2435,13 @@ projects:
   - Compact mini card with a detail view
   homeassistant: 2024.8.0
   keywords: "router firewall mesh wifi firewalla opnsense pfsense unifi ubiquiti omada tp-link deco mikrotik asus netgear orbi keenetic openwrt glinet xiaomi eero velop linksys ruckus wan access point speedtest"
+  worksWith:
+  - slug: ha-internet-box-card
+    why: "The internet box in front of the router"
+  - slug: ha-switch-card
+    why: "The network switch and its ports"
+  - slug: ha-dns-filter-card
+    why: "AdGuard Home or Pi-hole filtering the network"
   cardTypes:
   - router-card
   - router-mini-card
@@ -2422,6 +2496,9 @@ projects:
   - 'UGREEN and Synology: update available chip and reboot button with a confirmation'
   homeassistant: 2024.8.0
   keywords: "nas ugreen synology synology_dsm dsm qnap asustor adm storage disks raid"
+  worksWith:
+  - slug: ha-ups-card
+    why: "The UPS that protects the NAS (NUT)"
   cardTypes:
   - nas-card
   - nas-mini-card
@@ -2485,6 +2562,9 @@ projects:
   - Mini card with the front panel and the rates, opening the full card
   homeassistant: 2024.8.0
   keywords: "network switch snmp netgear gs308t ports"
+  worksWith:
+  - slug: ha-router-card
+    why: "The router, firewall or Wi-Fi mesh of the network"
   cardTypes:
   - ha-switch-card
   - ha-switch-mini-card
@@ -2530,6 +2610,11 @@ projects:
   - 'Each container''s CPU over the last 24 hours drawn behind its row'
   homeassistant: 2024.8.0
   keywords: "docker containers stacks dockhand portainer monitor_docker monitor docker"
+  worksWith:
+  - slug: ha-system-hub
+    why: "The containers of Home Assistant itself: Core, Supervisor and add-ons"
+  - slug: ha-proxmox
+    why: "The Proxmox VMs and LXC containers that host Docker"
   cardTypes:
   - docker-card
   - docker-mini-card
@@ -2601,6 +2686,9 @@ projects:
   - Mini card with a detail button switching to the full card
   homeassistant: 2024.8.0
   keywords: "adguard pihole pi-hole technitium dns blocker ads filter queries blocked"
+  worksWith:
+  - slug: ha-router-card
+    why: "The router or firewall of the network"
   cardTypes:
   - dns-filter-card
   - dns-filter-mini-card
@@ -2661,6 +2749,9 @@ projects:
   - Card and mini card included, showing only the controls the proxy has
   homeassistant: 2024.12.0
   keywords: "reverse proxy zoraxy traefik nginx proxy manager npm certificates acme tls upstream uptime routers middlewares"
+  worksWith:
+  - slug: ha-certificate-card
+    why: "Expiry of the certificates of its hosts"
   cardTypes:
   - reverse-proxy-card
   - reverse-proxy-mini-card
@@ -2715,6 +2806,9 @@ projects:
   - Panel for administrators only; light and dark themes; 22 languages
   homeassistant: 2026.11.0
   keywords: "proxmox pve virtual machines vm lxc containers node storage backups snapshot homelab panel admin card mini card"
+  worksWith:
+  - slug: ha-docker-card
+    why: "The Docker containers running in its VMs"
   cardTypes:
   - proxmox-card
   - proxmox-mini-card
@@ -2804,6 +2898,9 @@ projects:
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
   keywords: "onduleur ups nut network ups tools apc apcupsd eaton battery outage coupure"
+  worksWith:
+  - slug: ha-nas-card
+    why: "The NAS the UPS protects"
   cardTypes:
   - ups-card
   - ups-mini-card
@@ -2926,6 +3023,9 @@ projects:
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
   keywords: "certificat ssl tls certificate expiry let's encrypt dns ip ping https"
+  worksWith:
+  - slug: ha-reverse-proxy
+    why: "The hosts it exposes, and their certificates"
   cardTypes:
   - certificate-card
   - certificate-mini-card
@@ -3336,6 +3436,9 @@ projects:
   - Mini card with the next event, opening its details
   homeassistant: 2024.8.0
   keywords: "calendar agenda google caldav events"
+  worksWith:
+  - slug: ha-waste-card
+    why: "Waste collections from the same calendars"
   cardTypes:
   - calendar-agenda-card
   - calendar-agenda-mini-card
@@ -3941,6 +4044,9 @@ projects:
   - Diagnostics of every module, secrets redacted; 23 languages
   homeassistant: 2024.12.0
   keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status"
+  worksWith:
+  - slug: ha-docker-card
+    why: "The other Docker containers of the homelab"
   cardTypes:
   - system-hub-card
   - system-hub-mini-card
