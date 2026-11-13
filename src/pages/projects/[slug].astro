@@ -5,6 +5,7 @@ import ProjectLogo from "../../components/ProjectLogo.astro";
 import Shot from "../../components/Shot.astro";
 import Docs from "../../components/Docs.astro";
 import Gallery from "../../components/Gallery.astro";
+import Networks from "../../components/Networks.astro";
 import MarketplaceBadge from "../../components/MarketplaceBadge.astro";
 import {
   projects,
@@ -22,6 +23,8 @@ import { latestRelease, formatDate } from "../../lib/releases";
 import { imageSize } from "../../lib/imgsize";
 import { getChangelog } from "../../lib/changelog";
 import { getLogos } from "../../lib/logos";
+import { readme } from "../../lib/readme";
+import { networks } from "../../lib/networks";
 
 export function getStaticPaths() {
   return projects.map((project, i) => ({
@@ -58,6 +61,9 @@ const changelog = await getChangelog(project);
 const { brands } = await getLogos(project);
 // Long lists (a card for every car brand) show the first ones, the rest behind "Show all"
 const BRANDS_SHOWN = 12;
+// Cities and networks of a public transport project, listed in its README
+const md = await readme(project);
+const hasNetworks = !!(md && networks(md));
 // Projects this one works with, declared on either side
 const related = projects.flatMap((p) => {
   if (p.slug === project.slug) return [];
@@ -133,6 +139,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
       <div class="sn-links">
         <a href="#overview" class="sn-link active" data-spy="overview">Overview</a>
         <a href="#install" class="sn-link" data-spy="install">Install</a>
+        {hasNetworks && <a href="#cities" class="sn-link" data-spy="cities">Cities</a>}
         {hasGallery && <a href="#gallery" class="sn-link" data-spy="gallery">Gallery <span class="n">{shotCount}</span></a>}
         <a href="#documentation" class="sn-link" data-spy="documentation">Documentation</a>
         {changelog && <a href="#changelog" class="sn-link" data-spy="changelog">Changelog</a>}
@@ -286,6 +293,8 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
         </section>
       </div>
     </div>
+
+    <Networks project={project} />
 
     <Gallery project={project} />
 
