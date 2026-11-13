@@ -476,6 +476,91 @@ projects:
     dark: card-activity-dark.png
     caption: Latest alerts, device commands and lighting changes
     group: Activity card
+- slug: ha-heating-card
+  title: Heating Card
+  kind: card
+  category: climate
+  icon: mdiRadiator
+  accent: '#ef6c00'
+  tagline: "Thermostats, pilot wire radiators and weekly schedules, zone by zone."
+  summary: "A card for the heating of the home, zone by zone: thermostats and radiator valves with their presets, pilot wire radiators with their orders, and the week of a schedule helper. A mini card and an overview of the whole home, floor by floor, come with it."
+  highlights:
+  - "Zones found by area, as text tabs, a flickering flame on a zone that heats"
+  - "Animated thermostat with target, presets, boost and what it really does"
+  - "Pilot wire radiators: comfort, eco, frost protection, off, comfort −1 / −2"
+  - "Weekly schedule of a schedule helper, today highlighted with a \"now\" line"
+  - "Valve opening, battery, humidity and window open alerts"
+  - "Overview card of the whole home, floor by floor"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule"
+  worksWith:
+  - slug: ha-climate-air-card
+    why: "The thermostat illustration comes from its thermostat card"
+  cardTypes:
+  - heating-card
+  - heating-mini-card
+  - heating-overview-card
+  hero:
+    src: card.png
+    caption: "Heating Card"
+    group: Card
+  screenshots:
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-pilot-wire.png
+    caption: "Pilot wire"
+    group: Card
+  - src: card-schedule.png
+    caption: "Schedule"
+    group: Card
+  - src: card-valve.png
+    caption: "Valve"
+    group: Card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-thermostat.png
+    caption: "Thermostat"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  - src: overview-card-compact.png
+    caption: "Compact"
+    group: Overview card
+  - src: overview-card-confirm.png
+    caption: "Confirm"
+    group: Overview card
+  - src: overview-card-narrow.png
+    caption: "Narrow"
+    group: Overview card
+  - src: overview-card.png
+    caption: "Default view"
+    group: Overview card
+  animations:
+  - src: boost.gif
+    caption: "Boost"
+  - src: heating-dial.gif
+    caption: "Heating dial"
+  - src: heating-radiator.gif
+    caption: "Heating radiator"
+  - src: heating-valve.gif
+    caption: "Heating valve"
+  - src: overview-card-boost.gif
+    caption: "Overview card boost"
+  - src: overview-card-heating.gif
+    caption: "Overview card heating"
+  - src: overview.gif
+    caption: "Overview"
+  - src: pilot-comfort.gif
+    caption: "Pilot comfort"
+  - src: pilot-eco.gif
+    caption: "Pilot eco"
 - slug: ha-room-card
   title: Room Cards
   kind: card
@@ -762,6 +847,368 @@ projects:
   - src: live-high.gif
     dark: live-high-dark.gif
     caption: ZLinky card, live meter at high load
+- slug: ha-cover-card
+  title: Cover Card
+  kind: card
+  category: home
+  icon: mdiWindowShutter
+  accent: '#5c6bc0'
+  tagline: "Shutters, blinds, curtains, awnings, garage doors and gates, drawn as little animated scenes."
+  summary: "Cards for the covers of any integration: each one is drawn as a scene that follows its position, and the picture itself is the slider. One cover, a list, or every cover of an area, with favorite positions and a confirmation for doors and gates."
+  highlights:
+  - "A drawn scene per kind of cover: shutter, venetian blind, shade, curtains, awning, garage door, gate, door, roof window, damper"
+  - "The picture is the position slider, dragged the way the cover moves"
+  - "Tilt slider for slats that tilt, only when the cover supports it"
+  - "Favorite positions in one tap, Open all / Stop / Close all for a group"
+  - "Every cover of an area in one card"
+  - "Confirmation before moving a garage door, a gate or a door"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave"
+  cardTypes:
+  - cover-card
+  - cover-mini-card
+  hero:
+    src: card.png
+    caption: "Cover Card"
+    group: Card
+  screenshots:
+  - src: card-area.png
+    caption: "Area"
+    group: Card
+  - src: card-blind.png
+    caption: "Blind"
+    group: Card
+  - src: card-garage.png
+    caption: "Garage"
+    group: Card
+  - src: card-unavailable.png
+    caption: "Unavailable"
+    group: Card
+  - src: mini-card-all.png
+    caption: "All"
+    group: Mini card
+  - src: mini-card-zoomed.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: awning-opening.gif
+    caption: "Awning opening"
+  - src: blind-opening.gif
+    caption: "Blind opening"
+  - src: curtain-opening.gif
+    caption: "Curtain opening"
+  - src: damper-opening.gif
+    caption: "Damper opening"
+  - src: door-opening.gif
+    caption: "Door opening"
+  - src: garage-opening.gif
+    caption: "Garage opening"
+  - src: gate-closing.gif
+    caption: "Gate closing"
+  - src: shade-closing.gif
+    caption: "Shade closing"
+  - src: shutter-closing.gif
+    caption: "Shutter closing"
+  - src: shutter-opening.gif
+    caption: "Shutter opening"
+  - src: window-opening.gif
+    caption: "Window opening"
+- slug: ha-utility-meter-card
+  title: Utility Meter Card
+  kind: card
+  category: home
+  icon: mdiWaterPump
+  accent: '#0288d1'
+  tagline: "Water and gas meters: consumption, comparison, cost and night leak detection."
+  summary: "Cards for water and gas meters: the index, the consumption of the day, week, month and year against the previous period at the same point, a history chart, the cost, and an alert when water keeps flowing all night."
+  highlights:
+  - "Water and gas meters, any sensor with the water or gas device class"
+  - "Today, this week, this month and this year from the long-term statistics"
+  - "Comparison with the previous period at the same point"
+  - "History chart by hour, day or month against the previous period"
+  - "Optional cost, fixed or from a price entity"
+  - "Night leak detection, with an alert"
+  - "Animated water and gas meters, mini card with a detail button"
+  homeassistant: 2024.8.0
+  keywords: "eau gaz compteur water gas meter gazpar grdf suez veolia leak fuite consumption utility_meter"
+  cardTypes:
+  - utility-meter-card
+  - utility-meter-mini-card
+  hero:
+    src: card.png
+    caption: "Utility Meter Card"
+    group: Card
+  screenshots:
+  - src: card-gas.png
+    caption: "Gas"
+    group: Card
+  - src: card-leak.png
+    caption: "Leak"
+    group: Card
+  - src: card-month.png
+    caption: "Month"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-popup.png
+    caption: "Popup"
+    group: Card
+  - src: mini-card-gas.png
+    caption: "Gas"
+    group: Mini card
+  - src: mini-card-leak.png
+    caption: "Leak"
+    group: Mini card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: gas-flowing.gif
+    caption: "Gas flowing"
+  - src: water-flowing.gif
+    caption: "Water flowing"
+  - src: water-leak.gif
+    caption: "Water leak"
+- slug: ha-tempo-card
+  title: Tempo Card
+  kind: card
+  category: home
+  icon: mdiCalendarBlankMultiple
+  accent: '#1e88e5'
+  tagline: "The EDF Tempo colour of today and tomorrow, the current period and the cost of the day."
+  summary: "Cards for the French EDF Tempo tariff: blue, white or red for today and tomorrow, the days left of each colour in the season, the off-peak or peak period with its countdown, and the estimated cost of the day and the month from your meter indexes."
+  highlights:
+  - "Colour of today and tomorrow, Tempo days running from 06:00 to 06:00"
+  - "Animated scene: a pylon feeding a house under the sky of the period"
+  - "Current off-peak or peak period, with a countdown and the price per kWh"
+  - "Days left of each colour in the season"
+  - "Estimated cost of the day and the month, per colour and period"
+  - "RTE Tempo, Tarif EDF, EDF Tempo, Linky TIC or ZLinky entities found automatically"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "edf tempo rte jour rouge blanc bleu heures creuses pleines off-peak tarif electricity linky zlinky france"
+  worksWith:
+  - slug: ha-zlinky-card
+    why: "The Tempo indexes of the ZLinky module for the cost"
+  cardTypes:
+  - tempo-card
+  - tempo-mini-card
+  hero:
+    src: card.png
+    caption: "Tempo Card"
+    group: Card
+  screenshots:
+  - src: card-folded.png
+    caption: "Folded"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-pending.png
+    caption: "Pending"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: blue-day.gif
+    caption: "Blue day"
+  - src: off-peak.gif
+    caption: "Off peak"
+  - src: pending.gif
+    caption: "Pending"
+  - src: red-day.gif
+    caption: "Red day"
+  - src: white-day.gif
+    caption: "White day"
+- slug: ha-pool-card
+  title: Pool Card
+  kind: card
+  category: home
+  icon: mdiPool
+  accent: '#00acc1'
+  tagline: "Water quality, filtration and equipment of a swimming pool or a spa."
+  summary: "Cards for a swimming pool or a spa: colored gauges with their ideal ranges, advice when a value drifts, an animated scene of the pool, the filtration of the day and buttons for the pump, the light, the heat pump, the cover and the electrolyser."
+  highlights:
+  - "Gauges for water temperature, pH, ORP, free chlorine, salt and TDS, with their ideal ranges"
+  - "Advice for every value out of range, and for equipment running without water flow"
+  - "Animated pool or spa scene: ripples, bubbles, heat pump, cover, light"
+  - "Filtration time of the day against a daily target"
+  - "Buttons for the pump, light, heat pump, cover and electrolyser"
+  - "iopool, Blue Connect, ESPHome, ScreenLogic, IntelliCenter, OmniLogic and more"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "piscine spa jacuzzi pool ph orp chlore chlorine salt filtration iopool blue riiot blue connect pentair screenlogic intellicenter hayward omnilogic heat pump"
+  cardTypes:
+  - pool-card
+  - pool-mini-card
+  hero:
+    src: card.png
+    caption: "Pool Card"
+    group: Card
+  screenshots:
+  - src: card-confirm.png
+    caption: "Confirm"
+    group: Card
+  - src: card-equipment.png
+    caption: "Equipment"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-problems.png
+    caption: "Problems"
+    group: Card
+  - src: card-spa.png
+    caption: "Spa"
+    group: Card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-spa.png
+    caption: "Spa"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: cover-closing.gif
+    caption: "Cover closing"
+  - src: cover-opening.gif
+    caption: "Cover opening"
+  - src: filtering.gif
+    caption: "Filtering"
+  - src: heating.gif
+    caption: "Heating"
+  - src: light.gif
+    caption: "Light"
+  - src: spa-jets.gif
+    caption: "Spa jets"
+- slug: ha-garden-card
+  title: Garden Card
+  kind: card
+  category: home
+  icon: mdiSprinklerVariant
+  accent: '#43a047'
+  tagline: "Watering zones, plants and soil moisture, with a rain suggestion."
+  summary: "Cards for the garden: watering zones started for the duration you pick, the next watering, a suggestion to skip it when rain is coming, and your plants and soil sensors as gauges. Zones, plants and the weather are found on their own."
+  highlights:
+  - "Watering zones of Gardena, Rain Bird, OpenSprinkler, Hydrawise, LinkTap, Rachio, B-hyve, or any valve"
+  - "Start a zone for the duration you pick, a ring counting down while it waters"
+  - "Next watering and \"No watering needed\" when rain is coming"
+  - "Plants with moisture, fertility, light, temperature and battery gauges"
+  - "Animated garden: sprinkler, rain cloud, thirsty plant"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "jardin arrosage irrigation plante garden sprinkler watering plant mi flora gardena rain bird opensprinkler hydrawise linktap rachio bhyve soil moisture"
+  cardTypes:
+  - garden-card
+  - garden-mini-card
+  hero:
+    src: card.png
+    caption: "Garden Card"
+    group: Card
+  screenshots:
+  - src: card-duration.png
+    caption: "Duration"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-plants.png
+    caption: "Plants"
+    group: Card
+  - src: card-rain.png
+    caption: "Rain"
+    group: Card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-rain.png
+    caption: "Rain"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: rain.gif
+    caption: "Rain"
+  - src: thirsty.gif
+    caption: "Thirsty"
+  - src: watering.gif
+    caption: "Watering"
+- slug: ha-waste-card
+  title: Waste Card
+  kind: card
+  category: home
+  icon: mdiTrashCan
+  accent: '#7cb342'
+  tagline: "The next waste collections, with the bins to put out tonight."
+  summary: "Cards for waste collections: the next collection of every bin with a countdown, the bins to put out tonight highlighted, and the next collection days. They read Waste Collection Schedule, any calendar and any date sensor."
+  highlights:
+  - "Animated wheelie bins of the next collection, in the colour of their type"
+  - "Countdown in your language: today, tomorrow, in 3 days"
+  - "Bins to put out tonight, from the hour you choose"
+  - "Next collection per bin type, and the upcoming collection days"
+  - "Waste Collection Schedule, calendars and date sensors, mixed in one card"
+  - "Waste types recognized in many languages, own name, colour and icon per type"
+  - "Mini card with the next collection"
+  homeassistant: 2024.8.0
+  keywords: "poubelle déchets collecte ordures recyclage waste garbage trash bin recycling collection schedule calendar"
+  cardTypes:
+  - waste-card
+  - waste-mini-card
+  hero:
+    src: card.png
+    caption: "Waste Card"
+    group: Card
+  screenshots:
+  - src: card-calendar.png
+    caption: "Calendar"
+    group: Card
+  - src: card-custom.png
+    caption: "Custom"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: today.gif
+    caption: "Today"
+  - src: tonight.gif
+    caption: "Tonight"
 - slug: ha-presence-card
   title: Presence Card
   kind: card
@@ -1041,6 +1488,73 @@ projects:
   - slug: ha-camera
     why: "Shows its cameras with their privacy badge, HD / SD and pan and tilt"
 
+- slug: ha-doorbell-card
+  title: Doorbell Card
+  kind: card
+  category: security
+  icon: mdiDoorbellVideo
+  accent: '#fb8c00'
+  tagline: "Video doorbells and intercoms: preview, last visitor, ring history and quick actions."
+  summary: "Cards for video doorbells and intercoms: the camera preview, the last visitor with a snapshot, the rings of the day, and quick actions to open the door or the gate, send a message or mute the chime. A drawn doorbell rings, vibrates and frames a person."
+  highlights:
+  - "Drawn doorbell animated when it rings, on motion and when a person is detected"
+  - "Camera snapshot or live stream, glowing while it rings"
+  - "Last visitor with its snapshot, and the ring history"
+  - "Open the door or the gate after a confirmation, quick messages, mute"
+  - "Ring, Reolink, UniFi Protect, Nest, Tapo, DoorBird, Matter, Frigate and more"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "sonnette visiophone interphone doorbell intercom ring reolink unifi protect nest tapo doorbird aqara matter frigate eufy"
+  worksWith:
+  - slug: ha-tapo
+    why: "Tapo video doorbells"
+  cardTypes:
+  - doorbell-card
+  - doorbell-mini-card
+  hero:
+    src: card.png
+    caption: "Doorbell Card"
+    group: Card
+  screenshots:
+  - src: card-entrance.png
+    caption: "Entrance"
+    group: Card
+  - src: card-gate.png
+    caption: "Gate"
+    group: Card
+  - src: card-messages.png
+    caption: "Messages"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-open.png
+    caption: "Open"
+    group: Card
+  - src: card-porch.png
+    caption: "Porch"
+    group: Card
+  - src: mini-card-gate.png
+    caption: "Gate"
+    group: Mini card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: mini-ringing.gif
+    caption: "Mini ringing"
+  - src: motion.gif
+    caption: "Motion"
+  - src: person.gif
+    caption: "Person"
+  - src: ringing.gif
+    caption: "Ringing"
 - slug: ha-smart-appliance-card
   title: Smart Appliance Card
   kind: card
@@ -1652,6 +2166,129 @@ projects:
   worksWith:
   - slug: ha-printer-card
     why: "Shows its printers, with their last values while off and the Scan section"
+- slug: ha-3d-printer-card
+  title: 3D Printer Card
+  kind: card
+  category: appliances
+  icon: mdiPrinter3dNozzle
+  accent: '#00ae42'
+  tagline: "Follow and control Bambu Lab, OctoPrint, Klipper and Prusa 3D printers."
+  summary: "Cards for 3D printers: a drawn printer animated by its state inside a progress ring, the time left and the layers, the temperatures, the Bambu Lab AMS spools, the print thumbnail and camera, and pause, resume and stop buttons."
+  highlights:
+  - "Bambu Lab, OctoPrint, Moonraker (Klipper) and PrusaLink, several printers"
+  - "Progress ring around a drawn printer, animated by its state"
+  - "Time left, estimated end, layers and the Bambu Lab stage and errors"
+  - "Nozzle, bed and chamber temperatures with their targets"
+  - "Bambu Lab AMS spools: colour, filament, remaining amount, humidity"
+  - "Print thumbnail and camera, pause / resume / stop with a confirmation"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "imprimante 3d 3d printer bambu lab ams octoprint klipper moonraker mainsail fluidd prusa prusalink voron creality"
+  cardTypes:
+  - printer-3d-card
+  - printer-3d-mini-card
+  hero:
+    src: card.png
+    caption: "3D Printer Card"
+    group: Card
+  screenshots:
+  - src: card-confirm.png
+    caption: "Confirm"
+    group: Card
+  - src: card-finished.png
+    caption: "Finished"
+    group: Card
+  - src: card-moonraker.png
+    caption: "Moonraker"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-octoprint.png
+    caption: "OctoPrint"
+    group: Card
+  - src: card-prusalink.png
+    caption: "PrusaLink"
+    group: Card
+  - src: mini-card-moonraker.png
+    caption: "Moonraker"
+    group: Mini card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-octoprint.png
+    caption: "OctoPrint"
+    group: Mini card
+  - src: mini-card-prusalink.png
+    caption: "PrusaLink"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: failed.gif
+    caption: "Failed"
+  - src: finished.gif
+    caption: "Finished"
+  - src: paused.gif
+    caption: "Paused"
+  - src: preparing.gif
+    caption: "Preparing"
+  - src: printing.gif
+    caption: "Printing"
+- slug: ha-pet-card
+  title: Pet Card
+  kind: card
+  category: appliances
+  icon: mdiPaw
+  accent: '#ff7043'
+  tagline: "PetKit feeders and water fountains: food, water, filter and a manual feed in two taps."
+  summary: "Cards for smart pet devices: food and water levels, filter and desiccant, today's meals and a manual feed from a popup. PetKit feeders and fountains are found on their own."
+  highlights:
+  - "PetKit feeders (Fresh Element Infinity, Solo, Gemini, Mini Pro) and Eversweet fountains"
+  - "Food level per hopper, meals and food dispensed today"
+  - "Manual feed in a popup, in the feeder's own amounts"
+  - "Water level, filter left, mode and switches of the fountains"
+  - "Filter and desiccant reset with a confirmation"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "animaux chat chien distributeur fontaine pet cat dog feeder fountain petkit eversweet"
+  cardTypes:
+  - pet-card
+  - pet-mini-card
+  hero:
+    src: card.png
+    caption: "Pet Card"
+    group: Card
+  screenshots:
+  - src: card-alerts.png
+    caption: "Alerts"
+    group: Card
+  - src: card-feed-gemini.png
+    caption: "Feed Gemini"
+    group: Card
+  - src: card-feed.png
+    caption: "Feed"
+    group: Card
+  - src: card-gemini.png
+    caption: "Gemini"
+    group: Card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: card-feed.gif
+    caption: "Feed"
+  - src: card-levels.gif
+    caption: "Levels"
+  - src: mini-card-zoom.gif
+    caption: "Mini card detail view"
 - slug: ha-internet-box-card
   title: Internet Box Card
   kind: card
@@ -2185,6 +2822,228 @@ projects:
     dark: guest-mini-card-zoom-dark.png
     caption: Zoomed in to the full card
     group: Machine mini card
+- slug: ha-ups-card
+  title: UPS Card
+  kind: card
+  category: network
+  icon: mdiPowerPlugBattery
+  accent: '#43a047'
+  tagline: "Mains or battery, runtime left, load and power outages of your UPS."
+  summary: "Cards for an uninterruptible power supply: on mains or on battery, charge and runtime left, load and power, voltages, the power outages of the last days and when the battery should be replaced, with an alert as soon as it switches to battery."
+  highlights:
+  - "Drawn UPS animated by its state: mains, charging, on battery, overload"
+  - "Battery charge, runtime left, load and power"
+  - "Input and output voltages, real and apparent power"
+  - "Outage history of the last days, from the Home Assistant history"
+  - "Battery replacement date and alerts"
+  - "Network UPS Tools (NUT) and APC UPS Daemon"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "onduleur ups nut network ups tools apc apcupsd eaton battery outage coupure"
+  cardTypes:
+  - ups-card
+  - ups-mini-card
+  hero:
+    src: card.png
+    caption: "UPS Card"
+    group: Card
+  screenshots:
+  - src: card-apc.png
+    caption: "APC"
+    group: Card
+  - src: card-generic.png
+    caption: "Generic"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-on-battery.png
+    caption: "On battery"
+    group: Card
+  - src: mini-card-apc.png
+    caption: "APC"
+    group: Mini card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: charging.gif
+    caption: "Charging"
+  - src: low-battery.gif
+    caption: "Low battery"
+  - src: on-battery.gif
+    caption: "On battery"
+  - src: online.gif
+    caption: "Online"
+  - src: overload.gif
+    caption: "Overload"
+- slug: ha-uptime-card
+  title: Uptime Card
+  kind: card
+  category: network
+  icon: mdiServerNetwork
+  accent: '#26a69a'
+  tagline: "Your services at a glance: up or down, response time, 24-hour uptime and certificates."
+  summary: "Cards to watch your services: up, down, pending or in maintenance, the response time, a 24-hour uptime bar from the history and the expiry of their certificates, grouped by tag. Uptime Kuma, Healthchecks.io, Ping and Certificate Expiry are found on their own."
+  highlights:
+  - "Uptime Kuma monitors, Healthchecks.io checks, Ping hosts and connectivity sensors"
+  - "Status, how long a service has been down, and the response time"
+  - "24-hour uptime bar and uptime percentage"
+  - "SSL certificate expiry on every row"
+  - "Groups by tag, label or integration, problems first"
+  - "Animated server rack in the colour of the worst status"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "uptime kuma healthchecks ping monitoring supervision services status certificate"
+  worksWith:
+  - slug: ha-certificate-card
+    why: "The certificates in detail, with DNS checks"
+  cardTypes:
+  - uptime-card
+  - uptime-mini-card
+  hero:
+    src: card.png
+    caption: "Uptime Card"
+    group: Card
+  screenshots:
+  - src: card-by-source.png
+    caption: "By source"
+    group: Card
+  - src: card-folded.png
+    caption: "Folded"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-problems.png
+    caption: "Problems"
+    group: Card
+  - src: mini-card-all-up.png
+    caption: "All up"
+    group: Mini card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: down.gif
+    caption: "Down"
+  - src: maintenance.gif
+    caption: "Maintenance"
+  - src: pending.gif
+    caption: "Pending"
+  - src: up.gif
+    caption: "Up"
+- slug: ha-certificate-card
+  title: Certificate Card
+  kind: card
+  category: network
+  icon: mdiCertificate
+  accent: '#5e35b1'
+  tagline: "SSL/TLS certificates sorted by expiry, with a few DNS checks."
+  summary: "Cards to keep an eye on your SSL/TLS certificates: which one expires next, how many days are left, which ones are expired or invalid, plus DNS checks. Certificate Expiry and DNS IP sensors are found on their own."
+  highlights:
+  - "Every Certificate Expiry sensor found automatically"
+  - "Certificates sorted by expiry, with the days left as a badge and a bar"
+  - "Thresholds in orange and red, expired and invalid certificates with their error"
+  - "Optional DNS checks: DNS IP and Ping"
+  - "Only certificates needing attention, if you prefer"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "certificat ssl tls certificate expiry let's encrypt dns ip ping https"
+  cardTypes:
+  - certificate-card
+  - certificate-mini-card
+  hero:
+    src: card.png
+    caption: "Certificate Card"
+    group: Card
+  screenshots:
+  - src: card-dns.png
+    caption: "DNS"
+    group: Card
+  - src: card-problems.png
+    caption: "Problems"
+    group: Card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: card-dns.gif
+    caption: "DNS"
+  - src: card-renewal.gif
+    caption: "Renewal"
+  - src: mini-card-zoom.gif
+    caption: "Mini card detail view"
+- slug: ha-seedbox-card
+  title: Seedbox Card
+  kind: card
+  category: network
+  icon: mdiDownloadNetwork
+  accent: '#2e7d32'
+  tagline: "Transmission, qBittorrent and Deluge: speeds, torrents and the alternative speed."
+  summary: "Cards to monitor and control torrent clients: download and upload speeds with their 24-hour curves, torrent counters, the torrents list with resume and pause, and the alternative speed."
+  highlights:
+  - "Transmission, qBittorrent and Deluge, several clients mixed"
+  - "Download and upload speeds, with their curves over 24 hours"
+  - "Active, downloading, seeding, paused and in error counters, global ratio"
+  - "Torrents list with progress, time left, search, resume and pause"
+  - "Resume all, pause all and alternative speed buttons"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "torrent seedbox transmission qbittorrent deluge download upload turtle"
+  cardTypes:
+  - seedbox-card
+  - seedbox-mini-card
+  hero:
+    src: card.png
+    caption: "Seedbox Card"
+    group: Card
+  screenshots:
+  - src: card-deluge.png
+    caption: "Deluge"
+    group: Card
+  - src: card-qbittorrent.png
+    caption: "QBittorrent"
+    group: Card
+  - src: card-torrents.png
+    caption: "Torrents"
+    group: Card
+  - src: mini-card-deluge.png
+    caption: "Deluge"
+    group: Mini card
+  - src: mini-card-qbittorrent.png
+    caption: "QBittorrent"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: card-alt-speed.gif
+    caption: "Alt speed"
+  - src: card-torrents.gif
+    caption: "Torrents"
+  - src: mini-card-speeds.gif
+    caption: "Mini card speeds"
+  - src: mini-card-zoom.gif
+    caption: "Mini card detail view"
 - slug: ha-vehicle-card
   title: Vehicle Card
   kind: card
@@ -2671,6 +3530,262 @@ projects:
     dark: mini-card-narrow-dark.png
     caption: Mini card on a phone
     group: Mini card
+- slug: ha-media-card
+  title: Media Card
+  kind: card
+  category: everyday
+  icon: mdiSpeakerMultiple
+  accent: '#8e24aa'
+  tagline: "Media players and multiroom speakers: artwork, controls, volume per room and groups."
+  summary: "Cards for media players: artwork over a blurred background, progress and controls, volume per room, speaker groups, source and sound mode, the Music Assistant queue and your favorites. The controls follow what each player can do."
+  highlights:
+  - "Sonos, Music Assistant, Squeezebox, Google Cast, AirPlay, Spotify and any media player"
+  - "Artwork over a blurred background, progress bar you can seek"
+  - "Volume per room and speaker groups, join and unjoin"
+  - "Source and sound mode, Music Assistant queue, favorites"
+  - "Animated record, equalizer and drawn speakers, TVs and receivers"
+  - "Several players in one card"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver"
+  cardTypes:
+  - media-card
+  - media-mini-card
+  hero:
+    src: card.png
+    caption: "Media Card"
+    group: Card
+  screenshots:
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: card-players-playing.png
+    caption: "Players playing"
+    group: Card
+  - src: card-players.png
+    caption: "Players"
+    group: Card
+  - src: card-queue.png
+    caption: "Queue"
+    group: Card
+  - src: card-receiver.png
+    caption: "Receiver"
+    group: Card
+  - src: card-sonos.png
+    caption: "Sonos"
+    group: Card
+  - src: card-ungroup.png
+    caption: "Ungroup"
+    group: Card
+  - src: mini-card-narrow.png
+    caption: "Narrow"
+    group: Mini card
+  - src: mini-card-players-open.png
+    caption: "Players open"
+    group: Mini card
+  - src: mini-card-players.png
+    caption: "Players"
+    group: Mini card
+  - src: mini-card-spotify.png
+    caption: "Spotify"
+    group: Mini card
+  - src: mini-card-tv.png
+    caption: "TV"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: buffering.gif
+    caption: "Buffering"
+  - src: group.gif
+    caption: "Group"
+  - src: paused.gif
+    caption: "Paused"
+  - src: playing.gif
+    caption: "Playing"
+  - src: speaker.gif
+    caption: "Speaker"
+  - src: tv.gif
+    caption: "TV"
+- slug: ha-public-transport
+  title: Public Transport
+  kind: integration
+  withCard: true
+  category: everyday
+  icon: mdiBusClock
+  accent: '#00897b'
+  tagline: "The next departures at your public transport stops, with traffic alerts."
+  summary: "Lines, direction, minutes left, real time or timetable, and the traffic alerts of your stops, set up in the UI. The first network is STAR, the bus and metro of Rennes Métropole; cards are bundled with the integration."
+  highlights:
+  - "Stops set up in the UI: pick the network, search the stop, choose the lines"
+  - "Next departure sensor per stop and a sensor per followed line"
+  - "Real time with its delay, or timetable"
+  - "Traffic alert binary sensor per stop"
+  - "One request per network, whatever the number of stops"
+  - "Card with line badges in their official colours and a live countdown"
+  - "Mini card with the next three departures of each stop"
+  homeassistant: 2024.12.0
+  keywords: "transports en commun bus métro metro tram star rennes public transport departures horaires gtfs"
+  cardTypes:
+  - public-transport-card
+  - public-transport-mini-card
+  hero:
+    src: card.png
+    caption: "Public Transport"
+    group: Card
+  screenshots:
+  - src: card-alerts.png
+    caption: "Alerts"
+    group: Card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: alerts.gif
+    caption: "Alerts"
+  - src: arriving-metro.gif
+    caption: "Arriving metro"
+  - src: arriving.gif
+    caption: "Arriving"
+  - src: refreshing.gif
+    caption: "Refreshing"
+  - src: waiting.gif
+    caption: "Waiting"
+- slug: ha-saint-of-the-day
+  title: Saint of the Day
+  kind: integration
+  withCard: true
+  category: everyday
+  icon: mdiCalendarStar
+  accent: '#8e44ad'
+  tagline: "The French name day of today and tomorrow, with a card."
+  summary: "The saint of the day (fête du jour) of today and tomorrow, with the first names to wish and the next days. The calendar is embedded: no account, no external API, nothing to configure."
+  highlights:
+  - "Saint of the day and saint of tomorrow sensors"
+  - "First names wished, the date and the next 7 days"
+  - "Embedded calendar of the 366 days, updated at midnight"
+  - "Card with a name day wish, and a mini card"
+  homeassistant: 2024.12.0
+  keywords: "saint du jour fête du jour prénom name day calendrier france"
+  cardTypes:
+  - saint-of-the-day-card
+  - saint-of-the-day-mini-card
+  hero:
+    src: card.png
+    caption: "Saint of the Day"
+    group: Card
+  screenshots:
+  - src: card-fr.png
+    caption: "In French"
+    group: Card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+- slug: ha-pronote-card
+  title: Pronote Card
+  kind: card
+  category: everyday
+  icon: mdiSchool
+  accent: '#2e7d32'
+  tagline: "Timetable, homework, grades and school life of your children from Pronote."
+  summary: "Cards for the school life of your children from Pronote, the software used by French schools: today's and the next school day's timetable, homework done or to do, grades and averages, absences and menus. One tab per student, found on their own."
+  highlights:
+  - "Several students, one tab each"
+  - "Timetable with canceled and changed lessons standing out"
+  - "Homework grouped by due day, done or to do"
+  - "Latest grades and averages with the class average"
+  - "School life: absences, late arrivals, punishments, menu"
+  - "Animated school picture following the day"
+  - "Mini card with the next lesson and homework"
+  homeassistant: 2024.8.0
+  keywords: "pronote école collège lycée devoirs notes emploi du temps school homework grades timetable"
+  cardTypes:
+  - pronote-card
+  - pronote-mini-card
+  hero:
+    src: card.png
+    caption: "Pronote Card"
+    group: Card
+  screenshots:
+  - src: card-grades.png
+    caption: "Grades"
+    group: Card
+  - src: card-homework-popup.png
+    caption: "Homework popup"
+    group: Card
+  - src: card-homework.png
+    caption: "Homework"
+    group: Card
+  - src: card-next-day.png
+    caption: "Next day"
+    group: Card
+  - src: card-school-life.png
+    caption: "School life"
+    group: Card
+  - src: mini-card-students.png
+    caption: "Students"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: anim-canceled.gif
+    caption: "Canceled"
+  - src: anim-class.gif
+    caption: "Class"
+  - src: anim-done.gif
+    caption: "Done"
+  - src: anim-homework.gif
+    caption: "Homework"
+- slug: ha-stock-card
+  title: Stock Card
+  kind: card
+  category: everyday
+  icon: mdiChartLine
+  accent: '#00897b'
+  tagline: "Stock and market quotes, with sparklines and the total of your portfolio."
+  summary: "Cards to follow stock and market quotes: the price, the change of the day, a sparkline over a period you pick and, if you give quantities, the value of your portfolio and your gain."
+  highlights:
+  - "Yahoo Finance sensors found automatically, or any price sensor"
+  - "Price in its currency and the change of the day, green or red"
+  - "Sparkline over 24 hours, 5 days, 1 month, 3 months or 1 year"
+  - "Optional portfolio: value per position, total, change of the day and gain"
+  - "Market status: open, pre-market, after hours, closed"
+  - "Mini card with a detail button showing the full card"
+  homeassistant: 2024.8.0
+  keywords: "bourse action stock market quote portfolio yahoo finance crypto index etf"
+  cardTypes:
+  - stock-card
+  - stock-mini-card
+  hero:
+    src: card.png
+    caption: "Stock Card"
+    group: Card
+  screenshots:
+  - src: card-generic.png
+    caption: "Generic"
+    group: Card
+  - src: card-portfolio.png
+    caption: "Portfolio"
+    group: Card
+  - src: mini-card-portfolio.png
+    caption: "Portfolio"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  animations:
+  - src: card-ticks.gif
+    caption: "Ticks"
+  - src: mini-card-zoom.gif
+    caption: "Mini card detail view"
 - slug: ha-automation-monitor-card
   archived: true
   replacedBy: ha-system-hub
