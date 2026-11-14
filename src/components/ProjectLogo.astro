@@ -1,6 +1,6 @@
 ---
-// The project's own logo (from its README), in the round slot the site uses for icons; the site's icon in the
-// project's accent when the README has none.
+// The round slot the site uses for icons: the site's icon in the project's accent (the cards' header pastille), or,
+// with `own` on an integration's page, the integration's own icon (the one at the top of its README) when it has one.
 import Icon from "./Icon.astro";
 import type { Project } from "../lib/projects";
 import { getLogos } from "../lib/logos";
@@ -11,9 +11,11 @@ interface Props {
   size?: "sm" | "lg" | "xl";
   /** Accent set on the slot (when the parent doesn't set --c). */
   accent?: boolean;
+  /** Show an integration's own icon (its page); the cards and the tiles keep the site's icon. */
+  own?: boolean;
 }
-const { project, size, accent = false } = Astro.props;
-const { own } = await getLogos(project);
+const { project, size, accent = false, own: useOwn = false } = Astro.props;
+const own = useOwn && project.kind === "integration" ? (await getLogos(project)).own : null;
 ---
 
 {

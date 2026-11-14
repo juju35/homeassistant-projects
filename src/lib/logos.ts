@@ -1,6 +1,6 @@
-// Logos of a project, read from the top of its README (see header-logos.ts): its own logo, shown wherever the site
-// shows the project (except for a card or an integration with a card, shown with its card's icon), and the logos of the brands and integrations it supports, shown on its page. Raster logos are
-// re-encoded like the captures (optimize.ts); SVGs are used as they are.
+// Logos of a project, read from the top of its README (see header-logos.ts): its own logo, shown on the page of an
+// integration (see ProjectLogo.astro), and the logos of the brands and integrations it supports, shown on its page.
+// Raster logos are re-encoded like the captures (optimize.ts); SVGs are used as they are.
 import type { Project } from "./projects";
 import { readme, rawUrl } from "./readme";
 import { headerLogos, type HeaderLogo } from "./header-logos";
@@ -32,10 +32,7 @@ export function getLogos(p: Project): Promise<Logos> {
 async function load(p: Project): Promise<Logos> {
   const md = await readme(p);
   if (md === null) return { own: null, brands: [] };
-  const { own: header, brands } = headerLogos(md, rawUrl(p.slug));
-  // A card, or an integration that ships one, is shown with its card's icon (the site's icon in its accent, as the
-  // cards' header pastille), whatever picture tops its README (a brand icon, a drawing of the device…)
-  const found = p.kind === "card" || p.withCard ? null : header;
+  const { own: found, brands } = headerLogos(md, rawUrl(p.slug));
   // The logo fills a round slot: a wide wordmark would shrink to a line there, so the site's icon is kept instead
   const size = found && !/\.svg(\?|$)/i.test(found.src) ? await imageSize(found.src) : null;
   const own = size && size.w > size.h * MAX_RATIO ? null : found;
