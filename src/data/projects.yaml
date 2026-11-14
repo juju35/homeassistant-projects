@@ -1603,6 +1603,77 @@ projects:
   - slug: ha-camera
     why: "Shows its cameras with their privacy badge, HD / SD and pan and tilt"
 
+- slug: ha-family-link
+  title: Family Link
+  kind: integration
+  withCard: true
+  category: security
+  icon: mdiShieldAccount
+  accent: '#34a853'
+  tagline: "Google Family Link in Home Assistant: screen time, locks, bonuses and location, with an animated card."
+  summary: "Each supervised child and each of their devices: screen time of the day and of the week, the time left, bedtime and school time, the top apps, the battery and the location. Add or revoke a time bonus, lock or unlock, ring a device or send an emergency. The Google session renews itself, cached data rides out Google's hiccups, and a notification asks for a new sign-in only when it is really needed."
+  highlights:
+  - "Status per child: supervised, attention, locked or not supervised, with the header icon in the status colour"
+  - "Screen time of the day and the week, time left, bedtime and school time windows, per device"
+  - "Add a time bonus, revoke it, lock and unlock, ring, set an app rule"
+  - "Emergency: the device rings through Family Link and a critical notification goes through the Home Assistant app"
+  - "Location popup with the route on the map and a replay slider"
+  - "Automatic session refresh, cached data on transient errors, persistent notification when a new sign-in is needed"
+  - "Animated phone or tablet, multi-device chips and top apps in the full card"
+  - "Mini card with a detail button showing the full card"
+  - "22 languages"
+  homeassistant: 2025.2.0
+  keywords: "google family link parental control contrôle parental screen time temps d'écran kids children enfants lock bonus bedtime school time location android chromebook"
+  cardTypes:
+  - family-link-card
+  - family-link-mini-card
+  hero:
+    src: card-light.png
+    dark: card.png
+    caption: Phone
+    group: Card
+  screenshots:
+  - src: card-tablet-locked-light.png
+    dark: card-tablet-locked.png
+    caption: Tablet locked
+    group: Card
+  - src: card-bonus-light.png
+    dark: card-bonus.png
+    caption: Time bonus
+    group: Card
+  - src: card-location-light.png
+    dark: card-location.png
+    caption: Location route
+    group: Card
+  - src: card-emergency-light.png
+    dark: card-emergency.png
+    caption: Emergency
+    group: Card
+  - src: mini-card-light.png
+    dark: mini-card.png
+    caption: Default view
+    group: Mini card
+  - src: mini-card-devices-light.png
+    dark: mini-card-devices.png
+    caption: Several devices
+    group: Mini card
+  - src: mini-card-locked-light.png
+    dark: mini-card-locked.png
+    caption: Locked
+    group: Mini card
+  animations:
+  - src: anim-phone-light.gif
+    dark: anim-phone.gif
+    caption: Phone
+  - src: anim-tablet-locked-light.gif
+    dark: anim-tablet-locked.gif
+    caption: Tablet locked
+  - src: anim-bonus-light.gif
+    dark: anim-bonus.gif
+    caption: Time bonus
+  - src: anim-mini-devices-light.gif
+    dark: anim-mini-devices.gif
+    caption: Mini card devices
 - slug: ha-doorbell-card
   title: Doorbell Card
   kind: card
