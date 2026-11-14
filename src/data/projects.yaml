@@ -46,6 +46,9 @@ contributors:
 - login: FredM67
   contribution: Detection of the sub-device warning in the discovery, with the patch
   project: ha-smart-comfort
+- login: briis
+  contribution: Mercedes-Benz logo, also picked from the mbapi2020 integration
+  project: ha-vehicle-card
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
@@ -3293,7 +3296,7 @@ projects:
   highlights:
   - 18 car integrations found by themselves, entities matched by their translation keys
   - The maker's spelling of the model, and no model repeated when it is the device's name
-  - Brand logo for 33 brands and the picture the integration gives (Renault Picture, Volvo, VW group, Stellantis, Toyota)
+  - Brand logo for 34 brands, Mercedes-Benz included, and the picture the integration gives (Renault Picture, Volvo, VW group, Stellantis, Toyota)
   - Range, fuel level or gauge, battery, mileage and outside temperature
   - Charging and time left, plug, lock, doors, air conditioning and tyre pressures
   - The car's action buttons, plus buttons of your choice (a wallbox, a script, a lock…), with a confirmation tap
