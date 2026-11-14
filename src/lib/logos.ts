@@ -1,5 +1,5 @@
 // Logos of a project, read from the top of its README (see header-logos.ts): its own logo, shown wherever the site
-// shows the project, and the logos of the brands and integrations it supports, shown on its page. Raster logos are
+// shows the project (except for an integration with a card, shown with its card's icon), and the logos of the brands and integrations it supports, shown on its page. Raster logos are
 // re-encoded like the captures (optimize.ts); SVGs are used as they are.
 import type { Project } from "./projects";
 import { readme, rawUrl } from "./readme";
@@ -32,7 +32,10 @@ export function getLogos(p: Project): Promise<Logos> {
 async function load(p: Project): Promise<Logos> {
   const md = await readme(p);
   if (md === null) return { own: null, brands: [] };
-  const { own: found, brands } = headerLogos(md, rawUrl(p.slug));
+  const { own: header, brands } = headerLogos(md, rawUrl(p.slug));
+  // An integration that ships a card is shown with its card's icon (the site's icon in its accent, as the cards'
+  // header pastille), not with the brand icon at the top of its README
+  const found = p.kind === "integration" && p.withCard ? null : header;
   // The logo fills a round slot: a wide wordmark would shrink to a line there, so the site's icon is kept instead
   const size = found && !/\.svg(\?|$)/i.test(found.src) ? await imageSize(found.src) : null;
   const own = size && size.w > size.h * MAX_RATIO ? null : found;

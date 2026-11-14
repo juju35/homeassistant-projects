@@ -1932,7 +1932,7 @@ projects:
   kind: integration
   withCard: true
   category: appliances
-  icon: mdiFloorPlan
+  icon: mdiRobotVacuum
   accent: '#2f6ed6'
   tagline: "A clean, live map of your Roborock vacuum: named rooms, walls, zones and the robot on its path, in 2D or 3D."
   summary: "Turns the pixelated map of the official Roborock integration into a vector floor plan: each room traced with its name and an icon, walls and doors, the dock, no-go zones, and the robot travelling its path almost live while it cleans. A 3D view and a full screen button come with it; the card is bundled with the integration, and Vacuum Card draws it in its map section on its own."
