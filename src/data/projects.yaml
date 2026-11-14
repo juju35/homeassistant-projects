@@ -3064,17 +3064,18 @@ projects:
   category: network
   icon: mdiCertificate
   accent: '#5e35b1'
-  tagline: "SSL/TLS certificates sorted by expiry, with a few DNS checks."
-  summary: "Cards to keep an eye on your SSL/TLS certificates: which one expires next, how many days are left, which ones are expired or invalid, plus DNS checks. Certificate Expiry and DNS IP sensors are found on their own."
+  tagline: "SSL/TLS certificates and domain names sorted by expiry, with a few DNS checks."
+  summary: "Cards to keep an eye on your SSL/TLS certificates and your domain names: which one expires next, how many days are left, which ones are expired or invalid, plus DNS checks. Certificate Expiry, Whois and DNS IP sensors are found on their own."
   highlights:
   - "Every Certificate Expiry sensor found automatically"
+  - "Domain names from the Whois integration in their own section: expiry date, registrar, days left; the mini card lists them with the certificates"
   - "Certificates sorted by expiry, with the days left as a badge and a bar"
   - "Thresholds in orange and red, expired and invalid certificates with their error"
   - "Optional DNS checks: DNS IP and Ping"
   - "Only certificates needing attention, if you prefer"
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
-  keywords: "certificat ssl tls certificate expiry let's encrypt dns ip ping https"
+  keywords: "certificat ssl tls certificate expiry let's encrypt dns ip ping https whois domain domaine registrar"
   worksWith:
   - slug: ha-reverse-proxy
     why: "The hosts it exposes, and their certificates"
