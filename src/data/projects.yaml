@@ -60,11 +60,12 @@ projects:
   - Rain in the next hour, hourly and daily forecasts
   - Weather warnings banner from Meteoalarm, DWD, NWS or Météo-France, lightning nearby, drought restrictions
   - Air quality, pollutants, UV index and pollen with tomorrow's forecast
+  - "Moon phase, age, moonrise and moonset, next full and new moons from Lunar Phase when it is installed"
   - Full screen view and a refresh button for fresh data
   - Today and the sun and moon times in the server time zone when your profile uses it
   - Animations paused while the card is off-screen
   homeassistant: 2024.8.0
-  keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no meteoalarm dwd nws warnings"
+  keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no meteoalarm dwd nws warnings moon lunar phase"
   worksWith:
   - slug: ha-uv-card
     why: "The UV index in detail, with the WHO risk level"
@@ -90,6 +91,10 @@ projects:
   - src: night.png
     dark: night-dark.png
     caption: Night
+    group: Card
+  - src: lunar-phase.png
+    dark: lunar-phase-dark.png
+    caption: "Moon from Lunar Phase"
     group: Card
   - src: mini.png
     dark: mini-dark.png
@@ -196,11 +201,11 @@ projects:
   category: climate
   icon: mdiAirConditioner
   accent: '#039be5'
-  tagline: Cards for air purifiers, fans, air conditioners and thermostats, with an overview of every device.
+  tagline: Cards for air purifiers, fans and air conditioners, with an overview of every device.
   summary: One card per kind of device, each with a mini card, and an overview of the whole home. Add a card and it finds the device and its sensors by itself; the illustrations come alive while a device runs.
   highlights:
-  - Air purifier, fan, air conditioner and thermostat cards, each with a mini card
-  - 'Thermostats, radiators and radiator valves: target, presets, mode, valve, open window and battery'
+  - Air purifier, fan and air conditioner cards, each with a mini card
+  - "Filter life always shown, purifiers and air conditioners alike, a replace-soon alert and a filter reset button"
   - Overview of every device, grouped by kind or by area
   - 'Animated illustrations: turning blades, air flowing, swinging head'
   - Automatic discovery of devices and their sensors
@@ -210,20 +215,20 @@ projects:
   - Sliders showing their fill and value while they move
   - Chips opening the more-info dialog of their entity
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi fan ventilateur climate thermostat radiator valve chauffage heating"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
+  - slug: ha-heating-card
+    why: "Thermostats and radiators, which moved there from these cards"
   cardTypes:
   - climate-air-overview-card
   - climate-air-purifier-card
   - climate-air-fan-card
   - climate-air-aircon-card
-  - climate-air-thermostat-card
   - climate-air-purifier-mini-card
   - climate-air-fan-mini-card
   - climate-air-aircon-mini-card
-  - climate-air-thermostat-mini-card
   hero:
     src: overview-all.png
     dark: overview-all-dark.png
@@ -302,26 +307,6 @@ projects:
     dark: aircon-window-dark.png
     group: Air conditioner
     caption: Window
-  - src: thermostat-card.png
-    dark: thermostat-card-dark.png
-    caption: Thermostat
-    group: Thermostat
-  - src: thermostat-mini.png
-    dark: thermostat-mini-dark.png
-    caption: Thermostat mini
-    group: Thermostat
-  - src: thermostat-alert.png
-    dark: thermostat-alert-dark.png
-    caption: Open window and low battery
-    group: Thermostat
-  - src: thermostat-dial.png
-    dark: thermostat-dial-dark.png
-    caption: Wall thermostat
-    group: Thermostat
-  - src: thermostat-radiator.png
-    dark: thermostat-radiator-dark.png
-    caption: Radiator
-    group: Thermostat
   animations:
   - src: purifier.gif
     dark: purifier-dark.gif
@@ -341,15 +326,6 @@ projects:
   - src: aircon-dry.gif
     dark: aircon-dry-dark.gif
     caption: Air conditioner drying
-  - src: thermostat.gif
-    dark: thermostat-dark.gif
-    caption: Thermostat heating
-  - src: thermostat-dial.gif
-    dark: thermostat-dial-dark.gif
-    caption: Wall thermostat
-  - src: thermostat-radiator.gif
-    dark: thermostat-radiator-dark.gif
-    caption: Radiator
   - src: overview.gif
     dark: overview-dark.gif
     caption: Overview
@@ -363,7 +339,7 @@ projects:
   tagline: 'Fewer, smarter comfort alerts, and climate devices and lights that adjust themselves, room by room.'
   summary: 'Tracks each comfort problem as an episode: notified once when it starts, again only if it gets worse. Temperature, CO₂, humidity, noise, indoor and outdoor air quality and windows to open or close, automatic control of air conditioners, fans and purifiers with a quiet night, and adaptive lighting. Everything is set up room by room in its own panel.'
   highlights:
-  - Eleven alerts per room for heat, cold, windows, CO₂, humidity, polluted air, noise and outdoor air
+  - Eleven alerts per room for heat, cold, windows, CO₂, humidity, polluted air, noise and outdoor air; no cold-window alert while a room airs out
   - Indoor air quality from PM2.5, PM10 and air quality index sensors per room, the purifiers' own sensors found by Discover
   - Polluted air alert with its reading, the room's purifiers boosted until the air is clean, then back to their previous state
   - Episodes instead of cooldowns, grouped in one digest notification
@@ -476,7 +452,7 @@ projects:
   keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule"
   worksWith:
   - slug: ha-climate-air-card
-    why: "The thermostat illustration comes from its thermostat card"
+    why: "Air conditioners, fans and purifiers; the thermostats moved here from it"
   cardTypes:
   - heating-card
   - heating-mini-card
@@ -553,12 +529,13 @@ projects:
   - Overview of every room, coloured by leaks, openings and presence
   - 'Sensors card: what is open comes first, with how long'
   - Lights and plugs cards with power draw
+  - "Room scenes under the lights, Philips Hue scenes found by their Hue room, dynamic ones started moving"
   - Lights and plugs mini cards on two lines, with an all off button and a zoom to the full card
   - Environment cards for temperature, humidity and air quality, unavailable sensors grouped in a muted tile
   - The last 24 hours of each reading drawn behind its tile, its lowest and highest in the tooltip
   - Automatic discovery from Home Assistant areas
   homeassistant: 2024.8.0
-  keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity"
+  keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity scenes philips hue"
   worksWith:
   - slug: ha-smart-comfort
     why: "Comfort alerts and adaptive lighting, room by room"
@@ -616,6 +593,10 @@ projects:
   - src: lights-off.png
     dark: lights-off-dark.png
     caption: All off
+    group: Lights
+  - src: lights-scenes.png
+    dark: lights-scenes-dark.png
+    caption: "Scenes"
     group: Lights
   - src: lights-mini-on.png
     dark: lights-mini-on-dark.png
@@ -869,6 +850,10 @@ projects:
   screenshots:
   - src: card-area.png
     caption: "Area"
+    group: Card
+  - src: card-columns.png
+    dark: card-columns-dark.png
+    caption: "Columns"
     group: Card
   - src: card-blind.png
     caption: "Blind"
@@ -1804,9 +1789,13 @@ projects:
   - Battery, status, current room, progress and errors
   - Cleaning mode, suction, mop intensity and route
   - Room selection and dock actions, Dreame and Xiaomi Miio included, with your own list of rooms if needed
+  - "Roborock: the live Vacuum Map, rooms named and the robot on its path, in 2D or 3D, on the card and the mini card while cleaning"
   - Map paused while the card is off-screen
   homeassistant: 2024.8.0
-  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop"
+  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d"
+  worksWith:
+  - slug: ha-vacuum-map
+    why: "Its live Roborock map, drawn in the map section"
   cardTypes:
   - vacuum-card
   - vacuum-mini-card
@@ -1938,6 +1927,41 @@ projects:
   - src: braava-mopping-light.gif
     dark: braava-mopping.gif
     caption: Braava mopping
+- slug: ha-vacuum-map
+  title: Vacuum Map
+  kind: integration
+  withCard: true
+  category: appliances
+  icon: mdiFloorPlan
+  accent: '#2f6ed6'
+  tagline: "A clean, live map of your Roborock vacuum: named rooms, walls, zones and the robot on its path, in 2D or 3D."
+  summary: "Turns the pixelated map of the official Roborock integration into a vector floor plan: each room traced with its name and an icon, walls and doors, the dock, no-go zones, and the robot travelling its path almost live while it cleans. A 3D view and a full screen button come with it; the card is bundled with the integration, and Vacuum Card draws it in its map section on its own."
+  highlights:
+  - "Vector map: rooms, floor and walls traced and simplified, clean at any size, no specks or furniture"
+  - "Room names from the Roborock app, an icon guessed from each name, name, icon and colour per room"
+  - "The robot and its path every second while a card is open on a cleaning vacuum, moving smoothly between updates"
+  - "The room being cleaned stands out; dock, no-go and no-mop zones, virtual walls and optional obstacles"
+  - "3D view with raised walls, to turn and zoom, and a full screen button"
+  - "Local only: the map the Roborock integration already fetches, never through the cloud"
+  - "Card bundled with the integration, visual editor, rotation by 90°, embedded mode for other cards"
+  - "Diagnostics holding the raw map to reproduce a rendering issue"
+  homeassistant: 2025.12.1
+  keywords: "roborock vacuum map floor plan rooms live robot path 3d three.js zones no-go saros qrevo aspirateur carte"
+  worksWith:
+  - slug: ha-vacuum-card
+    why: "Shows this live map in its map section, nothing to configure"
+  cardTypes:
+  - vacuum-map-card
+  hero:
+    src: map.png
+    dark: map-dark.png
+    caption: "2D map"
+    group: Card
+  screenshots:
+  - src: map-3d.png
+    dark: map-3d-dark.png
+    caption: "3D view"
+    group: Card
 - slug: ha-mower-card
   title: Mower Card
   kind: card
@@ -2305,6 +2329,10 @@ projects:
     group: Card
   - src: card-gemini.png
     caption: "Gemini"
+    group: Card
+  - src: card-yumshare.png
+    dark: card-yumshare-dark.png
+    caption: "YumShare and Eversweet Max"
     group: Card
   - src: mini-card-zoom.png
     caption: "Detail view"
@@ -3458,6 +3486,14 @@ projects:
     dark: agenda-more-dark.png
     caption: Agenda with folded events
     group: Agenda
+  - src: agenda-extras.png
+    dark: agenda-extras-dark.png
+    caption: "To-do lists, working day and school holidays"
+    group: Agenda
+  - src: week-extras.png
+    dark: week-extras-dark.png
+    caption: "Week with to-do lists and school holidays"
+    group: Agenda
   - src: agenda-add.png
     dark: agenda-add-dark.png
     caption: New event
@@ -3481,6 +3517,10 @@ projects:
   - src: mini-zoom.png
     dark: mini-zoom-dark.png
     caption: Mini card unfolded
+    group: Mini card
+  - src: mini-todos.png
+    dark: mini-todos-dark.png
+    caption: "Mini card with to-do lists"
     group: Mini card
   animations:
   - src: agenda-popup.gif
@@ -3611,7 +3651,8 @@ projects:
   - "Sonos, Music Assistant, Squeezebox, Google Cast, AirPlay, Spotify and any media player"
   - "Jellyfin: series and episode, client app, idle sessions hidden"
   - "Echo (Alexa Media Player): last called, do not disturb, next alarm, timer and reminder, Alexa groups"
-  - "Apple TV and HomePod: app playing, apps as sources, optional remote"
+  - "Apple TV and HomePod: app playing, apps as sources, optional remote, a remote button on the mini card"
+  - "Philips TV: Ambilight, Ambilight + Hue and screen buttons, recordings, and the remote"
   - "Echo, HomePod and Apple TV drawn from their model when there is no artwork"
   - "Artwork over a blurred background, progress bar you can seek"
   - "Volume per room and speaker groups, join and unjoin"
@@ -3620,7 +3661,7 @@ projects:
   - "Several players in one card"
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
-  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver jellyfin alexa echo amazon homepod apple tv"
+  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver jellyfin alexa echo amazon homepod apple tv philips ambilight remote"
   cardTypes:
   - media-card
   - media-mini-card
@@ -3637,6 +3678,10 @@ projects:
     group: Card
   - src: card-apple-tv.png
     caption: "Apple TV with the remote"
+    group: Card
+  - src: card-philips-tv.png
+    dark: card-philips-tv-dark.png
+    caption: "Philips TV with Ambilight and the remote"
     group: Card
   - src: card-homepod.png
     caption: "HomePod"
@@ -3679,6 +3724,18 @@ projects:
     group: Mini card
   - src: mini-card-tv.png
     caption: "TV"
+    group: Mini card
+  - src: mini-card-apple-tv.png
+    dark: mini-card-apple-tv-dark.png
+    caption: "Apple TV with the remote button"
+    group: Mini card
+  - src: mini-card-remote.png
+    dark: mini-card-remote-dark.png
+    caption: "Remote popup"
+    group: Mini card
+  - src: mini-card-philips-tv.png
+    dark: mini-card-philips-tv-dark.png
+    caption: "Philips TV"
     group: Mini card
   - src: mini-card-zoom.png
     caption: "Detail view"
@@ -3758,6 +3815,27 @@ projects:
   - src: mini-card.png
     caption: "Default view"
     group: Mini card
+  - src: card-idfm.png
+    caption: "Paris and Île-de-France (IDFM)"
+    group: Networks
+  - src: card-tcl.png
+    caption: "Lyon (TCL)"
+    group: Networks
+  - src: card-cts.png
+    caption: "Strasbourg (CTS)"
+    group: Networks
+  - src: card-tbm.png
+    caption: "Bordeaux (TBM)"
+    group: Networks
+  - src: card-tisseo.png
+    caption: "Toulouse (Tisséo)"
+    group: Networks
+  - src: card-naolib.png
+    caption: "Nantes (Naolib)"
+    group: Networks
+  - src: card-ilevia.png
+    caption: "Lille (Ilévia)"
+    group: Networks
   animations:
   - src: alerts.gif
     caption: "Alerts"
@@ -3805,7 +3883,7 @@ projects:
   category: everyday
   icon: mdiSchool
   accent: '#2e7d32'
-  tagline: "Timetable, homework, grades and school life of your children from Pronote."
+  tagline: "Timetable, homework, grades and school life of your children from Pronote, in cards and an optional sidebar panel."
   summary: "Cards for the school life of your children from Pronote, the software used by French schools: today's and the next school day's timetable, homework done or to do, grades and averages, absences and menus. One tab per student, found on their own."
   highlights:
   - "Several students, one tab each"
@@ -3816,6 +3894,7 @@ projects:
   - "School life: absences, late arrivals, punishments, menu"
   - "Animated school picture following the day"
   - "Mini card with the next lesson and homework"
+  - "Optional sidebar panel: the whole school life on a full page, a tab per section, a button per student"
   homeassistant: 2024.8.0
   keywords: "pronote école collège lycée devoirs notes emploi du temps school homework grades timetable"
   cardTypes:
@@ -3828,6 +3907,10 @@ projects:
   screenshots:
   - src: card-grades.png
     caption: "Grades"
+    group: Card
+  - src: card-grades-period.png
+    dark: card-grades-period-dark.png
+    caption: "Grades of a past term"
     group: Card
   - src: card-homework-popup.png
     caption: "Homework popup"
@@ -3847,6 +3930,14 @@ projects:
   - src: mini-card.png
     caption: "Default view"
     group: Mini card
+  - src: panel.png
+    dark: panel-dark.png
+    caption: "Today"
+    group: Panel
+  - src: panel-grades.png
+    dark: panel-grades-dark.png
+    caption: "Grades"
+    group: Panel
   animations:
   - src: anim-canceled.gif
     caption: "Canceled"
@@ -3887,6 +3978,10 @@ projects:
     group: Card
   - src: card-portfolio.png
     caption: "Portfolio"
+    group: Card
+  - src: card-currency.png
+    dark: card-currency-dark.png
+    caption: "Total in another currency"
     group: Card
   - src: mini-card-portfolio.png
     caption: "Portfolio"
@@ -3969,7 +4064,8 @@ projects:
   summary: 'Built on the GitHub integration included in Home Assistant, with no token of its own: an admin sidebar panel to follow your repositories and see their open issues and pull requests, and cards with their stars, issues, pull requests and latest release. Formerly ha-github-card.'
   highlights:
   - Admin sidebar panel with Repositories, Issues, Pull requests and Settings tabs
-  - Follow or stop following any repository of your account, or all at once, in a single reload
+  - Follow or stop following any repository of your account, the ticked ones or all at once, in a single reload
+  - Archived repositories left out if you like
   - Live stars, issues, pull requests and release on each repository, which unfolds the card's details
   - Repositories sorted by name, stars, open issues or open pull requests, with totals
   - Open issues and pull requests of every followed repository, with labels and review state
@@ -4034,9 +4130,9 @@ projects:
   highlights:
   - 'Status tab: an emblem, the points to check and a score, each area by group; the sidebar icon follows the status'
   - 'Panel in four groups: System, Reliability, Maintenance and Devices, the modules as sub-tabs, ordered as you like'
-  - 'Resources: System Monitor sensors, restart Home Assistant and reload the configuration, each confirmed'
+  - 'Resources: System Monitor sensors, reload the configuration, restart Home Assistant or reboot the host, each confirmed, from the panel or the System Monitor card'
   - 'Containers: Home Assistant Core, the Supervisor and every add-on, with state, version, CPU and memory; monitoring only'
-  - 'Database: size, retention and the entities that write the most, purge their history or copy the recorder exclusion, purge and repack'
+  - 'Database: size, retention and the devices that write the most, each unfolding to its entities, purge their history or copy the recorder exclusion, purge and repack'
   - 'Security: refused logins with notifications, accounts and 2FA, long-lived tokens to revoke, exposure, add-ons not protected, credentials in clear'
   - 'Logs: errors and warnings grouped by integration, with their traceback, reload or ignore'
   - 'Updates: Home Assistant, add-ons, devices and the Marketplace in one tab, Update all with an optional backup first'
