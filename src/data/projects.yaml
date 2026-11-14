@@ -2352,36 +2352,52 @@ projects:
   category: appliances
   icon: mdiPaw
   accent: '#ff7043'
-  tagline: "PetKit feeders and water fountains: food, water, filter and a manual feed in two taps."
-  summary: "Cards for smart pet devices: food and water levels, filter and desiccant, today's meals and a manual feed from a popup. PetKit feeders and fountains are found on their own."
+  tagline: "PetKit feeders, fountains and litter boxes, Litter-Robot: food, water, litter and waste bin, drawn and animated by what they do."
+  summary: "Cards for smart pet devices: food and water levels, filter and desiccant, litter and waste bin, today's meals and visits, and a manual feed from a popup. Each device is drawn next to its levels and animated by what it does. PetKit devices and Litter-Robots are found on their own."
   highlights:
+  - "Animated illustration of each device: kibbles falling while a feeder dispenses, water flowing while the fountain's pump runs, a litter box's drum turning while it cleans and a cat peeking out"
   - "PetKit feeders (Fresh Element Infinity, Solo, Gemini, Mini Pro, YumShare Dual-Hopper with its camera) and Eversweet fountains, Max cordless included"
-  - "Both PetKit integrations: RobertD502's and Jezza34000's"
+  - "PetKit litter boxes (Pura X, Pura MAX 1 and 2, Purobot): litter, waste bin, cat inside, uses today, deodorizer, clean and deodorize"
+  - "Litter-Robot 3 Connect, 4 and 5: waste drawer gauge, litter level, cat weight, cycles, night light, clean cycle; LR4 drawn in black or white"
+  - "Both PetKit integrations: RobertD502's and Jezza34000's, and Home Assistant's Litter-Robot integration"
   - "Food level per hopper, meals and food dispensed today"
   - "Manual feed in a popup, in the feeder's own amounts"
   - "Water level, filter left, mode and switches of the fountains"
   - "Filter and desiccant reset with a confirmation"
   - "Mini card with a detail button showing the full card"
   homeassistant: 2024.8.0
-  keywords: "animaux chat chien distributeur fontaine pet cat dog feeder fountain petkit eversweet"
+  keywords: "animaux chat chien distributeur fontaine litière pet cat dog feeder fountain litter box petkit eversweet pura max purobot litter-robot whisker"
   cardTypes:
   - pet-card
   - pet-mini-card
   hero:
     src: card.png
+    dark: card-dark.png
     caption: "Pet Card"
     group: Card
   screenshots:
+  - src: card-litter.png
+    dark: card-litter-dark.png
+    caption: "PetKit litter boxes"
+    group: Card
+  - src: card-litter-robot.png
+    dark: card-litter-robot-dark.png
+    caption: "Litter-Robot 4 and 3 Connect"
+    group: Card
   - src: card-alerts.png
+    dark: card-alerts-dark.png
     caption: "Alerts"
     group: Card
   - src: card-feed-gemini.png
+    dark: card-feed-gemini-dark.png
     caption: "Feed Gemini"
     group: Card
   - src: card-feed.png
+    dark: card-feed-dark.png
     caption: "Feed"
     group: Card
   - src: card-gemini.png
+    dark: card-gemini-dark.png
     caption: "Gemini"
     group: Card
   - src: card-yumshare.png
@@ -2389,17 +2405,34 @@ projects:
     caption: "YumShare and Eversweet Max"
     group: Card
   - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
     caption: "Detail view"
     group: Mini card
   - src: mini-card.png
+    dark: mini-card-dark.png
     caption: "Default view"
     group: Mini card
   animations:
+  - src: card-dispense.gif
+    dark: card-dispense-dark.gif
+    caption: "Feeder dispensing"
+  - src: card-fountain.gif
+    dark: card-fountain-dark.gif
+    caption: "Fountain pump"
+  - src: card-litter-clean.gif
+    dark: card-litter-clean-dark.gif
+    caption: "Litter box cleaning, then a cat"
+  - src: card-litter-robot-cycle.gif
+    dark: card-litter-robot-cycle-dark.gif
+    caption: "Litter-Robot cycle"
   - src: card-feed.gif
+    dark: card-feed-dark.gif
     caption: "Feed"
   - src: card-levels.gif
+    dark: card-levels-dark.gif
     caption: "Levels"
   - src: mini-card-zoom.gif
+    dark: mini-card-zoom-dark.gif
     caption: "Mini card detail view"
 - slug: ha-internet-box-card
   title: Internet Box Card
