@@ -110,8 +110,8 @@ code, pre { font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, mon
 .logo.lg svg { width: 32px; height: 32px; }
 .logo.sm { width: 32px; height: 32px; }
 .logo.sm svg { width: 18px; height: 18px; }
-/* The project's own logo (from its README) fills the slot: it carries its own background */
-.logo.has-img { background: none; overflow: hidden; }
+/* An integration's own icon (from its README) fills the slot, whole: it carries its own background and shape */
+.logo.has-img { background: none; border-radius: 0; }
 .logo.has-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 /* Chips: tinted pills */
