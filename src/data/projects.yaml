@@ -203,13 +203,14 @@ projects:
   category: climate
   icon: mdiAirConditioner
   accent: '#039be5'
-  tagline: Cards for air purifiers, fans and air conditioners, with an overview of every device.
+  tagline: Cards for heat pumps, air conditioners, air purifiers and fans, with an overview of every device.
   summary: One card per kind of device, each with a mini card, and an overview of the whole home. Add a card and it finds the device and its sensors by itself; the illustrations come alive while a device runs.
   highlights:
-  - Air purifier, fan and air conditioner cards, each with a mini card
+  - Air purifier, fan, air conditioner and heat pump cards, each with a mini card
+  - "Air-to-water heat pumps: hot water tank, three-way valve, defrost and backup heater, Aldes T.One through TOUG included"
   - "Filter life always shown, purifiers and air conditioners alike, a replace-soon alert and a filter reset button"
   - Overview of every device, grouped by kind or by area
-  - 'Animated illustrations: turning blades, air flowing, swinging head'
+  - 'Animated illustrations: turning blades, air flowing, swinging head, a heat pump outdoor unit feeding its tank'
   - Automatic discovery of devices and their sensors
   - Heat / cool range of air conditioners on the overview
   - Horizontal swing for the air conditioners that support it
@@ -217,7 +218,7 @@ projects:
   - Sliders showing their fill and value while they move
   - Chips opening the more-info dialog of their entity
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
@@ -228,9 +229,11 @@ projects:
   - climate-air-purifier-card
   - climate-air-fan-card
   - climate-air-aircon-card
+  - climate-air-heatpump-card
   - climate-air-purifier-mini-card
   - climate-air-fan-mini-card
   - climate-air-aircon-mini-card
+  - climate-air-heatpump-mini-card
   hero:
     src: overview-all.png
     dark: overview-all-dark.png
@@ -309,6 +312,26 @@ projects:
     dark: aircon-window-dark.png
     group: Air conditioner
     caption: Window
+  - src: heatpump-card.png
+    dark: heatpump-card-dark.png
+    caption: Heat pump
+    group: Heat pump
+  - src: heatpump-mini.png
+    dark: heatpump-mini-dark.png
+    caption: Heat pump mini
+    group: Heat pump
+  - src: heatpump-dhw.png
+    dark: heatpump-dhw-dark.png
+    caption: Hot water
+    group: Heat pump
+  - src: heatpump-cool.png
+    dark: heatpump-cool-dark.png
+    caption: Cooling
+    group: Heat pump
+  - src: heatpump-defrost.png
+    dark: heatpump-defrost-dark.png
+    caption: Defrosting
+    group: Heat pump
   animations:
   - src: purifier.gif
     dark: purifier-dark.gif
@@ -328,6 +351,15 @@ projects:
   - src: aircon-dry.gif
     dark: aircon-dry-dark.gif
     caption: Air conditioner drying
+  - src: heatpump.gif
+    dark: heatpump-dark.gif
+    caption: Heat pump heating
+  - src: heatpump-dhw.gif
+    dark: heatpump-dhw-dark.gif
+    caption: Heat pump heating the hot water
+  - src: heatpump-cool.gif
+    dark: heatpump-cool-dark.gif
+    caption: Heat pump cooling
   - src: overview.gif
     dark: overview-dark.gif
     caption: Overview
