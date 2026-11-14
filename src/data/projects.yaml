@@ -218,7 +218,7 @@ projects:
   - Sliders showing their fill and value while they move
   - Chips opening the more-info dialog of their entity
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
