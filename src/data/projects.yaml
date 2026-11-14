@@ -534,6 +534,7 @@ projects:
   - "Room scenes under the lights, Philips Hue scenes found by their Hue room, dynamic ones started moving"
   - Lights and plugs mini cards on two lines, with an all off button and a zoom to the full card
   - Environment cards for temperature, humidity and air quality, unavailable sensors grouped in a muted tile
+  - "Tiles layout for the lights, plugs and environment cards, large like Home Assistant's tiles, each sensor coloured by its reading with thresholds you can set"
   - The last 24 hours of each reading drawn behind its tile, its lowest and highest in the tooltip
   - Automatic discovery from Home Assistant areas
   homeassistant: 2024.8.0
@@ -600,6 +601,10 @@ projects:
     dark: lights-scenes-dark.png
     caption: "Scenes"
     group: Lights
+  - src: lights-tiles.png
+    dark: lights-tiles-dark.png
+    caption: "Tiles"
+    group: Lights
   - src: lights-mini-on.png
     dark: lights-mini-on-dark.png
     caption: Mini lights on
@@ -620,6 +625,10 @@ projects:
     dark: switch-off-dark.png
     caption: All off
     group: Plugs
+  - src: switch-tiles.png
+    dark: switch-tiles-dark.png
+    caption: "Tiles"
+    group: Plugs
   - src: switch-mini-on.png
     dark: switch-mini-on-dark.png
     caption: Mini plugs on
@@ -639,6 +648,10 @@ projects:
   - src: environment-comfort.png
     dark: environment-comfort-dark.png
     caption: Comfortable
+    group: Environment
+  - src: environment-tiles.png
+    dark: environment-tiles-dark.png
+    caption: "Tiles, coloured by reading"
     group: Environment
   - src: environment-mini-comfort.png
     dark: environment-mini-comfort-dark.png
@@ -680,10 +693,11 @@ projects:
   category: home
   icon: mdiSolarPowerVariant
   accent: '#f9a825'
-  tagline: 'Solar inverters and home batteries from Enphase, SolarEdge, Fronius, Huawei, SMA, Tesla and more: live power flow, battery, today.'
-  summary: 'Works on top of the integrations you already use (Enphase Envoy, SolarEdge, Fronius, Huawei Solar, SMA, Tesla Powerwall, Growatt, APsystems, SolaX, GoodWe) and any other power sensors, with automatic discovery and each integration''s sign conventions handled: live power flow between the sun, the grid, the home and the battery, battery level and time left, today''s energy, self-consumption and self-sufficiency, and the integration''s switches.'
+  tagline: 'Solar inverters and home batteries from Enphase, SolarEdge, Fronius, Huawei, SMA, Tesla, Fox ESS and more: live power flow, battery, today.'
+  summary: 'Works on top of the integrations you already use (Enphase Envoy, SolarEdge, Fronius, Huawei Solar, SMA, Tesla Powerwall, Growatt, APsystems, SolaX, GoodWe, Fox ESS) and any other power sensors, with automatic discovery and each integration''s sign conventions handled: live power flow between the sun, the grid, the home and the battery, battery level and time left, today''s energy, self-consumption and self-sufficiency, and the integration''s switches.'
   highlights:
-  - Enphase, SolarEdge, Fronius, Huawei, SMA, Tesla Powerwall, Growatt, APsystems, SolaX and GoodWe supported, plus any power sensors
+  - Enphase, SolarEdge, Fronius, Huawei, SMA, Tesla Powerwall, Growatt, APsystems (ECU Reader and Modbus), SolaX, GoodWe and Fox ESS supported, plus any power sensors
+  - "Several sources added up, micro-inverters next to a hybrid inverter, with the production by source and the power of each string"
   - Live power flow between the sun, the grid, the home and the battery, in the energy dashboard colours
   - Triangle layout without a battery, or without solar panels; grid outage shown crossed out
   - Battery level with the backup reserve, charging or discharging power and time to full or to the reserve
@@ -693,7 +707,7 @@ projects:
   - 'Last 7 days of production and consumption as daily bars, with the week''s totals'
   - Mini card with a detail button switching to the full card
   homeassistant: 2024.8.0
-  keywords: "solar photovoltaic pv panneaux solaires inverter onduleur battery batterie powerwall enphase solaredge fronius huawei sma growatt apsystems solax goodwe energy"
+  keywords: "solar photovoltaic pv panneaux solaires inverter onduleur battery batterie powerwall enphase solaredge fronius huawei sma growatt apsystems solax goodwe foxess fox ess micro-inverters strings energy"
   worksWith:
   - slug: ha-zlinky-card
     why: "What the Linky meter draws from the grid"
@@ -723,6 +737,10 @@ projects:
   - src: card-fronius-light.png
     dark: card-fronius.png
     caption: Fronius, no battery
+    group: Card
+  - src: card-foxess-light.png
+    dark: card-foxess.png
+    caption: "Fox ESS"
     group: Card
   - src: card-confirm.png
     dark: card-confirm-dark.png
