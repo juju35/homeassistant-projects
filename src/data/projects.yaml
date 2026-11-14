@@ -145,9 +145,11 @@ projects:
   category: climate
   icon: mdiSunWireless
   accent: '#f2b100'
-  tagline: The current UV index with an animated icon and the WHO risk level.
-  summary: 'A small card for the UV index: an animated weather-style icon for every level from 0 to 11+, the value and the WHO risk level in its colour.'
+  tagline: The current UV index on a WHO gauge, with the risk level and sun protection advice.
+  summary: 'The UV index on a half-circle gauge split into the WHO bands, the marker gliding to the value, the risk level and its protection advice, with the max of the day and the protection window.'
   highlights:
+  - Half-circle gauge in the five WHO bands, marker gliding to the value
+  - WHO protection advice for each level
   - Animated icon for every UV index, bundled in the card
   - WHO risk level from Low to Extreme, in the level's colour
   - UV sensors or weather entities such as Met.no
@@ -167,13 +169,13 @@ projects:
     caption: UV Index Card
     group: Card
   screenshots:
-  - src: card-vertical.png
-    dark: card-vertical-dark.png
-    caption: Vertical
+  - src: card-horizontal.png
+    dark: card-horizontal-dark.png
+    caption: Horizontal
     group: Card
-  - src: card-extra.png
-    dark: card-extra-dark.png
-    caption: Max UV and protection window
+  - src: card-compact.png
+    dark: card-compact-dark.png
+    caption: Compact
     group: Card
   - src: card-unavailable.png
     dark: card-unavailable-dark.png
@@ -191,7 +193,7 @@ projects:
     caption: High
   - src: uv-very-high.gif
     dark: uv-very-high-dark.gif
-    caption: Very High
+    caption: Very high
   - src: uv-extreme.gif
     dark: uv-extreme-dark.gif
     caption: Extreme
@@ -776,13 +778,15 @@ projects:
   - Live power, current and voltage
   - Load gauge against the subscribed power, fixed or from a sensor, with thresholds you can set
   - Consumption and cost from long-term statistics, priced per tier or from a price sensor
+  - 'Cost section: this week, last month and a month-end estimate against last month'
+  - Prices, subscribed power and Tempo colours from the Tarif EDF integration
   - 24 h power curve with the real peak of the day
   - "Tempo colours and EDF Zen Flex day types (Éco, Sobriété, Bonus) of today and tomorrow, on the mini card too"
   - "ESPHome teleinfo too, its indexes found by their names"
   - 'Contract comparison: your last 12 months priced as Base and as Off-peak / Peak'
   - 'Three-phase meters: apparent power per phase, each phase measured against its share of the subscribed power'
   homeassistant: 2024.8.0
-  keywords: "linky lixee zha zigbee2mqtt esphome teleinfo energy electricity tic meter power tempo zen flex"
+  keywords: "linky lixee zha zigbee2mqtt esphome teleinfo energy electricity tic meter power tempo zen flex tarif edf cost"
   worksWith:
   - slug: ha-energy-card
     why: "Solar production and home batteries"
@@ -4803,3 +4807,421 @@ projects:
   worksWith:
   - slug: ha-integration-watchdog
     why: "Reloads the integrations that failed, whose entities are left out here"
+- slug: ha-family-day-card
+  title: Family Day Card
+  kind: card
+  category: everyday
+  icon: mdiBagPersonal
+  accent: '#d81b60'
+  tagline: "Is there school tomorrow? The answer at a glance, for French families."
+  summary: "Tomorrow first: school with the first lesson time per child from Pronote, or why there is none: weekend, public holiday, school holidays. The holidays countdown and the next public holiday in the footer."
+  highlights:
+  - "Tomorrow at a glance: school, weekend, public holiday, school holidays or day off"
+  - "First lesson time and subject per child, from Pronote"
+  - "Holidays countdown, and a progress bar back to school during holidays"
+  - "Next public holiday"
+  - "Workday, school holidays calendar and Holiday integration, each optional"
+  - "Mini card that unfolds to the full card"
+  homeassistant: 2024.8.0
+  keywords: "school holidays vacances scolaires workday holiday pronote family children calendar"
+  worksWith:
+  - slug: ha-pronote-card
+    why: "The full Pronote timetable, homework and grades"
+  - slug: ha-calendar-card
+    why: "The family agenda"
+  cardTypes:
+  - family-day-card
+  - family-day-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Family Day card
+    group: Card
+  screenshots:
+  - src: card-weekend-light.png
+    dark: card-weekend.png
+    caption: "Weekend"
+    group: Card
+  - src: card-holidays-light.png
+    dark: card-holidays.png
+    caption: "School holidays"
+    group: Card
+  - src: card-public-holiday.png
+    dark: card-public-holiday-dark.png
+    caption: "Public holiday"
+    group: Card
+  - src: card-narrow.png
+    dark: card-narrow-dark.png
+    caption: "Narrow column"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Family Day mini card"
+    group: Mini card
+  - src: mini-card-holidays-light.png
+    dark: mini-card-holidays.png
+    caption: "Holidays countdown"
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: "Mini card on a narrow column"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Mini card zoomed in to the full card"
+    group: Mini card
+  animations:
+  - src: school.gif
+    dark: school-dark.gif
+    caption: "School tomorrow"
+  - src: weekend-light.gif
+    dark: weekend.gif
+    caption: "Weekend"
+  - src: holidays.gif
+    dark: holidays-dark.gif
+    caption: "School holidays"
+  - src: public-holiday-light.gif
+    dark: public-holiday.gif
+    caption: "Public holiday"
+  - src: day-off.gif
+    dark: day-off-dark.gif
+    caption: "Day off"
+  - src: swap-light.gif
+    dark: swap.gif
+    caption: "Midnight: tomorrow becomes today"
+- slug: ha-remote-card
+  title: Remote Card
+  kind: card
+  category: everyday
+  icon: mdiTelevision
+  accent: '#546e7a'
+  tagline: "A real remote for your TV and streaming boxes: D-pad, keys, volume and sources."
+  summary: "A classic remote for Apple TV, Android TV, Philips, Samsung, LG, Roku, Fire TV, Freebox Player and Kodi: round D-pad with OK, back, home, menu, volume and mute, channels, playback and an apps and sources popup, with what is playing in the header."
+  highlights:
+  - "Round D-pad with OK, swipe and long-press repeat"
+  - "Back, home, menu, volume and mute, channels when the device has them"
+  - "Playback row and an apps and sources popup"
+  - "What is playing in the header, with its progress"
+  - "Apple TV, Android TV Remote, Philips TV, Samsung, LG webOS, Roku, Fire TV, Freebox Player and Kodi, any key overridable"
+  - "Mini card that unfolds to the full remote"
+  homeassistant: 2024.8.0
+  keywords: "remote tv apple tv android tv philips samsung lg webos roku fire tv freebox kodi d-pad media"
+  worksWith:
+  - slug: ha-media-card
+    why: "What is playing, with artwork and controls"
+  cardTypes:
+  - remote-card
+  - remote-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Remote card
+    group: Card
+  screenshots:
+  - src: card-philips-light.png
+    dark: card-philips.png
+    caption: "Philips TV"
+    group: Card
+  - src: card-android-tv-light.png
+    dark: card-android-tv.png
+    caption: "Android TV"
+    group: Card
+  - src: card-popup.png
+    dark: card-popup-dark.png
+    caption: "Apps and sources"
+    group: Card
+  - src: card-narrow.png
+    dark: card-narrow-dark.png
+    caption: "Narrow column"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Remote mini card"
+    group: Mini card
+  - src: mini-card-philips-light.png
+    dark: mini-card-philips.png
+    caption: "Philips TV"
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: "Mini card on a narrow column"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Mini card zoomed in to the full remote"
+    group: Mini card
+  animations:
+  - src: playing.gif
+    dark: playing-dark.gif
+    caption: "Now playing"
+- slug: ha-sky-card
+  title: Sky Card
+  kind: card
+  category: climate
+  icon: mdiWeatherSunny
+  accent: '#ffa000'
+  tagline: "The sun, the moon, the lunar phase and the season, in one animated sky."
+  summary: "The sun's path drawn in a sky band whose colours follow its height, with the golden and blue hours; the moon and its phase at night; daylight, moon, dawn and dusk, and the season on tiles below."
+  highlights:
+  - "The sun's arc in a sky band that follows its elevation: day, golden hour, blue hour, night"
+  - "Moon drawn with its real phase, illumination, next full and new moon"
+  - "Daylight duration and its change since yesterday"
+  - "Dawn, dusk, solar noon, elevation and azimuth in the details"
+  - "Season and days to the next solstice or equinox"
+  - "Sun, Moon, Season and Lunar Phase integrations, with local computations as a fallback"
+  - "Mini card that unfolds to the full card"
+  homeassistant: 2024.8.0
+  keywords: "sun moon lunar phase season sunrise sunset golden hour blue hour astronomy daylight"
+  worksWith:
+  - slug: ha-weather-card
+    why: "The weather of the day"
+  - slug: ha-uv-card
+    why: "The UV index"
+  cardTypes:
+  - sky-card
+  - sky-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Sky card
+    group: Card
+  screenshots:
+  - src: card-golden-hour.png
+    dark: card-golden-hour-dark.png
+    caption: "Golden hour"
+    group: Card
+  - src: card-night-light.png
+    dark: card-night.png
+    caption: "Night"
+    group: Card
+  - src: card-details.png
+    dark: card-details-dark.png
+    caption: "Details"
+    group: Card
+  - src: card-core-light.png
+    dark: card-core.png
+    caption: "Core integrations only"
+    group: Card
+  - src: card-narrow.png
+    dark: card-narrow-dark.png
+    caption: "Narrow column"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Sky mini card"
+    group: Mini card
+  - src: mini-card-night-light.png
+    dark: mini-card-night.png
+    caption: "Night"
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: "Mini card on a narrow column"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Mini card zoomed in to the full card"
+    group: Mini card
+  animations:
+  - src: day.gif
+    dark: day-dark.gif
+    caption: "Day"
+  - src: golden-hour.gif
+    dark: golden-hour-dark.gif
+    caption: "Golden hour"
+  - src: night-light.gif
+    dark: night.gif
+    caption: "Night"
+- slug: ha-device-card
+  title: Device Card
+  kind: card
+  category: maintenance
+  icon: mdiDevices
+  accent: '#009688'
+  tagline: "Your phones, tablets and computers from the Companion app: battery, charging and connection."
+  summary: "One row per device with its battery ring, charging state, connection or zone and when it was last seen; tap it for the details and to ring a lost phone."
+  highlights:
+  - "Battery ring per device, red when low, animated while charging"
+  - "Charging state, Wi-Fi or cellular, zone, last seen"
+  - "Details: storage, OS and app versions, location, focus"
+  - "Ring a device, even on silent, after a confirmation"
+  - "iOS, Android and macOS Companion apps, found automatically"
+  - "Mini card with the battery rings, unfolding to the full list"
+  homeassistant: 2024.8.0
+  keywords: "companion app mobile_app phone tablet laptop battery charging ring find my phone devices"
+  worksWith:
+  - slug: ha-presence-card
+    why: "Who is home"
+  - slug: ha-system-hub
+    why: "Batteries of the whole house"
+  cardTypes:
+  - device-card
+  - device-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Device card
+    group: Card
+  screenshots:
+  - src: card-details-light.png
+    dark: card-details.png
+    caption: "Device details"
+    group: Card
+  - src: card-ring.png
+    dark: card-ring-dark.png
+    caption: "Ring a device"
+    group: Card
+  - src: card-android.png
+    dark: card-android-dark.png
+    caption: "Android"
+    group: Card
+  - src: card-macos-light.png
+    dark: card-macos.png
+    caption: "macOS"
+    group: Card
+  - src: card-narrow.png
+    dark: card-narrow-dark.png
+    caption: "Narrow column"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Device mini card"
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: "Mini card on a narrow column"
+    group: Mini card
+  - src: mini-card-zoom-light.png
+    dark: mini-card-zoom.png
+    caption: "Mini card zoomed in to the full list"
+    group: Mini card
+  animations:
+  - src: charging.gif
+    dark: charging-dark.gif
+    caption: "Charging"
+  - src: low-battery-light.gif
+    dark: low-battery.gif
+    caption: "Low battery"
+- slug: ha-assist-card
+  title: Assist Card
+  kind: card
+  category: everyday
+  icon: mdiRobotHappy
+  accent: '#7e57c2'
+  tagline: "Talk to Assist from a dashboard: chat, voice and suggestions."
+  summary: "A chat with your Assist pipeline or AI conversation agent, answers streamed as they come, a big mic button for voice and suggestion chips; the mini card is voice first."
+  highlights:
+  - "Chat with any Assist pipeline or conversation agent, built in or AI (Google, OpenAI, Anthropic, Ollama…)"
+  - "Answers streamed as they are written, conversation kept for follow-ups"
+  - "Voice input with the browser mic, spoken answers optional"
+  - "Suggestion chips, by area or your own"
+  - "Safe markdown in the answers"
+  - "Voice-first mini card that unfolds to the full chat"
+  homeassistant: 2025.6.0
+  keywords: "assist voice conversation chat ai llm gemini openai ollama pipeline speech"
+  worksWith:
+  - slug: ha-system-hub
+    why: "The state of your Home Assistant"
+  cardTypes:
+  - assist-card
+  - assist-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Assist card
+    group: Card
+  screenshots:
+  - src: card-empty-light.png
+    dark: card-empty.png
+    caption: "New conversation"
+    group: Card
+  - src: card-builtin-light.png
+    dark: card-builtin.png
+    caption: "Built-in Assist"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Assist mini card"
+    group: Mini card
+  - src: mini-card-empty-light.png
+    dark: mini-card-empty.png
+    caption: "Ready to listen"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Mini card zoomed in to the full chat"
+    group: Mini card
+  animations:
+  - src: listening.gif
+    dark: listening-dark.gif
+    caption: "Listening"
+  - src: streaming-light.gif
+    dark: streaming.gif
+    caption: "Streaming answer"
+- slug: ha-rain-card
+  title: Rain Card
+  kind: card
+  category: climate
+  icon: mdiWeatherPouring
+  accent: '#1e88e5'
+  tagline: "Rain in the next hour, minute by minute, on a 60-minute ribbon."
+  summary: "When the rain starts, how heavy it is and when it stops, from Météo-France's rain in the next hour, on a ribbon of twelve 5-minute bars; any weather entity's hourly forecast as a fallback."
+  highlights:
+  - '"Rain at 14:35", "Dry for the next hour", "Rain stops at 14:50" at a glance'
+  - "12 bars of 5 minutes, their height and shade by intensity"
+  - "Météo-France rain in the next hour, stale forecasts flagged"
+  - "Any weather entity as a fallback, hourly"
+  - "Mini card with a compact ribbon, unfolding to the full card"
+  homeassistant: 2024.8.0
+  keywords: "rain pluie meteo-france nowcast precipitation next hour weather umbrella"
+  worksWith:
+  - slug: ha-weather-card
+    why: "The weather of the day"
+  - slug: ha-sky-card
+    why: "The sun and the moon"
+  cardTypes:
+  - rain-card
+  - rain-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Rain card
+    group: Card
+  screenshots:
+  - src: card-weather-light.png
+    dark: card-weather.png
+    caption: "From a weather entity"
+    group: Card
+  - src: card-stale-light.png
+    dark: card-stale.png
+    caption: "Stale forecast"
+    group: Card
+  - src: card-narrow.png
+    dark: card-narrow-dark.png
+    caption: "Narrow column"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Rain mini card"
+    group: Mini card
+  - src: mini-card-narrow.png
+    dark: mini-card-narrow-dark.png
+    caption: "Mini card on a narrow column"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Mini card zoomed in to the full card"
+    group: Mini card
+  animations:
+  - src: dry.gif
+    dark: dry-dark.gif
+    caption: "Dry"
+  - src: rain-soon.gif
+    dark: rain-soon-dark.gif
+    caption: "Rain soon"
+  - src: raining-light.gif
+    dark: raining.gif
+    caption: "Raining"
+  - src: stopping-light.gif
+    dark: stopping.gif
+    caption: "Rain stopping"
