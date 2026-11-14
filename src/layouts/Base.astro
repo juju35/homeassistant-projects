@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 import "../styles/global.css";
 import Icon from "../components/Icon.astro";
 import { OWNER } from "../lib/projects";
+const LINKEDIN = "https://www.linkedin.com/in/julien-stephan-70a5522b/";
 
 interface Props {
   title: string;
@@ -68,6 +69,7 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
         </a>
         <nav class="actions">
           <a class="icon-btn" href={`https://github.com/${OWNER}`} title="GitHub" aria-label="GitHub profile"><Icon name="mdiGithub" /></a>
+          <a class="icon-btn" href={LINKEDIN} title="LinkedIn" aria-label="LinkedIn profile" rel="me noopener"><Icon name="mdiLinkedin" /></a>
           <button class="icon-btn" id="theme-toggle" type="button" aria-label="Dark theme" aria-pressed="false" title="Dark theme">
             <Icon name="mdiWeatherNight" class="to-dark" />
             <Icon name="mdiWhiteBalanceSunny" class="to-light" />
@@ -83,7 +85,7 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
     </button>
 
     <footer class="wrap footer muted">
-      <span>Made by <a href={`https://github.com/${OWNER}`}>{OWNER}</a> · Every project is free and open source · <a href={`${base}#contributing`}>Contributions</a></span>
+      <span>Made by <a href={`https://github.com/${OWNER}`}>{OWNER}</a> (<a href={LINKEDIN} rel="me noopener">LinkedIn</a>) · Every project is free and open source · <a href={`${base}#contributing`}>Contributions</a></span>
       <span>Not affiliated with Home Assistant or the brands shown</span>
     </footer>
 
