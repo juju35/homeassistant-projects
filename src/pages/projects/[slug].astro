@@ -82,7 +82,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
     <!-- Header -->
     <section class="ha-card intro" id="overview">
       <div class="header top">
-        <ProjectLogo project={project} size="lg" accent />
+        <ProjectLogo project={project} size="lg" accent own />
         <div class="titles">
           <h1>{project.title}</h1>
           <div class="sub">{kindLabel(project)} · {category.label}</div>
@@ -134,7 +134,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
 
     <!-- Section navigation, stays under the top bar -->
     <nav class="subnav" aria-label="On this page">
-      <ProjectLogo project={project} size="sm" accent />
+      <ProjectLogo project={project} size="sm" accent own />
       <span class="sn-title">{project.title}</span>
       <div class="sn-links">
         <a href="#overview" class="sn-link active" data-spy="overview">Overview</a>
@@ -164,7 +164,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
             </button>
           ) : (
             <div class="ha-card hero empty">
-              <ProjectLogo project={project} size="xl" accent />
+              <ProjectLogo project={project} size="xl" accent own />
               <div class="empty-text">
                 <div class="name">Runs in the background</div>
                 <p class="muted">{project.title} has no dashboard of its own: it works on the server, with its entities, actions and notifications described in the documentation below.</p>
