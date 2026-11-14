@@ -1617,13 +1617,18 @@ projects:
   - "Screen time of the day and the week, time left, bedtime and school time windows, per device"
   - "Add a time bonus, revoke it, lock and unlock, ring, set an app rule"
   - "Emergency: the device rings through Family Link and a critical notification goes through the Home Assistant app"
+  - "School mode: every app blocked but the essential ones, on by hand or along the Pronote timetable, rules put back afterwards"
+  - "Bedtime, school time and daily limit binary sensors, next restriction, bonus buttons for voice assistants"
   - "Location popup with the route on the map and a replay slider"
   - "Automatic session refresh, cached data on transient errors, persistent notification when a new sign-in is needed"
   - "Animated phone or tablet, multi-device chips and top apps in the full card"
   - "Mini card with a detail button showing the full card"
   - "22 languages"
   homeassistant: 2025.2.0
-  keywords: "google family link parental control contrôle parental screen time temps d'écran kids children enfants lock bonus bedtime school time location android chromebook"
+  keywords: "google family link parental control contrôle parental screen time temps d'écran kids children enfants lock bonus bedtime school time mode école school mode pronote location android chromebook"
+  worksWith:
+  - slug: ha-pronote-card
+    why: "The Pronote timetable it shows drives the school mode"
   cardTypes:
   - family-link-card
   - family-link-mini-card
@@ -4115,6 +4120,9 @@ projects:
   - "Optional sidebar panel: the whole school life on a full page, a tab per section, a button per student"
   homeassistant: 2024.8.0
   keywords: "pronote école collège lycée devoirs notes emploi du temps school homework grades timetable"
+  worksWith:
+  - slug: ha-family-link
+    why: "Its timetable turns the Family Link school mode on and off"
   cardTypes:
   - pronote-card
   - pronote-mini-card
