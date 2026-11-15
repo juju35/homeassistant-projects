@@ -11,6 +11,7 @@ import { kindCounts } from "../lib/kinds";
 const counts = kindCounts(current);
 const cards = counts.card;
 const integrations = counts.integration;
+const themes = counts.theme;
 // en, fr, de, es, it, nl, pt, pl, sr (Cyrillic), sr-Latn, ro, da, sv, bg, ru, uk, hu, sk, cs, sl, lv
 // and el
 const LANGUAGES = 22;
@@ -23,7 +24,7 @@ const groups = categories
 
 <Base
   title="Home Assistant projects"
-  description={`${cards} Lovelace cards and ${integrations} custom integrations for Home Assistant, all installable from the Marketplace.`}
+  description={`${cards} Lovelace cards, ${integrations} custom integrations and ${themes} ${themes === 1 ? "theme" : "themes"} for Home Assistant, all installable from the Marketplace.`}
 >
   <section class="wrap hero">
     <div class="ha-card hero-card">
@@ -42,7 +43,7 @@ const groups = categories
         Српски, Srpski, Română, Dansk, Svenska, Български, Русский, Українська, Magyar,
         Slovenčina, Čeština, Slovenščina, Latviešu and Ελληνικά.
       </p>
-      <p class="stats-inline muted">{cards} cards · {integrations} integrations · {animations} animations · {LANGUAGES} languages</p>
+      <p class="stats-inline muted">{cards} cards · {integrations} integrations · {themes} {themes === 1 ? "theme" : "themes"} · {animations} animations · {LANGUAGES} languages</p>
       <div class="stats">
         <div class="tile stat" style="--c:#5b6cf0">
           <span class="logo"><Icon name="mdiViewDashboardVariant" /></span>
@@ -83,6 +84,7 @@ const groups = categories
       <button class="seg active" type="button" data-filter="all" aria-pressed="true"><Icon name="mdiViewGridOutline" class="seg-i" /><span class="seg-l">All</span> <span class="n">{current.length}</span></button>
       <button class="seg" type="button" data-filter="card" aria-pressed="false"><Icon name="mdiViewDashboardVariant" class="seg-i" /><span class="seg-l">Cards</span> <span class="n">{cards}</span></button>
       <button class="seg" type="button" data-filter="integration" aria-pressed="false"><Icon name="mdiPuzzle" class="seg-i" /><span class="seg-l">Integrations</span> <span class="n">{integrations}</span></button>
+      <button class="seg" type="button" data-filter="theme" aria-pressed="false"><Icon name="mdiThemeLightDark" class="seg-i" /><span class="seg-l">Themes</span> <span class="n">{themes}</span></button>
     </div>
     <label class="search tile">
       <Icon name="mdiMagnify" />
@@ -221,7 +223,7 @@ const groups = categories
       kind === "all" ? url.searchParams.delete("kind") : url.searchParams.set("kind", kind);
       term ? url.searchParams.set("q", q.value.trim()) : url.searchParams.delete("q");
       history.replaceState(null, "", url);
-      const label = ({ card: "cards", integration: "integrations" } as Record<string, string>)[kind];
+      const label = ({ card: "cards", integration: "integrations", theme: "themes" } as Record<string, string>)[kind];
       document.getElementById("empty-text")!.textContent =
         `No ${label ?? "project"} ${term ? `matches “${q.value.trim()}”` : "here"}.`;
     };

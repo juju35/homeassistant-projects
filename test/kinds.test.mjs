@@ -8,14 +8,16 @@ import { inFilter, kindCounts } from "../src/lib/kinds.ts";
 
 const { projects } = load(readFileSync(new URL("../src/data/projects.yaml", import.meta.url), "utf8"));
 
-test("Cards and Integrations split the projects: one definition for the counts and the filter", () => {
+test("Cards, Integrations and Themes split the projects: one definition for the counts and the filter", () => {
   const counts = kindCounts(projects);
   const cards = projects.filter((p) => p.kind === "card").length;
+  const themes = projects.filter((p) => p.kind === "theme").length;
   assert.equal(counts.card, cards, "Cards = the Lovelace cards, as in the statistics");
-  assert.equal(counts.integration, projects.length - cards);
+  assert.equal(counts.theme, themes, "Themes = the themes, as in the statistics");
+  assert.equal(counts.integration, projects.length - cards - themes);
   assert.equal(counts.all, projects.length);
-  assert.equal(counts.card + counts.integration, counts.all);
-  for (const f of ["all", "card", "integration"]) {
+  assert.equal(counts.card + counts.integration + counts.theme, counts.all);
+  for (const f of ["all", "card", "integration", "theme"]) {
     assert.equal(projects.filter((p) => inFilter(p.kind, f)).length, counts[f], f);
   }
 });

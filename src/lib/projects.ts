@@ -21,7 +21,7 @@ export interface Category {
 export interface Project {
   slug: string;
   title: string;
-  kind: "card" | "integration";
+  kind: "card" | "integration" | "theme";
   withCard?: boolean;
   category: string;
   icon: string;
@@ -82,17 +82,25 @@ export const repoUrl = (p: Project) => `https://github.com/${OWNER}/${p.slug}`;
 export const shotUrl = (p: Project, file: string) =>
   `https://raw.githubusercontent.com/${OWNER}/${p.slug}/main/screenshots/${file}`;
 
+// The Marketplace category of a project: an integration, a theme, or (for a card) a dashboard plugin.
+export const marketplaceCategory = (p: Project) =>
+  p.kind === "integration" ? "integration" : p.kind === "theme" ? "theme" : "plugin";
+
 // Opens the "add from link" dialog of the Marketplace on the visitor's instance.
 export const marketplaceUrl = (p: Project) =>
-  `https://my.home-assistant.io/redirect/marketplace_repository/?owner=${OWNER}&repository=${p.slug}&category=${
-    p.kind === "integration" ? "integration" : "plugin"
-  }`;
+  `https://my.home-assistant.io/redirect/marketplace_repository/?owner=${OWNER}&repository=${p.slug}&category=${marketplaceCategory(p)}`;
 
 export const icon = (name: string): string =>
   (mdi as Record<string, string>)[name] ?? mdi.mdiHomeAssistant;
 
 export const kindLabel = (p: Project) =>
-  p.kind === "card" ? "Lovelace card" : p.withCard ? "Integration + card" : "Integration";
+  p.kind === "card"
+    ? "Lovelace card"
+    : p.kind === "theme"
+      ? "Theme"
+      : p.withCard
+        ? "Integration + card"
+        : "Integration";
 
 // "mini-card-zoom-dark.png" -> "Mini card zoom"
 export const caption = (s: Shot) =>
