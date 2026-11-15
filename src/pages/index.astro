@@ -208,10 +208,12 @@ const groups = categories
       const words = term.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/).filter(Boolean);
       const matches = (c: HTMLElement) => words.every((w) => c.dataset.search!.includes(w));
       const isKind = (c: HTMLElement, k: string) => inFilter(c.dataset.kind!, k);
+      // Archived projects are listed apart and left out of the counts (see SSR kindCounts(current))
+      const isLive = (c: HTMLElement) => !c.classList.contains("archived");
       for (const c of cards) c.hidden = !(isKind(c, kind) && matches(c));
       // Counts on the type buttons follow the search
-      for (const b of segs) b.querySelector(".n")!.textContent = String(cards.filter((c) => isKind(c, b.dataset.filter!) && matches(c)).length);
-      const shownTotal = cards.filter((c) => !c.hidden).length;
+      for (const b of segs) b.querySelector(".n")!.textContent = String(cards.filter((c) => isLive(c) && isKind(c, b.dataset.filter!) && matches(c)).length);
+      const shownTotal = cards.filter((c) => isLive(c) && !c.hidden).length;
       document.getElementById("results")!.textContent = `${shownTotal} project${shownTotal === 1 ? "" : "s"}`;
       let any = false;
       groups.forEach((g) => {
