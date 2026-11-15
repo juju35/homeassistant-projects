@@ -5447,3 +5447,364 @@ projects:
   - src: stopping-light.gif
     dark: stopping.gif
     caption: "Rain stopping"
+
+- slug: ha-safety-card
+  title: Safety Cards
+  kind: card
+  category: security
+  icon: mdiSmokeDetectorVariant
+  accent: '#e53935'
+  tagline: Smoke, carbon monoxide and gas detectors, the alarm first and the quiet ones last, whatever the integration.
+  summary: Add a card and it finds every smoke, CO and gas detector of the home, or of a room. A detector sounding goes to the top, large and red, with where and since when; then what needs a look (low battery, end of life, fault); then the quiet detectors. A mini card and an overview of every room come with it.
+  highlights:
+  - One tile per detector, a smoke + gas device shown as one, the detector sounding first in red with where and for how long
+  - Alarm banner with a Silence button, and a Test all button that arms before it presses every self-test
+  - Maintenance in orange from the detector's own entities, low battery, end of life, fault or an alarm sensor that cannot report
+  - Quiet detectors in green, with the carbon monoxide level when the detector reports one
+  - Overview of every room, coloured by its most serious detector, a room unfolding its safety card on tap
+  - Mini card with the alarms and the detectors to check, zooming to the full card
+  - Reads Home Assistant's own device classes, so any smoke, CO or gas sensor works
+  homeassistant: 2024.8.0
+  keywords: "smoke carbon monoxide co gas detector alarm fire fumée monoxyde gaz détecteur nest protect netatmo kidde x-sense aqara heiman frient fibaro first alert zigbee z-wave matter"
+  worksWith:
+  - slug: ha-alarm-card
+    why: "The intrusion alarm, beside the smoke and gas detectors"
+  - slug: ha-room-card
+    why: "The sensors of each room, next to its detectors"
+  cardTypes:
+  - safety-card
+  - safety-mini-card
+  - safety-overview-card
+  hero:
+    src: safety-clear.png
+    dark: safety-clear-dark.png
+    caption: All clear
+    group: Card
+  screenshots:
+  - src: safety-maintenance.png
+    dark: safety-maintenance-dark.png
+    caption: Maintenance
+    group: Card
+  - src: safety-room.png
+    dark: safety-room-dark.png
+    caption: A room
+    group: Card
+  - src: safety-tiles.png
+    dark: safety-tiles-dark.png
+    caption: Tiles
+    group: Card
+  - src: safety-mini-clear.png
+    dark: safety-mini-clear-dark.png
+    caption: All clear
+    group: Mini card
+  - src: safety-mini-maintenance.png
+    dark: safety-mini-maintenance-dark.png
+    caption: Maintenance
+    group: Mini card
+  - src: safety-mini-zoom.png
+    dark: safety-mini-zoom-dark.png
+    caption: Zoomed in
+    group: Mini card
+  - src: safety-overview-all.png
+    dark: safety-overview-all-dark.png
+    caption: Every room
+    group: Overview
+  - src: safety-overview-check.png
+    dark: safety-overview-check-dark.png
+    caption: Rooms to check
+    group: Overview
+  - src: safety-overview-room.png
+    dark: safety-overview-room-dark.png
+    caption: A room unfolded
+    group: Overview
+  - src: safety-overview-alarm.png
+    dark: safety-overview-alarm-dark.png
+    caption: Alarm
+    group: Overview
+  animations:
+  - src: safety-alarm.gif
+    dark: safety-alarm-dark.gif
+    caption: Smoke alarm
+  - src: safety-mini-alarm.gif
+    dark: safety-mini-alarm-dark.gif
+    caption: Mini smoke alarm
+- slug: ha-water-heater-card
+  title: Water Heater Card
+  kind: card
+  category: climate
+  icon: mdiWaterBoiler
+  accent: '#e64a19'
+  tagline: The tank illustrated, the hot water above the cold, the showers left, with the modes, boost and away.
+  summary: An illustrated card for any water_heater entity, and for a plain cumulus switched by a smart plug or a relay. The tank shows its hot water above the cold, the showers left and the litres at 40 °C; power, energy and mode in three tiles; the modes, boost, away and the target temperature below. A mini card comes with it.
+  highlights:
+  - Illustrated tank, hot water above cold with the boundary at the share of hot water, a heat pump model gets its unit on top
+  - Showers left and litres at 40 °C, from the integration's own figures or estimated from the water temperature and the tank capacity
+  - "States shown by colour: heating, ready, boost, away until its end date, off, error and offline"
+  - Header pill with the state and the temperature, and three tiles that follow the state (power, energy, mode, tariff, cold water)
+  - "Controls: the water heater's own modes, Boost, Away and Back home, the target in its steps, Heat now / Stop for a cumulus on a relay"
+  - Mini card with a hot-water ring and the key readings, zooming to the full card
+  homeassistant: 2024.8.0
+  keywords: "water heater cumulus chauffe-eau ballon eau chaude dhw ecs boiler heat pump thermodynamique relay smart plug off-peak heures creuses"
+  worksWith:
+  - slug: ha-tempo-card
+    why: "The off-peak and blue days, to heat the tank when it is cheap"
+  - slug: ha-energy-card
+    why: "What the home produces and draws, the water heater included"
+  cardTypes:
+  - water-heater-card
+  - water-heater-mini-card
+  hero:
+    src: wh-ready.png
+    dark: wh-ready-dark.png
+    caption: Ready
+    group: Card
+  screenshots:
+  - src: wh-boost.png
+    dark: wh-boost-dark.png
+    caption: Boost
+    group: Card
+  - src: wh-away.png
+    dark: wh-away-dark.png
+    caption: Away
+    group: Card
+  - src: wh-error.png
+    dark: wh-error-dark.png
+    caption: Error
+    group: Card
+  - src: wh-compact.png
+    dark: wh-compact-dark.png
+    caption: Compact
+    group: Card
+  - src: wh-relay.png
+    dark: wh-relay-dark.png
+    caption: On a relay
+    group: Card
+  - src: wh-mini-heating.png
+    dark: wh-mini-heating-dark.png
+    caption: Heating
+    group: Mini card
+  - src: wh-mini-away.png
+    dark: wh-mini-away-dark.png
+    caption: Away
+    group: Mini card
+  - src: wh-mini-zoom.png
+    dark: wh-mini-zoom-dark.png
+    caption: Zoomed in
+    group: Mini card
+  animations:
+  - src: wh-heating.gif
+    dark: wh-heating-dark.gif
+    caption: Heating
+- slug: ha-ent-one
+  title: ENT ONE
+  kind: integration
+  withCard: true
+  category: everyday
+  icon: mdiBookEducationOutline
+  accent: '#3949ab'
+  tagline: The ENT ONE school workspace in Home Assistant, liaison book, homework, messages and news, with a card and a panel.
+  summary: An integration for ENT ONE, the digital workspace of French primary schools built on Edifice, exposing the unread messages, words to sign, homework to do, news and blog as sensors, a school calendar and a to-do list per homework notebook. A Lovelace card and a sidebar panel ship with it; it is an unofficial community project.
+  highlights:
+  - Unread messages, words to sign, homework to do, news and blog sensors, each with its items as attributes
+  - School calendar with the ENT's events and every homework on its due date
+  - A to-do list per homework notebook, ticking an item marks the homework done in the ENT
+  - Actions to sign a word of the liaison book and to refresh now, events and optional notifications for automations
+  - Card shipped with the integration, counts, words to sign, homework to tick, messages, calendar and news, with a mini card
+  - ENT ONE sidebar panel with Home, Homework, Liaison book, Messages, News, Blog and Settings tabs
+  - Credentials kept in Home Assistant, silent re-login, diagnostics with counts only, no name or message leaving the home
+  homeassistant: 2024.12.0
+  keywords: "ent one edifice école primaire school cahier de liaison homework devoirs messages news blog éducation nationale académie neo"
+  worksWith:
+  - slug: ha-pronote-card
+    why: "The secondary-school workspace, for when the children grow up"
+  - slug: ha-family-day-card
+    why: "The family's day, the school events included"
+  cardTypes:
+  - ent-one-card
+  - ent-one-mini-card
+  hero:
+    src: panel.png
+    dark: panel-dark.png
+    caption: Panel
+    group: Panel
+  screenshots:
+  - src: panel-homework.png
+    dark: panel-homework-dark.png
+    caption: Homework
+    group: Panel
+  - src: panel-messages.png
+    dark: panel-messages-dark.png
+    caption: Messages
+    group: Panel
+  - src: panel-words.png
+    dark: panel-words-dark.png
+    caption: Words to sign
+    group: Panel
+  - src: panel-blog.png
+    dark: panel-blog-dark.png
+    caption: Blog
+    group: Panel
+  - src: panel-blog-post.png
+    dark: panel-blog-post-dark.png
+    caption: A post
+    group: Panel
+  - src: card.png
+    dark: card-dark.png
+    caption: Card
+    group: Card
+  - src: card-unfolded.png
+    dark: card-unfolded-dark.png
+    caption: Unfolded
+    group: Card
+  - src: card-message.png
+    dark: card-message-dark.png
+    caption: Messages
+    group: Card
+  - src: card-sign.png
+    dark: card-sign-dark.png
+    caption: Sign a word
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Mini card
+    group: Mini card
+  animations:
+  - src: refreshing.gif
+    dark: refreshing-dark.gif
+    caption: Refreshing
+- slug: ha-flight-board-card
+  title: Flight Board Card
+  kind: card
+  category: everyday
+  icon: mdiAirplane
+  accent: '#1565c0'
+  tagline: An airport departures and arrivals board, under an animated airport where the plane takes off and lands.
+  summary: Built on the FlightRadar24 integration, track an airport there and the card discovers its sensors by itself. The next flights with their time, city, flight number and status, under an animated illustration of the airport, the plane taking off on Departures and landing on Arrivals, by day or under the stars. A compact mini card comes with it.
+  highlights:
+  - Animated airport header, terminal, control tower, windsock, clouds and a runway, a detailed plane taking off or landing
+  - Night mode following the sun, dark sky, stars, the terminal and tower lit in amber, the runway lights full on
+  - Departures and Arrivals text tabs, with the board's statistics (flights, share on time, average delay)
+  - "One line per flight: the time, the city and flight number, and a status pill, on time, a delay, boarding, departed, landed, canceled or diverted"
+  - Flight detail in a popup, airline, aircraft and registration, callsign, scheduled, estimated and actual times
+  - Mini card with the next flight on the sky, a detail button unfolding the full board
+  - Sensors discovered automatically from FlightRadar24, a classic round-icon header available
+  homeassistant: 2024.8.0
+  keywords: "flight airport departures arrivals plane airline flightradar24 fr24 aviation vol aéroport avion"
+  worksWith:
+  - slug: ha-train-board-card
+    why: "The same board for the trains of a station"
+  - slug: ha-public-transport
+    why: "The buses, trams and metros nearby"
+  cardTypes:
+  - flight-board-card
+  - flight-board-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Departures
+    group: Card
+  screenshots:
+  - src: card-arrivals.png
+    dark: card-arrivals-dark.png
+    caption: Arrivals
+    group: Card
+  - src: card-detail.png
+    dark: card-detail-dark.png
+    caption: Flight detail
+    group: Card
+  - src: card-classic.png
+    dark: card-classic-dark.png
+    caption: Classic header
+    group: Card
+  - src: card-night.png
+    dark: card-night-dark.png
+    caption: Night
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Default view
+    group: Mini card
+  - src: mini-card-night.png
+    dark: mini-card-night-dark.png
+    caption: Night
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Zoomed in
+    group: Mini card
+  animations:
+  - src: takeoff.gif
+    dark: takeoff-dark.gif
+    caption: Takeoff
+  - src: landing.gif
+    dark: landing-dark.gif
+    caption: Landing
+  - src: night.gif
+    dark: night-dark.gif
+    caption: Night
+  - src: mini.gif
+    dark: mini-dark.gif
+    caption: Mini card
+- slug: ha-train-board-card
+  title: Train Board Card
+  kind: card
+  category: everyday
+  icon: mdiTrain
+  accent: '#00838f'
+  tagline: A station departures and arrivals board, under an animated station where a train waits and leaves.
+  summary: Reads the sensors of twelve rail integrations, detected automatically from the entity, DB Infoscreen, National Rail UK, Swiss Transport, Public Transport and more. The next trains with their time, type, destination, platform and status, under an illustration of a station where a train leaves on Departures and comes in on Arrivals, by day or by night. A compact mini card comes with it.
+  highlights:
+  - Animated station header, canopy, clock, catenary and platform, a generic train leaving on Departures or coming in on Arrivals
+  - Day and night, the sky turning dark with stars, the station and platform lamps lighting up, the train's headlight on
+  - Brand badge of the railway on the header icon (Deutsche Bahn, National Rail, NS, SNCF, SBB, Trafikverket, Trenitalia, SNCB…)
+  - "Board with the time, a train-type pill coloured by family, destination, train number, platform and a status pill: on time, delayed, boarding, arrived or cancelled"
+  - Statistics in the header, the number of trains and the share on time over the board
+  - Train detail in a popup, scheduled and expected times, platform, operator, calling points and disruptions
+  - Station notices above the board, and a mini card with the next train, zooming to the full board
+  homeassistant: 2024.8.0
+  keywords: "train station departures arrivals railway rail sncf deutsche bahn national rail ns sbb trafikverket trenitalia nmbs db infoscreen gare"
+  worksWith:
+  - slug: ha-public-transport
+    why: "The buses, trams and metros nearby"
+  cardTypes:
+  - train-board-card
+  - train-board-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: Departures
+    group: Card
+  screenshots:
+  - src: card-arrivals.png
+    dark: card-arrivals-dark.png
+    caption: Arrivals
+    group: Card
+  - src: card-details.png
+    dark: card-details-dark.png
+    caption: Train detail
+    group: Card
+  - src: card-classic.png
+    dark: card-classic-dark.png
+    caption: Classic header
+    group: Card
+  - src: card-uk.png
+    dark: card-uk-dark.png
+    caption: National Rail UK
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: Default view
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: Zoomed in
+    group: Mini card
+  animations:
+  - src: departure.gif
+    caption: Departure
+  - src: arrival.gif
+    caption: Arrival
+  - src: night.gif
+    caption: Night
+  - src: mini.gif
+    caption: Mini card
