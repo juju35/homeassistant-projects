@@ -53,6 +53,10 @@ const groups = categories
           <span class="logo"><Icon name="mdiPuzzle" /></span>
           <div><div class="v">{integrations}</div><div class="sub">Integrations</div></div>
         </div>
+        <div class="tile stat" style="--c:#78909c">
+          <span class="logo"><Icon name="mdiThemeLightDark" /></span>
+          <div><div class="v">{themes}</div><div class="sub">{themes === 1 ? "Theme" : "Themes"}</div></div>
+        </div>
         <div class="tile stat" style="--c:#f5a623">
           <span class="logo"><Icon name="mdiAnimationPlay" /></span>
           <div><div class="v">{animations}</div><div class="sub">Animations</div></div>
@@ -274,7 +278,7 @@ const groups = categories
   .hero-sub { font-size: 14px; margin-top: 4px; }
   .status { margin-top: 6px; }
   .lead { margin: 0; max-width: 70ch; color: var(--secondary-text-color); font-size: 15px; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
   .stat { display: flex; align-items: center; gap: 12px; padding: 12px; }
   .stat .v { font-size: 22px; font-weight: 500; line-height: 1.1; }
   .stats-inline { display: none; margin: -4px 0 0; font-size: 13px; }
