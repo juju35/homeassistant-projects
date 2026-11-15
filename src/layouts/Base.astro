@@ -70,9 +70,10 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
         <nav class="actions">
           <a class="icon-btn" href={`https://github.com/${OWNER}`} title="GitHub" aria-label="GitHub profile"><Icon name="mdiGithub" /></a>
           <a class="icon-btn" href={LINKEDIN} title="LinkedIn" aria-label="LinkedIn profile" rel="me noopener"><Icon name="mdiLinkedin" /></a>
-          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Dark theme" aria-pressed="false" title="Dark theme">
-            <Icon name="mdiWeatherNight" class="to-dark" />
-            <Icon name="mdiWhiteBalanceSunny" class="to-light" />
+          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Theme: system" title="Theme: system" data-mode="auto">
+            <Icon name="mdiThemeLightDark" class="ic-auto" />
+            <Icon name="mdiWhiteBalanceSunny" class="ic-light" />
+            <Icon name="mdiWeatherNight" class="ic-dark" />
           </button>
         </nav>
       </div>
@@ -92,20 +93,37 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
     <script is:inline>
       (() => {
         const root = document.documentElement;
-        const dark = () =>
-          root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-        // A toggle button: "Dark theme", pressed when the page is dark
+        const metas = document.querySelectorAll('meta[name="theme-color"]');
         const toggle = document.getElementById("theme-toggle");
-        const sync = () => toggle.setAttribute("aria-pressed", String(dark()));
-        sync();
-        matchMedia("(prefers-color-scheme: dark)").addEventListener("change", sync);
-        toggle.addEventListener("click", () => {
-          const next = dark() ? "light" : "dark";
-          root.dataset.theme = next;
-          for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = next === "dark" ? "#111111" : "#e8eaed";
-          try { localStorage.setItem("theme", next); } catch {}
-          sync();
-        });
+        // Three states: system (follows prefers-color-scheme), light, dark.
+        const MODES = ["auto", "light", "dark"];
+        const LABEL = { auto: "system", light: "light", dark: "dark" };
+        const read = () => {
+          const t = localStorage.getItem("theme");
+          return t === "light" || t === "dark" ? t : "auto";
+        };
+        const setMetas = (mode) => {
+          for (const m of metas) {
+            const isDark = (m.getAttribute("media") || "").includes("dark");
+            m.content = mode === "dark" || (mode === "auto" && isDark) ? "#111111" : "#e8eaed";
+          }
+        };
+        const apply = (mode) => {
+          if (mode === "auto") {
+            delete root.dataset.theme;
+            try { localStorage.removeItem("theme"); } catch {}
+          } else {
+            root.dataset.theme = mode;
+            try { localStorage.setItem("theme", mode); } catch {}
+          }
+          setMetas(mode);
+          toggle.dataset.mode = mode;
+          const label = "Theme: " + LABEL[mode];
+          toggle.setAttribute("aria-label", label);
+          toggle.title = label;
+        };
+        apply(read());
+        toggle.addEventListener("click", () => apply(MODES[(MODES.indexOf(read()) + 1) % MODES.length]));
         // Back to top, once the page has been scrolled for two screens
         const up = document.getElementById("to-top");
         up.hidden = false;
@@ -136,13 +154,10 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
   .brand-text { color: var(--secondary-text-color); }
   .brand-text b { color: var(--primary-text-color); }
   .actions { margin-left: auto; display: flex; gap: 4px; }
-  #theme-toggle .to-light { display: none; }
-  :global(:root[data-theme="dark"]) #theme-toggle .to-dark { display: none; }
-  :global(:root[data-theme="dark"]) #theme-toggle .to-light { display: block; }
-  @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme="light"])) #theme-toggle .to-dark { display: none; }
-    :global(:root:not([data-theme="light"])) #theme-toggle .to-light { display: block; }
-  }
+  #theme-toggle .ic-auto, #theme-toggle .ic-light, #theme-toggle .ic-dark { display: none; }
+  #theme-toggle[data-mode="auto"] .ic-auto { display: block; }
+  #theme-toggle[data-mode="light"] .ic-light { display: block; }
+  #theme-toggle[data-mode="dark"] .ic-dark { display: block; }
   main { min-height: calc(100vh - 160px); outline: none; }
   .footer {
     display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
