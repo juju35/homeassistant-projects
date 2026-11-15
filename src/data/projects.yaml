@@ -26,6 +26,9 @@ categories:
 - id: maintenance
   label: Maintenance
   icon: mdiWrenchClock
+- id: themes
+  label: Themes
+  icon: mdiThemeLightDark
 # People who contributed to the projects, shown in the Contributions section of the home page: one tile per
 # person, listing each of their entries (add an entry per contribution, with the same login).
 contributors:
@@ -5808,3 +5811,29 @@ projects:
     caption: Night
   - src: mini.gif
     caption: Mini card
+- slug: ha-liquid-glass
+  title: Liquid Glass
+  kind: theme
+  category: themes
+  icon: mdiThemeLightDark
+  accent: '#78909c'
+  tagline: An Apple-style Liquid Glass theme, frosted cards floating over a soft gray gradient, in light and dark.
+  summary: 'A theme for Home Assistant with the Apple Liquid Glass look: frosted, translucent cards and side panel floating over a soft gray gradient, in light and dark modes. The glass is kept subtle so cards and panels stay fully legible, with high-contrast text, clear icons and borders that lift every card off the background.'
+  highlights:
+  - Frosted, translucent cards and side panel over a soft gray gradient
+  - Light and dark modes, the gradient closer to the Apple look than a flat gray
+  - Cards and panels kept legible, high-contrast text, clear icons and lifting borders
+  - More-info dialogs stay readable, a nearly opaque surface over a blurred, dimmed dashboard
+  - Light state colours such as amber and yellow kept readable on the glass in light mode
+  homeassistant: 2024.1.0
+  keywords: "theme thème apple liquid glass frosted glass verre dépoli translucent blur gradient light dark"
+  hero:
+    src: theme-light.png
+    dark: theme-dark.png
+    caption: Dashboard
+    group: Theme
+  screenshots:
+  - src: popup-light.png
+    dark: popup-dark.png
+    caption: More-info dialog
+    group: Theme

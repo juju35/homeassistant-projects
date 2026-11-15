@@ -47,6 +47,8 @@ const base = import.meta.env.BASE_URL;
 const accent = `--c:${project.accent}`;
 const category = categoryOf(project);
 const isCard = project.kind === "card";
+const isTheme = project.kind === "theme";
+const marketplaceCat = isCard ? "Dashboard" : isTheme ? "Theme" : "Integration";
 const cardTypes = project.cardTypes ?? [];
 const yaml = cardTypes.length ? `type: custom:${cardTypes[0]}` : "";
 const shotCount = countShots(project);
@@ -272,7 +274,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
               <span>
                 Open the repository in the Marketplace with the <b>Add to Marketplace</b> button above, or add
                 <code>{repoUrl(project).replace("https://", "")}</code> as a custom repository
-                (category <b>{isCard ? "Dashboard" : "Integration"}</b>).
+                (category <b>{marketplaceCat}</b>).
               </span>
             </li>
             <li>
@@ -285,7 +287,9 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
                 {
                   isCard
                     ? "Reload the browser and add the card from the dashboard editor."
-                    : "Restart Home Assistant and add the integration from Settings → Devices & services."
+                    : isTheme
+                      ? "Reload the browser, then pick the theme in your profile under Themes."
+                      : "Restart Home Assistant and add the integration from Settings → Devices & services."
                 }
               </span>
             </li>
