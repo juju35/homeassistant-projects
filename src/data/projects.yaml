@@ -3364,6 +3364,65 @@ projects:
     caption: "Mini card speeds"
   - src: mini-card-zoom.gif
     caption: "Mini card detail view"
+- slug: ha-ev-charger-card
+  title: EV Charger Card
+  kind: card
+  category: car
+  icon: mdiEvStation
+  accent: '#00b16a'
+  tagline: "An illustrated card for your EV charger: the wallbox, the cable and the car, with energy flowing while it charges."
+  summary: "The charger drawn — wallbox, cable and car — with energy flowing along the cable while it charges, the session in three tiles, and the controls: pause or start, the current limit and the cable lock. Pick the charger and the card finds its entities by itself, whatever the integration."
+  highlights:
+  - "Illustrated wallbox, cable and car, on a wall and floor that follow the light or dark theme"
+  - "Five states read from the charger: charging, plugged in, charged, no car, error"
+  - "Energy flowing along the cable and a breathing LED ring while charging"
+  - "Three tiles: the session's energy, time and cost, or the current limit, last session and lifetime total"
+  - "Controls: pause / start, the current limit in steps, unlock the cable once charged"
+  - "A glass pill for the car's battery level, or the charging power without it"
+  - "Mini card on two lines with a battery ring and a zoom to the full card"
+  - "Entities found automatically from Wallbox, Easee, Zaptec, Ohme, Tesla, myenergi, OCPP and more"
+  homeassistant: 2024.8.0
+  keywords: "ev charger wallbox easee zaptec ohme tesla myenergi go-e alfen peblar ocpp car electric charging session kwh current limit cable lock borne recharge"
+  worksWith:
+  - slug: ha-vehicle-card
+    why: "The car being charged, its range and battery level"
+  - slug: ha-energy-card
+    why: "Solar production to charge from the sun"
+  cardTypes:
+  - ev-charger-card
+  - ev-charger-mini-card
+  hero:
+    src: ev-charging.png
+    caption: "Charging"
+    group: Card
+  screenshots:
+  - src: ev-waiting.png
+    caption: "Plugged in"
+    group: Card
+  - src: ev-done.png
+    caption: "Charged"
+    group: Card
+  - src: ev-idle.png
+    caption: "No car"
+    group: Card
+  - src: ev-error.png
+    caption: "Error"
+    group: Card
+  - src: ev-compact.png
+    caption: "Without the illustration"
+    group: Card
+  - src: ev-mini-charging.png
+    caption: "Charging"
+    group: Mini card
+  - src: ev-mini-waiting.png
+    caption: "Plugged in"
+    group: Mini card
+  - src: ev-mini-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  animations:
+  - src: ev-charging.gif
+    caption: "Charging"
 - slug: ha-vehicle-card
   title: Vehicle Card
   kind: card
