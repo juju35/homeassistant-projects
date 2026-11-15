@@ -252,7 +252,7 @@ const groups = categories
     const params = new URLSearchParams(location.search);
     const k = params.get("kind");
     if (params.get("q")) q.value = params.get("q")!;
-    if (k === "card" || k === "integration") document.querySelector<HTMLButtonElement>(`.seg[data-filter="${k}"]`)!.click();
+    if (k === "card" || k === "integration" || k === "theme") document.querySelector<HTMLButtonElement>(`.seg[data-filter="${k}"]`)!.click();
     else if (q.value) apply();
     // "/" focuses the search, Escape clears it
     addEventListener("keydown", (e) => {
