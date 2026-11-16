@@ -2563,6 +2563,18 @@ projects:
   - src: card-litter-robot-cycle.gif
     dark: card-litter-robot-cycle-dark.gif
     caption: "Litter-Robot cycle"
+  - src: card-litter-cat.gif
+    dark: card-litter-cat-dark.gif
+    caption: "Cat in the litter box"
+  - src: card-litter-robot-lr3-cycle.gif
+    dark: card-litter-robot-lr3-cycle-dark.gif
+    caption: "Litter-Robot 3 Connect cycle"
+  - src: card-litter-full.gif
+    dark: card-litter-full-dark.gif
+    caption: "Full waste bin"
+  - src: card-feeder-low.gif
+    dark: card-feeder-low-dark.gif
+    caption: "Low hoppers"
   - src: card-feed.gif
     dark: card-feed-dark.gif
     caption: "Feed"
