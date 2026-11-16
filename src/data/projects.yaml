@@ -5528,8 +5528,8 @@ projects:
   category: security
   icon: mdiSmokeDetectorVariant
   accent: '#e53935'
-  tagline: Smoke, carbon monoxide and gas detectors, the alarm first and the quiet ones last, whatever the integration.
-  summary: Add a card and it finds every smoke, CO and gas detector of the home, or of a room. A detector sounding goes to the top, large and red, with where and since when; then what needs a look (low battery, end of life, fault); then the quiet detectors. A mini card and an overview of every room come with it.
+  tagline: Smoke, carbon monoxide, gas and water leak detectors, the alarm first and the quiet ones last, whatever the integration.
+  summary: Add a card and it finds every smoke, CO, gas and water leak detector of the home, or of a room. A detector sounding goes to the top, large and red, with where and since when; then what needs a look (low battery, end of life, fault); then the quiet detectors. A mini card and an overview of every room come with it.
   highlights:
   - One tile per detector, a smoke + gas device shown as one, the detector sounding first in red with where and for how long
   - Alarm banner with a Silence button, and a Test all button that arms before it presses every self-test
@@ -5537,9 +5537,10 @@ projects:
   - Quiet detectors in green, with the carbon monoxide level when the detector reports one
   - Overview of every room, coloured by its most serious detector, a room unfolding its safety card on tap
   - Mini card with the alarms and the detectors to check, zooming to the full card
-  - Reads Home Assistant's own device classes, so any smoke, CO or gas sensor works
+  - Water leak sensors too, a wet one sounding in red like the others, smoke, CO and gas still ranked first
+  - Reads Home Assistant's own device classes, so any smoke, CO, gas or water leak sensor works
   homeassistant: 2024.8.0
-  keywords: "smoke carbon monoxide co gas detector alarm fire fumée monoxyde gaz détecteur nest protect netatmo kidde x-sense aqara heiman frient fibaro first alert zigbee z-wave matter"
+  keywords: "smoke carbon monoxide co gas water leak moisture flood detector alarm fire fumée monoxyde gaz fuite d'eau inondation détecteur shelly nest protect netatmo kidde x-sense aqara heiman frient fibaro first alert zigbee z-wave matter"
   worksWith:
   - slug: ha-alarm-card
     why: "The intrusion alarm, beside the smoke and gas detectors"
@@ -5558,6 +5559,10 @@ projects:
   - src: safety-maintenance.png
     dark: safety-maintenance-dark.png
     caption: Maintenance
+    group: Card
+  - src: safety-leak.png
+    dark: safety-leak-dark.png
+    caption: Water leak
     group: Card
   - src: safety-room.png
     dark: safety-room-dark.png
@@ -5595,6 +5600,10 @@ projects:
     dark: safety-overview-alarm-dark.png
     caption: Alarm
     group: Overview
+  - src: safety-overview-leak.png
+    dark: safety-overview-leak-dark.png
+    caption: Water leak
+    group: Overview
   animations:
   - src: safety-alarm.gif
     dark: safety-alarm-dark.gif
@@ -5602,6 +5611,9 @@ projects:
   - src: safety-mini-alarm.gif
     dark: safety-mini-alarm-dark.gif
     caption: Mini smoke alarm
+  - src: safety-leak.gif
+    dark: safety-leak-dark.gif
+    caption: Water leak alarm
 - slug: ha-water-heater-card
   title: Water Heater Card
   kind: card
