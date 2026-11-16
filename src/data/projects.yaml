@@ -226,9 +226,11 @@ projects:
   - Sliders showing their fill and value while they move
   - Chips opening the more-info dialog of their entity
   - "Multi-zone heat pumps: a setpoint per room, centred steppers, hot water read from sensors and a fault chip"
-  - "Midea PortaSplit air conditioner and Rituals Perfume Genie diffuser (brass or black) drawn as they are"
+  - "Midea PortaSplit air conditioner and Rituals Perfume Genie diffuser (brass or black) drawn as they are, a localised Genie included"
+  - "Ground- and water-source heat pumps: horizontal collector, borehole, well, doublet or lake loop drawn in place of the outdoor unit, the brine or water flowing while it runs"
+  - "Heat pumps measured but not controlled: a read-only card from a power sensor, with heat output, COP and SCOP, flow and return temperatures"
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
@@ -348,6 +350,30 @@ projects:
     dark: heatpump-defrost-dark.png
     caption: Defrosting
     group: Heat pump
+  - src: heatpump-ground.png
+    dark: heatpump-ground-dark.png
+    caption: Ground source, collector
+    group: Heat pump
+  - src: heatpump-ground-borehole.png
+    dark: heatpump-ground-borehole-dark.png
+    caption: Ground source, borehole
+    group: Heat pump
+  - src: heatpump-water.png
+    dark: heatpump-water-dark.png
+    caption: Water source, well
+    group: Heat pump
+  - src: heatpump-water-doublet.png
+    dark: heatpump-water-doublet-dark.png
+    caption: Water source, doublet
+    group: Heat pump
+  - src: heatpump-water-lake.png
+    dark: heatpump-water-lake-dark.png
+    caption: Water source, lake loop
+    group: Heat pump
+  - src: heatpump-metered.png
+    dark: heatpump-metered-dark.png
+    caption: Metered, with COP
+    group: Heat pump
   - src: humidifier-card.png
     dark: humidifier-card-dark.png
     caption: Humidifier
@@ -392,6 +418,10 @@ projects:
     dark: humidifier-rituals-black-dark.png
     group: Diffuser
     caption: Rituals Perfume Genie, black
+  - src: humidifier-rituals-mini.png
+    dark: humidifier-rituals-mini-dark.png
+    group: Diffuser
+    caption: Rituals Perfume Genie mini
   - src: humidifier-dehumidifier.png
     dark: humidifier-dehumidifier-dark.png
     caption: Dehumidifier
@@ -427,6 +457,21 @@ projects:
   - src: heatpump-cool.gif
     dark: heatpump-cool-dark.gif
     caption: Heat pump cooling
+  - src: heatpump-ground.gif
+    dark: heatpump-ground-dark.gif
+    caption: Ground-source heat pump, collector
+  - src: heatpump-ground-borehole.gif
+    dark: heatpump-ground-borehole-dark.gif
+    caption: Ground-source heat pump, borehole
+  - src: heatpump-water.gif
+    dark: heatpump-water-dark.gif
+    caption: Water-source heat pump, well
+  - src: heatpump-water-doublet.gif
+    dark: heatpump-water-doublet-dark.gif
+    caption: Water-source heat pump, doublet
+  - src: heatpump-water-lake.gif
+    dark: heatpump-water-lake-dark.gif
+    caption: Water-source heat pump, lake loop
   - src: humidifier.gif
     dark: humidifier-dark.gif
     caption: Humidifier
