@@ -5609,16 +5609,17 @@ projects:
   icon: mdiWaterBoiler
   accent: '#e64a19'
   tagline: The tank illustrated, the hot water above the cold, the showers left, with the modes, boost and away.
-  summary: An illustrated card for any water_heater entity, and for a plain cumulus switched by a smart plug or a relay. The tank shows its hot water above the cold, the showers left and the litres at 40 °C; power, energy and mode in three tiles; the modes, boost, away and the target temperature below. A mini card comes with it.
+  summary: An illustrated card for any water_heater entity, for a plain cumulus switched by a smart plug or a relay, and for a cumulus driven by a PV router, read from its power meter. The tank shows its hot water above the cold, the showers left and the litres at 40 °C; power, energy and mode in three tiles; the modes, boost, away and the target temperature below. A mini card comes with it.
   highlights:
   - Illustrated tank, hot water above cold with the boundary at the share of hot water, a heat pump model gets its unit on top
   - Showers left and litres at 40 °C, from the integration's own figures or estimated from the water temperature and the tank capacity
   - "States shown by colour: heating, ready, boost, away until its end date, off, error and offline"
   - Header pill with the state and the temperature, and three tiles that follow the state (power, energy, mode, tariff, cold water)
   - "Controls: the water heater's own modes, Boost, Away and Back home, the target in its steps, Heat now / Stop for a cumulus on a relay"
+  - "PV-routed cumulus: its power meter as the entity, read-only, today's energy split between the grid and the solar surplus with the solar share, its panel drawn beside the tank, the sun turning by day and the moon by night"
   - Mini card with a hot-water ring and the key readings, zooming to the full card
   homeassistant: 2024.8.0
-  keywords: "water heater cumulus chauffe-eau ballon eau chaude dhw ecs boiler heat pump thermodynamique relay smart plug off-peak heures creuses"
+  keywords: "water heater cumulus chauffe-eau ballon eau chaude dhw ecs boiler heat pump thermodynamique relay smart plug off-peak heures creuses pv router routeur solaire photovoltaïque surplus autoconsommation mk2pvrouter msunpv f1atb"
   worksWith:
   - slug: ha-tempo-card
     why: "The off-peak and blue days, to heat the tank when it is cheap"
@@ -5653,6 +5654,14 @@ projects:
     dark: wh-relay-dark.png
     caption: On a relay
     group: Card
+  - src: wh-pv.png
+    dark: wh-pv-dark.png
+    caption: PV-routed, by day
+    group: Card
+  - src: wh-pv-night.png
+    dark: wh-pv-night-dark.png
+    caption: PV-routed, by night
+    group: Card
   - src: wh-mini-heating.png
     dark: wh-mini-heating-dark.png
     caption: Heating
@@ -5669,6 +5678,9 @@ projects:
   - src: wh-heating.gif
     dark: wh-heating-dark.gif
     caption: Heating
+  - src: wh-pv-heating.gif
+    dark: wh-pv-heating-dark.gif
+    caption: Solar heating
 - slug: ha-ent-one
   title: ENT ONE
   kind: integration
