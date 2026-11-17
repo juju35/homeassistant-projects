@@ -1503,6 +1503,14 @@ projects:
     dark: freshwater-night.gif
     caption: "Planted tank at night"
     group: Aquariums
+  - src: freshwater-feeding-light.gif
+    dark: freshwater-feeding.gif
+    caption: "Planted tank feeding"
+    group: Aquariums
+  - src: freshwater-problems-light.gif
+    dark: freshwater-problems.gif
+    caption: "Planted tank in trouble"
+    group: Aquariums
   - src: scene-axolotl.gif
     dark: scene-axolotl-dark.gif
     caption: "Axolotls"
