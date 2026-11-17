@@ -25,7 +25,7 @@ const stills: Item[] = await Promise.all(
     }),
 );
 const anims: Item[] = await Promise.all(
-  (project.animations ?? []).map(async (s) => ({ shot: await withTwin(project, s), group: "Animations", anim: true })),
+  (project.animations ?? []).map(async (s) => ({ shot: await withTwin(project, s), group: s.group || "Animations", anim: true })),
 );
 const items = [...stills, ...anims];
 

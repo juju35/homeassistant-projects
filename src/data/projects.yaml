@@ -1482,117 +1482,155 @@ projects:
   - src: reef.gif
     dark: reef-dark.gif
     caption: "Reef"
+    group: Aquariums
   - src: reef-night-light.gif
     dark: reef-night.gif
     caption: "Reef at night"
+    group: Aquariums
   - src: reef-feeding.gif
     dark: reef-feeding-dark.gif
     caption: "Feeding"
+    group: Aquariums
   - src: reef-problems.gif
     dark: reef-problems-dark.gif
     caption: "Reef in trouble"
+    group: Aquariums
   - src: freshwater-light.gif
     dark: freshwater.gif
     caption: "Planted tank"
+    group: Aquariums
   - src: freshwater-night-light.gif
     dark: freshwater-night.gif
     caption: "Planted tank at night"
-  - src: scene-desert.gif
-    dark: scene-desert-dark.gif
-    caption: "Bearded dragon"
-  - src: scene-rainforest.gif
-    dark: scene-rainforest-dark.gif
-    caption: "Dart frogs"
-  - src: scene-leopard-gecko.gif
-    dark: scene-leopard-gecko-dark.gif
-    caption: "Leopard gecko"
-  - src: scene-chameleon.gif
-    dark: scene-chameleon-dark.gif
-    caption: "Chameleon"
-  - src: scene-ball-python.gif
-    dark: scene-ball-python-dark.gif
-    caption: "Ball python"
-  - src: scene-tarantula.gif
-    dark: scene-tarantula-dark.gif
-    caption: "Tarantula"
-  - src: scene-insects.gif
-    dark: scene-insects-dark.gif
-    caption: "Stick insects and mantises"
-  - src: scene-crested-gecko.gif
-    dark: scene-crested-gecko-dark.gif
-    caption: "Crested gecko"
-  - src: scene-paludarium.gif
-    dark: scene-paludarium-dark.gif
-    caption: "Paludarium"
-  - src: scene-hermit-crab.gif
-    dark: scene-hermit-crab-dark.gif
-    caption: "Hermit crabs"
-  - src: scene-tortoise.gif
-    dark: scene-tortoise-dark.gif
-    caption: "Tortoise"
-  - src: scene-turtle.gif
-    dark: scene-turtle-dark.gif
-    caption: "Red-eared sliders"
-  - src: scene-musk-turtle.gif
-    dark: scene-musk-turtle-dark.gif
-    caption: "Musk turtle"
+    group: Aquariums
   - src: scene-axolotl.gif
     dark: scene-axolotl-dark.gif
     caption: "Axolotls"
+    group: Aquariums
   - src: scene-iwagumi.gif
     dark: scene-iwagumi-dark.gif
     caption: "Iwagumi"
+    group: Aquariums
   - src: scene-blackwater.gif
     dark: scene-blackwater-dark.gif
     caption: "Amazon blackwater"
+    group: Aquariums
   - src: scene-malawi.gif
     dark: scene-malawi-dark.gif
     caption: "Lake Malawi"
+    group: Aquariums
   - src: scene-tanganyika.gif
     dark: scene-tanganyika-dark.gif
     caption: "Lake Tanganyika"
+    group: Aquariums
   - src: scene-shrimp.gif
     dark: scene-shrimp-dark.gif
     caption: "Shrimp tank"
+    group: Aquariums
   - src: scene-betta.gif
     dark: scene-betta-dark.gif
     caption: "Betta"
+    group: Aquariums
   - src: scene-goldfish.gif
     dark: scene-goldfish-dark.gif
     caption: "Goldfish"
+    group: Aquariums
   - src: scene-mangrove.gif
     dark: scene-mangrove-dark.gif
     caption: "Brackish mangrove"
+    group: Aquariums
   - src: scene-pond.gif
     dark: scene-pond-dark.gif
     caption: "Garden pond"
+    group: Aquariums
   - src: scene-sps.gif
     dark: scene-sps-dark.gif
     caption: "SPS reef"
+    group: Aquariums
   - src: scene-soft-coral.gif
     dark: scene-soft-coral-dark.gif
     caption: "Soft corals"
+    group: Aquariums
   - src: scene-nano-reef.gif
     dark: scene-nano-reef-dark.gif
     caption: "Nano reef"
+    group: Aquariums
   - src: scene-seahorse.gif
     dark: scene-seahorse-dark.gif
     caption: "Seahorses"
+    group: Aquariums
   - src: scene-jellyfish.gif
     dark: scene-jellyfish-dark.gif
     caption: "Jellyfish"
+    group: Aquariums
   - src: scene-predator.gif
     dark: scene-predator-dark.gif
     caption: "Predator lagoon"
+    group: Aquariums
   - src: scene-wreck.gif
     dark: scene-wreck-dark.gif
     caption: "Wreck and treasure"
+    group: Aquariums
   - src: scene-abyss.gif
     dark: scene-abyss-dark.gif
     caption: "Abyss"
+    group: Aquariums
   - src: scene-arctic.gif
     dark: scene-arctic-dark.gif
     caption: "Arctic ice"
+    group: Aquariums
+  - src: scene-desert.gif
+    dark: scene-desert-dark.gif
+    caption: "Bearded dragon"
+    group: Terrariums
+  - src: scene-rainforest.gif
+    dark: scene-rainforest-dark.gif
+    caption: "Dart frogs"
+    group: Terrariums
+  - src: scene-leopard-gecko.gif
+    dark: scene-leopard-gecko-dark.gif
+    caption: "Leopard gecko"
+    group: Terrariums
+  - src: scene-chameleon.gif
+    dark: scene-chameleon-dark.gif
+    caption: "Chameleon"
+    group: Terrariums
+  - src: scene-ball-python.gif
+    dark: scene-ball-python-dark.gif
+    caption: "Ball python"
+    group: Terrariums
+  - src: scene-tarantula.gif
+    dark: scene-tarantula-dark.gif
+    caption: "Tarantula"
+    group: Terrariums
+  - src: scene-insects.gif
+    dark: scene-insects-dark.gif
+    caption: "Stick insects and mantises"
+    group: Terrariums
+  - src: scene-crested-gecko.gif
+    dark: scene-crested-gecko-dark.gif
+    caption: "Crested gecko"
+    group: Terrariums
+  - src: scene-paludarium.gif
+    dark: scene-paludarium-dark.gif
+    caption: "Paludarium"
+    group: Terrariums
+  - src: scene-hermit-crab.gif
+    dark: scene-hermit-crab-dark.gif
+    caption: "Hermit crabs"
+    group: Terrariums
+  - src: scene-tortoise.gif
+    dark: scene-tortoise-dark.gif
+    caption: "Tortoise"
+    group: Terrariums
+  - src: scene-turtle.gif
+    dark: scene-turtle-dark.gif
+    caption: "Red-eared sliders"
+    group: Turtle tanks
+  - src: scene-musk-turtle.gif
+    dark: scene-musk-turtle-dark.gif
+    caption: "Musk turtle"
+    group: Turtle tanks
 - slug: ha-garden-card
   title: Garden Card
   kind: card
