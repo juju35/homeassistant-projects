@@ -20,7 +20,7 @@ The site is a static [Astro](https://astro.build) site. Every project is an entr
 - `tagline`, `summary`, `highlights`: the descriptive text
 - `homeassistant`: the minimum Home Assistant version
 - `cardTypes`: the Lovelace card types the project provides
-- `hero`, `screenshots`, `animations`: images given as `{ src, dark, caption, group }`, where `src` and `dark` are file names inside the `screenshots/` folder of the repository's `main` branch, and `group` is the gallery tab the image is shown under (one card or variant per tab, e.g. `Card`, `Mini card`, `Map card`). Animations always go under an `Animations` tab.
+- `hero`, `screenshots`, `animations`: images given as `{ src, dark, caption, group }`, where `src` and `dark` are file names inside the `screenshots/` folder of the repository's `main` branch, and `group` is the gallery tab the image is shown under (one card or variant per tab, e.g. `Card`, `Mini card`, `Map card`). Animations go under an `Animations` tab, or under the tabs their `group` names when a project has many of them (e.g. `Aquariums`, `Terrariums`).
 
 Images are fetched from `raw.githubusercontent.com` at build time and re-encoded as WebP at the widths the pages need (animated GIFs as animated WebP) by `src/lib/optimize.ts`, so new captures show at the next (daily) build. Their sizes are read at build time (`src/lib/imgsize.ts`) to reserve their space and to frame portrait captures from the top. When an entry has no `dark`, the build looks for a twin in the repository (`src/lib/twins.ts`): `X-dark.png` for a light `X.png`, or `X-light.png` for a dark-default `X.png` (same for `.gif` animations), so a twin added to a repository shows on the site at the next build. `dark` gives the dark-theme twin of an image.
 
