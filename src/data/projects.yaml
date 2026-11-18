@@ -76,14 +76,16 @@ projects:
   highlights:
   - Animated scene for every condition, by day and by night, with the real moon phase
   - Rain in the next hour, hourly and daily forecasts
-  - Weather warnings banner from Meteoalarm, DWD, NWS or Météo-France, lightning nearby, drought restrictions
+  - Weather warnings banner from Meteoalarm, GeoSphere Austria, DWD, NWS or Météo-France, lightning nearby, drought restrictions
   - Air quality, pollutants, UV index and pollen with tomorrow's forecast
   - "Moon phase, age, moonrise and moonset, next full and new moons from Lunar Phase when it is installed"
+  - "Wind rose of the last 24 hours from a weather station (Netatmo, Ecowitt, WeatherFlow, Davis…), with gusts and the dominant direction"
+  - "Any section as a card of its own, without the header or the weather now"
   - Full screen view and a refresh button for fresh data
   - Today and the sun and moon times in the server time zone when your profile uses it
   - Animations paused while the card is off-screen
   homeassistant: 2024.8.0
-  keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no meteoalarm dwd nws warnings moon lunar phase"
+  keywords: "meteo forecast rain pollen uv air quality lightning storm vigieau meteo-france openweathermap met.no meteoalarm dwd nws warnings moon lunar phase geosphere austria wind rose rose des vents weather station netatmo ecowitt"
   worksWith:
   - slug: ha-uv-card
     why: "The UV index in detail, with the WHO risk level"
@@ -109,6 +111,14 @@ projects:
   - src: night.png
     dark: night-dark.png
     caption: Night
+    group: Card
+  - src: wind.png
+    dark: wind-dark.png
+    caption: "Wind rose"
+    group: Card
+  - src: standalone.png
+    dark: standalone-dark.png
+    caption: "Sections on their own"
     group: Card
   - src: lunar-phase.png
     dark: lunar-phase-dark.png
@@ -222,7 +232,7 @@ projects:
   category: climate
   icon: mdiAirConditioner
   accent: '#039be5'
-  tagline: Cards for heat pumps, air conditioners, air purifiers, humidifiers, diffusers and fans, with an overview of every device.
+  tagline: Cards for heat pumps, air conditioners, air purifiers, humidifiers, diffusers, ventilation units and fans, with an overview of every device.
   summary: One card per kind of device, each with a mini card, and an overview of the whole home. Add a card and it finds the device and its sensors by itself; the illustrations come alive while a device runs.
   highlights:
   - Air purifier, fan, air conditioner, heat pump and humidifier cards, each with a mini card
@@ -230,6 +240,7 @@ projects:
   - "VOCOlinc FlowerBud: mist intensity and a mood light section (brightness, colours) usable while it is off, its cone lit in the light's colour"
   - "Air-to-water heat pumps: hot water tank, three-way valve, defrost and backup heater, Aldes T.One through TOUG included"
   - "Filter life always shown, purifiers and air conditioners alike, a replace-soon alert and a filter reset button"
+  - "Ventilation units (MVHR and extract): the heat recovered, the four air streams through the exchanger with their temperatures, levels, boost, bypass and filter, Zehnder ComfoAir Q, Duco, Renson, Vallox and Prana included"
   - Overview of every device, grouped by kind or by area
   - 'Animated illustrations: turning blades, air flowing, swinging head, a heat pump outdoor unit feeding its tank'
   - Automatic discovery of devices and their sensors
@@ -243,7 +254,7 @@ projects:
   - "Ground- and water-source heat pumps: horizontal collector, borehole, well, doublet or lake loop drawn in place of the outdoor unit, the brine or water flowing while it runs"
   - "Heat pumps measured but not controlled: a read-only card from a power sensor, with heat output, COP and SCOP, flow and return temperatures"
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
@@ -256,11 +267,13 @@ projects:
   - climate-air-aircon-card
   - climate-air-heatpump-card
   - climate-air-humidifier-card
+  - climate-air-ventilation-card
   - climate-air-purifier-mini-card
   - climate-air-fan-mini-card
   - climate-air-aircon-mini-card
   - climate-air-heatpump-mini-card
   - climate-air-humidifier-mini-card
+  - climate-air-ventilation-mini-card
   hero:
     src: overview-all.png
     dark: overview-all-dark.png
@@ -439,6 +452,18 @@ projects:
     dark: humidifier-dehumidifier-dark.png
     caption: Dehumidifier
     group: Dehumidifier
+  - src: ventilation-card.png
+    dark: ventilation-card-dark.png
+    caption: Heat recovery
+    group: Ventilation
+  - src: ventilation-boost.png
+    dark: ventilation-boost-dark.png
+    caption: Bypass open, boost
+    group: Ventilation
+  - src: ventilation-mini.png
+    dark: ventilation-mini-dark.png
+    caption: Ventilation mini
+    group: Ventilation
   animations:
   - src: purifier.gif
     dark: purifier-dark.gif
@@ -497,6 +522,9 @@ projects:
   - src: dehumidifier.gif
     dark: dehumidifier-dark.gif
     caption: Dehumidifier
+  - src: ventilation.gif
+    dark: ventilation-dark.gif
+    caption: Heat recovery ventilation
   - src: overview.gif
     dark: overview-dark.gif
     caption: Overview
@@ -611,19 +639,20 @@ projects:
   category: climate
   icon: mdiRadiator
   accent: '#ef6c00'
-  tagline: "Thermostats, pilot wire radiators and weekly schedules, zone by zone."
+  tagline: "Thermostats, pilot wire radiators, pellet stoves and weekly schedules, zone by zone."
   summary: "A card for the heating of the home, zone by zone: thermostats and radiator valves with their presets, pilot wire radiators with their orders, and the week of a schedule helper. A mini card and an overview of the whole home, floor by floor, come with it."
   highlights:
   - "Zones found by area, as text tabs, a flickering flame on a zone that heats"
   - "Animated thermostat with target, presets, boost and what it really does"
   - "Pilot wire radiators: comfort, eco, frost protection, off, comfort −1 / −2"
+  - "Pellet and wood stoves: fire behind the glass, phase from ignition to cooling down, power level, pellets left with a low alert"
   - "Weekly schedule of a schedule helper, today highlighted with a \"now\" line"
   - "Valve opening, battery, humidity and window open alerts"
   - "Overview card of the whole home, floor by floor"
   - "Mini card with a detail button showing the full card"
   - "Illustrated header with the zone's own thermostat, radiator or valve drawn big, the heat rising while it heats"
   homeassistant: 2024.8.0
-  keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule"
+  keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule poêle granulés pellet wood stove palazzetti fumis edilkamin mcz maestro rika duepi"
   worksWith:
   - slug: ha-climate-air-card
     why: "Air conditioners, fans and purifiers; the thermostats moved here from it"
@@ -644,6 +673,10 @@ projects:
     group: Card
   - src: card-schedule.png
     caption: "Schedule"
+    group: Card
+  - src: card-stove.png
+    dark: card-stove-dark.png
+    caption: "Pellet stove"
     group: Card
   - src: card-valve.png
     caption: "Valve"
@@ -679,6 +712,9 @@ projects:
     caption: "Heating dial"
   - src: heating-radiator.gif
     caption: "Heating radiator"
+  - src: heating-stove.gif
+    dark: heating-stove-dark.gif
+    caption: "Pellet stove burning"
   - src: heating-valve.gif
     caption: "Heating valve"
   - src: overview-card-boost.gif
@@ -1088,17 +1124,18 @@ projects:
   tagline: "Shutters, blinds, curtains, awnings, garage doors and gates, drawn as little animated scenes."
   summary: "Cards for the covers of any integration: each one is drawn as a scene that follows its position, and the picture itself is the slider. One cover, a list, or every cover of an area, with favorite positions and a confirmation for doors and gates."
   highlights:
-  - "A drawn scene per kind of cover: shutter, venetian blind, shade, curtains, awning, garage door, gate, door, roof window, damper"
+  - "A drawn scene per kind of cover: shutter, venetian blind, shade, curtains, awning, garage door, sliding or swing gate, door, roof window, damper"
   - "The picture is the position slider, dragged the way the cover moves"
   - "Tilt slider for slats that tilt, only when the cover supports it"
   - "Favorite positions in one tap, Open all / Stop / Close all for a group"
   - "Every cover of an area in one card, in a list or in two or three columns of unfolded tiles"
   - "Confirmation before moving a garage door, a gate or a door"
-  - "Mini card with a detail button showing the full card"
+  - "Pedestrian opening of a gate, from its own button or switch, a position or a script"
+  - "Mini card with a detail button showing the full card; for one cover, its position and round buttons"
   - "Covers without feedback (radio RTS motors) shown closed at rest, and an inverted position for awnings reporting it the wrong way round"
   - "Illustrated facade header with the covers drawn at their position, moving as they open and close"
   homeassistant: 2024.8.0
-  keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave rts no feedback invert"
+  keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave rts no feedback invert portail battant swing gate pedestrian piéton"
   cardTypes:
   - cover-card
   - cover-mini-card
@@ -1120,6 +1157,10 @@ projects:
   - src: card-garage.png
     caption: "Garage"
     group: Card
+  - src: card-swing.png
+    dark: card-swing-dark.png
+    caption: "Swing gate"
+    group: Card
   - src: card-unavailable.png
     caption: "Unavailable"
     group: Card
@@ -1131,6 +1172,10 @@ projects:
     group: Mini card
   - src: mini-card.png
     caption: "Default view"
+    group: Mini card
+  - src: mini-card-swing.png
+    dark: mini-card-swing-dark.png
+    caption: "Swing gate"
     group: Mini card
   animations:
   - src: awning-opening.gif
@@ -1151,6 +1196,9 @@ projects:
     caption: "Shade closing"
   - src: shutter-closing.gif
     caption: "Shutter closing"
+  - src: swing-opening.gif
+    dark: swing-opening-dark.gif
+    caption: "Swing gate opening"
   - src: shutter-opening.gif
     caption: "Shutter opening"
   - src: window-opening.gif
@@ -1362,13 +1410,14 @@ projects:
   - "Advice for every value out of range, and for equipment running without water flow"
   - "Animated pool or spa scene: ripples, bubbles, heat pump, cover, light"
   - "Filtration time of the day against a daily target"
+  - "Pool robot crawling the floor of the scene while it cleans: time left, start, pause and return, cleaning modes, Dolphin and iAqualink included"
   - "Buttons for the pump, light, heat pump, cover and electrolyser"
   - "iopool, Blue Connect, ESPHome, ScreenLogic, IntelliCenter, OmniLogic and more"
   - "Mini card with a detail button showing the full card"
   - "Electrical consumption: the pump's power and energy, and a roller cover driven by a relay, inverted if needed"
   - "Illustrated header: the pool seen from above, rippling while filtering, its cover, light and heat pump animated"
   homeassistant: 2024.8.0
-  keywords: "piscine spa jacuzzi pool ph orp chlore chlorine salt filtration iopool blue riiot blue connect pentair screenlogic intellicenter hayward omnilogic heat pump power energy relay"
+  keywords: "piscine spa jacuzzi pool ph orp chlore chlorine salt filtration iopool blue riiot blue connect pentair screenlogic intellicenter hayward omnilogic heat pump power energy relay robot dolphin maytronics mydolphin iaqualink robot piscine"
   cardTypes:
   - pool-card
   - pool-mini-card
@@ -1389,11 +1438,19 @@ projects:
   - src: card-problems.png
     caption: "Problems"
     group: Card
+  - src: card-robot.png
+    dark: card-robot-dark.png
+    caption: "Pool robot"
+    group: Card
   - src: card-spa.png
     caption: "Spa"
     group: Card
   - src: mini-card-narrow.png
     caption: "Narrow"
+    group: Mini card
+  - src: mini-card-robot.png
+    dark: mini-card-robot-dark.png
+    caption: "Pool robot"
     group: Mini card
   - src: mini-card-spa.png
     caption: "Spa"
@@ -1415,6 +1472,9 @@ projects:
     caption: "Heating"
   - src: light.gif
     caption: "Light"
+  - src: robot.gif
+    dark: robot-dark.gif
+    caption: "Pool robot cleaning"
   - src: spa-jets.gif
     caption: "Spa jets"
 - slug: ha-vivarium-card
@@ -1673,14 +1733,14 @@ projects:
   summary: "Cards for the garden: watering zones started for the duration you pick, the next watering, a suggestion to skip it when rain is coming, and your plants and soil sensors as gauges. Zones, plants and the weather are found on their own."
   highlights:
   - "Watering zones of Gardena, Rain Bird, OpenSprinkler, Hydrawise, LinkTap, Rachio, B-hyve, or any valve"
-  - "Start a zone for the duration you pick, a ring counting down while it waters"
+  - "Start a zone for the duration you pick, a ring counting down while it waters; SONOFF SWV valves run a timed cycle of their own"
   - "Next watering and \"No watering needed\" when rain is coming"
   - "Plants with moisture, fertility, light, temperature and battery gauges"
   - "Animated garden: sprinkler, rain cloud, thirsty plant"
   - "Mini card with a detail button showing the full card"
   - "Illustrated garden header: the sprinkler spraying, the rain cloud, the plant wilting when it needs water"
   homeassistant: 2024.8.0
-  keywords: "jardin arrosage irrigation plante garden sprinkler watering plant mi flora gardena rain bird opensprinkler hydrawise linktap rachio bhyve soil moisture"
+  keywords: "jardin arrosage irrigation plante garden sprinkler watering plant mi flora gardena rain bird opensprinkler hydrawise linktap rachio bhyve soil moisture sonoff swv zigbee2mqtt"
   worksWith:
   - slug: ha-weather-card
     why: "The rain forecast and drought restrictions behind watering"
@@ -1890,7 +1950,7 @@ projects:
   - Open sensors and the last person who changed the state
   - Activity of the latest arm, disarm and trigger changes, with who made them
   - Alarmo refusing to arm lists the open sensors, with Arm anyway
-  - Single-row mini card
+  - "Mini card: the 90 px banner alone, its arm and disarm buttons beside the radar"
   - Cameras of your choice, their snapshots shown while the alarm is triggered or counting down
   - Buttons section with switches, lights, scripts and scenes of your choice, such as the plugs of the cameras
   - Display names for the sensors, cameras and buttons, set in the visual editor
@@ -1943,6 +2003,9 @@ projects:
     caption: Mini card zoomed in
     group: Mini card
   animations:
+  - src: armed.gif
+    dark: armed-dark.gif
+    caption: Radar sweeping while armed
   - src: triggered.gif
     dark: triggered-dark.gif
     caption: Shield flashing while triggered
@@ -3277,7 +3340,7 @@ projects:
   summary: WAN state, download and upload rates, CPU, RAM, temperatures, uptime, mesh units and access points, clients and Wi-Fi networks for some twenty router integrations, and for the others from what their entities say. The header icon shows the kind of device with the brand's logo as a badge, tinted by the WAN state.
   highlights:
   - Firewalla, OPNsense and pfSense firewalls
-  - UniFi, Omada, TP-Link, MikroTik, ASUS, NETGEAR, Keenetic, OpenWrt, GL.iNet and Xiaomi routers
+  - UniFi, Omada, TP-Link, MikroTik (and MikroTik Extended), ASUS, NETGEAR, Keenetic, OpenWrt, GL.iNet and Xiaomi routers
   - TP-Link Deco, eero, Linksys Velop and Ruckus mesh systems, every unit with its state and clients
   - Any other router integration, recognised from the kind and the names of its entities
   - Download and upload rates of the WAN with their last 24 hours
@@ -4680,7 +4743,7 @@ projects:
   - "Volume per room and speaker groups, join and unjoin"
   - "Source and sound mode, Music Assistant queue, favorites"
   - "Animated record, equalizer and drawn speakers, TVs and receivers"
-  - "Several players in one card"
+  - "Several players in one card, hidden while nothing plays if you like"
   - "Mini card with a detail button showing the full card"
   - "Illustrated media room header with the player's own device drawn big, animated as it plays"
   homeassistant: 2024.8.0
@@ -5192,10 +5255,10 @@ projects:
   - 'Panel in four groups: System, Reliability, Maintenance and Devices, the modules as sub-tabs, ordered as you like'
   - 'Resources: System Monitor sensors, reload the configuration, restart Home Assistant or reboot the host, each confirmed, from the panel or the System Monitor card'
   - 'Containers: Home Assistant Core, the Supervisor and every add-on, with state, version, CPU and memory; monitoring only'
-  - 'Database: size, retention and the devices that write the most, each unfolding to its entities, purge their history or copy the recorder exclusion, purge and repack'
+  - 'Database: size and growth of SQLite, MariaDB or PostgreSQL, its tables, retention and the devices that write the most, each unfolding to its entities, purge their history or copy the recorder exclusion, purge and repack'
   - 'Security: refused logins with notifications, accounts and 2FA, long-lived tokens to revoke, exposure, add-ons not protected, credentials in clear'
   - 'Logs: errors and warnings grouped by integration, with their traceback, reload or ignore'
-  - 'Updates: Home Assistant, add-ons, devices and the Marketplace in one tab, Update all with an optional backup first'
+  - 'Updates: Home Assistant, add-ons, devices and the Marketplace in one tab, Update all with an optional backup first and a live install progress'
   - 'Backups: the last one, the next one, each location and the last 30 days, Back up now'
   - 'Sentinel: reloads the integrations whose entities are all unavailable, power cycles through a smart plug'
   - 'Silent devices: ZHA, Zigbee2MQTT, Z-Wave, Matter, ESPHome and deCONZ devices not heard from, and weak signals'
@@ -7400,6 +7463,38 @@ projects:
   - Light state colours such as amber and yellow kept readable on the glass in light mode
   homeassistant: 2024.1.0
   keywords: "theme thème apple liquid glass frosted glass verre dépoli translucent blur gradient light dark"
+  worksWith:
+  - slug: ha-neutral
+    why: "The other theme, flat and neutral like the ha-* cards"
+  hero:
+    src: theme-light.png
+    dark: theme-dark.png
+    caption: Dashboard
+    group: Theme
+  screenshots:
+  - src: popup-light.png
+    dark: popup-dark.png
+    caption: More-info dialog
+    group: Theme
+- slug: ha-neutral
+  title: Neutral
+  kind: theme
+  category: themes
+  icon: mdiCircleHalfFull
+  accent: '#2563eb'
+  tagline: A calm, neutral theme in light and dark, made to match the ha-* cards.
+  summary: 'A theme for Home Assistant designed to go with the ha-* cards: a flat gray page, clean opaque cards with a hairline border and soft gray inner tiles, and a status palette that does the talking, green when all is fine, amber when something is on, blue when something is open, red when something needs attention.'
+  highlights:
+  - Flat gray page, white or charcoal cards and soft gray inner tiles, no tint, gradient or shadow
+  - Status palette of the ha-* cards applied to Home Assistant's colours, so built-in state colours follow it too
+  - Light and dark modes in one theme, the dark mode switching the illustrated headers to their night scene
+  - 14 px rounded cards with a hairline border, calm header and side panel with a blue accent
+  - Dialogs on the same opaque surface over a dimmed dashboard, easy to read
+  homeassistant: 2024.1.0
+  keywords: "theme thème neutral neutre flat gray gris status palette light dark clair sombre ha-* cards"
+  worksWith:
+  - slug: ha-liquid-glass
+    why: "The other theme, frosted glass over a gray gradient"
   hero:
     src: theme-light.png
     dark: theme-dark.png
