@@ -633,6 +633,19 @@ projects:
     dark: card-activity-dark.png
     caption: Latest alerts, device commands and lighting changes
     group: Activity card
+  animations:
+  - src: header-hot.gif
+    dark: header-hot-dark.gif
+    caption: "Header, too hot"
+  - src: header-cold.gif
+    dark: header-cold-dark.gif
+    caption: "Header, too cold"
+  - src: header-cool.gif
+    dark: header-cool-dark.gif
+    caption: "Header, cooling"
+  - src: header-warn.gif
+    dark: header-warn-dark.gif
+    caption: "Header, other alert"
 - slug: ha-heating-card
   title: Heating Card
   kind: card
@@ -784,10 +797,6 @@ projects:
     dark: sensors-open-dark.png
     caption: Sensors
     group: Sensors
-  - src: sensors-leak.png
-    dark: sensors-leak-dark.png
-    caption: Water leak
-    group: Sensors
   - src: sensors-tiles.png
     dark: sensors-tiles-dark.png
     group: Sensors
@@ -795,10 +804,6 @@ projects:
   - src: sensors-mini-open.png
     dark: sensors-mini-open-dark.png
     caption: Mini a door open
-    group: Sensors
-  - src: sensors-mini-leak.png
-    dark: sensors-mini-leak-dark.png
-    caption: Mini water leak
     group: Sensors
   - src: sensors-mini-zoom.png
     dark: sensors-mini-zoom-dark.png
@@ -896,9 +901,6 @@ projects:
   - src: sensors-blink.gif
     dark: sensors-blink-dark.gif
     caption: Open sensors blinking
-  - src: sensors-alert.gif
-    dark: sensors-alert-dark.gif
-    caption: Water leak alert
   - src: lights-dim.gif
     dark: lights-dim-dark.gif
     caption: Drag to dim
@@ -1882,6 +1884,16 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
+  animations:
+  - src: anim-home.gif
+    dark: anim-home-dark.gif
+    caption: "Header, someone home"
+  - src: anim-away.gif
+    dark: anim-away-dark.gif
+    caption: "Header, nobody home"
+  - src: anim-night.gif
+    dark: anim-night-dark.gif
+    caption: "Header at night"
 - slug: ha-tracker-card
   title: Tracker Card
   kind: card
@@ -2746,6 +2758,19 @@ projects:
     dark: map-3d-dark.png
     caption: "3D view"
     group: Card
+  animations:
+  - src: header-cleaning.gif
+    dark: header-cleaning-dark.gif
+    caption: "Header, cleaning"
+  - src: header-returning.gif
+    dark: header-returning-dark.gif
+    caption: "Header, returning to the dock"
+  - src: header-error.gif
+    dark: header-error-dark.gif
+    caption: "Header, error"
+  - src: header-f25-cleaning.gif
+    dark: header-f25-cleaning-dark.gif
+    caption: "Header, F25 Ultra cleaning"
 - slug: ha-mower-card
   title: Mower Card
   kind: card
@@ -3392,6 +3417,10 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: Mini card, detail view
     group: Mini card
+  animations:
+  - src: header-online.gif
+    dark: header-online-dark.gif
+    caption: "Header, WAN up"
 - slug: ha-nas-card
   title: NAS Card
   kind: card
@@ -3510,6 +3539,13 @@ projects:
     dark: mini-card-narrow-dark.png
     caption: Mini card on a phone
     group: Mini card
+  animations:
+  - src: header-flow-full.gif
+    dark: header-flow-full-dark.gif
+    caption: "Header traffic flow, full card"
+  - src: header-flow.gif
+    dark: header-flow-dark.gif
+    caption: "Header traffic flow, mini card"
 - slug: ha-docker-card
   title: Docker Card
   kind: card
@@ -3587,6 +3623,9 @@ projects:
   - src: mini-card-zoom.gif
     dark: mini-card-zoom-dark.gif
     caption: Mini card switching to the full card and back
+  - src: card-header.gif
+    dark: card-header-dark.gif
+    caption: "Illustrated header"
 - slug: ha-dns-filter-card
   title: DNS Filter Card
   kind: card
@@ -3648,6 +3687,16 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
+  animations:
+  - src: anim-protection-on.gif
+    dark: anim-protection-on-dark.gif
+    caption: "Header, protection on"
+  - src: anim-protection-off.gif
+    dark: anim-protection-off-dark.gif
+    caption: "Header, protection off"
+  - src: anim-night.gif
+    dark: anim-night-dark.gif
+    caption: "Header at night"
 - slug: ha-reverse-proxy
   title: Reverse Proxy
   kind: integration
@@ -3708,6 +3757,16 @@ projects:
     dark: mini-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
+  animations:
+  - src: anim-running.gif
+    dark: anim-running-dark.gif
+    caption: "Header, running"
+  - src: anim-upstream-down.gif
+    dark: anim-upstream-down-dark.gif
+    caption: "Header, upstream down"
+  - src: anim-night.gif
+    dark: anim-night-dark.gif
+    caption: "Header at night"
 - slug: ha-proxmox
   title: Proxmox Panel
   kind: integration
@@ -3813,6 +3872,16 @@ projects:
     dark: guest-mini-card-zoom-dark.png
     caption: Zoomed in to the full card
     group: Machine mini card
+  animations:
+  - src: header-running.gif
+    dark: header-running-dark.gif
+    caption: "Header, all machines running"
+  - src: header-warning.gif
+    dark: header-warning-dark.gif
+    caption: "Header, some machines stopped"
+  - src: header-down.gif
+    dark: header-down-dark.gif
+    caption: "Header, node down"
 - slug: ha-ups-card
   title: UPS Card
   kind: card
@@ -4352,6 +4421,12 @@ projects:
   - src: chart.gif
     dark: chart-dark.gif
     caption: Chart
+  - src: header.gif
+    dark: header-dark.gif
+    caption: "Header"
+  - src: header-driving.gif
+    dark: header-driving-dark.gif
+    caption: "Header, driving"
 - slug: ha-carburants-france
   title: Carburants France
   kind: integration
@@ -4559,6 +4634,18 @@ projects:
   animations:
   - src: tick.gif
     caption: "Item ticked off"
+  - src: header-pending.gif
+    dark: header-pending-dark.gif
+    caption: "Header, items left"
+  - src: header-overdue.gif
+    dark: header-overdue-dark.gif
+    caption: "Header, overdue"
+  - src: header-done.gif
+    dark: header-done-dark.gif
+    caption: "Header, all done"
+  - src: header-shop.gif
+    dark: header-shop-dark.gif
+    caption: "Header, shopping list"
 - slug: ha-timer-card
   title: Timer Card
   kind: card
@@ -4654,6 +4741,33 @@ projects:
   - src: refreshing.gif
     dark: refreshing-dark.gif
     caption: Refresh
+  - src: scene-transit.gif
+    dark: scene-transit-dark.gif
+    caption: "In transit"
+  - src: scene-drop.gif
+    dark: scene-drop-dark.gif
+    caption: "Out for delivery"
+  - src: scene-delivered.gif
+    dark: scene-delivered-dark.gif
+    caption: "Delivered"
+  - src: scene-pickup.gif
+    dark: scene-pickup-dark.gif
+    caption: "Awaiting pickup"
+  - src: scene-failed.gif
+    dark: scene-failed-dark.gif
+    caption: "Failed attempt"
+  - src: scene-night.gif
+    dark: scene-night-dark.gif
+    caption: "At night"
+  - src: scene-bare.gif
+    dark: scene-bare-dark.gif
+    caption: "Scene without background"
+  - src: tiles.gif
+    dark: tiles-dark.gif
+    caption: "Tiles"
+  - src: tiles-delivered.gif
+    dark: tiles-delivered-dark.gif
+    caption: "Delivered tab"
 - slug: ha-wifi-card
   title: Wi-Fi QR Card
   kind: card
@@ -4690,6 +4804,16 @@ projects:
     dark: mini-card-narrow-dark.png
     caption: Mini card on a phone
     group: Mini card
+  animations:
+  - src: header-secured.gif
+    dark: header-secured-dark.gif
+    caption: "Header, secured network"
+  - src: header-open.gif
+    dark: header-open-dark.gif
+    caption: "Header, open network"
+  - src: mini-card-header.gif
+    dark: mini-card-header-dark.gif
+    caption: "Mini card header"
 - slug: ha-wero-card
   title: Wero QR Card
   kind: card
@@ -4724,6 +4848,16 @@ projects:
     dark: mini-card-narrow-dark.png
     caption: Mini card on a phone
     group: Mini card
+  animations:
+  - src: header-ready.gif
+    dark: header-ready-dark.gif
+    caption: "Header, ready"
+  - src: header-waiting.gif
+    dark: header-waiting-dark.gif
+    caption: "Header, waiting for the payment"
+  - src: mini-card-header.gif
+    dark: mini-card-header-dark.gif
+    caption: "Mini card header"
 - slug: ha-media-card
   title: Media Card
   kind: card
@@ -4953,6 +5087,9 @@ projects:
     caption: "Refreshing"
   - src: waiting.gif
     caption: "Waiting"
+  - src: arriving-tram.gif
+    dark: arriving-tram-dark.gif
+    caption: "Arriving tram"
 - slug: ha-saint-of-the-day
   title: Saint of the Day
   kind: integration
@@ -4984,6 +5121,13 @@ projects:
   - src: mini-card.png
     caption: "Default view"
     group: Mini card
+  animations:
+  - src: card-animated.gif
+    dark: card-animated-dark.gif
+    caption: "Animated card"
+  - src: mini-card-animated.gif
+    dark: mini-card-animated-dark.gif
+    caption: "Animated mini card"
 - slug: ha-pronote-card
   title: Pronote Card
   kind: card
@@ -5241,6 +5385,19 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
+  animations:
+  - src: anim-issues.gif
+    dark: anim-issues-dark.gif
+    caption: "Header, open issues"
+  - src: anim-merged.gif
+    dark: anim-merged-dark.gif
+    caption: "Header, pull request merged"
+  - src: anim-nothing-open.gif
+    dark: anim-nothing-open-dark.gif
+    caption: "Header, nothing open"
+  - src: anim-night.gif
+    dark: anim-night-dark.gif
+    caption: "Header at night"
 - slug: ha-system-hub
   title: System Hub
   kind: integration
@@ -5540,6 +5697,10 @@ projects:
     dark: card-automation-monitor-mini-zoom-dark.png
     caption: Mini card zoomed in
     group: Automations cards
+  animations:
+  - src: card-batteries-due.gif
+    dark: card-batteries-due-dark.gif
+    caption: "Batteries due"
 - slug: ha-backup-card
   title: Backup Card
   kind: card
@@ -6755,7 +6916,6 @@ projects:
     dark: landing-dark.gif
     caption: Landing
   - src: night.gif
-    dark: night-dark.gif
     caption: Night
   - src: mini.gif
     dark: mini-dark.gif
