@@ -5,21 +5,33 @@ categories:
 - id: climate
   label: Climate & weather
   icon: mdiWeatherPartlyCloudy
+- id: energy
+  label: Energy
+  icon: mdiLightningBolt
 - id: home
-  label: Home & energy
-  icon: mdiHomeLightningBolt
+  label: Home control
+  icon: mdiHomeLightbulbOutline
+- id: outdoor
+  label: Garden, pool & pets
+  icon: mdiFlower
 - id: security
   label: Security & presence
   icon: mdiShieldHome
 - id: appliances
-  label: Appliances
+  label: Appliances & media
   icon: mdiWashingMachine
 - id: network
-  label: Network & servers
+  label: Network & smart home
+  icon: mdiLan
+- id: servers
+  label: Servers & homelab
   icon: mdiServerNetwork
 - id: car
-  label: Car & fuel
+  label: Car & travel
   icon: mdiCar
+- id: family
+  label: Family & school
+  icon: mdiHumanMaleFemaleChild
 - id: everyday
   label: Everyday
   icon: mdiCalendarMonth
@@ -162,6 +174,7 @@ projects:
   - Max UV of the day and the sun protection window, highlighted while protection is needed
   - Horizontal or vertical layout, transparent mode
   - Sections view support and card picker preview
+  - "Illustrated header: a beach scene whose sun glow and heat haze grow with the UV risk, by day or night"
   homeassistant: 2024.11.0
   keywords: "sun ultraviolet openuv sunscreen met.no weather protection"
   worksWith:
@@ -608,6 +621,7 @@ projects:
   - "Valve opening, battery, humidity and window open alerts"
   - "Overview card of the whole home, floor by floor"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated header with the zone's own thermostat, radiator or valve drawn big, the heat rising while it heats"
   homeassistant: 2024.8.0
   keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule"
   worksWith:
@@ -686,16 +700,18 @@ projects:
   tagline: 'Compact cards room by room: sensors, lights, plugs, environment and an overview of the home.'
   summary: Pick a room and the cards find its entities by themselves. The overview shows every room as a tile coloured by what matters most, and unfolds its sensors, lights and plugs on tap.
   highlights:
-  - Overview of every room, coloured by leaks, openings and presence
+  - Overview of every room, coloured by openings and presence
   - 'Sensors card: what is open comes first, with how long'
   - Lights and plugs cards with power draw
   - "Room scenes under the lights, Philips Hue scenes found by their Hue room, dynamic ones started moving"
   - Lights and plugs mini cards on two lines, with an all off button and a zoom to the full card
   - Environment cards for temperature, humidity and air quality, unavailable sensors grouped in a muted tile
+  - Environment overview of every room, hidden while every room is comfortable if you like (`hide_when_clear`)
   - "Tiles layout for the lights, plugs and environment cards, large like Home Assistant's tiles, each sensor coloured by its reading with thresholds you can set"
   - The last 24 hours of each reading drawn behind its tile, its lowest and highest in the tooltip
   - Automatic discovery from Home Assistant areas
   - "Entities renamed from the visual editor (names), on the sensors, lights, plugs and environment cards"
+  - "Animated illustrated header on every card, drawn from the room's entities on its wall and floor"
   homeassistant: 2024.8.0
   keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity scenes philips hue"
   worksWith:
@@ -865,6 +881,7 @@ projects:
   - "Filter by area, or a fixed list of scenes and scripts in your order"
   - "Home Assistant, Philips Hue, deCONZ, LIFX, SmartThings, Tuya, Overkiz, KNX, Lutron Caséta, Velux, PowerView"
   - "Mini card with the active scene, the running scripts and round scene buttons"
+  - "Illustrated living room header, its lamp breathing while a scene is active"
   homeassistant: 2024.8.0
   keywords: "scène script ambiance scene scenes scripts hue smart scene deconz lifx smartthings tuya overkiz knx lutron velux powerview lights"
   worksWith:
@@ -904,7 +921,7 @@ projects:
 - slug: ha-energy-card
   title: Energy Card
   kind: card
-  category: home
+  category: energy
   icon: mdiSolarPowerVariant
   accent: '#f9a825'
   tagline: 'Solar inverters and home batteries from Enphase, SolarEdge, Fronius, Huawei, SMA, Tesla, Fox ESS and more: live power flow, battery, today.'
@@ -921,6 +938,7 @@ projects:
   - 'Last 7 days of production and consumption as daily bars, with the week''s totals'
   - Mini card with a detail button switching to the full card
   - "A second inverter read from a power sensor or a CT clamp (Fox ESS CT2), and a clamp in place of a slow integration reading"
+  - "Animated header: the house, its solar panels, battery and grid pylon linked by the live power flows"
   homeassistant: 2024.8.0
   keywords: "solar photovoltaic pv panneaux solaires inverter onduleur battery batterie powerwall enphase solaredge fronius huawei sma growatt apsystems solax goodwe foxess fox ess micro-inverters strings energy clamp ct2"
   worksWith:
@@ -1001,7 +1019,7 @@ projects:
 - slug: ha-zlinky-card
   title: ZLinky Card
   kind: card
-  category: home
+  category: energy
   icon: mdiMeterElectric
   accent: '#43a047'
   tagline: The French Linky smart meter, through the LiXee ZLinky module.
@@ -1019,6 +1037,7 @@ projects:
   - 'Contract comparison: your last 12 months priced as Base and as Off-peak / Peak'
   - 'Three-phase meters: apparent power per phase, each phase measured against its share of the subscribed power'
   - "A Linky drawn as it is, its screens scrolled with a tap; meter size and power unit label of your choice"
+  - "Illustrated header with the Linky meter in its technical panel, its screen live and its LED blinking"
   homeassistant: 2024.8.0
   keywords: "linky lixee zha zigbee2mqtt esphome teleinfo energy electricity tic meter power tempo zen flex tarif edf cost"
   worksWith:
@@ -1077,6 +1096,7 @@ projects:
   - "Confirmation before moving a garage door, a gate or a door"
   - "Mini card with a detail button showing the full card"
   - "Covers without feedback (radio RTS motors) shown closed at rest, and an inverted position for awnings reporting it the wrong way round"
+  - "Illustrated facade header with the covers drawn at their position, moving as they open and close"
   homeassistant: 2024.8.0
   keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave rts no feedback invert"
   cardTypes:
@@ -1138,7 +1158,7 @@ projects:
 - slug: ha-utility-meter-card
   title: Utility Meter Card
   kind: card
-  category: home
+  category: energy
   icon: mdiWaterPump
   accent: '#0288d1'
   tagline: "Water, gas and electricity meters: consumption, comparison, cost and night leak detection."
@@ -1153,6 +1173,7 @@ projects:
   - "Animated water and gas meters, mini card with a detail button"
   - "Electricity meters too (kWh): consumption, cost and live power, drawn as a smart meter, a spinning-disc Ferraris meter or a DIN-rail sub-meter"
   - "Gas in kWh with the daily conversion factor read from a sensor (GRDF), or a fixed one"
+  - "Illustrated header with the meter in its place: water in the cellar, electricity by the panel, gas on the house front"
   homeassistant: 2024.8.0
   keywords: "eau gaz compteur water gas meter gazpar grdf suez veolia leak fuite consumption utility_meter electricity électricité kwh linky enedis ferraris sub-meter conversion"
   cardTypes:
@@ -1217,7 +1238,7 @@ projects:
 - slug: ha-tempo-card
   title: Tempo Card
   kind: card
-  category: home
+  category: energy
   icon: mdiCalendarBlankMultiple
   accent: '#1e88e5'
   tagline: "The EDF Tempo colour of today and tomorrow, the current period and the cost of the day."
@@ -1230,6 +1251,7 @@ projects:
   - "Estimated cost of the day and the month, per colour and period"
   - "RTE Tempo, Tarif EDF, EDF Tempo, Linky TIC or ZLinky entities found automatically"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated header: the pylon feeding the house, in the colour of the day, peak hours under the sun"
   homeassistant: 2024.8.0
   keywords: "edf tempo rte jour rouge blanc bleu heures creuses pleines off-peak tarif electricity linky zlinky france"
   worksWith:
@@ -1277,7 +1299,7 @@ projects:
 - slug: ha-ecowatt-card
   title: EcoWatt Card
   kind: card
-  category: home
+  category: energy
   icon: mdiLightningBolt
   accent: '#43a047'
   tagline: "The EcoWatt signal of the French grid: a 24-hour dial and a 4-day forecast."
@@ -1290,6 +1312,7 @@ projects:
   - "My EcoWatt by RTE (day sensors and its calendar of tight hours), ecowatt and MyElectricalData"
   - "A wave out of the dial while the grid is tight, the icon blinking during power cuts"
   - "Mini card with the dial, the lines and the strip of the day to watch"
+  - "Animated grid header: wind turbines and power line in the level's colour, slowing down as the grid tightens"
   homeassistant: 2024.8.0
   keywords: "ecowatt rte réseau électrique tension coupure délestage signal electricity grid power cut france my ecowatt myelectricaldata"
   worksWith:
@@ -1329,7 +1352,7 @@ projects:
 - slug: ha-pool-card
   title: Pool Card
   kind: card
-  category: home
+  category: outdoor
   icon: mdiPool
   accent: '#00acc1'
   tagline: "Water quality, filtration and equipment of a swimming pool or a spa."
@@ -1343,6 +1366,7 @@ projects:
   - "iopool, Blue Connect, ESPHome, ScreenLogic, IntelliCenter, OmniLogic and more"
   - "Mini card with a detail button showing the full card"
   - "Electrical consumption: the pump's power and energy, and a roller cover driven by a relay, inverted if needed"
+  - "Illustrated header: the pool seen from above, rippling while filtering, its cover, light and heat pump animated"
   homeassistant: 2024.8.0
   keywords: "piscine spa jacuzzi pool ph orp chlore chlorine salt filtration iopool blue riiot blue connect pentair screenlogic intellicenter hayward omnilogic heat pump power energy relay"
   cardTypes:
@@ -1396,7 +1420,7 @@ projects:
 - slug: ha-vivarium-card
   title: Vivarium Card
   kind: card
-  category: home
+  category: outdoor
   icon: mdiFishbowl
   accent: '#0288d1'
   tagline: "Aquariums, terrariums and turtle tanks under their animated habitat, with water quality or climate gauges."
@@ -1642,7 +1666,7 @@ projects:
 - slug: ha-garden-card
   title: Garden Card
   kind: card
-  category: home
+  category: outdoor
   icon: mdiSprinklerVariant
   accent: '#43a047'
   tagline: "Watering zones, plants and soil moisture, with a rain suggestion."
@@ -1654,6 +1678,7 @@ projects:
   - "Plants with moisture, fertility, light, temperature and battery gauges"
   - "Animated garden: sprinkler, rain cloud, thirsty plant"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated garden header: the sprinkler spraying, the rain cloud, the plant wilting when it needs water"
   homeassistant: 2024.8.0
   keywords: "jardin arrosage irrigation plante garden sprinkler watering plant mi flora gardena rain bird opensprinkler hydrawise linktap rachio bhyve soil moisture"
   worksWith:
@@ -1703,7 +1728,7 @@ projects:
 - slug: ha-waste-card
   title: Waste Card
   kind: card
-  category: home
+  category: everyday
   icon: mdiTrashCan
   accent: '#7cb342'
   tagline: "The next waste collections, with the bins to put out tonight."
@@ -1716,6 +1741,7 @@ projects:
   - "Waste Collection Schedule, calendars and date sensors, mixed in one card"
   - "Waste types recognized in many languages, own name, colour and icon per type"
   - "Mini card with the next collection"
+  - "Illustrated header with the next collection's bins in their colours by the road"
   homeassistant: 2024.8.0
   keywords: "poubelle déchets collecte ordures recyclage waste garbage trash bin recycling collection schedule calendar"
   worksWith:
@@ -1769,6 +1795,7 @@ projects:
   - Direction of travel from the Proximity integration
   - Travel time home for people away, from a Waze or Google Maps sensor
   - Mini card on a single row with a zoom button
+  - "Illustrated living room header: everyone at home on the sofa, an empty cushion for each one away"
   homeassistant: 2024.8.0
   keywords: "person people home away zone device tracker proximity"
   worksWith:
@@ -1868,6 +1895,7 @@ projects:
   - Buttons section with switches, lights, scripts and scenes of your choice, such as the plugs of the cameras
   - Display names for the sensors, cameras and buttons, set in the visual editor
   - "A frosted-glass shield in the state colour, its padlock opening when disarmed and locking when armed"
+  - "Surveillance radar header around the big state shield, its sweep, sensors and camera following the alarm"
   homeassistant: 2024.8.0
   keywords: "alarmo alarm control panel security verisure ajax manual buttons switch"
   worksWith:
@@ -1938,6 +1966,7 @@ projects:
   - Warning when the lock stays unlocked longer than you set
   - Compact mini card
   - Auto-lock countdown while unlocked
+  - "Illustrated entrance header with the lock drawn big on the door, animated as it locks and unlocks"
   homeassistant: 2024.8.0
   keywords: "lock door nuki tedee yale august switchbot aqara matter zwave"
   worksWith:
@@ -2029,6 +2058,7 @@ projects:
   - Mini card with a snapshot per camera, opening the full card
   - Cameras without a live stream (HomeKit, a Tapo in privacy mode…) shown as stills refreshed every second, Safari included
   - Streams paused while the card is off-screen
+  - "Illustrated header with a camera in the cards' state: live, motion detected, privacy or offline"
   homeassistant: 2024.12.0
   keywords: "camera cctv privacy ptz frigate reolink tapo webrtc go2rtc panel"
   worksWith:
@@ -2102,7 +2132,7 @@ projects:
   title: Family Link
   kind: integration
   withCard: true
-  category: security
+  category: family
   icon: mdiShieldAccount
   accent: '#34a853'
   tagline: "Google Family Link in Home Assistant: screen time, locks, bonuses and location, with an animated card."
@@ -2193,6 +2223,7 @@ projects:
   - "Open the door or the gate after a confirmation, quick messages, mute"
   - "Ring, Reolink, UniFi Protect, Nest, Tapo, DoorBird, Matter, Frigate and more"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated house front header, the doorbell drawn by the door, ringing with sound waves"
   homeassistant: 2024.8.0
   keywords: "sonnette visiophone interphone doorbell intercom ring reolink unifi protect nest tapo doorbird aqara matter frigate eufy"
   worksWith:
@@ -2634,6 +2665,7 @@ projects:
   - "Local only: the map the Roborock integration already fetches, never through the cloud"
   - "Card bundled with the integration, visual editor, rotation by 90°, embedded mode for other cards"
   - "Diagnostics holding the raw map to reproduce a rendering issue"
+  - "Animated illustrated header with the state as a status pill"
   homeassistant: 2025.12.1
   keywords: "roborock vacuum map floor plan rooms live robot path 3d three.js zones no-go saros qrevo aspirateur carte"
   worksWith:
@@ -2654,7 +2686,7 @@ projects:
 - slug: ha-mower-card
   title: Mower Card
   kind: card
-  category: appliances
+  category: outdoor
   icon: mdiRobotMower
   accent: '#5a9e3c'
   tagline: 'Robot lawn mowers from Husqvarna, Worx, Ecovacs, Mammotion, ZCS, Bosch, Gardena and Dreame: status, battery, actions, map.'
@@ -2669,6 +2701,7 @@ projects:
   - Blade usage, charge cycles and collisions with reset buttons, and session statistics
   - Live vision cameras (Mammotion) and garden map (Ecovacs GOAT, Bosch Indego) in collapsible sections
   - Mini card with a detail button switching to the full card
+  - "Illustrated garden header with the mower at its station or out on the lawn, by day or night"
   homeassistant: 2024.8.0
   keywords: "lawn mower robot tondeuse automower husqvarna landroid worx goat ecovacs mammotion luba indego gardena dreame"
   worksWith:
@@ -2925,6 +2958,7 @@ projects:
   - "Bambu Lab AMS spools: colour, filament, remaining amount, humidity"
   - "Print thumbnail and camera, pause / resume / stop with a confirmation"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated workshop header: the toolhead sweeping and the spool turning while printing"
   homeassistant: 2024.8.0
   keywords: "imprimante 3d 3d printer bambu lab ams octoprint klipper moonraker mainsail fluidd prusa prusalink voron creality"
   worksWith:
@@ -2988,7 +3022,7 @@ projects:
 - slug: ha-pet-card
   title: Pet Card
   kind: card
-  category: appliances
+  category: outdoor
   icon: mdiPaw
   accent: '#ff7043'
   tagline: "PetKit feeders, fountains and litter boxes, Litter-Robot: food, water, litter and waste bin, drawn and animated by what they do."
@@ -3196,6 +3230,7 @@ projects:
   - "Run a test from the card: the needle sweeps while it runs"
   - "Speedtest.net, Fast.com, iperf3, Ookla Speedtest, Speedtest Tracker and Netgear routers"
   - "Mini card with the gauge, the speed and a round run button"
+  - "Illustrated header: the gauge and a fibre line to the house, light pulses running as fast as the line"
   homeassistant: 2024.8.0
   keywords: "débit internet vitesse connexion fibre speed test speedtest bandwidth download upload ping jitter ookla fast.com iperf3 speedtest tracker netgear"
   worksWith:
@@ -3297,7 +3332,7 @@ projects:
 - slug: ha-nas-card
   title: NAS Card
   kind: card
-  category: network
+  category: servers
   icon: mdiNas
   accent: '#00b46e'
   tagline: 'UGREEN, Synology, QNAP and ASUSTOR NAS: CPU, RAM, disks, volumes and network.'
@@ -3314,6 +3349,7 @@ projects:
   - Compact mini card, its CPU and RAM bars with their last 24 hours
   - 'UGREEN and Synology: update available chip and reboot button with a confirmation'
   - "Shutdown next to reboot, and Wake-on-LAN to wake an offline NAS"
+  - "Illustrated server room header with the NAS of its model drawn big, its network cable flowing"
   homeassistant: 2024.8.0
   keywords: "nas ugreen synology synology_dsm dsm qnap asustor adm storage disks raid wake-on-lan wol shutdown"
   worksWith:
@@ -3380,6 +3416,7 @@ projects:
   - Custom image with an adjustable port overlay
   - Confirmation popup before turning the switch off
   - Mini card with the front panel and the rates, opening the full card
+  - "Illustrated traffic header: download and upload lanes with packets running as fast as the traffic"
   homeassistant: 2024.8.0
   keywords: "network switch snmp netgear gs308t ports"
   worksWith:
@@ -3413,7 +3450,7 @@ projects:
 - slug: ha-docker-card
   title: Docker Card
   kind: card
-  category: network
+  category: servers
   icon: mdiDocker
   accent: '#2496ed'
   tagline: 'Docker hosts from Dockhand, Monitor Docker or Portainer: CPU, RAM, containers, stacks and updates.'
@@ -3428,6 +3465,7 @@ projects:
   - Containers list with search and a sort by name, CPU or memory
   - Compact mini card with the 24 h CPU and RAM curves
   - 'Each container''s CPU over the last 24 hours drawn behind its row'
+  - "Animated header: the Docker whale carrying the host's containers, a red one blinking when unhealthy"
   homeassistant: 2024.8.0
   keywords: "docker containers stacks dockhand portainer monitor_docker monitor docker"
   worksWith:
@@ -3504,6 +3542,7 @@ projects:
   - Sensors of your choice for a tile, a counter or the blocking switch
   - Versions in the footer with an update chip for each pending update
   - Mini card with a detail button switching to the full card
+  - "Animated header: the DNS requests running through the shield, the bad ones stopped"
   homeassistant: 2024.8.0
   keywords: "adguard pihole pi-hole technitium dns blocker ads filter queries blocked"
   worksWith:
@@ -3550,7 +3589,7 @@ projects:
   title: Reverse Proxy
   kind: integration
   withCard: true
-  category: network
+  category: servers
   icon: mdiServerNetwork
   accent: '#5b6cf0'
   tagline: 'Integration and cards for your reverse proxy: Zoraxy, Traefik or Nginx Proxy Manager.'
@@ -3567,6 +3606,7 @@ projects:
   - Address and credentials changed with Reconfigure, TLS verification optional
   - Repairs for certificates about to expire and rules whose upstreams are all offline
   - Card and mini card included, showing only the controls the proxy has
+  - "Animated header: the Internet, the reverse proxy and its servers, green while every route is up"
   homeassistant: 2024.12.0
   keywords: "reverse proxy zoraxy traefik nginx proxy manager npm certificates acme tls upstream uptime routers middlewares"
   worksWith:
@@ -3609,7 +3649,7 @@ projects:
   title: Proxmox Panel
   kind: integration
   withCard: true
-  category: network
+  category: servers
   icon: mdiServer
   accent: '#e57000'
   tagline: A Proxmox sidebar panel and cards for the nodes, virtual machines, containers, storage and backups of Proxmox VE.
@@ -3625,6 +3665,7 @@ projects:
   - Cards seen by every user, their actions offered to administrators only; visual editors
   - Panel for administrators only; light and dark themes; 22 languages
   - "Proxmox Extended Sensors: the node's CPU temperature and health, Disks (SMART health, wear) and Datastores (Proxmox Backup Server) tabs"
+  - "Illustrated header: a server rack with its status lights and a PVE tag in the node's state colour"
   homeassistant: 2026.11.0
   keywords: "proxmox pve virtual machines vm lxc containers node storage backups snapshot homelab panel admin card mini card proxmox_sensors extended sensors smart disks datastores pbs backup server temperature"
   worksWith:
@@ -3712,7 +3753,7 @@ projects:
 - slug: ha-ups-card
   title: UPS Card
   kind: card
-  category: network
+  category: servers
   icon: mdiPowerPlugBattery
   accent: '#43a047'
   tagline: "Mains or battery, runtime left, load and power outages of your UPS."
@@ -3725,6 +3766,7 @@ projects:
   - "Battery replacement date and alerts"
   - "Network UPS Tools (NUT) and APC UPS Daemon"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated technical room header with the UPS drawn big, in the colour of mains, battery or charge"
   homeassistant: 2024.8.0
   keywords: "onduleur ups nut network ups tools apc apcupsd eaton battery outage coupure"
   worksWith:
@@ -3776,7 +3818,7 @@ projects:
 - slug: ha-uptime-card
   title: Uptime Card
   kind: card
-  category: network
+  category: servers
   icon: mdiServerNetwork
   accent: '#26a69a'
   tagline: "Your services at a glance: up or down, response time, 24-hour uptime and certificates."
@@ -3789,6 +3831,7 @@ projects:
   - "Groups by tag, label or integration, problems first"
   - "Animated server rack in the colour of the worst status"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated server room header: the rack of the overall status, its heartbeat and alarm rings"
   homeassistant: 2024.8.0
   keywords: "uptime kuma healthchecks ping monitoring supervision services status certificate"
   worksWith:
@@ -3838,7 +3881,7 @@ projects:
 - slug: ha-certificate-card
   title: Certificate Card
   kind: card
-  category: network
+  category: servers
   icon: mdiCertificate
   accent: '#5e35b1'
   tagline: "SSL/TLS certificates and domain names sorted by expiry, with a few DNS checks."
@@ -3851,6 +3894,7 @@ projects:
   - "Optional DNS checks: DNS IP and Ping"
   - "Only certificates needing attention, if you prefer"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated header: a framed certificate and a padlock following the overall status, valid to expired"
   homeassistant: 2024.8.0
   keywords: "certificat ssl tls certificate expiry let's encrypt dns ip ping https whois domain domaine registrar"
   worksWith:
@@ -3886,7 +3930,7 @@ projects:
 - slug: ha-seedbox-card
   title: Seedbox Card
   kind: card
-  category: network
+  category: servers
   icon: mdiDownloadNetwork
   accent: '#2e7d32'
   tagline: "Transmission, qBittorrent and Deluge: speeds, torrents and the alternative speed."
@@ -3898,6 +3942,7 @@ projects:
   - "Torrents list with progress, time left, search, resume and pause"
   - "Resume all, pause all and alternative speed buttons"
   - "Mini card with a detail button showing the full card"
+  - "Animated header: the seedbox in its swarm of peers, packets flowing in and out"
   homeassistant: 2024.8.0
   keywords: "torrent seedbox transmission qbittorrent deluge download upload turtle"
   cardTypes:
@@ -4017,6 +4062,7 @@ projects:
   - Orange Internet On the move section, with ha-orange-internet-on-the-move
   - "Tap and hold actions on the tiles, chips and rows, tiles renamed"
   - "Battery and fuel bars coloured by thresholds, as in the gauge card, and a flat look without the grey blocks"
+  - "Animated roadside header with the car's own picture and its charging post, day or night"
   homeassistant: 2024.8.0
   keywords: "car vehicle ev renault dacia tesla volvo skoda subaru nissan peugeot citroen opel fiat jeep stellantis kia hyundai toyota lexus volkswagen audi seat cupra mercedes polestar ford tank fuel charge tyre tire pressure"
   worksWith:
@@ -4198,6 +4244,7 @@ projects:
   - Card with gauges, monthly chart and recent trips, refuels and charges
   - Service reminder with the distance left, and CSV export of every trip, refuel and charge
   - Mini card with the gauges, last trip and average, with a detail button showing the full card
+  - "Animated header: a fuel pump or a charging station showing the tank or the battery"
   homeassistant: 2024.12.0
   keywords: "car vehicle fuel consumption ev charging cost renault mpg miles imperial"
   worksWith:
@@ -4263,6 +4310,7 @@ projects:
   - Full tank cost at the best price, and an event each time a best price drops by a cent
   - Diagnostics with addresses and positions redacted
   - "Set up without following any station, for the map of every station around you"
+  - "Animated fuel station header, its price totem showing the card's cheapest prices"
   homeassistant: 2024.12.0
   keywords: "fuel gas station prix carburants essence gazole diesel e10 sp95 france"
   worksWith:
@@ -4326,6 +4374,7 @@ projects:
   - Times in the browser's or the server's time zone, as set in your profile
   - Week view, the 7 days from today side by side, one day per row on a narrow card, with arrows or a swipe to the previous or next week
   - Mini card with the next event, opening its details
+  - "Illustrated header: today's tear-off calendar and a wall clock, a video call when an event is under way"
   homeassistant: 2024.8.0
   keywords: "calendar agenda google caldav events"
   worksWith:
@@ -4409,6 +4458,7 @@ projects:
   - "Only what each list allows: read-only lists can't be ticked, due dates only where supported"
   - "Local To-do, Shopping List, Bring!, Todoist, Google Tasks, CalDAV, Mealie, AnyList, Picnic, Alexa and more"
   - "Mini card with the next items and a round add button"
+  - "Illustrated kitchen header: the list on the fridge, the pencil writing while items are left"
   homeassistant: 2024.8.0
   keywords: "liste tâches courses todo to-do shopping list bring todoist google tasks caldav mealie anylist ourgroceries picnic cookidoo habitica kitchenowl grocy alexa"
   worksWith:
@@ -4461,6 +4511,7 @@ projects:
   - "Timer helpers, Google Home timers, Alexa Media and Alexa Devices timers"
   - "Counters with their minus and plus buttons"
   - "Mini card with the timer ending first and the others on one line"
+  - "Illustrated kitchen header: the hob glowing and the timer's hand turning while a timer runs"
   homeassistant: 2024.8.0
   keywords: "minuteur compte à rebours cuisine timer countdown kitchen google home nest alexa echo counter compteur"
   worksWith:
@@ -4520,6 +4571,7 @@ projects:
   - API key entered in the UI
   - Notifications when a parcel is out for delivery or delivered, with no automation to write
   - Diagnostics with the API key, tracking numbers and addresses redacted
+  - "Illustrated delivery header, 90 px on the full and the mini card, with a road strip"
   homeassistant: 2024.12.0
   keywords: "parcel delivery package tracking colis"
   cardTypes:
@@ -4542,7 +4594,7 @@ projects:
 - slug: ha-wifi-card
   title: Wi-Fi QR Card
   kind: card
-  category: everyday
+  category: network
   icon: mdiQrcodeScan
   accent: '#039be5'
   tagline: A Wi-Fi QR code so guests join your network in one scan.
@@ -4555,6 +4607,7 @@ projects:
   - Visual editor, no YAML needed
   - Light and dark mode
   - Mini card on one row, its QR opening the full card
+  - "Animated header: a router sending its WiFi waves to a laptop"
   homeassistant: 2024.8.0
   keywords: "wifi qr code guest network"
   cardTypes:
@@ -4588,6 +4641,7 @@ projects:
   - Tap for full screen
   - Visual editor
   - Mini card on one row, its QR opening the full card
+  - "Illustrated shop counter header: a phone tapping the payment terminal, the icon in the payment status colour"
   homeassistant: 2024.8.0
   keywords: "wero payment qr code pay"
   cardTypes:
@@ -4610,7 +4664,7 @@ projects:
 - slug: ha-media-card
   title: Media Card
   kind: card
-  category: everyday
+  category: appliances
   icon: mdiSpeakerMultiple
   accent: '#8e24aa'
   tagline: "Media players and multiroom speakers: artwork, controls, volume per room and groups."
@@ -4628,6 +4682,7 @@ projects:
   - "Animated record, equalizer and drawn speakers, TVs and receivers"
   - "Several players in one card"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated media room header with the player's own device drawn big, animated as it plays"
   homeassistant: 2024.8.0
   keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver jellyfin alexa echo amazon homepod apple tv philips ambilight remote"
   cardTypes:
@@ -4753,7 +4808,7 @@ projects:
   title: Public Transport
   kind: integration
   withCard: true
-  category: everyday
+  category: car
   icon: mdiBusClock
   accent: '#00897b'
   tagline: "The next departures at your public transport stops, in more than 200 French cities, with traffic alerts."
@@ -4768,6 +4823,7 @@ projects:
   - "Card with line badges in their official colours and a live countdown"
   - "Mini card with the next three departures of each stop"
   - "SNCF national trains (TGV, OUIGO, Intercités, TER, Transilien, RER): a station's departures board with the train number, platform and delay"
+  - "Illustrated city stop header: the stop's display with its countdown and the bus, metro or tram in its line colour"
   homeassistant: 2024.12.0
   keywords: "transports en commun bus métro metro tram star rennes paris idfm île-de-france lyon tcl strasbourg cts toulouse tisséo bordeaux tbm montpellier tam nantes naolib lille ilévia brest bibus rouen nice tours angers le havre public transport departures horaires gtfs gtfs-rt sncf tgv ouigo intercités ter transilien rer train gare station quai"
   cardTypes:
@@ -4838,7 +4894,7 @@ projects:
   title: Saint of the Day
   kind: integration
   withCard: true
-  category: everyday
+  category: family
   icon: mdiCalendarStar
   accent: '#8e44ad'
   tagline: "The French name day of today and tomorrow, with a card."
@@ -4848,6 +4904,7 @@ projects:
   - "First names wished, the date and the next 7 days"
   - "Embedded calendar of the 366 days, updated at midnight"
   - "Card with a name day wish, and a mini card"
+  - "Illustrated chapel header with the saint in front of the rose window"
   homeassistant: 2024.12.0
   keywords: "saint du jour fête du jour prénom name day calendrier france"
   cardTypes:
@@ -4867,7 +4924,7 @@ projects:
 - slug: ha-pronote-card
   title: Pronote Card
   kind: card
-  category: everyday
+  category: family
   icon: mdiSchool
   accent: '#2e7d32'
   tagline: "Timetable, homework, grades and school life of your children from Pronote, in cards and an optional sidebar panel."
@@ -4882,6 +4939,7 @@ projects:
   - "Animated school picture following the day"
   - "Mini card with the next lesson and homework"
   - "Optional sidebar panel: the whole school life on a full page, a tab per section, a button per student"
+  - "Illustrated desk header following the student's day: the pen writing when homework is due"
   homeassistant: 2024.8.0
   keywords: "pronote école collège lycée devoirs notes emploi du temps school homework grades timetable"
   worksWith:
@@ -4953,6 +5011,7 @@ projects:
   - "Total and gain in the currency you choose, converted with an exchange rate sensor"
   - "Market status: open, pre-market, after hours, closed"
   - "Mini card with a detail button showing the full card"
+  - "Illustrated stock exchange header: candlesticks and a ticker tape, green or red with the day"
   homeassistant: 2024.8.0
   keywords: "bourse action stock market quote portfolio yahoo finance crypto index etf"
   cardTypes:
@@ -5067,6 +5126,7 @@ projects:
   - Notification for each new release, as for issues and pull requests
   - "My pull requests tab: your open pull requests in any repository"
   - "Release downloads on each followed repository, with the total; open issues and pull requests on the sidebar, refreshed on a schedule"
+  - "Animated developer's desk header, following the open issues and pull requests"
   homeassistant: 2026.11.0
   keywords: "github repositories repos stars issues pull requests releases commits git panel notifications downloads badge"
   cardTypes:
@@ -5143,6 +5203,7 @@ projects:
   - One card and one mini card for every module, status cards included, the visual editor picking the module first
   - A module turned on takes over the settings of the standalone integration it replaces
   - Diagnostics of every module, secrets redacted; 23 languages
+  - "Illustrated header on every module card, each with its own animated scene in the colour of its status"
   homeassistant: 2024.12.0
   keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status"
   worksWith:
@@ -5431,6 +5492,7 @@ projects:
   - "Home Assistant backups, Google Drive Backup, Samba Backup, OneDrive Backup, Auto Backup"
   - "Proxmox VE, Duplicati, Duplicati Monitor, Backrest, Veeam, or any last-backup sensor"
   - "Mini card with the sources to watch and a round back-up button"
+  - "Illustrated header: the home server and its backup disk linked to the cloud, in the worst status"
   homeassistant: 2024.8.0
   keywords: "sauvegarde backup backups google drive backup samba onedrive auto backup proxmox duplicati backrest veeam restore"
   worksWith:
@@ -5472,7 +5534,7 @@ projects:
   replacedBy: ha-system-hub
   title: System Monitor Card
   kind: card
-  category: network
+  category: servers
   icon: mdiMonitorDashboard
   accent: '#039be5'
   tagline: 'The machine running Home Assistant: CPU, RAM, disk, temperature, network and updates.'
@@ -5636,7 +5698,7 @@ projects:
   title: Battery Monitor
   kind: integration
   withCard: true
-  category: home
+  category: energy
   icon: mdiBatteryAlert
   accent: '#ffa600'
   tagline: Watches every battery of your home and tells you twice a day which ones are low.
@@ -5860,7 +5922,7 @@ projects:
 - slug: ha-family-day-card
   title: Family Day Card
   kind: card
-  category: everyday
+  category: family
   icon: mdiBagPersonal
   accent: '#d81b60'
   tagline: "Is there school tomorrow? The answer at a glance, for French families."
@@ -5873,6 +5935,7 @@ projects:
   - "Workday, school holidays calendar and Holiday integration, each optional"
   - "Mini card that unfolds to the full card"
   - "Today and tomorrow side by side (show_today), each with its picture, answer, pill and chips"
+  - "Animated header of tomorrow: the school and its bus, the park, the sea or the holidays"
   homeassistant: 2024.8.0
   keywords: "school holidays vacances scolaires workday holiday pronote family children calendar"
   worksWith:
@@ -5947,7 +6010,7 @@ projects:
 - slug: ha-remote-card
   title: Remote Card
   kind: card
-  category: everyday
+  category: home
   icon: mdiTelevision
   accent: '#546e7a'
   tagline: "A real remote for your TV and streaming boxes: D-pad, keys, volume and sources."
@@ -6025,6 +6088,7 @@ projects:
   - "Season and days to the next solstice or equinox"
   - "Sun, Moon, Season and Lunar Phase integrations, with local computations as a fallback"
   - "Mini card that unfolds to the full card"
+  - "Illustrated header: the arc of the day or the night, the sun or the moon sliding to where it is"
   homeassistant: 2024.8.0
   keywords: "sun moon lunar phase season sunrise sunset golden hour blue hour astronomy daylight"
   worksWith:
@@ -6111,6 +6175,7 @@ projects:
   - "Ring a device, even on silent, after a confirmation"
   - "iOS, Android and macOS Companion apps, found automatically"
   - "Mini card with the battery rings, unfolding to the full list"
+  - "Animated desk header with the devices showing their state on their screens"
   homeassistant: 2024.8.0
   keywords: "companion app mobile_app phone tablet laptop battery charging ring find my phone devices"
   worksWith:
@@ -6169,7 +6234,7 @@ projects:
 - slug: ha-assist-card
   title: Assist Card
   kind: card
-  category: everyday
+  category: home
   icon: mdiRobotHappy
   accent: '#7e57c2'
   tagline: "Talk to Assist from a dashboard: chat, voice and suggestions."
@@ -6181,6 +6246,7 @@ projects:
   - "Suggestion chips, by area or your own"
   - "Safe markdown in the answers"
   - "Voice-first mini card that unfolds to the full chat"
+  - "Illustrated living room header, the smart speaker's light ring following the conversation"
   homeassistant: 2025.6.0
   keywords: "assist voice conversation chat ai llm gemini openai ollama pipeline speech"
   worksWith:
@@ -6237,6 +6303,7 @@ projects:
   - "Any weather entity as a fallback, hourly"
   - "Mini card with a compact ribbon, unfolding to the full card"
   - "Bar colours of your choice per intensity (colors)"
+  - "Illustrated header of the next hour: sun, clouds coming in, rain falling into a puddle"
   homeassistant: 2024.8.0
   keywords: "rain pluie meteo-france nowcast precipitation next hour weather umbrella"
   worksWith:
@@ -6304,7 +6371,7 @@ projects:
   - Alarm banner with a Silence button, and a Test all button that arms before it presses every self-test
   - Maintenance in orange from the detector's own entities, low battery, end of life, fault or an alarm sensor that cannot report
   - Quiet detectors in green, with the carbon monoxide level when the detector reports one
-  - Overview of every room, coloured by its most serious detector, a room unfolding its safety card on tap
+  - Overview of every room, coloured by its most serious detector, a room unfolding its safety card on tap, hidden while all is clear if you like (`hide_when_clear`)
   - Mini card with the alarms and the detectors to check, zooming to the full card
   - Water leak sensors too, a wet one sounding in red like the others, smoke, CO and gas still ranked first
   - Reads Home Assistant's own device classes, so any smoke, CO, gas or water leak sensor works
@@ -6478,7 +6545,7 @@ projects:
   title: ENT ONE
   kind: integration
   withCard: true
-  category: everyday
+  category: family
   icon: mdiBookEducationOutline
   accent: '#3949ab'
   tagline: The ENT ONE school workspace in Home Assistant, liaison book, homework, messages and news, with a card and a panel.
@@ -6492,6 +6559,7 @@ projects:
   - ENT ONE sidebar panel with Home, Homework, Liaison book, Messages, News, Blog and Settings tabs
   - Credentials kept in Home Assistant, silent re-login, diagnostics with counts only, no name or message leaving the home
   - "A count on the sidebar: words to sign, homework to do and unread messages of every child"
+  - "Animated school corner header: the pen writing when there is homework or a word to sign, the unread messages"
   homeassistant: 2024.12.0
   keywords: "ent one edifice école primaire school cahier de liaison homework devoirs messages news blog éducation nationale académie neo"
   worksWith:
@@ -6559,7 +6627,7 @@ projects:
 - slug: ha-flight-board-card
   title: Flight Board Card
   kind: card
-  category: everyday
+  category: car
   icon: mdiAirplane
   accent: '#1565c0'
   tagline: An airport departures and arrivals board, under an animated airport where the plane takes off and lands.
@@ -6632,7 +6700,7 @@ projects:
 - slug: ha-train-board-card
   title: Train Board Card
   kind: card
-  category: everyday
+  category: car
   icon: mdiTrain
   accent: '#00838f'
   tagline: A station departures and arrivals board, under an animated station where a train waits and leaves.
@@ -6692,6 +6760,630 @@ projects:
     caption: Night
   - src: mini.gif
     caption: Mini card
+- slug: ha-light-card
+  title: Light Card
+  kind: card
+  category: home
+  icon: mdiFloorLamp
+  accent: '#f59f00'
+  tagline: "Your lights drawn as their fixture, glowing in their own colour, the fixture itself the brightness slider."
+  summary: "A bulb, a pendant, a chandelier, a floor lamp, a garland or a Christmas tree, drawn in its room and lit in the light's own colour and brightness. Drag the fixture to dim it, tap it to switch it; below it come the colour temperature, colours, effects, scenes and the lights of a group. A mini card comes with it."
+  highlights:
+  - "The fixture is the slider: drag it for the brightness, tap it to switch the light"
+  - "Twelve fixtures, found from the name in any language or set with kind: bulb, filament, pendant, cluster, chandelier, ceiling light, floor lamp, desk lamp, spotlight, tree, garland, LED strip"
+  - "Colour temperature over the light's own range, white tones, colours and the light's effects"
+  - "Scenes as chips, and the lights of a group as tiles that light up one by one"
+  - "Illustrated header with the fixture in its room, a tree twinkling and a chandelier flickering, by day or night"
+  - "Mini card with the state and the tone on its banner, zooming to the full card"
+  homeassistant: 2024.8.0
+  keywords: "light lamp bulb dimmer brightness colour temperature rgb effect wled hue govee tuya chandelier pendant floor lamp garland christmas tree led strip lumière lampe ampoule lustre lampadaire guirlande sapin"
+  worksWith:
+  - slug: ha-room-card
+    why: "Every light of a room at a glance"
+  - slug: ha-scene-card
+    why: "The scenes of the room"
+  cardTypes:
+  - light-card
+  - light-mini-card
+  hero:
+    src: lc-floor.png
+    dark: lc-floor-dark.png
+    caption: "Floor lamp"
+    group: Card
+  screenshots:
+  - src: lc-pendants.png
+    dark: lc-pendants-dark.png
+    caption: "Pendant cluster (group)"
+    group: Card
+  - src: lc-pendants-night.png
+    dark: lc-pendants-night-dark.png
+    caption: "By night"
+    group: Card
+  - src: lc-chandelier.png
+    dark: lc-chandelier-dark.png
+    caption: "Chandelier"
+    group: Card
+  - src: lc-color.png
+    dark: lc-color-dark.png
+    caption: "Colour"
+    group: Card
+  - src: lc-desk.png
+    dark: lc-desk-dark.png
+    caption: "Desk lamp"
+    group: Card
+  - src: lc-garden-night.png
+    dark: lc-garden-night-dark.png
+    caption: "Garden spotlight"
+    group: Card
+  - src: lc-garland.png
+    dark: lc-garland-dark.png
+    caption: "Garland"
+    group: Card
+  - src: lc-tree.png
+    dark: lc-tree-dark.png
+    caption: "Christmas tree"
+    group: Card
+  - src: lc-strip.png
+    dark: lc-strip-dark.png
+    caption: "LED strip"
+    group: Card
+  - src: lc-off.png
+    dark: lc-off-dark.png
+    caption: "Off"
+    group: Card
+  - src: lc-offline.png
+    dark: lc-offline-dark.png
+    caption: "Offline"
+    group: Card
+  - src: lc-mini-floor.png
+    dark: lc-mini-floor-dark.png
+    caption: "Floor lamp"
+    group: Mini card
+  - src: lc-mini-tree.png
+    dark: lc-mini-tree-dark.png
+    caption: "Christmas tree"
+    group: Mini card
+  - src: lc-mini-zoom.png
+    dark: lc-mini-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: lc-tree.gif
+    dark: lc-tree-dark.gif
+    caption: "Christmas tree twinkling"
+  - src: lc-garland.gif
+    dark: lc-garland-dark.gif
+    caption: "Garland"
+  - src: lc-chandelier.gif
+    dark: lc-chandelier-dark.gif
+    caption: "Chandelier flames"
+- slug: ha-scheduler-card
+  title: Scheduler Card
+  kind: card
+  category: home
+  icon: mdiCalendarClock
+  accent: '#0f8b8d'
+  tagline: "Today's timeline and the weekly grid of your schedules, editable in place."
+  summary: "Built on nielsfaber's Scheduler component: what runs now, what comes next and every slot of the week, under an illustrated header that draws today's timeline with a now cursor. Create, edit and switch schedules from the card; a mini card lists the next actions."
+  highlights:
+  - "Illustrated header drawing today's timeline, the running slot pulsing and a now cursor following the clock"
+  - "One tile per schedule with its state line, its switch and a 0–24 h bar of today's slots"
+  - "Weekly grid with the slots labelled by their value, today highlighted and the weekly total"
+  - "Slot editor in place: add, move, change or delete a slot, overlaps refused"
+  - "New schedule button, filters by tags and entities, read-only mode"
+  - "Mini card with the next actions of every schedule, zooming to the full card"
+  homeassistant: 2024.8.0
+  keywords: "scheduler schedule timer timeslot weekly planning thermostat programme nielsfaber scheduler-component switch.schedule planning horaire programmation"
+  worksWith:
+  - slug: ha-heating-card
+    why: "The thermostats the schedules drive"
+  - slug: ha-cover-card
+    why: "Covers that open and close on schedule"
+  cardTypes:
+  - scheduler-card
+  - scheduler-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: "Today's timeline"
+    group: Card
+  screenshots:
+  - src: card-week.png
+    dark: card-week-dark.png
+    caption: "Weekly grid"
+    group: Card
+  - src: card-edit.png
+    dark: card-edit-dark.png
+    caption: "Slot editor"
+    group: Card
+  - src: card-new.png
+    dark: card-new-dark.png
+    caption: "New schedule"
+    group: Card
+  - src: card-night.png
+    dark: card-night-dark.png
+    caption: "By night"
+    group: Card
+  - src: card-classic.png
+    dark: card-classic-dark.png
+    caption: "Classic header"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Next actions"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: day-cycle.gif
+    dark: day-cycle-dark.gif
+    caption: "Day cycle"
+  - src: view-switch.gif
+    dark: view-switch-dark.gif
+    caption: "Timeline to weekly grid"
+- slug: ha-power-device-card
+  title: Power Device Card
+  kind: card
+  category: energy
+  icon: mdiPowerPlugOutline
+  accent: '#f08c00'
+  tagline: "Any appliance on a smart plug or a power meter, illustrated: is it running, since when, what it costs."
+  summary: "An air fryer, a kettle, a washing machine with no integration of its own, a PC, a homelab rack: a power sensor is all it needs. The card shows the power, whether the appliance runs and for how long, when its cycle ended, its last 24 hours as a curve, this cycle's and today's energy and cost, and the plug's switch."
+  highlights:
+  - "Running, standby, off or done, from the power alone, with thresholds per appliance"
+  - "Cycles read from the last 24 hours, a short pause not ending a washing or dishwasher cycle"
+  - "The 24-hour power curve with the running threshold, this cycle's and today's energy and cost"
+  - "The plug's switch as a round button"
+  - "Illustrated header with the appliance in its room, coming alive while it runs: steam, a turning drum, spinning fans, blinking LEDs"
+  - "Your own picture in place of the illustration, and a mini card zooming to the full card"
+  homeassistant: 2024.8.0
+  keywords: "power plug smart plug socket outlet energy consumption cycle washing machine dryer dishwasher air fryer kettle coffee pc homelab shelly tasmota tapo meross prise connectée consommation"
+  worksWith:
+  - slug: ha-energy-card
+    why: "The whole home's energy"
+  - slug: ha-smart-appliance-card
+    why: "Appliances with an integration of their own"
+  cardTypes:
+  - power-device-card
+  - power-device-mini-card
+  hero:
+    src: pd-airfryer.png
+    dark: pd-airfryer-dark.png
+    caption: "Running"
+    group: Card
+  screenshots:
+  - src: pd-washer.png
+    dark: pd-washer-dark.png
+    caption: "Done"
+    group: Card
+  - src: pd-kettle.png
+    dark: pd-kettle-dark.png
+    caption: "Kettle"
+    group: Card
+  - src: pd-pc.png
+    dark: pd-pc-dark.png
+    caption: "PC"
+    group: Card
+  - src: pd-pc-night.png
+    dark: pd-pc-night-dark.png
+    caption: "By night"
+    group: Card
+  - src: pd-monitor.png
+    dark: pd-monitor-dark.png
+    caption: "Standby"
+    group: Card
+  - src: pd-offline.png
+    dark: pd-offline-dark.png
+    caption: "Offline"
+    group: Card
+  - src: pd-compact.png
+    dark: pd-compact-dark.png
+    caption: "Compact"
+    group: Card
+  - src: pd-mini-airfryer.png
+    dark: pd-mini-airfryer-dark.png
+    caption: "Running"
+    group: Mini card
+  - src: pd-mini-washer.png
+    dark: pd-mini-washer-dark.png
+    caption: "Done"
+    group: Mini card
+  - src: pd-mini-zoom.png
+    dark: pd-mini-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: pd-airfryer.gif
+    dark: pd-airfryer-dark.gif
+    caption: "Air fryer"
+  - src: pd-washer.gif
+    dark: pd-washer-dark.gif
+    caption: "Washing machine"
+  - src: pd-pc.gif
+    dark: pd-pc-dark.gif
+    caption: "PC"
+  - src: pd-homelab.gif
+    dark: pd-homelab-dark.gif
+    caption: "Homelab rack"
+- slug: ha-water-pump-card
+  title: Water Pump Card
+  kind: card
+  category: outdoor
+  icon: mdiWaterPump
+  accent: '#2b8be6'
+  tagline: "Sump, well and industrial pumps, illustrated: is it pumping, the level of its pit, its runs and its alerts."
+  summary: "A sump pump in its pit, a water pump by its well, an industrial or circulation pump. Whether it pumps and for how long, the level with its start, stop and alarm marks, its runs over 24 hours, today's cycles and runtime, pressure, flow and volume, and its alerts. A smart plug on the pump is enough."
+  highlights:
+  - "Running from its sensor, its power or its switch, with how long it has pumped"
+  - "Level gauge of the pit or tank with its start, stop and alarm marks"
+  - "Pressure, flow, volume pumped, today's cycles and runtime"
+  - "Runs of the last 24 hours on a day-long strip"
+  - "Alerts in red: a high-level float, a level too high, a pump that never stops"
+  - "Illustrated header with the pump in its pit, by its well or on its skid, the water at its level"
+  - "Mini card with the state, the alerts and the level, zooming to the full card"
+  homeassistant: 2024.8.0
+  keywords: "pump water pump sump pump well borehole booster irrigation lifting station industrial circulation level float pompe relevage puits surpresseur niveau"
+  worksWith:
+  - slug: ha-garden-card
+    why: "The watering the pump feeds"
+  - slug: ha-safety-card
+    why: "Water leak sensors"
+  cardTypes:
+  - water-pump-card
+  - water-pump-mini-card
+  hero:
+    src: wp-sump.png
+    dark: wp-sump-dark.png
+    caption: "Sump pump"
+    group: Card
+  screenshots:
+  - src: wp-sump-alert.png
+    dark: wp-sump-alert-dark.png
+    caption: "Alert"
+    group: Card
+  - src: wp-sump-idle.png
+    dark: wp-sump-idle-dark.png
+    caption: "Idle"
+    group: Card
+  - src: wp-well.png
+    dark: wp-well-dark.png
+    caption: "Water pump"
+    group: Card
+  - src: wp-well-night.png
+    dark: wp-well-night-dark.png
+    caption: "By night"
+    group: Card
+  - src: wp-industrial.png
+    dark: wp-industrial-dark.png
+    caption: "Industrial pump"
+    group: Card
+  - src: wp-offline.png
+    dark: wp-offline-dark.png
+    caption: "Offline"
+    group: Card
+  - src: wp-mini-sump.png
+    dark: wp-mini-sump-dark.png
+    caption: "Sump pump"
+    group: Mini card
+  - src: wp-mini-alert.png
+    dark: wp-mini-alert-dark.png
+    caption: "Alert"
+    group: Mini card
+  - src: wp-mini-zoom.png
+    dark: wp-mini-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: wp-sump.gif
+    dark: wp-sump-dark.gif
+    caption: "Sump pump"
+  - src: wp-well.gif
+    dark: wp-well-dark.gif
+    caption: "Water pump"
+  - src: wp-industrial.gif
+    dark: wp-industrial-dark.gif
+    caption: "Industrial pump"
+- slug: ha-console-card
+  title: Console Card
+  kind: card
+  category: appliances
+  icon: mdiGamepadVariant
+  accent: '#5b5bd6'
+  tagline: "PlayStation, Xbox and Nintendo Switch, illustrated: the game being played, the trophies, the screen time."
+  summary: "The TV and the console in their corner of the living room, the game being played with its cover and how long it has been on, the account's trophies or Gamerscore, a Switch's screen time, and the power, home and bonus-time controls. Works with PlayStation Network, PS5-MQTT, Xbox and Nintendo Switch Parental Controls."
+  highlights:
+  - "Each console drawn: PS5, PS4, Xbox Series X and S, One, Switch and Switch 2 in their dock"
+  - "The game's cover on the TV, its title and how long it has been played"
+  - "Trophies by grade, Gamerscore, achievements, party, friends, Game Pass"
+  - "A Switch's screen time as a ring, bedtime, restriction mode, +15 min of bonus time and suspend"
+  - "Power and home controls"
+  - "Mini card with the state, the game and the session, zooming to the full card"
+  homeassistant: 2024.8.0
+  keywords: "console playstation ps5 ps4 xbox series nintendo switch game gaming trophies gamerscore screen time parental controls ps5-mqtt jeu vidéo temps d'écran"
+  worksWith:
+  - slug: ha-media-card
+    why: "The TV and the other players"
+  - slug: ha-family-link
+    why: "Screen time on the phones too"
+  cardTypes:
+  - console-card
+  - console-mini-card
+  hero:
+    src: cc-ps-playing.png
+    dark: cc-ps-playing-dark.png
+    caption: "PlayStation playing"
+    group: Card
+  screenshots:
+  - src: cc-ps-standby.png
+    dark: cc-ps-standby-dark.png
+    caption: "Standby"
+    group: Card
+  - src: cc-ps5-mqtt.png
+    dark: cc-ps5-mqtt-dark.png
+    caption: "PS5-MQTT"
+    group: Card
+  - src: cc-xbox-playing.png
+    dark: cc-xbox-playing-dark.png
+    caption: "Xbox playing"
+    group: Card
+  - src: cc-xbox-online.png
+    dark: cc-xbox-online-dark.png
+    caption: "Xbox online"
+    group: Card
+  - src: cc-switch-online.png
+    dark: cc-switch-online-dark.png
+    caption: "Nintendo Switch"
+    group: Card
+  - src: cc-switch-suspended.png
+    dark: cc-switch-suspended-dark.png
+    caption: "Suspended"
+    group: Card
+  - src: cc-switch-time-up.png
+    dark: cc-switch-time-up-dark.png
+    caption: "Time's up"
+    group: Card
+  - src: cc-classic.png
+    dark: cc-classic-dark.png
+    caption: "Classic header"
+    group: Card
+  - src: cc-mini-playing.png
+    dark: cc-mini-playing-dark.png
+    caption: "Playing"
+    group: Mini card
+  - src: cc-mini-switch.png
+    dark: cc-mini-switch-dark.png
+    caption: "Nintendo Switch"
+    group: Mini card
+  - src: cc-mini-zoom.png
+    dark: cc-mini-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: cc-ps-playing.gif
+    dark: cc-ps-playing-dark.gif
+    caption: "PlayStation playing"
+  - src: cc-xbox-playing.gif
+    dark: cc-xbox-playing-dark.gif
+    caption: "Xbox playing"
+- slug: ha-zigbee-card
+  title: Zigbee Card
+  kind: card
+  category: network
+  icon: mdiZigbee
+  accent: '#b07a00'
+  tagline: "Your ZHA Zigbee network: every device with its link quality and battery, and a map of the mesh."
+  summary: "Read straight from ZHA, the same data as its network visualization: the coordinator, the routers and the end devices show up by themselves, the ones needing attention first, under an animated banner where the mesh flows from the coordinator."
+  highlights:
+  - "Animated banner of the mesh, a weak link in amber and a device offline in red"
+  - "Devices tab: one tile per device with its LQI bars, battery and availability, filters by role and attention"
+  - "Map tab: the coordinator, routers and end devices with their links coloured by link quality"
+  - "Device popup: model, LQI, RSSI, battery, last seen, parent router and neighbors"
+  - "Thresholds of your own for a weak signal and a low battery"
+  - "Mini card with chips or a health bar, zooming to the full card"
+  homeassistant: 2024.8.0
+  keywords: "zigbee zha mesh network coordinator router end device lqi rssi signal battery map réseau maillage"
+  worksWith:
+  - slug: ha-matter-card
+    why: "The Matter and Thread devices"
+  - slug: ha-device-card
+    why: "The batteries of every device"
+  cardTypes:
+  - zigbee-card
+  - zigbee-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: "Devices"
+    group: Card
+  screenshots:
+  - src: card-map.png
+    dark: card-map-dark.png
+    caption: "Map"
+    group: Card
+  - src: card-attention.png
+    dark: card-attention-dark.png
+    caption: "Needs attention"
+    group: Card
+  - src: card-detail.png
+    dark: card-detail-dark.png
+    caption: "Device detail"
+    group: Card
+  - src: card-night.png
+    dark: card-night-dark.png
+    caption: "By night"
+    group: Card
+  - src: card-classic.png
+    dark: card-classic-dark.png
+    caption: "Classic header"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Mini card"
+    group: Mini card
+  - src: mini-card-healthy.png
+    dark: mini-card-healthy-dark.png
+    caption: "Healthy"
+    group: Mini card
+  - src: mini-card-bar.png
+    dark: mini-card-bar-dark.png
+    caption: "Health bar"
+    group: Mini card
+  - src: mini-card-classic.png
+    dark: mini-card-classic-dark.png
+    caption: "Classic header"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: banner.gif
+    dark: banner-dark.gif
+    caption: "Banner"
+  - src: banner-weak.gif
+    dark: banner-weak-dark.gif
+    caption: "Weak link"
+  - src: banner-ok.gif
+    dark: banner-ok-dark.gif
+    caption: "All well"
+  - src: map.gif
+    dark: map-dark.gif
+    caption: "Map"
+  - src: night.gif
+    dark: night-dark.gif
+    caption: "By night"
+- slug: ha-matter-card
+  title: Matter Card
+  kind: card
+  category: network
+  icon: matterLogo
+  accent: '#5b5bd6'
+  tagline: "Your Matter network: every node with its transport and health, the Thread network and the fabrics."
+  summary: "Built on Home Assistant's Matter and Thread integrations: every Matter node is found in the device registry with its transport (Thread, Wi-Fi, Ethernet) and its health, the Thread network it runs on and the fabrics it belongs to, under an animated banner where the Matter hub talks to its devices."
+  highlights:
+  - "Animated banner of the Matter hub and its devices, an unreachable one turning red"
+  - "One tile per node with its transport tag (Thread, Wi-Fi, Ethernet) and its state line"
+  - "Thread network tile: name, channel, PAN ID and border routers"
+  - "Node popup: vendor, firmware, role, IP and MAC addresses, Wi-Fi signal, fabrics"
+  - "Commission device button opening Home Assistant's Matter dialog"
+  - "Mini card with the network's status and counts, zooming to the full card"
+  homeassistant: 2024.8.0
+  keywords: "matter thread wifi ethernet fabric node border router commissioning matter server csa apple home google home réseau"
+  worksWith:
+  - slug: ha-zigbee-card
+    why: "The Zigbee devices"
+  - slug: ha-device-card
+    why: "The batteries of every device"
+  cardTypes:
+  - matter-card
+  - matter-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: "Nodes"
+    group: Card
+  screenshots:
+  - src: card-healthy.png
+    dark: card-healthy-dark.png
+    caption: "Healthy"
+    group: Card
+  - src: card-detail.png
+    dark: card-detail-dark.png
+    caption: "Node detail"
+    group: Card
+  - src: card-classic.png
+    dark: card-classic-dark.png
+    caption: "Classic header"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Issues"
+    group: Mini card
+  - src: mini-card-healthy.png
+    dark: mini-card-healthy-dark.png
+    caption: "Healthy"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: banner.gif
+    dark: banner-dark.gif
+    caption: "Banner"
+  - src: banner-unavailable.gif
+    dark: banner-unavailable-dark.gif
+    caption: "A node unreachable"
+- slug: ha-cloud-card
+  title: Cloud Card
+  kind: card
+  category: network
+  icon: mdiCloud
+  accent: '#2f80ed'
+  tagline: "Home Assistant Cloud and remote access at a glance: connection, certificate, backups and voice assistants."
+  summary: "Reads the Home Assistant Cloud integration directly, nothing to configure: the cloud connection, the remote access and its certificate, the subscription, cloud backups, Alexa, Google Assistant, webhooks and cloud text-to-speech, under an animated house linked to the cloud and to a phone."
+  highlights:
+  - "Animated illustration: the data flowing between the house, the cloud and a phone, the tunnel breaking when the connection drops"
+  - "Latency, 30-day availability of the remote access and days left on its certificate"
+  - "Service tiles for remote access, cloud backup, Alexa, Google Assistant, webhooks and cloud TTS, coloured only when something needs a look"
+  - "Sync voice assistants and Open remote URL buttons, the URL masked if you like"
+  - "Mini card with the latency, the certificate and what needs a look, zooming to the full card"
+  homeassistant: 2025.2.0
+  keywords: "home assistant cloud nabu casa remote access remote ui certificate alexa google assistant cloudhooks webhooks tts backup accès distant"
+  worksWith:
+  - slug: ha-backup-card
+    why: "Every backup, local and in the cloud"
+  - slug: ha-certificate-card
+    why: "The other certificates of the home"
+  cardTypes:
+  - cloud-card
+  - cloud-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: "Connected"
+    group: Card
+  screenshots:
+  - src: card-disconnected.png
+    dark: card-disconnected-dark.png
+    caption: "Disconnected"
+    group: Card
+  - src: card-detail.png
+    dark: card-detail-dark.png
+    caption: "Service detail"
+    group: Card
+  - src: card-night.png
+    dark: card-night-dark.png
+    caption: "By night"
+    group: Card
+  - src: card-classic.png
+    dark: card-classic-dark.png
+    caption: "Classic header"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Connected"
+    group: Mini card
+  - src: mini-card-disconnected.png
+    dark: mini-card-disconnected-dark.png
+    caption: "Disconnected"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: connected.gif
+    dark: connected-dark.gif
+    caption: "Connected"
+  - src: disconnected.gif
+    dark: disconnected-dark.gif
+    caption: "Disconnected"
+  - src: night.gif
+    dark: night-dark.gif
+    caption: "By night"
 - slug: ha-liquid-glass
   title: Liquid Glass
   kind: theme
