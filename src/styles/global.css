@@ -1,17 +1,23 @@
-/* Same tokens as the screenshots of the ha-* cards (Home Assistant default theme). */
+/* Same tokens as the ha-* cards' charter: the ha-neutral theme ("A · Neutre": neutral greys, blue accent). */
 :root {
-  --primary-background-color: #e8eaed;
-  --secondary-background-color: #ececec;
+  --primary-background-color: #e9ecef;
+  --secondary-background-color: #f4f5f7;
   --card-background-color: #ffffff;
-  --primary-text-color: #212121;
-  /* #727272 in the cards; a little darker here for 4.5:1 on the page and tile backgrounds */
-  --secondary-text-color: #666666;
-  --divider-color: rgba(0, 0, 0, 0.12);
-  --primary-color: #03a9f4;
-  --success-color: #43a047;
-  --warning-color: #ffa600;
+  --primary-text-color: #1c1e21;
+  /* #6b7078 in the theme; a little darker here for 4.5:1 on the page and tile backgrounds */
+  --secondary-text-color: #5f646c;
+  --divider-color: #e1e4e8;
+  --primary-color: #2563eb;
+  --success-color: #2f8a4c;
+  --warning-color: #b7791f;
+  --error-color: #c53030;
+  /* Illustrated headers (90 px, like the cards): day sky in the light theme, night sky in the dark one */
+  --sky-base: #ffffff;
+  --sky-tint: 12%;
+  --sun: #f5b83d;
+  --stars: 0;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.12);
-  --radius: 12px;
+  --radius: 14px;
   /* Text in an accent colour is darkened on the light theme and lightened on the dark one, for 4.5:1 with every
      accent of projects.yaml (on the card and on its tinted chips): color-mix(var(--c), var(--ink) var(--ink-amt)) */
   --ink: #000;
@@ -24,12 +30,20 @@
 :root[data-theme="dark"] {
   --ink: #fff;
   --ink-amt: 35%;
-  --primary-background-color: #111111;
-  --secondary-background-color: #282828;
-  --card-background-color: #1c1c1c;
-  --primary-text-color: #e1e1e1;
-  --secondary-text-color: #9b9b9b;
-  --divider-color: rgba(225, 225, 225, 0.12);
+  --primary-background-color: #111315;
+  --secondary-background-color: #25292e;
+  --card-background-color: #1c1f23;
+  --primary-text-color: #e8eaed;
+  --secondary-text-color: #9aa0a6;
+  --divider-color: #2c3035;
+  --primary-color: #6fa8f5;
+  --success-color: #5fd08a;
+  --warning-color: #f2b84b;
+  --error-color: #f07a78;
+  --sky-base: #121a26;
+  --sky-tint: 18%;
+  --sun: #e6ecf5;
+  --stars: 0.85;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
   color-scheme: dark;
 }
@@ -37,12 +51,20 @@
   :root:not([data-theme="light"]) {
     --ink: #fff;
     --ink-amt: 35%;
-    --primary-background-color: #111111;
-    --secondary-background-color: #282828;
-    --card-background-color: #1c1c1c;
-    --primary-text-color: #e1e1e1;
-    --secondary-text-color: #9b9b9b;
-    --divider-color: rgba(225, 225, 225, 0.12);
+    --primary-background-color: #111315;
+    --secondary-background-color: #25292e;
+    --card-background-color: #1c1f23;
+    --primary-text-color: #e8eaed;
+    --secondary-text-color: #9aa0a6;
+    --divider-color: #2c3035;
+    --primary-color: #6fa8f5;
+    --success-color: #5fd08a;
+    --warning-color: #f2b84b;
+    --error-color: #f07a78;
+    --sky-base: #121a26;
+    --sky-tint: 18%;
+    --sun: #e6ecf5;
+    --stars: 0.85;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
     color-scheme: dark;
   }
@@ -82,7 +104,8 @@ code, pre { font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, mon
   background: var(--card-background-color);
   border: 1px solid var(--divider-color);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  /* Flat, like the ha-neutral cards (ha-card-box-shadow: none): only floating bars keep var(--shadow) */
+  box-shadow: none;
   transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 .tile {
@@ -129,14 +152,65 @@ code, pre { font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, mon
 .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .chip.neutral { color: var(--primary-text-color); background: var(--secondary-background-color); }
 
-/* Section title, like the cards: small uppercase grey with an icon */
+/* Section title, like the card headers: tinted round icon (--c, the primary colour by default) and a bold title */
 .section-title {
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 10px;
   margin: 0 0 12px;
-  font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--secondary-text-color);
+  font-size: 16px; font-weight: 500; line-height: 1.25;
+  color: var(--primary-text-color);
 }
 .section-title svg { width: 18px; height: 18px; }
+.section-title > svg:first-child {
+  width: 32px; height: 32px; padding: 7px; flex: none; border-radius: 50%;
+  color: var(--c, var(--primary-color));
+  background: color-mix(in srgb, var(--c, var(--primary-color)) 16%, transparent);
+}
+
+/* Status dot of a header (the cards' status pastille): green when maintained, grey when archived */
+.status-dot {
+  --s: var(--success-color);
+  width: 10px; height: 10px; flex: none; border-radius: 50%;
+  background: var(--s); box-shadow: 0 0 0 3px color-mix(in srgb, var(--s) 25%, transparent);
+}
+.status-dot.off { --s: var(--secondary-text-color); }
+
+/* Coloured state line under a name: the kind of project, in its own colour (contrasted like the chips) */
+.kind-line { color: color-mix(in srgb, var(--k, var(--primary-color)), var(--ink) var(--ink-amt)); font-weight: 500; }
+.kind-card { --k: #2563eb; }
+.kind-integration { --k: #2f8a4c; }
+.kind-withcard { --k: #7048e8; }
+.kind-theme { --k: #c2387f; }
+.kind-archived { --k: var(--secondary-text-color); }
+
+/* Illustrated header, 90 px like the cards': a sky tinted by --c (day in the light theme, night in the dark one),
+   the scene drawn by Scene.astro and a ground bar at the bottom; the header's own row sits on top */
+.illus {
+  position: relative; height: 90px; overflow: hidden;
+  background: color-mix(in srgb, var(--c, var(--primary-color)) var(--sky-tint), var(--sky-base));
+}
+.illus-art { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.illus-art .star { fill: #fff; opacity: var(--stars); }
+.illus-art .sun { fill: var(--sun); }
+.illus-art .hill { fill: color-mix(in srgb, var(--c, var(--primary-color)) 22%, var(--sky-base)); }
+.illus-art .ink { fill: color-mix(in srgb, var(--c, var(--primary-color)) 42%, transparent); }
+.illus-art .ground { fill: color-mix(in srgb, var(--c, var(--primary-color)) 62%, var(--sky-base)); }
+.illus-row {
+  position: relative; height: 84px; padding: 0 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+/* Phones: the title takes most of the header, so only the main silhouette stays, small, before the fold button,
+   and the sun moves to the top right corner (CSS transforms override the SVG attributes) */
+@media (max-width: 600px) {
+  .illus-art .side { display: none; }
+  .illus-art .main { transform: translate(1084px, 46px) scale(1.45); }
+  /* No fold button in this header: the silhouette goes to the right edge */
+  .no-fold .illus-art .main { transform: translate(1140px, 46px) scale(1.45); }
+  .illus-art .sun { transform-box: fill-box; transform-origin: center; transform: translate(72px, -8px) scale(0.6); }
+}
+/* The icon pastille stands out from the sky on a card-coloured disc */
+.illus-row > .logo:not(.has-img) {
+  background: color-mix(in srgb, var(--c, var(--primary-color)) 16%, var(--card-background-color));
+}
 
 /* Buttons are never filled: tinted, or bare round icon buttons */
 .btn {

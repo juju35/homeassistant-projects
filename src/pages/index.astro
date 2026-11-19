@@ -5,6 +5,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import Languages from "../components/Languages.astro";
 import MadeIn from "../components/MadeIn.astro";
 import Support from "../components/Support.astro";
+import Scene from "../components/Scene.astro";
 import { archived, categories, contributors, contributorsByLogin, current, projects, OWNER } from "../lib/projects";
 import { kindCounts } from "../lib/kinds";
 
@@ -27,15 +28,18 @@ const groups = categories
   description={`${cards} Lovelace cards, ${integrations} custom integrations and ${themes} ${themes === 1 ? "theme" : "themes"} for Home Assistant, all installable from the Marketplace.`}
 >
   <section class="wrap hero">
-    <div class="ha-card hero-card">
-      <div class="header">
-        <span class="logo lg" style="--c:#41bdf5"><Icon name="mdiHomeAssistant" /></span>
+    <div class="ha-card hero-card" style="--c:var(--primary-color)">
+      <Scene icons={["mdiHomeOutline", "mdiSolarPanel", "mdiCarHatchback"]} class="no-fold">
+        <span class="logo"><Icon name="mdiHomeAssistant" /></span>
         <div class="titles">
-          <h1>Home Assistant projects</h1>
-          <div class="sub hero-sub">Custom cards and integrations by {OWNER}</div>
+          <div class="hero-title">
+            <h1>Home Assistant projects</h1>
+            <span class="status-dot" title="All maintained"></span>
+          </div>
+          <div class="sub hero-sub kind-line" style="--k:var(--success-color)">All on the Marketplace · by {OWNER}</div>
         </div>
-        <span class="chip status" style="--c:var(--success-color)"><span class="dot"></span>All on the Marketplace</span>
-      </div>
+      </Scene>
+      <div class="hero-body">
       <p class="lead">
         Dashboard cards that look at home in Home Assistant and find their entities by themselves,
         and integrations that keep things quiet until something really needs you. Light and dark themes,
@@ -65,6 +69,7 @@ const groups = categories
           <span class="logo"><Icon name="mdiTranslate" /></span>
           <div><div class="v">{LANGUAGES}</div><div class="sub">Languages</div></div>
         </div>
+      </div>
       </div>
     </div>
     <aside class="ha-card notice" aria-labelledby="notice-title">
@@ -111,22 +116,49 @@ const groups = categories
   </nav>
 
   <div class="wrap">
+    <!-- One card per category: its illustrated header folds and unfolds it (chevron right folded, down unfolded) -->
     {groups.map((g) => (
-      <section class="group" id={g.id} data-group>
-        <h2 class="section-title"><Icon name={g.icon} />{g.label}<span class="count">{g.items.length}</span></h2>
-        <div class="grid">
-          {g.items.map((p) => <ProjectCard project={p} />)}
+      <section class="ha-card group" id={g.id} data-group style={`--c:${g.accent}`}>
+        <h2 class="group-h">
+          <button class="group-toggle" type="button" aria-expanded="true" aria-controls={`${g.id}-items`}>
+            <Scene icons={g.scene}>
+              <span class="logo"><Icon name={g.icon} /></span>
+              <span class="titles">
+                <span class="group-name">{g.label}<span class="status-dot"></span></span>
+                <span class="sub kind-line" style={`--k:${g.accent}`}><span class="count">{g.items.length}</span> projects</span>
+              </span>
+              <span class="fold-btn" aria-hidden="true"><Icon name="mdiChevronRight" /></span>
+            </Scene>
+          </button>
+        </h2>
+        <div class="group-body" id={`${g.id}-items`}>
+          <div class="grid">
+            {g.items.map((p) => <ProjectCard project={p} />)}
+          </div>
         </div>
       </section>
     ))}
     {archived.length > 0 && (
-      <section class="group archived-group" id="archived" data-group>
-        <h2 class="section-title"><Icon name="mdiArchiveOutline" />Archived<span class="count">{archived.length}</span></h2>
-        <p class="muted archived-note">
-          No longer updated: these projects are now modules of <a href={`${base}projects/ha-system-hub/`}>System Hub</a>.
-        </p>
-        <div class="grid">
-          {archived.map((p) => <ProjectCard project={p} />)}
+      <section class="ha-card group archived-group" id="archived" data-group style="--c:#6b7280">
+        <h2 class="group-h">
+          <button class="group-toggle" type="button" aria-expanded="true" aria-controls="archived-items">
+            <Scene icons={["mdiArchiveOutline", "mdiPackageVariantClosed", "mdiServer"]}>
+              <span class="logo"><Icon name="mdiArchiveOutline" /></span>
+              <span class="titles">
+                <span class="group-name">Archived<span class="status-dot off"></span></span>
+                <span class="sub"><span class="count">{archived.length}</span> projects · no longer updated</span>
+              </span>
+              <span class="fold-btn" aria-hidden="true"><Icon name="mdiChevronRight" /></span>
+            </Scene>
+          </button>
+        </h2>
+        <div class="group-body" id="archived-items">
+          <p class="muted archived-note">
+            These projects are now modules of <a href={`${base}projects/ha-system-hub/`}>System Hub</a>.
+          </p>
+          <div class="grid">
+            {archived.map((p) => <ProjectCard project={p} />)}
+          </div>
         </div>
       </section>
     )}
@@ -202,6 +234,25 @@ const groups = categories
     const groups = [...document.querySelectorAll<HTMLElement>("[data-group]")];
     const jumps = [...document.querySelectorAll<HTMLAnchorElement>(".jump a")];
     const segs = [...document.querySelectorAll<HTMLButtonElement>(".seg")];
+    // Category cards fold from their illustrated header
+    const setOpen = (g: HTMLElement, open: boolean) => {
+      g.querySelector(".group-toggle")?.setAttribute("aria-expanded", String(open));
+      const body = g.querySelector<HTMLElement>(".group-body");
+      if (body) body.hidden = !open;
+    };
+    for (const g of groups) {
+      g.querySelector(".group-toggle")?.addEventListener("click", (e) =>
+        setOpen(g, (e.currentTarget as HTMLElement).getAttribute("aria-expanded") !== "true"),
+      );
+    }
+    // A category chip or a #category link unfolds its card
+    const openFromHash = (hash: string) => {
+      const g = groups.find((x) => `#${x.id}` === hash);
+      if (g) setOpen(g, true);
+    };
+    for (const a of jumps) a.addEventListener("click", () => openFromHash(a.getAttribute("href")!));
+    addEventListener("hashchange", () => openFromHash(location.hash));
+    openFromHash(location.hash);
     const apply = () => {
       const term = q.value.trim().toLowerCase();
       // Every word must match somewhere (name, description, brands, integration names…), accents ignored
@@ -219,6 +270,8 @@ const groups = categories
       groups.forEach((g) => {
         const shown = g.querySelectorAll(".project:not([hidden])").length;
         g.hidden = !shown;
+        // A search or a type filter unfolds the cards it finds something in
+        if (shown && (term || kind !== "all")) setOpen(g, true);
         for (const a of jumps) if (a.getAttribute("href") === `#${g.id}`) a.hidden = !shown;
         g.querySelector(".count")!.textContent = String(shown);
         any ||= !!shown;
@@ -274,11 +327,11 @@ const groups = categories
 
 <style>
   .hero { padding-top: 24px; }
-  .hero-card { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-  .hero-card .header { align-items: flex-start; }
-  h1 { margin: 2px 0 0; font-size: clamp(24px, 4vw, 32px); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; }
-  .hero-sub { font-size: 14px; margin-top: 4px; }
-  .status { margin-top: 6px; }
+  .hero-card { overflow: hidden; }
+  .hero-title { display: flex; align-items: center; gap: 10px; }
+  .hero-body { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 16px; }
+  h1 { margin: 0; font-size: clamp(20px, 3.2vw, 24px); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; }
+  .hero-sub { font-size: 13px; margin-top: 2px; }
   .lead { margin: 0; max-width: 70ch; color: var(--secondary-text-color); font-size: 15px; }
   .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
   .stat { display: flex; align-items: center; gap: 12px; padding: 12px; }
@@ -288,7 +341,7 @@ const groups = categories
   .notice .logo { flex: none; }
   .notice-title { margin: 2px 0 4px; font-size: 16px; font-weight: 500; }
   .notice p { margin: 0; font-size: 14px; max-width: 80ch; }
-  .archived-note { margin: -4px 0 12px; font-size: 14px; }
+  .archived-note { font-size: 14px; }
 
   /* Filters stay under the top bar while scrolling */
   .sticky {
@@ -342,11 +395,27 @@ const groups = categories
   .jump .chip { padding: 4px 12px; font-size: 13px; transition: background-color .2s ease; }
   .jump .chip:hover { background: color-mix(in srgb, var(--secondary-text-color) 22%, transparent); }
 
-  .group { margin-top: 24px; scroll-margin-top: 190px; }
-  .count {
-    font-size: 12px; letter-spacing: 0; text-transform: none;
-    padding: 0 8px; border-radius: 10px; background: var(--card-background-color); border: 1px solid var(--divider-color);
+  /* Category cards: the illustrated header is the fold button */
+  .group { margin-top: 16px; scroll-margin-top: 190px; overflow: hidden; }
+  .group-h { margin: 0; font: inherit; }
+  .group-toggle {
+    all: unset; display: block; width: 100%; cursor: pointer; text-align: left;
+    -webkit-tap-highlight-color: transparent;
   }
+  .group-toggle:focus-visible { outline: 2px solid var(--focus-color); outline-offset: -2px; border-radius: var(--radius); }
+  .group-name { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 500; line-height: 1.25; }
+  .group-toggle .sub { font-size: 13px; }
+  .fold-btn {
+    width: 40px; height: 40px; flex: none; border-radius: 50%; display: grid; place-items: center;
+    color: var(--primary-text-color);
+    background: color-mix(in srgb, var(--card-background-color) 70%, transparent);
+    transition: background-color .2s ease;
+  }
+  .fold-btn :global(svg) { width: 22px; height: 22px; transition: transform .2s ease; }
+  .group-toggle[aria-expanded="true"] .fold-btn :global(svg) { transform: rotate(90deg); }
+  .group-toggle:hover .fold-btn { background: var(--card-background-color); }
+  .group-body { padding: 16px; }
+  .group-body .archived-note { margin: 0 0 12px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
   .empty { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 56px 0; text-align: center; }
   .empty p { margin: 0; }
@@ -386,7 +455,6 @@ const groups = categories
   @media (max-width: 760px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
     .stat .sub { white-space: nowrap; }
-    .status { display: none; }
     .search { max-width: none; margin-left: 0; }
   }
   /* minmax(0, 1fr), not 1fr (= minmax(auto, 1fr)): the column must not grow to a card's min-content width (316px at 320px) */
@@ -396,7 +464,8 @@ const groups = categories
   /* Phones: a short header, and only one compact row (type icons + search) stays under the top bar */
   @media (max-width: 600px) {
     .hero { padding-top: 12px; }
-    .hero-card { padding: 16px; gap: 12px; }
+    .hero-body { padding: 12px 16px 16px; gap: 12px; }
+    h1 { font-size: 18px; }
     .lead { font-size: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .stats { display: none; }
     .stats-inline { display: block; }
@@ -412,6 +481,7 @@ const groups = categories
     .sticky .jump { display: none; }
     .jump.below { display: flex; }
     .group { scroll-margin-top: 130px; }
+    .group-body { padding: 12px; }
     .seg { padding: 9px 14px; }
     .jump .chip { min-height: 36px; padding-block: 6px; }
     .jump { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }

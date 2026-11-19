@@ -43,8 +43,8 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
     <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
     <link rel="manifest" href={`${base}manifest.webmanifest`} />
     <meta name="apple-mobile-web-app-title" content="HA projects" />
-    <meta name="theme-color" content="#e8eaed" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#e9ecef" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <link rel="sitemap" href={`${base}sitemap.xml`} type="application/xml" />
     <script is:inline>
@@ -54,7 +54,7 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
         if (t === "light" || t === "dark") {
           document.documentElement.dataset.theme = t;
           // The browser bar follows the chosen theme, not only the system one
-          for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = t === "dark" ? "#111111" : "#e8eaed";
+          for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = t === "dark" ? "#111315" : "#e9ecef";
         }
       } catch {}
     </script>
@@ -105,7 +105,7 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
         const setMetas = (mode) => {
           for (const m of metas) {
             const isDark = (m.getAttribute("media") || "").includes("dark");
-            m.content = mode === "dark" || (mode === "auto" && isDark) ? "#111111" : "#e8eaed";
+            m.content = mode === "dark" || (mode === "auto" && isDark) ? "#111315" : "#e9ecef";
           }
         };
         const apply = (mode) => {

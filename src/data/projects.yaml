@@ -1,46 +1,74 @@
 # Source of the site: one entry per Home Assistant project.
 # Screenshot paths are relative to the screenshots/ folder of each repository (main branch).
 # group: the tab a screenshot is shown under on the project page (one card or variant per tab).
+# Categories: the home page shows each as a card with its own illustrated header (sky and pastille in `accent`,
+# `scene` = the main silhouette and two smaller ones, Material Design Icons names).
 categories:
 - id: climate
   label: Climate & weather
   icon: mdiWeatherPartlyCloudy
+  accent: '#0891b2'
+  scene: [mdiWeatherPartlyCloudy, mdiWeatherRainy, mdiThermometer]
 - id: energy
   label: Energy
   icon: mdiLightningBolt
+  accent: '#d97706'
+  scene: [mdiSolarPanel, mdiTransmissionTower, mdiBatteryCharging]
 - id: home
   label: Home control
   icon: mdiHomeLightbulbOutline
+  accent: '#2563eb'
+  scene: [mdiHomeOutline, mdiLightbulbOutline, mdiBlinds]
 - id: outdoor
   label: Garden, pool & pets
   icon: mdiFlower
+  accent: '#16a34a'
+  scene: [mdiPool, mdiFlower, mdiPaw]
 - id: security
   label: Security & presence
   icon: mdiShieldHome
+  accent: '#ea580c'
+  scene: [mdiShieldHome, mdiCctv, mdiLock]
 - id: appliances
   label: Appliances & media
   icon: mdiWashingMachine
+  accent: '#7048e8'
+  scene: [mdiWashingMachine, mdiTelevision, mdiDishwasher]
 - id: network
   label: Network & smart home
   icon: mdiLan
+  accent: '#4f46e5'
+  scene: [mdiRouterWireless, mdiLan, mdiZigbee]
 - id: servers
   label: Servers & homelab
   icon: mdiServerNetwork
+  accent: '#475569'
+  scene: [mdiServer, mdiDocker, mdiNas]
 - id: car
   label: Car & travel
   icon: mdiCar
+  accent: '#3b5bdb'
+  scene: [mdiCar, mdiGasStation, mdiAirplane]
 - id: family
   label: Family & school
   icon: mdiHumanMaleFemaleChild
+  accent: '#db2777'
+  scene: [mdiSchool, mdiBookOpenVariant, mdiHumanMaleFemaleChild]
 - id: everyday
   label: Everyday
   icon: mdiCalendarMonth
+  accent: '#0f766e'
+  scene: [mdiCalendarMonth, mdiTrashCan, mdiCoffee]
 - id: maintenance
   label: Maintenance
   icon: mdiWrenchClock
+  accent: '#a16207'
+  scene: [mdiWrenchClock, mdiBackupRestore, mdiPrinter]
 - id: themes
   label: Themes
   icon: mdiThemeLightDark
+  accent: '#c2387f'
+  scene: [mdiPalette, mdiBrush, mdiThemeLightDark]
 # People who contributed to the projects, shown in the Contributions section of the home page: one tile per
 # person, listing each of their entries (add an entry per contribution, with the same login).
 contributors:

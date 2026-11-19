@@ -16,6 +16,10 @@ export interface Category {
   id: string;
   label: string;
   icon: string;
+  /** Colour of the category's illustrated header (sky, ground bar, icon pastille). */
+  accent: string;
+  /** Silhouettes of that header: the main one, then two smaller ones (Material Design Icons names). */
+  scene: string[];
 }
 
 export interface Project {
@@ -116,5 +120,9 @@ export const caption = (s: Shot) =>
     .replace(/-dark$/, "")
     .replace(/-/g, " ")
     .replace(/^\w/, (c) => c.toUpperCase());
+
+// Class of the coloured state line under a project's name (global.css .kind-*)
+export const kindClass = (p: Project) =>
+  p.archived ? "kind-archived" : p.kind === "integration" && p.withCard ? "kind-withcard" : `kind-${p.kind}`;
 
 export const categoryOf = (p: Project) => categories.find((c) => c.id === p.category)!;
