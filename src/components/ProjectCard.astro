@@ -3,7 +3,7 @@ import Icon from "./Icon.astro";
 import ProjectLogo from "./ProjectLogo.astro";
 import Shot from "./Shot.astro";
 import MarketplaceBadge from "./MarketplaceBadge.astro";
-import { kindLabel, projects, type Project } from "../lib/projects";
+import { kindClass, kindLabel, projects, type Project } from "../lib/projects";
 import { latestRelease } from "../lib/releases";
 
 interface Props {
@@ -26,9 +26,10 @@ const anims = p.animations?.length ?? 0;
 const release = await latestRelease(p);
 ---
 
-<!-- The whole card opens the project (its title link covers it); the Add to Marketplace badge sits on top -->
+<!-- A calm tile of its category card: the whole tile opens the project (its title link covers it), the Add to
+     Marketplace badge sits on top -->
 <article
-  class:list={["ha-card", "project", { archived: p.archived }]}
+  class:list={["project", { archived: p.archived }]}
   style={`--c:${p.accent}`}
   data-kind={p.kind}
   data-search={search}
@@ -36,8 +37,11 @@ const release = await latestRelease(p);
   <div class="header">
     <ProjectLogo project={p} />
     <div class="titles">
-      <h3 class="name"><a class="open" href={`${base}projects/${p.slug}/`}>{p.title}</a></h3>
-      <div class="sub">{kindLabel(p)}</div>
+      <h3 class="name">
+        <a class="open" href={`${base}projects/${p.slug}/`}>{p.title}</a>
+        <span class:list={["status-dot", { off: p.archived }]} title={p.archived ? "Archived" : "Maintained"}></span>
+      </h3>
+      <div class:list={["sub", "kind-line", kindClass(p)]}>{kindLabel(p)}</div>
     </div>
     {p.archived ? (
       <span class="chip archived-chip" title={`Archived: now part of ${projects.find((o) => o.slug === p.replacedBy)?.title ?? "another project"}`}><Icon name="mdiArchiveOutline" />Archived</span>
@@ -103,10 +107,15 @@ const release = await latestRelease(p);
     display: flex; flex-direction: column; gap: 12px;
     padding: 12px;
     break-inside: avoid;
+    /* Calm tile (the cards' look): neutral background, no border or shadow */
+    background: var(--secondary-background-color);
+    border-radius: var(--radius);
+    transition: background-color 0.3s ease, transform 0.25s ease;
   }
-  .project:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(0,0,0,.05), 0 16px 32px -16px color-mix(in srgb, var(--c) 45%, transparent); }
+  .project:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--c) 7%, var(--secondary-background-color)); }
   .project { position: relative; cursor: pointer; }
-  .name { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.25; }
+  .name { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.25; display: flex; align-items: center; gap: 8px; }
+  .name .status-dot { width: 8px; height: 8px; }
   .open { color: inherit; outline: none; }
   /* The title link covers the whole card */
   .open::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
@@ -117,7 +126,7 @@ const release = await latestRelease(p);
   .preview {
     position: relative;
     height: 240px;
-    border-radius: var(--radius);
+    border-radius: calc(var(--radius) - 4px);
     background: var(--primary-background-color);
     overflow: hidden;
     display: grid; place-items: center;

@@ -1,0 +1,33 @@
+---
+// The 90 px illustrated header of the ha-* cards, for the site: a sky tinted by the inherited --c (day in the light
+// theme, night with stars in the dark one, by the theme alone), a scene of Material Design Icons silhouettes on a
+// hill and the ground bar at the bottom. The header's own row (icon pastille, title, status) goes in the slot.
+// Drawn on the right, so the title on the left stays readable, and clear of the last 80 px where a header keeps its
+// fold button; on a phone only the main silhouette stays, small, next to that button (global.css).
+import { icon } from "../lib/projects";
+
+interface Props {
+  /** The main silhouette, then up to two smaller ones around it (mdi names, see icon()). */
+  icons: string[];
+  /** Extra classes of the header (e.g. a button's or a link's look). */
+  class?: string;
+}
+const { icons, class: cls } = Astro.props;
+const [main, left, right] = icons;
+const STARS: [number, number, number][] = [
+  [740, 16, 1.3], [812, 34, 1], [880, 12, 1.2], [1010, 10, 1], [1110, 40, 1.1], [1186, 14, 1], [955, 30, 0.9],
+];
+---
+
+<div class:list={["illus", cls]}>
+  <svg class="illus-art" viewBox="0 0 1200 90" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
+    {STARS.map(([x, y, r]) => <circle class="star" cx={x} cy={y} r={r} />)}
+    <circle class="sun" cx="1080" cy="22" r="11" />
+    <path class="hill" d="M620 84 Q760 58 880 70 T1090 60 T1200 64 V84 Z" />
+    {left && <path class="ink side" transform="translate(858 48) scale(1.5)" d={icon(left)} />}
+    {main && <path class="ink main" transform="translate(918 18) scale(2.75)" d={icon(main)} />}
+    {right && <path class="ink side" transform="translate(1010 48) scale(1.5)" d={icon(right)} />}
+    <rect class="ground" x="0" y="84" width="1200" height="6" />
+  </svg>
+  <div class="illus-row"><slot /></div>
+</div>

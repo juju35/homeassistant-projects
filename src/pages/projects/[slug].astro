@@ -7,11 +7,13 @@ import Docs from "../../components/Docs.astro";
 import Gallery from "../../components/Gallery.astro";
 import Networks from "../../components/Networks.astro";
 import MarketplaceBadge from "../../components/MarketplaceBadge.astro";
+import Scene from "../../components/Scene.astro";
 import {
   projects,
   repoUrl,
   marketplaceUrl,
   kindLabel,
+  kindClass,
   caption,
   categoryOf,
   shotUrl,
@@ -83,12 +85,18 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
 
     <!-- Header -->
     <section class="ha-card intro" id="overview">
-      <div class="header top">
-        <ProjectLogo project={project} size="lg" accent own />
+      <!-- The project's illustrated header: its category's scene, in its own accent -->
+      <Scene icons={[project.icon, ...category.scene.slice(1)]}>
+        <ProjectLogo project={project} own />
         <div class="titles">
-          <h1>{project.title}</h1>
-          <div class="sub">{kindLabel(project)} · {category.label}</div>
+          <div class="title-row">
+            <h1>{project.title}</h1>
+            <span class:list={["status-dot", { off: project.archived }]} title={project.archived ? "Archived" : "Maintained"}></span>
+          </div>
+          <div class:list={["sub", "kind-line", kindClass(project)]}>{kindLabel(project)} · {category.label}</div>
         </div>
+      </Scene>
+      <div class="intro-body">
         <div class="chips">
           {release && (
             <a class="chip neutral rel" href={release.url} target="_blank" rel="noopener" title="Latest release and its changelog">
@@ -102,7 +110,6 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
             <span class="chip" style={accent}><Icon name="mdiStorefrontOutline" /> Marketplace</span>
           )}
         </div>
-      </div>
       {project.archived && (
         <div class="archived-banner" role="note">
           <Icon name="mdiArchiveArrowDownOutline" />
@@ -131,6 +138,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
           <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="" width="143" height="40" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-img')" />
           <span class="bmc-t" aria-hidden="true">☕ Buy me a coffee</span>
         </a>
+      </div>
       </div>
     </section>
 
@@ -433,13 +441,15 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
   .back svg { width: 20px; height: 20px; }
   .back:hover { color: var(--primary-text-color); background: var(--secondary-background-color); }
 
-  /* Header card */
-  .intro { padding: 24px; }
-  .top { gap: 16px; flex-wrap: wrap; }
-  h1 { margin: 0; font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; }
-  .top .sub { font-size: 14px; margin-top: 2px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .lead { margin: 20px 0 6px; font-size: 18px; line-height: 1.45; max-width: 70ch; }
+  /* Header card: the illustrated header, then the body */
+  .intro { overflow: hidden; }
+  .intro-body { padding: 16px 24px 24px; }
+  .title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  h1 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .intro .sub { font-size: 13px; margin-top: 2px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+  .archived-banner { margin-top: 12px; }
+  .lead { margin: 16px 0 6px; font-size: 18px; line-height: 1.45; max-width: 70ch; }
   .summary { margin: 0; max-width: 75ch; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; }
   /* Buy Me a Coffee: the official button of the READMEs, 40px high and as round as the other buttons */
@@ -602,9 +612,8 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
     .sn-links { margin-left: 0; }
   }
   @media (max-width: 600px) {
-    .intro { padding: 20px 16px; }
-    h1 { font-size: 24px; }
-    .chips { width: 100%; }
+    .intro-body { padding: 12px 16px 20px; }
+    h1 { font-size: 20px; }
     .pager { grid-template-columns: 1fr; }
     .subnav { top: 61px; margin-inline: -16px; border-radius: 0; border-inline: 0; border-top: 0; background: var(--card-background-color); }
     .sn-links { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 20px; }
