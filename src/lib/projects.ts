@@ -103,9 +103,12 @@ const CUSTOM_ICONS: Record<string, string> = {
 export const icon = (name: string): string =>
   CUSTOM_ICONS[name] ?? (mdi as Record<string, string>)[name] ?? mdi.mdiHomeAssistant;
 
+// A dashboard plugin with no card type of its own (the dashboard headers) is a plugin, not a card.
 export const kindLabel = (p: Project) =>
   p.kind === "card"
-    ? "Lovelace card"
+    ? p.cardTypes?.length
+      ? "Lovelace card"
+      : "Dashboard plugin"
     : p.kind === "theme"
       ? "Theme"
       : p.withCard

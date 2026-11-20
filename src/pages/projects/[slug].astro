@@ -294,7 +294,9 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
               <span>
                 {
                   isCard
-                    ? "Reload the browser and add the card from the dashboard editor."
+                    ? cardTypes.length
+                      ? "Reload the browser and add the card from the dashboard editor."
+                      : "Reload the browser, then set it up in the dashboard's raw configuration editor."
                     : isTheme
                       ? "Reload the browser, then pick the theme in your profile under Themes."
                       : "Restart Home Assistant and add the integration from Settings → Devices & services."
