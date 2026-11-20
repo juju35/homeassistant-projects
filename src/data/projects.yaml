@@ -281,8 +281,9 @@ projects:
   - "Midea PortaSplit air conditioner and Rituals Perfume Genie diffuser (brass or black) drawn as they are, a localised Genie included"
   - "Ground- and water-source heat pumps: horizontal collector, borehole, well, doublet or lake loop drawn in place of the outdoor unit, the brine or water flowing while it runs"
   - "Heat pumps measured but not controlled: a read-only card from a power sensor, with heat output, COP and SCOP, flow and return temperatures"
+  - "Ceiling fans hanging in the room, the blades turning with the speed and the other way when reversed, with their light and direction (Bond, Big Ass Fans, Modern Forms…)"
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
@@ -492,6 +493,12 @@ projects:
     dark: ventilation-mini-dark.png
     caption: Ventilation mini
     group: Ventilation
+  - src: fan-ceiling-card.png
+    caption: "Ceiling fan"
+    group: Fan
+  - src: fan-ceiling-mini.png
+    caption: "Ceiling fan mini card"
+    group: Fan
   animations:
   - src: purifier.gif
     dark: purifier-dark.gif
@@ -556,6 +563,10 @@ projects:
   - src: overview.gif
     dark: overview-dark.gif
     caption: Overview
+  - src: fan-ceiling.gif
+    caption: "Ceiling fan turning"
+  - src: fan-ceiling-reverse.gif
+    caption: "Ceiling fan reversed"
 - slug: ha-smart-comfort
   title: Smart Comfort
   kind: integration
@@ -563,7 +574,7 @@ projects:
   category: climate
   icon: mdiHomeThermometer
   accent: '#26a69a'
-  tagline: 'Fewer, smarter comfort alerts, and climate devices and lights that adjust themselves, room by room.'
+  tagline: 'Fewer, smarter comfort alerts, and climate devices and lighting that adjust themselves, room by room.'
   summary: 'Tracks each comfort problem as an episode: notified once when it starts, again only if it gets worse. Temperature, CO₂, humidity, noise, indoor and outdoor air quality and windows to open or close, automatic control of air conditioners, fans and purifiers with a quiet night, and adaptive lighting. Everything is set up room by room in its own panel.'
   highlights:
   - Eleven alerts per room for heat, cold, windows, CO₂, humidity, polluted air, noise and outdoor air; no cold-window alert while a room airs out
@@ -573,9 +584,9 @@ projects:
   - Quiet hours, presence and iOS / Android interruption levels, with Snooze and Got it buttons
   - Air conditioners, fans and purifiers controlled automatically, quieter at night
   - Adaptive lighting by time of day, with a quiet morning and nap slots per room
-  - Lights on presence, with time slots, night lights and a color per slot
+  - "Lights on presence moved to House Rules, imported from it in one click; naps shared with it through a schedule helper"
   - Outdoor places and air quality index to suggest opening or closing the windows
-  - Setup panel in the sidebar, with room discovery, a day schedule and the YAML of the setup
+  - "Setup panel in the sidebar, with room discovery and a day schedule; smart_comfort.yaml kept in sync both ways and reloaded without a restart"
   - Activity log in the panel and in an activity card for the dashboard
   - Diagnostics with the notifiers redacted
   - Calendar of past alerts, with the peak of each episode
@@ -584,13 +595,16 @@ projects:
   - Comfort score per room, 0 to 100 %, with its statistics for the day or the week
   - "Annex rooms (cellar, garage, laundry, attic) with alert defaults of their own"
   - "A status header on the overview with a comfort score, and the count of active alerts on the sidebar"
+  - "Hide the dashboards' top bar, for everyone or for non-admins"
   homeassistant: 2024.12.0
-  keywords: "comfort notifications alerts co2 humidity temperature noise pm2.5 pm10 air quality purifier windows lights lighting adaptive presence motion nap night activity log mini card annex cellar garage cave badge"
+  keywords: "comfort notifications alerts co2 humidity temperature noise pm2.5 pm10 air quality purifier windows lights lighting adaptive presence motion nap night activity log mini card annex cellar garage cave badge yaml sync house rules"
   worksWith:
   - slug: ha-climate-air-card
     why: "Shows the air conditioners, fans and purifiers it drives"
   - slug: ha-room-card
     why: "Room by room view of the sensors behind its comfort alerts"
+  - slug: ha-house-rules
+    why: "Lights on presence and the naps, shared"
   cardTypes:
   - smart-comfort-card
   - smart-comfort-mini-card
@@ -661,6 +675,15 @@ projects:
     dark: card-activity-dark.png
     caption: Latest alerts, device commands and lighting changes
     group: Activity card
+  - src: panel-settings-file.png
+    caption: "Configuration from smart_comfort.yaml"
+    group: Panel
+  - src: panel-yaml-file.png
+    caption: "YAML tab with smart_comfort.yaml"
+    group: Panel
+  - src: panel-sidebar.png
+    caption: "Sidebar count of the active alerts"
+    group: Panel
   animations:
   - src: header-hot.gif
     dark: header-hot-dark.gif
@@ -680,7 +703,7 @@ projects:
   category: climate
   icon: mdiRadiator
   accent: '#ef6c00'
-  tagline: "Thermostats, pilot wire radiators, pellet stoves and weekly schedules, zone by zone."
+  tagline: "Thermostats, pilot wire radiators, underfloor heating, stoves, boilers and weekly schedules, zone by zone."
   summary: "A card for the heating of the home, zone by zone: thermostats and radiator valves with their presets, pilot wire radiators with their orders, and the week of a schedule helper. A mini card and an overview of the whole home, floor by floor, come with it."
   highlights:
   - "Zones found by area, as text tabs, a flickering flame on a zone that heats"
@@ -692,8 +715,10 @@ projects:
   - "Overview card of the whole home, floor by floor"
   - "Mini card with a detail button showing the full card"
   - "Illustrated header with the zone's own thermostat, radiator or valve drawn big, the heat rising while it heats"
+  - "Boilers: gas with its burner's blue flame, oil with its tank gauge, and pellet, with the flow and return temperatures and the burner's modulation"
+  - "Underfloor heating glowing in the floor, and towel rails with the time left on boost"
   homeassistant: 2024.8.0
-  keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule poêle granulés pellet wood stove palazzetti fumis edilkamin mcz maestro rika duepi"
+  keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule poêle granulés pellet wood stove palazzetti fumis edilkamin mcz maestro rika duepi plancher chauffant underfloor floor heating danfoss icon uponor heatmiser sèche-serviettes towel rail chaudière boiler gaz gas fioul oil"
   worksWith:
   - slug: ha-climate-air-card
     why: "Air conditioners, fans and purifiers; the thermostats moved here from it"
@@ -746,6 +771,21 @@ projects:
   - src: overview-card.png
     caption: "Default view"
     group: Overview card
+  - src: card-floor.png
+    caption: "Underfloor heating"
+    group: Card
+  - src: card-towel.png
+    caption: "Towel rail on boost"
+    group: Card
+  - src: card-gas-boiler.png
+    caption: "Gas boiler"
+    group: Card
+  - src: card-oil-boiler.png
+    caption: "Oil boiler"
+    group: Card
+  - src: card-pellet-boiler.png
+    caption: "Pellet boiler"
+    group: Card
   animations:
   - src: boost.gif
     caption: "Boost"
@@ -768,6 +808,16 @@ projects:
     caption: "Pilot comfort"
   - src: pilot-eco.gif
     caption: "Pilot eco"
+  - src: heating-floor.gif
+    caption: "Underfloor heating"
+  - src: heating-towel.gif
+    caption: "Towel rail on boost"
+  - src: heating-gas-boiler.gif
+    caption: "Gas boiler firing"
+  - src: heating-oil-boiler.gif
+    caption: "Oil boiler burning"
+  - src: heating-pellet-boiler.gif
+    caption: "Pellet boiler burning"
 - slug: ha-room-card
   title: Room Cards
   kind: card
@@ -1151,10 +1201,10 @@ projects:
   category: home
   icon: mdiWindowShutter
   accent: '#5c6bc0'
-  tagline: "Shutters, blinds, curtains, awnings, garage doors and gates, drawn as little animated scenes."
+  tagline: "Shutters, blinds, curtains, awnings, pergolas, garage doors, gates and barriers, drawn as little animated scenes."
   summary: "Cards for the covers of any integration: each one is drawn as a scene that follows its position, and the picture itself is the slider. One cover, a list, or every cover of an area, with favorite positions and a confirmation for doors and gates."
   highlights:
-  - "A drawn scene per kind of cover: shutter, venetian blind, shade, curtains, awning, garage door, sliding or swing gate, door, roof window, damper"
+  - "A drawn scene per kind of cover: shutter, venetian blind, shade, curtains, awning, garage door, sliding or swing gate, barrier, hinged shutters, pergola, door, roof window, damper"
   - "The picture is the position slider, dragged the way the cover moves"
   - "Tilt slider for slats that tilt, only when the cover supports it"
   - "Favorite positions in one tap, Open all / Stop / Close all for a group"
@@ -1164,8 +1214,10 @@ projects:
   - "Mini card with a detail button showing the full card; for one cover, its position and round buttons"
   - "Covers without feedback (radio RTS motors) shown closed at rest, and an inverted position for awnings reporting it the wrong way round"
   - "Illustrated facade header with the covers drawn at their position, moving as they open and close"
+  - "Pergola louvres turning with the tilt, the sun shining between them"
+  - "Next automatic opening and closing times as tiles, from a sensor or an input_datetime"
   homeassistant: 2024.8.0
-  keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave rts no feedback invert portail battant swing gate pedestrian piéton"
+  keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave rts no feedback invert portail battant swing gate pedestrian piéton barrière barrier levante volets battants hinged shutters pergola bioclimatique louvre lames horaires schedule"
   cardTypes:
   - cover-card
   - cover-mini-card
@@ -1207,6 +1259,30 @@ projects:
     dark: mini-card-swing-dark.png
     caption: "Swing gate"
     group: Mini card
+  - src: card-barrier.png
+    caption: "Barrier"
+    group: Card
+  - src: card-hinged.png
+    caption: "Hinged shutters"
+    group: Card
+  - src: card-pergola.png
+    caption: "Pergola"
+    group: Card
+  - src: card-schedule.png
+    caption: "Automatic schedule"
+    group: Card
+  - src: mini-card-barrier.png
+    caption: "Barrier"
+    group: Mini card
+  - src: mini-card-hinged.png
+    caption: "Hinged shutters"
+    group: Mini card
+  - src: mini-card-pergola.png
+    caption: "Pergola"
+    group: Mini card
+  - src: mini-card-schedule.png
+    caption: "Automatic schedule"
+    group: Mini card
   animations:
   - src: awning-opening.gif
     caption: "Awning opening"
@@ -1233,6 +1309,12 @@ projects:
     caption: "Shutter opening"
   - src: window-opening.gif
     caption: "Window opening"
+  - src: barrier-opening.gif
+    caption: "Barrier opening"
+  - src: hinged-opening.gif
+    caption: "Hinged shutters opening"
+  - src: pergola-opening.gif
+    caption: "Pergola tilting open"
 - slug: ha-utility-meter-card
   title: Utility Meter Card
   kind: card
@@ -1433,8 +1515,8 @@ projects:
   category: outdoor
   icon: mdiPool
   accent: '#00acc1'
-  tagline: "Water quality, filtration and equipment of a swimming pool or a spa."
-  summary: "Cards for a swimming pool or a spa: colored gauges with their ideal ranges, advice when a value drifts, an animated scene of the pool, the filtration of the day and buttons for the pump, the light, the heat pump, the cover and the electrolyser."
+  tagline: "Water quality, filtration and equipment of a swimming pool, a spa or a sauna."
+  summary: "Cards for a swimming pool, a spa or a sauna: colored gauges with their ideal ranges, advice when a value drifts, an animated scene of the pool, the filtration of the day and buttons for the pump, the light, the heat pump, the cover and the electrolyser."
   highlights:
   - "Gauges for water temperature, pH, ORP, free chlorine, salt and TDS, with their ideal ranges"
   - "Advice for every value out of range, and for equipment running without water flow"
@@ -1446,8 +1528,9 @@ projects:
   - "Mini card with a detail button showing the full card"
   - "Electrical consumption: the pump's power and energy, and a roller cover driven by a relay, inverted if needed"
   - "Illustrated header: the pool seen from above, rippling while filtering, its cover, light and heat pump animated"
+  - "Sauna: its heater, temperature, humidity, door and session, found on its device (Huum, Harvia, Tylö) or set one by one"
   homeassistant: 2024.8.0
-  keywords: "piscine spa jacuzzi pool ph orp chlore chlorine salt filtration iopool blue riiot blue connect pentair screenlogic intellicenter hayward omnilogic heat pump power energy relay robot dolphin maytronics mydolphin iaqualink robot piscine"
+  keywords: "piscine spa jacuzzi pool ph orp chlore chlorine salt filtration iopool blue riiot blue connect pentair screenlogic intellicenter hayward omnilogic heat pump power energy relay robot dolphin maytronics mydolphin iaqualink robot piscine sauna huum harvia tylö"
   cardTypes:
   - pool-card
   - pool-mini-card
@@ -1491,6 +1574,15 @@ projects:
   - src: mini-card.png
     caption: "Default view"
     group: Mini card
+  - src: card-sauna.png
+    caption: "Sauna"
+    group: Card
+  - src: card-sauna-door.png
+    caption: "Sauna door open"
+    group: Card
+  - src: mini-card-sauna.png
+    caption: "Sauna"
+    group: Mini card
   animations:
   - src: cover-closing.gif
     caption: "Cover closing"
@@ -1507,6 +1599,8 @@ projects:
     caption: "Pool robot cleaning"
   - src: spa-jets.gif
     caption: "Spa jets"
+  - src: sauna.gif
+    caption: "Sauna heating"
 - slug: ha-vivarium-card
   title: Vivarium Card
   kind: card
@@ -1977,12 +2071,13 @@ projects:
     caption: "Ringing"
 - slug: ha-alarm-card
   title: Alarm Card
-  kind: card
+  kind: integration
+  withCard: true
   category: security
   icon: mdiShieldHome
   accent: '#e5484d'
-  tagline: 'Arm and disarm an alarm: state, delays, code pad, open sensors and who changed it last.'
-  summary: Works with any alarm control panel (Alarmo, Manual, Verisure, Ajax…). The arm modes come from the panel's features, and the shield pulses during delays and flashes when the alarm goes off.
+  tagline: "Arm and disarm an alarm from its cards, and set Alarmo up in an Alarm panel: state, delays, code pad, open sensors and a timeline."
+  summary: An integration that serves the alarm cards and adds an Alarm panel to the sidebar, to set up Alarmo in the cards' style. The cards work with any alarm control panel (Alarmo, Manual, Verisure, Ajax…). The arm modes come from the panel's features, and the shield pulses during delays and flashes when the alarm goes off.
   highlights:
   - One button per supported arm mode
   - Exit and entry delay countdown with a progress bar
@@ -1996,8 +2091,12 @@ projects:
   - Display names for the sensors, cameras and buttons, set in the visual editor
   - "A frosted-glass shield in the state colour, its padlock opening when disarmed and locking when armed"
   - "Surveillance radar header around the big state shield, its sweep, sensors and camera following the alarm"
-  homeassistant: 2024.8.0
-  keywords: "alarmo alarm control panel security verisure ajax manual buttons switch"
+  - "Alarm sidebar panel for administrators, with the tabs and settings of Alarmo's own panel: General, Sensors, Codes and Actions"
+  - "Timeline tab: the activity of the alarm's sensors over 6 h, 24 h or 3 days, room by room, the armed periods shaded"
+  - "The panel's top bar is the card's surveillance radar, with a round button per arm mode and Disarm"
+  - "A count on the sidebar: the sensors keeping the alarm from arming, red while it is triggered"
+  homeassistant: 2024.12.0
+  keywords: "alarmo alarm control panel security verisure ajax manual buttons switch panel timeline sensors codes"
   worksWith:
   - slug: ha-smartlock-card
     why: "The connected locks of the home"
@@ -2042,6 +2141,26 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: Mini card zoomed in
     group: Mini card
+  - src: panel-general.png
+    dark: panel-general-dark.png
+    caption: "General tab"
+    group: Panel
+  - src: panel-sensors.png
+    dark: panel-sensors-dark.png
+    caption: "Sensors tab"
+    group: Panel
+  - src: panel-codes.png
+    dark: panel-codes-dark.png
+    caption: "Codes tab"
+    group: Panel
+  - src: panel-actions.png
+    dark: panel-actions-dark.png
+    caption: "Actions tab"
+    group: Panel
+  - src: panel-timeline.png
+    dark: panel-timeline-dark.png
+    caption: "Timeline tab"
+    group: Panel
   animations:
   - src: armed.gif
     dark: armed-dark.gif
@@ -2162,6 +2281,7 @@ projects:
   - Cameras without a live stream (HomeKit, a Tapo in privacy mode…) shown as stills refreshed every second, Safari included
   - Streams paused while the card is off-screen
   - "Illustrated header with a camera in the cards' state: live, motion detected, privacy or offline"
+  - "The panel's top bar is the card's illustrated camera, following the cameras' state; it can be hidden for non-admins or everyone"
   homeassistant: 2024.12.0
   keywords: "camera cctv privacy ptz frigate reolink tapo webrtc go2rtc panel"
   worksWith:
@@ -2202,6 +2322,9 @@ projects:
     dark: card-mini-dark.png
     caption: A snapshot per camera
     group: Mini card
+  - src: panel-settings.png
+    caption: "Settings tab"
+    group: Panel
   animations:
   - src: live.gif
     dark: live-dark.gif
@@ -2389,11 +2512,11 @@ projects:
   category: appliances
   icon: mdiDishwasher
   accent: '#039be5'
-  tagline: Animated cards for home appliances, from Home Connect (cloud or local), Miele, SmartThings, LG ThinQ, Whirlpool and Matter.
+  tagline: Animated cards for home appliances, from Home Connect (cloud or local), Miele, SmartThings, Samsung LocalThings, LG ThinQ, Whirlpool and Matter.
   summary: 'One card for 13 kinds of appliances, from washing machines to wine cabinets: it works out the type and the brand, finds the entities, and shows the status, progress and finish time, the programs and their options, start, pause and stop, with an illustration animated by what the appliance is doing.'
   highlights:
   - 13 appliance types detected by themselves, each with its animated illustration
-  - Home Connect (cloud or local), Miele, SmartThings, LG ThinQ, Whirlpool and Matter
+  - Home Connect (cloud or local), Miele, SmartThings, Samsung LocalThings, LG ThinQ, Whirlpool and Matter
   - Brand logo next to the title, buttons in the brand's colour
   - Status, progress bar, finish time and program step
   - Program picker and options, start, pause, resume and stop
@@ -2403,7 +2526,7 @@ projects:
   - 'Energy of the current and last cycle, from the appliance''s or a smart plug''s meter'
   - Mini card with a detail button unfolding the full card
   homeassistant: 2024.8.0
-  keywords: "home connect home connect local bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance"
+  keywords: "home connect home connect local bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance localthings"
   cardTypes:
   - smart-appliance-card
   - smart-appliance-mini-card
@@ -4223,6 +4346,7 @@ projects:
   - "Tap and hold actions on the tiles, chips and rows, tiles renamed"
   - "Battery and fuel bars coloured by thresholds, as in the gauge card, and a flat look without the grey blocks"
   - "Animated roadside header with the car's own picture and its charging post, day or night"
+  - "Outside temperature from the sensor of your choice, an outdoor sensor of the home for a car that has none"
   homeassistant: 2024.8.0
   keywords: "car vehicle ev renault dacia tesla volvo skoda subaru nissan peugeot citroen opel fiat jeep stellantis kia hyundai toyota lexus volkswagen audi seat cupra mercedes polestar ford tank fuel charge tyre tire pressure"
   worksWith:
@@ -4541,8 +4665,9 @@ projects:
   - Week view, the 7 days from today side by side, one day per row on a narrow card, with arrows or a swipe to the previous or next week
   - Mini card with the next event, opening its details
   - "Illustrated header: today's tear-off calendar and a wall clock, a video call when an event is under way"
+  - "Optional sidebar panel: a full-page calendar with Month, Week, Day and List tabs, and new events with a repeat rule"
   homeassistant: 2024.8.0
-  keywords: "calendar agenda google caldav events"
+  keywords: "calendar agenda google caldav events panel sidebar month repeat recurring"
   worksWith:
   - slug: ha-waste-card
     why: "Waste collections from the same calendars"
@@ -4599,6 +4724,24 @@ projects:
     dark: mini-todos-dark.png
     caption: "Mini card with to-do lists"
     group: Mini card
+  - src: panel.png
+    caption: "Month"
+    group: Panel
+  - src: panel-week.png
+    caption: "Week"
+    group: Panel
+  - src: panel-day.png
+    caption: "Day"
+    group: Panel
+  - src: panel-list.png
+    caption: "List"
+    group: Panel
+  - src: panel-details.png
+    caption: "Event details"
+    group: Panel
+  - src: panel-add.png
+    caption: "New repeating event"
+    group: Panel
   animations:
   - src: agenda-popup.gif
     dark: agenda-popup-dark.gif
@@ -4625,8 +4768,9 @@ projects:
   - "Local To-do, Shopping List, Bring!, Todoist, Google Tasks, CalDAV, Mealie, AnyList, Picnic, Alexa and more"
   - "Mini card with the next items and a round add button"
   - "Illustrated kitchen header: the list on the fridge, the pencil writing while items are left"
+  - "Optional sidebar panel: Home Assistant's To-do page in the cards' look, one tab per list, Local To-do lists created and deleted"
   homeassistant: 2024.8.0
-  keywords: "liste tâches courses todo to-do shopping list bring todoist google tasks caldav mealie anylist ourgroceries picnic cookidoo habitica kitchenowl grocy alexa"
+  keywords: "liste tâches courses todo to-do shopping list bring todoist google tasks caldav mealie anylist ourgroceries picnic cookidoo habitica kitchenowl grocy alexa panel sidebar"
   worksWith:
   - slug: ha-calendar-card
     why: "Appointments and things to do, side by side"
@@ -4659,6 +4803,18 @@ projects:
   - src: mini-card-narrow.png
     caption: "Narrow"
     group: Mini card
+  - src: panel.png
+    caption: "Panel"
+    group: Panel
+  - src: panel-shopping.png
+    caption: "Shopping list"
+    group: Panel
+  - src: panel-edit.png
+    caption: "Edit an item"
+    group: Panel
+  - src: panel-phone.png
+    caption: "On a phone"
+    group: Panel
   animations:
   - src: tick.gif
     caption: "Item ticked off"
@@ -5362,6 +5518,7 @@ projects:
   - "My pull requests tab: your open pull requests in any repository"
   - "Release downloads on each followed repository, with the total; open issues and pull requests on the sidebar, refreshed on a schedule"
   - "Animated developer's desk header, following the open issues and pull requests"
+  - "The panel's top bar is the illustrated desk, with a To handle card of the latest issues and pull requests; the top bar can be hidden"
   homeassistant: 2026.11.0
   keywords: "github repositories repos stars issues pull requests releases commits git panel notifications downloads badge"
   cardTypes:
@@ -5426,6 +5583,8 @@ projects:
   - src: anim-night.gif
     dark: anim-night-dark.gif
     caption: "Header at night"
+  - src: anim-panel.gif
+    caption: "Panel top bar"
 - slug: ha-system-hub
   title: System Hub
   kind: integration
@@ -5452,6 +5611,8 @@ projects:
   - A module turned on takes over the settings of the standalone integration it replaces
   - Diagnostics of every module, secrets redacted; 23 languages
   - "Illustrated header on every module card, each with its own animated scene in the colour of its status"
+  - "Each tab's illustrated banner as the panel's top bar, which can be hidden for everyone or non-admins"
+  - "Versioning: a changes viewer with the files and lines changed, then commit and push from the panel"
   homeassistant: 2024.12.0
   keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status"
   worksWith:
@@ -5725,10 +5886,20 @@ projects:
     dark: card-automation-monitor-mini-zoom-dark.png
     caption: Mini card zoomed in
     group: Automations cards
+  - src: panel-git-sync-diff.png
+    dark: panel-git-sync-diff-dark.png
+    caption: "Versioning: view changes"
+    group: Panel
   animations:
   - src: card-batteries-due.gif
     dark: card-batteries-due-dark.gif
     caption: "Batteries due"
+  - src: header-status.gif
+    caption: "Status banner, critical"
+  - src: header-marketplace-installing.gif
+    caption: "Updates banner, installing"
+  - src: header-git-sync.gif
+    caption: "Versioning banner"
 - slug: ha-backup-card
   title: Backup Card
   kind: card
@@ -6812,6 +6983,7 @@ projects:
   - Credentials kept in Home Assistant, silent re-login, diagnostics with counts only, no name or message leaving the home
   - "A count on the sidebar: words to sign, homework to do and unread messages of every child"
   - "Animated school corner header: the pen writing when there is homework or a word to sign, the unread messages"
+  - "The panel's top bar is the card's school corner, with a child filter, a week strip of the homework and chart tiles"
   homeassistant: 2024.12.0
   keywords: "ent one edifice école primaire school cahier de liaison homework devoirs messages news blog éducation nationale académie neo"
   worksWith:
@@ -6872,10 +7044,21 @@ projects:
     dark: mini-card-dark.png
     caption: Mini card
     group: Mini card
+  - src: panel-bare.png
+    caption: "Top bar hidden"
+    group: Panel
   animations:
   - src: refreshing.gif
     dark: refreshing-dark.gif
     caption: Refreshing
+  - src: panel-header-homework.gif
+    caption: "Panel header, homework left"
+  - src: panel-header-messages.gif
+    caption: "Panel header, unread messages"
+  - src: card-header-homework.gif
+    caption: "Card header, homework left"
+  - src: card-header-messages.gif
+    caption: "Card header, unread messages"
 - slug: ha-flight-board-card
   title: Flight Board Card
   kind: card
@@ -7108,6 +7291,104 @@ projects:
   - src: lc-chandelier.gif
     dark: lc-chandelier-dark.gif
     caption: "Chandelier flames"
+- slug: ha-house-rules
+  title: House Rules
+  kind: integration
+  withCard: true
+  category: home
+  icon: mdiHomeLightningBolt
+  accent: '#4f46e5'
+  tagline: "The reflexes of your home as rules: plugs, alert lights, the vacuum's lights, appliances, chimes and leaks, with a panel and cards."
+  summary: "Replaces the automations of every small reflex of the home: plugs kept on or turned off after a while, lights flashing while a sensor is triggered, lights following the robot vacuum from room to room, appliances powered back on when cut mid-programme, chimes, end-of-cycle reminders, leak guard, lights on presence and lock guard. Each one is a rule that keeps its state across restarts, shares global conditions and logs what it does, set up in a sidebar panel or in house_rules.yaml, both ways."
+  highlights:
+  - "11 rule types, each with its enabled switch, state sensor and test button"
+  - "house_rules.yaml edited both ways: the panel rewrites only the rule it saves, comments kept, and a change in the file restarts only the rules that changed"
+  - "Global conditions: quiet hours, nobody home, alarm armed, vacation mode"
+  - "Light arbitration: a light goes off only when no rule wants it any more, and never when it was on before"
+  - "Escalation of an alert: flash, then a chime, then a critical notification"
+  - "Repairs when a rule gives up or the YAML is invalid, the last valid configuration running on"
+  - "Import from the plug labels, from recognised automations (turned off, never deleted) and from Smart Comfort's lights on presence"
+  - "Naps shared with Smart Comfort through a schedule helper per room"
+  - "Sidebar panel with Activity, Rules, Rooms, Journal, YAML and Settings tabs, and a count badge"
+  - "Overview card and mini card, timers and activity cards, under an illustrated header with one object per family of rules"
+  - "20 languages"
+  homeassistant: 2024.12.0
+  keywords: "house rules automations reflexes plugs prise rallumer extinction automatique timer lights flash alert vacuum aspirateur appliance resume électroménager chime carillon leak fuite presence lights présence lock serrure nap sieste quiet hours yaml panel"
+  worksWith:
+  - slug: ha-smart-comfort
+    why: "Lights on presence imported from it, the naps shared"
+  - slug: ha-vacuum-card
+    why: "The robot vacuum whose rooms the lights follow"
+  - slug: ha-smart-appliance-card
+    why: "The appliances it powers back on"
+  cardTypes:
+  - house-rules-card
+  - house-rules-mini-card
+  - house-rules-timers-card
+  - house-rules-activity-card
+  hero:
+    src: panel-activity.png
+    dark: panel-activity-dark.png
+    caption: "Activity tab"
+    group: Panel
+  screenshots:
+  - src: panel-rules.png
+    dark: panel-rules-dark.png
+    caption: "Rules tab"
+    group: Panel
+  - src: panel-rule-edit.png
+    dark: panel-rule-edit-dark.png
+    caption: "A rule edited as YAML"
+    group: Panel
+  - src: panel-rooms.png
+    dark: panel-rooms-dark.png
+    caption: "Rooms tab"
+    group: Panel
+  - src: panel-journal.png
+    dark: panel-journal-dark.png
+    caption: "Journal tab"
+    group: Panel
+  - src: panel-yaml.png
+    dark: panel-yaml-dark.png
+    caption: "YAML tab"
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: "Settings tab"
+    group: Panel
+  - src: card.png
+    dark: card-dark.png
+    caption: "Overview card"
+    group: Card
+  - src: card-timers.png
+    dark: card-timers-dark.png
+    caption: "Timers card"
+    group: Card
+  - src: card-activity.png
+    dark: card-activity-dark.png
+    caption: "Activity card"
+    group: Card
+  - src: card-mini.png
+    dark: card-mini-dark.png
+    caption: "Mini card"
+    group: Mini card
+  - src: card-mini-full.png
+    dark: card-mini-full-dark.png
+    caption: "Mini card unfolded"
+    group: Mini card
+  animations:
+  - src: header-leak.gif
+    dark: header-leak-dark.gif
+    caption: "Leak alert"
+  - src: header-lock.gif
+    dark: header-lock-dark.gif
+    caption: "Lock alert"
+  - src: header-light.gif
+    dark: header-light-dark.gif
+    caption: "A lamp lit by a rule"
+  - src: header-vacuum.gif
+    dark: header-vacuum-dark.gif
+    caption: "The robot vacuum cleaning"
 - slug: ha-scheduler-card
   title: Scheduler Card
   kind: card
@@ -7123,8 +7404,11 @@ projects:
   - "Slot editor in place: add, move, change or delete a slot, overlaps refused"
   - "New schedule button, filters by tags and entities, read-only mode"
   - "Mini card with the next actions of every schedule, zooming to the full card"
+  - "Slots relative to sunrise or sunset, day presets (every day, workdays, weekend) and slots dragged by their edges in the weekly grid"
+  - "Schedule options: conditions on other entities with guided values, a period between two dates, what happens after the last slot, duplicate"
+  - "One switch under the header for every schedule of the card"
   homeassistant: 2024.8.0
-  keywords: "scheduler schedule timer timeslot weekly planning thermostat programme nielsfaber scheduler-component switch.schedule planning horaire programmation"
+  keywords: "scheduler schedule timer timeslot weekly planning thermostat programme nielsfaber scheduler-component switch.schedule planning horaire programmation sunrise sunset lever coucher soleil conditions workday jours ouvrés"
   worksWith:
   - slug: ha-heating-card
     why: "The thermostats the schedules drive"
@@ -7167,6 +7451,12 @@ projects:
     dark: mini-card-zoom-dark.png
     caption: "Zoomed in"
     group: Mini card
+  - src: card-edit-sun.png
+    caption: "Slot relative to the sun"
+    group: Card
+  - src: card-options.png
+    caption: "Schedule options"
+    group: Card
   animations:
   - src: day-cycle.gif
     dark: day-cycle-dark.gif
@@ -7181,7 +7471,7 @@ projects:
   icon: mdiPowerPlugOutline
   accent: '#f08c00'
   tagline: "Any appliance on a smart plug or a power meter, illustrated: is it running, since when, what it costs."
-  summary: "An air fryer, a kettle, a washing machine with no integration of its own, a PC, a homelab rack: a power sensor is all it needs. The card shows the power, whether the appliance runs and for how long, when its cycle ended, its last 24 hours as a curve, this cycle's and today's energy and cost, and the plug's switch."
+  summary: "An air fryer, a kettle, a washing machine with no integration of its own, a PC, a homelab rack, a fridge, a radiator: a power sensor is all it needs. The card shows the power, whether the appliance runs and for how long, when its cycle ended, its last 24 hours as a curve, this cycle's and today's energy and cost, and the plug's switch."
   highlights:
   - "Running, standby, off or done, from the power alone, with thresholds per appliance"
   - "Cycles read from the last 24 hours, a short pause not ending a washing or dishwasher cycle"
@@ -7189,8 +7479,11 @@ projects:
   - "The plug's switch as a round button"
   - "Illustrated header with the appliance in its room, coming alive while it runs: steam, a turning drum, spinning fans, blinking LEDs"
   - "Your own picture in place of the illustration, and a mini card zooming to the full card"
+  - "Fridges and freezers in six models: the compressor's cycles and duty cycle, temperatures, and door open, too warm and no power alerts"
+  - "Filter coffee maker brewing, then keeping warm, until it turns itself off"
+  - "Radiators and towel rails with their thermostat or pilot wire order, heating or at temperature, window open and too cold alerts"
   homeassistant: 2024.8.0
-  keywords: "power plug smart plug socket outlet energy consumption cycle washing machine dryer dishwasher air fryer kettle coffee pc homelab shelly tasmota tapo meross prise connectée consommation"
+  keywords: "power plug smart plug socket outlet energy consumption cycle washing machine dryer dishwasher air fryer kettle coffee pc homelab shelly tasmota tapo meross prise connectée consommation fridge réfrigérateur frigo freezer congélateur compressor duty cycle radiator radiateur sèche-serviettes fil pilote filter coffee cafetière"
   worksWith:
   - slug: ha-energy-card
     why: "The whole home's energy"
@@ -7245,6 +7538,48 @@ projects:
     dark: pd-mini-zoom-dark.png
     caption: "Zoomed in"
     group: Mini card
+  - src: pd-fridge.png
+    caption: "Fridge cooling"
+    group: Card
+  - src: pd-fridge-combi.png
+    caption: "Fridge-freezer, compressor off"
+    group: Card
+  - src: pd-fridge-american.png
+    caption: "American fridge"
+    group: Card
+  - src: pd-fridge-door.png
+    caption: "French door fridge, door open"
+    group: Card
+  - src: pd-freezer-chest.png
+    caption: "Chest freezer"
+    group: Card
+  - src: pd-freezer-drawers.png
+    caption: "Upright freezer"
+    group: Card
+  - src: pd-coffee-filter.png
+    caption: "Filter coffee maker brewing"
+    group: Card
+  - src: pd-coffee-filter-warm.png
+    caption: "Keeping warm"
+    group: Card
+  - src: pd-radiator.png
+    caption: "Radiator heating"
+    group: Card
+  - src: pd-radiator-oil.png
+    caption: "Oil-filled radiator at temperature"
+    group: Card
+  - src: pd-radiator-towel.png
+    caption: "Towel rail heating"
+    group: Card
+  - src: pd-radiator-climate.png
+    caption: "Radiator on its pilot wire"
+    group: Card
+  - src: pd-radiator-window.png
+    caption: "Radiator, window open"
+    group: Card
+  - src: pd-mini-fridge-door.png
+    caption: "Fridge door open"
+    group: Mini card
   animations:
   - src: pd-airfryer.gif
     dark: pd-airfryer-dark.gif
@@ -7258,6 +7593,22 @@ projects:
   - src: pd-homelab.gif
     dark: pd-homelab-dark.gif
     caption: "Homelab rack"
+  - src: pd-fridge.gif
+    caption: "Fridge cooling"
+  - src: pd-fridge-door.gif
+    caption: "Fridge door open"
+  - src: pd-freezer-chest.gif
+    caption: "Chest freezer"
+  - src: pd-coffee-filter.gif
+    caption: "Filter coffee brewing"
+  - src: pd-coffee-filter-warm.gif
+    caption: "Coffee keeping warm"
+  - src: pd-radiator.gif
+    caption: "Radiator heating"
+  - src: pd-radiator-towel.gif
+    caption: "Towel rail heating"
+  - src: pd-radiator-climate.gif
+    caption: "Radiator on its pilot wire"
 - slug: ha-water-pump-card
   title: Water Pump Card
   kind: card
@@ -7351,6 +7702,7 @@ projects:
   - "A Switch's screen time as a ring, bedtime, restriction mode, +15 min of bonus time and suspend"
   - "Power and home controls"
   - "Mini card with the state, the game and the session, zooming to the full card"
+  - "Played today tile, counted from the history for PlayStation and Xbox, or read from a sensor"
   homeassistant: 2024.8.0
   keywords: "console playstation ps5 ps4 xbox series nintendo switch game gaming trophies gamerscore screen time parental controls ps5-mqtt jeu vidéo temps d'écran"
   worksWith:
@@ -7702,3 +8054,103 @@ projects:
     dark: popup-dark.png
     caption: More-info dialog
     group: Theme
+
+- slug: ha-dashboard-header
+  title: Dashboard Header
+  kind: card
+  category: themes
+  icon: mdiPageLayoutHeader
+  accent: '#c2387f'
+  tagline: "Illustrated headers for your dashboards, in the style of the ha-* cards, following the state of your home."
+  summary: "Each dashboard gets a 90 px scene (a house, devices, cars, energy, a server rack, security, family, a terrace) with its title, a live subtitle, a status pill and calm text tabs, or a compact bar with pill tabs. The scene follows your home, by day and night, and Home Assistant's own toolbar keeps working. Set in the dashboard's YAML, nothing native lost."
+  highlights:
+  - "Eight scenes, one per kind of dashboard: home, devices, cars, energy, system, security, family, outdoor"
+  - "The scene follows your home: lit windows, the robot vacuum leaving its dock, today's Tempo colour, a blinking server LED, the alarm shield turning red, rain on the terrace"
+  - "Cars drawn from their own picture, as on the Vehicle Card, on the road, the driveway or at the pump of a station with its prices"
+  - "Live title, subtitle and status pill from entities or templates"
+  - "Illustrated band with text tabs, or a compact bar with pill tabs; the band folds to the compact bar when you scroll"
+  - "Day and night following the Home Assistant theme, or forced"
+  - "Home Assistant's toolbar kept: search, Assist and the dashboard menu as round buttons; edit mode and subviews keep the native header"
+  - "Per view: a view changes the scene, the subtitle or the status, or turns the header off"
+  - "On a phone the scene moves under the buttons and the tabs scroll"
+  homeassistant: 2025.6.0
+  keywords: "dashboard header bandeau en-tête banner tabs onglets illustrated scene toolbar compact theme ha-neutral cars voitures station driveway"
+  worksWith:
+  - slug: ha-neutral
+    why: "The theme it is designed for"
+  - slug: ha-vehicle-card
+    why: "The cars' own pictures on the Cars scene"
+  hero:
+    src: scene-maison.png
+    dark: scene-maison-dark.png
+    caption: "Home"
+    group: Scenes
+  screenshots:
+  - src: scene-equipements.png
+    dark: scene-equipements-dark.png
+    caption: "Devices"
+    group: Scenes
+  - src: scene-voitures.png
+    dark: scene-voitures-dark.png
+    caption: "Cars"
+    group: Scenes
+  - src: scene-energie.png
+    dark: scene-energie-dark.png
+    caption: "Energy"
+    group: Scenes
+  - src: scene-systeme.png
+    dark: scene-systeme-dark.png
+    caption: "System"
+    group: Scenes
+  - src: scene-securite.png
+    dark: scene-securite-dark.png
+    caption: "Security"
+    group: Scenes
+  - src: scene-famille.png
+    dark: scene-famille-dark.png
+    caption: "Family"
+    group: Scenes
+  - src: scene-exterieur.png
+    dark: scene-exterieur-dark.png
+    caption: "Outdoor"
+    group: Scenes
+  - src: cars-driveway.png
+    dark: cars-driveway-dark.png
+    caption: "Cars on the driveway"
+    group: Cars
+  - src: cars-station.png
+    dark: cars-station-dark.png
+    caption: "A car at the station"
+    group: Cars
+  - src: compact.png
+    dark: compact-dark.png
+    caption: "Compact bar"
+    group: Compact
+  - src: collapsed.png
+    dark: collapsed-dark.png
+    caption: "Folded when scrolling"
+    group: Compact
+  - src: phone.png
+    dark: phone-dark.png
+    caption: "On a phone"
+    group: Phone
+  - src: compact-phone.png
+    dark: compact-phone-dark.png
+    caption: "Compact bar on a phone"
+    group: Phone
+  animations:
+  - src: vacuum-cleaning.gif
+    dark: vacuum-cleaning-dark.gif
+    caption: "The robot vacuum cleaning"
+  - src: energy-power.gif
+    dark: energy-power-dark.gif
+    caption: "The meter's bolt pulsing"
+  - src: system-warning.gif
+    dark: system-warning-dark.gif
+    caption: "A server warning"
+  - src: alarm-triggered.gif
+    dark: alarm-triggered-dark.gif
+    caption: "The alarm triggered"
+  - src: rain.gif
+    dark: rain-dark.gif
+    caption: "Rain on the terrace"
