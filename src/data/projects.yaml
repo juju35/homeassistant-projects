@@ -7424,9 +7424,10 @@ projects:
   category: network
   icon: mdiZigbee
   accent: '#b07a00'
-  tagline: "Your ZHA Zigbee network: every device with its link quality and battery, and a map of the mesh."
-  summary: "Read straight from ZHA, the same data as its network visualization: the coordinator, the routers and the end devices show up by themselves, the ones needing attention first, under an animated banner where the mesh flows from the coordinator."
+  tagline: "Your Zigbee network, ZHA or Zigbee2MQTT: every device with its link quality and battery, and a map of the mesh."
+  summary: "Read straight from ZHA, the same data as its network visualization, or from the MQTT topics of Zigbee2MQTT: the coordinator, the routers and the end devices show up by themselves, the ones needing attention first, under an animated banner where the mesh flows from the coordinator."
   highlights:
+  - "ZHA or Zigbee2MQTT, found by itself, with live updates and a shared network map scan on Zigbee2MQTT"
   - "Animated banner of the mesh, a weak link in amber and a device offline in red"
   - "Devices tab: one tile per device with its LQI bars, battery and availability, filters by role and attention"
   - "Map tab: the coordinator, routers and end devices with their links coloured by link quality"
@@ -7434,7 +7435,7 @@ projects:
   - "Thresholds of your own for a weak signal and a low battery"
   - "Mini card with chips or a health bar, zooming to the full card"
   homeassistant: 2024.8.0
-  keywords: "zigbee zha mesh network coordinator router end device lqi rssi signal battery map réseau maillage"
+  keywords: "zigbee zha zigbee2mqtt z2m mqtt mesh network coordinator router end device lqi rssi signal battery map réseau maillage"
   worksWith:
   - slug: ha-matter-card
     why: "The Matter and Thread devices"
@@ -7452,6 +7453,14 @@ projects:
   - src: card-map.png
     dark: card-map-dark.png
     caption: "Map"
+    group: Card
+  - src: card-z2m.png
+    dark: card-z2m-dark.png
+    caption: "Zigbee2MQTT"
+    group: Card
+  - src: card-z2m-map.png
+    dark: card-z2m-map-dark.png
+    caption: "Zigbee2MQTT map"
     group: Card
   - src: card-attention.png
     dark: card-attention-dark.png
