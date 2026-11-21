@@ -18,8 +18,11 @@ const themes = counts.theme;
 const LANGUAGES = 22;
 const base = import.meta.env.BASE_URL;
 const animations = current.reduce((n, p) => n + (p.animations?.length ?? 0), 0);
+// Within a category (and in Archived), projects in alphabetical order of their name
+const byTitle = (a: { title: string }, b: { title: string }) =>
+  a.title.localeCompare(b.title, "en", { sensitivity: "base", numeric: true });
 const groups = categories
-  .map((c) => ({ ...c, items: current.filter((p) => p.category === c.id) }))
+  .map((c) => ({ ...c, items: current.filter((p) => p.category === c.id).sort(byTitle) }))
   .filter((g) => g.items.length);
 ---
 
@@ -157,7 +160,7 @@ const groups = categories
             These projects are now modules of <a href={`${base}projects/ha-system-hub/`}>System Hub</a>.
           </p>
           <div class="grid">
-            {archived.map((p) => <ProjectCard project={p} />)}
+            {[...archived].sort(byTitle).map((p) => <ProjectCard project={p} />)}
           </div>
         </div>
       </section>
