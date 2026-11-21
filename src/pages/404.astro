@@ -1,24 +1,62 @@
 ---
-// Served by GitHub Pages for any address of the site that doesn't exist.
+// Served by GitHub Pages for any address of the site that doesn't exist. Drawn like the home page's category cards
+// (ha-* card charter): a 90 px illustrated header with its pastille, title and status, then calm tiles, one per
+// category, leading back to the home page.
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
+import Scene from "../components/Scene.astro";
+import { categories, current } from "../lib/projects";
 const base = import.meta.env.BASE_URL;
+const groups = categories
+  .map((c) => ({ ...c, count: current.filter((p) => p.category === c.id).length }))
+  .filter((g) => g.count);
 ---
 
 <Base title="Page not found" description="This page doesn't exist: every card and integration is listed on the home page.">
   <section class="wrap nf">
-    <div class="ha-card nf-card">
-      <span class="logo lg"><Icon name="mdiMapMarkerQuestionOutline" /></span>
-      <h1>Page not found</h1>
-      <p class="muted">This address doesn't lead to a page of the site. Every card and integration is on the home page.</p>
-      <a class="btn" href={base}><Icon name="mdiHomeOutline" /> All projects</a>
+    <div class="ha-card nf-card" style="--c:#d97706">
+      <Scene icons={["mdiMapMarkerQuestionOutline", "mdiSignDirection", "mdiCompassOutline"]} class="no-fold">
+        <span class="logo"><Icon name="mdiMapMarkerQuestionOutline" /></span>
+        <div class="titles">
+          <h1>Page not found<span class="status-dot" title="Not found"></span></h1>
+          <div class="sub kind-line" style="--k:#d97706">Error 404</div>
+        </div>
+      </Scene>
+      <div class="nf-body">
+        <p class="muted">This address doesn't lead to a page of the site. Every card and integration is on the home page, by category.</p>
+        <div class="grid">
+          {groups.map((g) => (
+            <a class="tile cat" href={`${base}#${g.id}`} style={`--c:${g.accent}`}>
+              <span class="logo"><Icon name={g.icon} /></span>
+              <span class="titles">
+                <span class="name">{g.label}</span>
+                <span class="sub kind-line" style={`--k:${g.accent}`}>{g.count} projects</span>
+              </span>
+              <Icon name="mdiChevronRight" class="go" />
+            </a>
+          ))}
+        </div>
+        <a class="btn" href={base}><Icon name="mdiHomeOutline" /> All projects</a>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .nf { padding-top: 48px; }
-  .nf-card { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 40px 24px; text-align: center; }
-  h1 { margin: 4px 0 0; font-size: 24px; font-weight: 500; }
-  p { margin: 0 0 8px; max-width: 46ch; }
+  .nf { padding-top: 24px; }
+  .nf-card { overflow: hidden; }
+  h1 { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 18px; font-weight: 500; line-height: 1.25; }
+  .status-dot { --s: #d97706; }
+  .nf-card .sub { font-size: 13px; }
+  .nf-body { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 16px; }
+  .nf-body p { margin: 0; }
+  .grid { width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .cat {
+    display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+    color: var(--primary-text-color); text-decoration: none;
+    transition: background-color .2s ease;
+  }
+  .cat:hover { background: color-mix(in srgb, var(--c) 10%, var(--secondary-background-color)); }
+  .cat .titles { display: flex; flex-direction: column; }
+  .cat :global(.go) { width: 20px; height: 20px; flex: none; color: var(--secondary-text-color); }
 </style>
