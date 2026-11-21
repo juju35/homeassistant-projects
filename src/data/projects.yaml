@@ -839,6 +839,7 @@ projects:
   - Automatic discovery from Home Assistant areas
   - "Entities renamed from the visual editor (names), on the sensors, lights, plugs and environment cards"
   - "Animated illustrated header on every card, drawn from the room's entities on its wall and floor"
+  - "Entities the discovery misses added to a room of the overviews, with their own name and icon"
   homeassistant: 2024.8.0
   keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity scenes philips hue"
   worksWith:
@@ -3520,7 +3521,7 @@ projects:
   - TP-Link Deco, eero, Linksys Velop and Ruckus mesh systems, every unit with its state and clients
   - Any other router integration, recognised from the kind and the names of its entities
   - Download and upload rates of the WAN with their last 24 hours
-  - CPU, RAM and disk gauges with their last 24 hours, temperatures, fans and load average
+  - "CPU, RAM, disk and temperature gauges as tiles, their last 24 hours at the foot of each, fans and load average"
   - WAN IP, uptime, latency, packet loss and the last speed test
   - Wi-Fi switches turning a network on, or off after a confirmation
   - Restart button with a confirmation, firmware update chip
@@ -3939,6 +3940,7 @@ projects:
   - Panel for administrators only; light and dark themes; 22 languages
   - "Proxmox Extended Sensors: the node's CPU temperature and health, Disks (SMART health, wear) and Datastores (Proxmox Backup Server) tabs"
   - "Illustrated header: a server rack with its status lights and a PVE tag in the node's state colour"
+  - "The panel under the cards' illustrated server room, in the worst state of every node and machine, and a count of what is down on its sidebar entry"
   homeassistant: 2026.11.0
   keywords: "proxmox pve virtual machines vm lxc containers node storage backups snapshot homelab panel admin card mini card proxmox_sensors extended sensors smart disks datastores pbs backup server temperature"
   worksWith:
@@ -4115,8 +4117,9 @@ projects:
   - "Animated server rack in the colour of the worst status"
   - "Mini card with a detail button showing the full card"
   - "Illustrated server room header: the rack of the overall status, its heartbeat and alarm rings"
+  - "Time up instead of downtime, to follow a PC or a game console: how long it has been on and its periods up"
   homeassistant: 2024.8.0
-  keywords: "uptime kuma healthchecks ping monitoring supervision services status certificate"
+  keywords: "uptime kuma healthchecks ping monitoring supervision services status certificate time on pc console uptime tracking"
   worksWith:
   - slug: ha-certificate-card
     why: "The certificates in detail, with DNS checks"
@@ -4529,8 +4532,9 @@ projects:
   - Service reminder with the distance left, and CSV export of every trip, refuel and charge
   - Mini card with the gauges, last trip and average, with a detail button showing the full card
   - "Animated header: a fuel pump or a charging station showing the tank or the battery"
+  - "Lease mileage allowance: distance left, ahead of or under the pro rata, projection at the end of the lease and the cost of the overage, with a gauge on the card"
   homeassistant: 2024.12.0
-  keywords: "car vehicle fuel consumption ev charging cost renault mpg miles imperial"
+  keywords: "car vehicle fuel consumption ev charging cost renault mpg miles imperial lease loa lld leasing mileage allowance kilométrage forfait"
   worksWith:
   - slug: ha-carburants-france
     why: "A station price sensor for the fuel cost"
@@ -4558,6 +4562,14 @@ projects:
   - src: popup.png
     dark: popup-dark.png
     caption: Add a refuel
+    group: Card
+  - src: card-lease.png
+    dark: card-lease-dark.png
+    caption: "Lease allowance"
+    group: Card
+  - src: card-lease-curve.png
+    dark: card-lease-curve-dark.png
+    caption: "Lease allowance curve"
     group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
@@ -4769,6 +4781,7 @@ projects:
   - "Mini card with the next items and a round add button"
   - "Illustrated kitchen header: the list on the fridge, the pencil writing while items are left"
   - "Optional sidebar panel: Home Assistant's To-do page in the cards' look, one tab per list, Local To-do lists created and deleted"
+  - "The count of items left to do on the panel's sidebar entry"
   homeassistant: 2024.8.0
   keywords: "liste tâches courses todo to-do shopping list bring todoist google tasks caldav mealie anylist ourgroceries picnic cookidoo habitica kitchenowl grocy alexa panel sidebar"
   worksWith:
@@ -5205,8 +5218,9 @@ projects:
   - "Mini card with the next three departures of each stop"
   - "SNCF national trains (TGV, OUIGO, Intercités, TER, Transilien, RER): a station's departures board with the train number, platform and delay"
   - "Illustrated city stop header: the stop's display with its countdown and the bus, metro or tram in its line colour"
+  - "STAR bike stations and park-and-rides around a stop: bikes and free spaces as sensors, and an Around the stop strip on the card"
   homeassistant: 2024.12.0
-  keywords: "transports en commun bus métro metro tram star rennes paris idfm île-de-france lyon tcl strasbourg cts toulouse tisséo bordeaux tbm montpellier tam nantes naolib lille ilévia brest bibus rouen nice tours angers le havre public transport departures horaires gtfs gtfs-rt sncf tgv ouigo intercités ter transilien rer train gare station quai"
+  keywords: "transports en commun bus métro metro tram star rennes paris idfm île-de-france lyon tcl strasbourg cts toulouse tisséo bordeaux tbm montpellier tam nantes naolib lille ilévia brest bibus rouen nice tours angers le havre public transport departures horaires gtfs gtfs-rt sncf tgv ouigo intercités ter transilien rer train gare station quai le vélo star bike share vélo libre-service parc relais park and ride"
   cardTypes:
   - public-transport-card
   - public-transport-mini-card
@@ -5217,6 +5231,14 @@ projects:
   screenshots:
   - src: card-alerts.png
     caption: "Alerts"
+    group: Card
+  - src: card-nearby.png
+    dark: card-nearby-dark.png
+    caption: "Around the stop: bikes and park-and-rides"
+    group: Card
+  - src: card-delayed.png
+    dark: card-delayed-dark.png
+    caption: "Delayed departures"
     group: Card
   - src: mini-card.png
     caption: "Default view"
@@ -5331,8 +5353,9 @@ projects:
   - "Mini card with the next lesson and homework"
   - "Optional sidebar panel: the whole school life on a full page, a tab per section, a button per student"
   - "Illustrated desk header following the student's day: the pen writing when homework is due"
+  - "The panel under the cards' illustrated desk, the student as its title, and the homework left to do counted on its sidebar entry"
   homeassistant: 2024.8.0
-  keywords: "pronote école collège lycée devoirs notes emploi du temps school homework grades timetable"
+  keywords: "pronote école collège lycée devoirs notes emploi du temps school homework grades timetable panel badge"
   worksWith:
   - slug: ha-family-link
     why: "Its timetable turns the Family Link school mode on and off"
@@ -5605,7 +5628,7 @@ projects:
   - 'Updates: Home Assistant, add-ons, devices and the Marketplace in one tab, Update all with an optional backup first and a live install progress'
   - 'Backups: the last one, the next one, each location and the last 30 days, Back up now'
   - 'Sentinel: reloads the integrations whose entities are all unavailable, power cycles through a smart plug'
-  - 'Silent devices: ZHA, Zigbee2MQTT, Z-Wave, Matter, ESPHome and deCONZ devices not heard from, and weak signals'
+  - "Silent devices: ZHA, Zigbee2MQTT, Z-Wave, Matter, ESPHome and deCONZ devices not heard from, and weak signals, with a map of the Zigbee, Matter and Z-Wave meshes"
   - Batteries, Versioning (Git) of the configuration, failed automations and Cleanup of orphan entities and devices
   - One card and one mini card for every module, status cards included, the visual editor picking the module first
   - A module turned on takes over the settings of the standalone integration it replaces
@@ -5614,10 +5637,12 @@ projects:
   - "Each tab's illustrated banner as the panel's top bar, which can be hidden for everyone or non-admins"
   - "Versioning: a changes viewer with the files and lines changed, then commit and push from the panel"
   homeassistant: 2024.12.0
-  keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status"
+  keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status mesh map zwave z-wave js réseau maillage"
   worksWith:
   - slug: ha-docker-card
     why: "The other Docker containers of the homelab"
+  - slug: ha-zwave-card
+    why: "The Z-Wave network on a dashboard"
   cardTypes:
   - system-hub-card
   - system-hub-mini-card
@@ -5678,6 +5703,18 @@ projects:
   - src: panel-silent.png
     dark: panel-silent-dark.png
     caption: Silent devices tab
+    group: Panel
+  - src: panel-silent-zigbee.png
+    dark: panel-silent-zigbee-dark.png
+    caption: "Silent devices, Zigbee network"
+    group: Panel
+  - src: panel-silent-matter.png
+    dark: panel-silent-matter-dark.png
+    caption: "Silent devices, Matter network"
+    group: Panel
+  - src: panel-silent-zwave.png
+    dark: panel-silent-zwave-dark.png
+    caption: "Silent devices, Z-Wave network"
     group: Panel
   - src: panel-settings.png
     dark: panel-settings-dark.png
@@ -6445,6 +6482,7 @@ projects:
   - "What is playing in the header, with its progress"
   - "Apple TV, Android TV Remote, Philips TV, Samsung, LG webOS, Roku, Fire TV, Freebox Player and Kodi, any key overridable"
   - "Mini card that unfolds to the full remote"
+  - "The brand of the integration as a badge on the header's icon"
   homeassistant: 2024.8.0
   keywords: "remote tv apple tv android tv philips samsung lg webos roku fire tv freebox kodi d-pad media"
   worksWith:
@@ -6654,6 +6692,67 @@ projects:
   - src: low-battery-light.gif
     dark: low-battery.gif
     caption: "Low battery"
+- slug: ha-maintenance
+  title: Maintenance
+  kind: integration
+  withCard: true
+  category: maintenance
+  icon: mdiWrenchClock
+  accent: '#0d9488'
+  tagline: "The upkeep of the home: your devices' consumables found by themselves, your recurring chores, all with a due date."
+  summary: "The consumables of your devices (vacuum brushes and filters, purifier filters, printer ink and toner, the tanks of a robot's dock) are found by themselves among their sensors, and recurring chores such as descaling, smoke detector tests or the boiler service are added in a couple of clicks. Everything gets a due date, the most urgent first, with a daily reminder, a calendar, a history, a sidebar panel and a card."
+  highlights:
+  - "Consumables found automatically among the device sensors, whatever the language Home Assistant runs in"
+  - "Days left estimated from a daily sample: a filter at 12 % shows about 18 days at its current pace"
+  - "Done presses the device's own reset button when it has one, and keeps a line in the history"
+  - "Robot dock tanks and liquids: clean water, dirty water, cleaning fluid, detergent and dust bin"
+  - "Manual tasks every N days, weeks or months, in categories, with an icon of your choice"
+  - "Overdue, soon and up to date, the most urgent first, with thresholds of your own"
+  - "Daily reminder through any notify action or Notify Hub, each item once"
+  - "Calendar entity with the due dates, and maintenance.done, add_task and remove_task actions"
+  - "Sidebar panel with the due items grouped by device, a calendar, the history and the settings, and a count while something is overdue"
+  - "Card with the Done button under an animated illustrated header"
+  - "22 languages"
+  homeassistant: 2024.12.0
+  keywords: "maintenance entretien consumables consommables filter filtre brush brosse mop serpillière ink encre toner drum tambour cartridge cartouche descaling détartrage smoke detector test chaudière boiler service chores tâches reminder rappel calendar roborock xiaomi ecovacs brother ipp homekit dock tank réservoir"
+  worksWith:
+  - slug: ha-notify-hub
+    why: "Sends its daily reminders"
+  - slug: ha-vacuum-card
+    why: "The robot vacuums whose brushes and filters it follows"
+  - slug: ha-printer-card
+    why: "The printers whose ink and toner it follows"
+  cardTypes:
+  - maintenance-card
+  hero:
+    src: panel-due.png
+    dark: panel-due-dark.png
+    caption: "Due tab"
+    group: Panel
+  screenshots:
+  - src: panel-calendar.png
+    dark: panel-calendar-dark.png
+    caption: "Calendar tab"
+    group: Panel
+  - src: panel-history.png
+    dark: panel-history-dark.png
+    caption: "History tab"
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: "Settings tab"
+    group: Panel
+  - src: card.png
+    dark: card-dark.png
+    caption: "Items due"
+    group: Card
+  - src: card-ok.png
+    dark: card-ok-dark.png
+    caption: "All up to date"
+    group: Card
+  animations:
+  - src: card-overdue.gif
+    caption: "Something overdue"
 - slug: ha-assist-card
   title: Assist Card
   kind: card
@@ -7312,6 +7411,7 @@ projects:
   - "Sidebar panel with Activity, Rules, Rooms, Journal, YAML and Settings tabs, and a count badge"
   - "Overview card and mini card, timers and activity cards, under an illustrated header with one object per family of rules"
   - "20 languages"
+  - "Rooms tab with a folding card per room, filled from the Home Assistant areas with Discover"
   homeassistant: 2024.12.0
   keywords: "house rules automations reflexes plugs prise rallumer extinction automatique timer lights flash alert vacuum aspirateur appliance resume électroménager chime carillon leak fuite presence lights présence lock serrure nap sieste quiet hours yaml panel"
   worksWith:
@@ -7389,6 +7489,68 @@ projects:
   - src: header-vacuum.gif
     dark: header-vacuum-dark.gif
     caption: "The robot vacuum cleaning"
+- slug: ha-notify-hub
+  title: Notify Hub
+  kind: integration
+  withCard: true
+  category: home
+  icon: mdiBellBadge
+  accent: '#2563eb'
+  tagline: "One hub in front of all your notifications: who gets it, on which phone, and when."
+  summary: "Your automations call one action with a priority, and the hub decides who gets the notification, on which phone and when: quiet hours, duplicates dropped, low-priority messages grouped in a digest, critical ones escalated until someone acknowledges them. Every notification is filed under its source, with rules per integration. A sidebar panel shows the journal and sets the rules; a card shows what happened today."
+  highlights:
+  - "One action for every automation, notify_hub.send, with four priorities: critical, alert, info and digest"
+  - "A notify target for every integration: notify.notify_hub can be picked wherever a notify service is asked for"
+  - "People, not phones: each person's phones found from their person entity"
+  - "Quiet hours, duplicates dropped, digests at the times you choose and an away mode"
+  - "Critical notifications with an Acknowledge button, escalated to everyone then to an SMS service, cleared on every phone once acknowledged"
+  - "Sources found by themselves from the calling automation, with rules per source: people, forced priority, quiet hours ignored, muted"
+  - "Home Assistant's persistent notifications and new repairs captured too, if you like"
+  - "Sidebar panel with the journal, routing, rules, sources and settings, and a count while something waits for an acknowledgement"
+  - "Card with today's figures and the latest notifications, under an illustrated header whose bell rings"
+  - "22 languages"
+  homeassistant: 2024.12.0
+  keywords: "notifications notify mobile app companion phone téléphone priority priorité critical acknowledge acquitter escalation sms quiet hours heures calmes digest résumé duplicates doublons away absence sources journal persistent notification repairs"
+  worksWith:
+  - slug: ha-maintenance
+    why: "Its daily reminders sent through the hub"
+  - slug: ha-house-rules
+    why: "Reflexes of the home that notify"
+  cardTypes:
+  - notify-hub-card
+  hero:
+    src: panel-journal.png
+    dark: panel-journal-dark.png
+    caption: "Journal tab"
+    group: Panel
+  screenshots:
+  - src: panel-routing.png
+    dark: panel-routing-dark.png
+    caption: "Routing tab"
+    group: Panel
+  - src: panel-rules.png
+    dark: panel-rules-dark.png
+    caption: "Rules tab"
+    group: Panel
+  - src: panel-sources.png
+    dark: panel-sources-dark.png
+    caption: "Sources tab"
+    group: Panel
+  - src: panel-settings.png
+    dark: panel-settings-dark.png
+    caption: "Settings tab"
+    group: Panel
+  - src: card.png
+    dark: card-dark.png
+    caption: "Today"
+    group: Card
+  - src: card-alert.png
+    dark: card-alert-dark.png
+    caption: "A critical notification to acknowledge"
+    group: Card
+  animations:
+  - src: card-ringing.gif
+    caption: "Waiting for an acknowledgement"
 - slug: ha-scheduler-card
   title: Scheduler Card
   kind: card
@@ -7407,6 +7569,8 @@ projects:
   - "Slots relative to sunrise or sunset, day presets (every day, workdays, weekend) and slots dragged by their edges in the weekly grid"
   - "Schedule options: conditions on other entities with guided values, a period between two dates, what happens after the last slot, duplicate"
   - "One switch under the header for every schedule of the card"
+  - "Custom actions with variables: one Heat to… action with a temperature field instead of one action per temperature"
+  - "Tag and entity filters in the visual editor"
   homeassistant: 2024.8.0
   keywords: "scheduler schedule timer timeslot weekly planning thermostat programme nielsfaber scheduler-component switch.schedule planning horaire programmation sunrise sunset lever coucher soleil conditions workday jours ouvrés"
   worksWith:
@@ -7579,6 +7743,10 @@ projects:
     group: Card
   - src: pd-mini-fridge-door.png
     caption: "Fridge door open"
+    group: Mini card
+  - src: pd-mini-radiator-climate.png
+    dark: pd-mini-radiator-climate-dark.png
+    caption: "Radiator on its pilot wire"
     group: Mini card
   animations:
   - src: pd-airfryer.gif
@@ -7793,6 +7961,8 @@ projects:
     why: "The Matter and Thread devices"
   - slug: ha-device-card
     why: "The batteries of every device"
+  - slug: ha-zwave-card
+    why: "The Z-Wave devices"
   cardTypes:
   - zigbee-card
   - zigbee-mini-card
@@ -7888,6 +8058,8 @@ projects:
     why: "The Zigbee devices"
   - slug: ha-device-card
     why: "The batteries of every device"
+  - slug: ha-zwave-card
+    why: "The Z-Wave devices"
   cardTypes:
   - matter-card
   - matter-mini-card
@@ -7928,6 +8100,75 @@ projects:
   - src: banner-unavailable.gif
     dark: banner-unavailable-dark.gif
     caption: "A node unreachable"
+- slug: ha-zwave-card
+  title: Z-Wave Card
+  kind: card
+  category: network
+  icon: mdiZWave
+  accent: '#1e6fd9'
+  tagline: "Your Z-Wave network: every node with its status, security class and protocol, and the controller it hangs on."
+  summary: "Built on Home Assistant's Z-Wave integration (Z-Wave JS): every Z-Wave node is found in the device registry with its status (alive, asleep, dead), its security class and its protocol (Z-Wave or Long Range), under an animated banner where the controller talks to its devices."
+  highlights:
+  - "Animated banner of the controller and its devices, a sleeping device dozing and a dead node turning red"
+  - "One tile per node with its security tag (S2 Access, S2 Auth, S2, S0) and an LR tag for Long Range"
+  - "Healthy tiles stay neutral: only a low battery or a dead node is coloured"
+  - "Controller tile: model, home ID, SDK and RF region, Driver disconnected in red"
+  - "Node popup: status, product, firmware, protocol, security, signal, battery and last seen"
+  - "Rebuild routes with a confirmation and its progress, and a button to the Z-Wave JS settings"
+  - "Mini card with the network's status and counts, zooming to the full card"
+  homeassistant: 2024.8.0
+  keywords: "zwave z-wave zwave_js z-wave js node controller long range lr s2 s0 security sécurité rebuild routes asleep dead battery réseau maillage mesh"
+  worksWith:
+  - slug: ha-zigbee-card
+    why: "The Zigbee devices"
+  - slug: ha-matter-card
+    why: "The Matter and Thread devices"
+  - slug: ha-system-hub
+    why: "The Z-Wave mesh among its silent devices"
+  cardTypes:
+  - zwave-card
+  - zwave-mini-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: "Nodes"
+    group: Card
+  screenshots:
+  - src: card-healthy.png
+    dark: card-healthy-dark.png
+    caption: "Healthy"
+    group: Card
+  - src: card-detail.png
+    dark: card-detail-dark.png
+    caption: "Node detail"
+    group: Card
+  - src: card-rebuild.png
+    dark: card-rebuild-dark.png
+    caption: "Rebuild routes"
+    group: Card
+  - src: card-classic.png
+    dark: card-classic-dark.png
+    caption: "Classic header"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Issues"
+    group: Mini card
+  - src: mini-card-healthy.png
+    dark: mini-card-healthy-dark.png
+    caption: "Healthy"
+    group: Mini card
+  - src: mini-card-zoom.png
+    dark: mini-card-zoom-dark.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: banner.gif
+    dark: banner-dark.gif
+    caption: "Banner"
+  - src: banner-dead.gif
+    dark: banner-dead-dark.gif
+    caption: "A dead node"
 - slug: ha-cloud-card
   title: Cloud Card
   kind: card
@@ -8010,6 +8251,8 @@ projects:
   - Cards and panels kept legible, high-contrast text, clear icons and lifting borders
   - More-info dialogs stay readable, a nearly opaque surface over a blurred, dimmed dashboard
   - Light state colours such as amber and yellow kept readable on the glass in light mode
+  - "The status palette of the ha-* cards, the same as the Neutral theme, so both themes tint the cards alike"
+  - "A frosted dashboard header: what scrolls under it is blurred"
   homeassistant: 2024.1.0
   keywords: "theme thème apple liquid glass frosted glass verre dépoli translucent blur gradient light dark"
   worksWith:
