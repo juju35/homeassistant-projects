@@ -588,6 +588,7 @@ projects:
   - Outdoor places and air quality index to suggest opening or closing the windows
   - "Setup panel in the sidebar, with room discovery and a day schedule; smart_comfort.yaml kept in sync both ways and reloaded without a restart"
   - Activity log in the panel and in an activity card for the dashboard
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   - Diagnostics with the notifiers redacted
   - Calendar of past alerts, with the peak of each episode
   - Mini card with the alerts of the moment and the switches, opening the full card
@@ -847,6 +848,8 @@ projects:
     why: "Comfort alerts and adaptive lighting, room by room"
   - slug: ha-presence-card
     why: "Who is home, and who is away"
+  - slug: ha-wall-panel
+    why: "Its room scenes on a whole dashboard for wall panels"
   cardTypes:
   - room-overview-card
   - room-sensors-card
@@ -2095,6 +2098,7 @@ projects:
   - "Alarm sidebar panel for administrators, with the tabs and settings of Alarmo's own panel: General, Sensors, Codes and Actions"
   - "Timeline tab: the activity of the alarm's sensors over 6 h, 24 h or 3 days, room by room, the armed periods shaded"
   - "The panel's top bar is the card's surveillance radar, with a round button per arm mode and Disarm"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   - "A count on the sidebar: the sensors keeping the alarm from arming, red while it is triggered"
   homeassistant: 2024.12.0
   keywords: "alarmo alarm control panel security verisure ajax manual buttons switch panel timeline sensors codes"
@@ -2283,6 +2287,7 @@ projects:
   - Streams paused while the card is off-screen
   - "Illustrated header with a camera in the cards' state: live, motion detected, privacy or offline"
   - "The panel's top bar is the card's illustrated camera, following the cameras' state; it can be hidden for non-admins or everyone"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2024.12.0
   keywords: "camera cctv privacy ptz frigate reolink tapo webrtc go2rtc panel"
   worksWith:
@@ -3941,6 +3946,7 @@ projects:
   - "Proxmox Extended Sensors: the node's CPU temperature and health, Disks (SMART health, wear) and Datastores (Proxmox Backup Server) tabs"
   - "Illustrated header: a server rack with its status lights and a PVE tag in the node's state colour"
   - "The panel under the cards' illustrated server room, in the worst state of every node and machine, and a count of what is down on its sidebar entry"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2026.11.0
   keywords: "proxmox pve virtual machines vm lxc containers node storage backups snapshot homelab panel admin card mini card proxmox_sensors extended sensors smart disks datastores pbs backup server temperature"
   worksWith:
@@ -4118,6 +4124,7 @@ projects:
   - "Mini card with a detail button showing the full card"
   - "Illustrated server room header: the rack of the overall status, its heartbeat and alarm rings"
   - "Time up instead of downtime, to follow a PC or a game console: how long it has been on and its periods up"
+  - "History over the last hours, today, yesterday or this week, as a percentage or as the time up"
   homeassistant: 2024.8.0
   keywords: "uptime kuma healthchecks ping monitoring supervision services status certificate time on pc console uptime tracking"
   worksWith:
@@ -4142,6 +4149,9 @@ projects:
     group: Card
   - src: card-problems.png
     caption: "Problems"
+    group: Card
+  - src: card-duration.png
+    caption: "Time up instead of the percentage"
     group: Card
   - src: mini-card-all-up.png
     caption: "All up"
@@ -4678,6 +4688,7 @@ projects:
   - Mini card with the next event, opening its details
   - "Illustrated header: today's tear-off calendar and a wall clock, a video call when an event is under way"
   - "Optional sidebar panel: a full-page calendar with Month, Week, Day and List tabs, and new events with a repeat rule"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2024.8.0
   keywords: "calendar agenda google caldav events panel sidebar month repeat recurring"
   worksWith:
@@ -4782,6 +4793,7 @@ projects:
   - "Illustrated kitchen header: the list on the fridge, the pencil writing while items are left"
   - "Optional sidebar panel: Home Assistant's To-do page in the cards' look, one tab per list, Local To-do lists created and deleted"
   - "The count of items left to do on the panel's sidebar entry"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2024.8.0
   keywords: "liste tâches courses todo to-do shopping list bring todoist google tasks caldav mealie anylist ourgroceries picnic cookidoo habitica kitchenowl grocy alexa panel sidebar"
   worksWith:
@@ -5354,6 +5366,7 @@ projects:
   - "Optional sidebar panel: the whole school life on a full page, a tab per section, a button per student"
   - "Illustrated desk header following the student's day: the pen writing when homework is due"
   - "The panel under the cards' illustrated desk, the student as its title, and the homework left to do counted on its sidebar entry"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2024.8.0
   keywords: "pronote école collège lycée devoirs notes emploi du temps school homework grades timetable panel badge"
   worksWith:
@@ -5542,6 +5555,7 @@ projects:
   - "Release downloads on each followed repository, with the total; open issues and pull requests on the sidebar, refreshed on a schedule"
   - "Animated developer's desk header, following the open issues and pull requests"
   - "The panel's top bar is the illustrated desk, with a To handle card of the latest issues and pull requests; the top bar can be hidden"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2026.11.0
   keywords: "github repositories repos stars issues pull requests releases commits git panel notifications downloads badge"
   cardTypes:
@@ -5636,6 +5650,7 @@ projects:
   - "Illustrated header on every module card, each with its own animated scene in the colour of its status"
   - "Each tab's illustrated banner as the panel's top bar, which can be hidden for everyone or non-admins"
   - "Versioning: a changes viewer with the files and lines changed, then commit and push from the panel"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2024.12.0
   keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status mesh map zwave z-wave js réseau maillage"
   worksWith:
@@ -6711,6 +6726,7 @@ projects:
   - "Daily reminder through any notify action or Notify Hub, each item once"
   - "Calendar entity with the due dates, and maintenance.done, add_task and remove_task actions"
   - "Sidebar panel with the due items grouped by device, a calendar, the history and the settings, and a count while something is overdue"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   - "Card with the Done button under an animated illustrated header"
   - "22 languages"
   homeassistant: 2024.12.0
@@ -7083,6 +7099,7 @@ projects:
   - "A count on the sidebar: words to sign, homework to do and unread messages of every child"
   - "Animated school corner header: the pen writing when there is homework or a word to sign, the unread messages"
   - "The panel's top bar is the card's school corner, with a child filter, a week strip of the homework and chart tiles"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2024.12.0
   keywords: "ent one edifice école primaire school cahier de liaison homework devoirs messages news blog éducation nationale académie neo"
   worksWith:
@@ -7409,6 +7426,7 @@ projects:
   - "Import from the plug labels, from recognised automations (turned off, never deleted) and from Smart Comfort's lights on presence"
   - "Naps shared with Smart Comfort through a schedule helper per room"
   - "Sidebar panel with Activity, Rules, Rooms, Journal, YAML and Settings tabs, and a count badge"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   - "Overview card and mini card, timers and activity cards, under an illustrated header with one object per family of rules"
   - "20 languages"
   - "Rooms tab with a folding card per room, filled from the Home Assistant areas with Discover"
@@ -7507,6 +7525,7 @@ projects:
   - "Sources found by themselves from the calling automation, with rules per source: people, forced priority, quiet hours ignored, muted"
   - "Home Assistant's persistent notifications and new repairs captured too, if you like"
   - "Sidebar panel with the journal, routing, rules, sources and settings, and a count while something waits for an acknowledgement"
+  - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   - "Card with today's figures and the latest notifications, under an illustrated header whose bell rings"
   - "22 languages"
   homeassistant: 2024.12.0
@@ -8109,7 +8128,7 @@ projects:
   tagline: "Your Z-Wave network: every node with its status, security class and protocol, and the controller it hangs on."
   summary: "Built on Home Assistant's Z-Wave integration (Z-Wave JS): every Z-Wave node is found in the device registry with its status (alive, asleep, dead), its security class and its protocol (Z-Wave or Long Range), under an animated banner where the controller talks to its devices."
   highlights:
-  - "Animated banner of the controller and its devices, a sleeping device dozing and a dead node turning red"
+  - "Animated banner of the controller and its devices, a sleeping device dozing, a dead node turning red and a disconnected driver going grey"
   - "One tile per node with its security tag (S2 Access, S2 Auth, S2, S0) and an LR tag for Long Range"
   - "Healthy tiles stay neutral: only a low battery or a dead node is coloured"
   - "Controller tile: model, home ID, SDK and RF region, Driver disconnected in red"
@@ -8146,6 +8165,9 @@ projects:
     dark: card-rebuild-dark.png
     caption: "Rebuild routes"
     group: Card
+  - src: card-disconnected.png
+    caption: "Driver disconnected"
+    group: Card
   - src: card-classic.png
     dark: card-classic-dark.png
     caption: "Classic header"
@@ -8169,6 +8191,8 @@ projects:
   - src: banner-dead.gif
     dark: banner-dead-dark.gif
     caption: "A dead node"
+  - src: banner-disconnected.gif
+    caption: "Driver disconnected"
 - slug: ha-cloud-card
   title: Cloud Card
   kind: card
@@ -8323,6 +8347,8 @@ projects:
     why: "The theme it is designed for"
   - slug: ha-vehicle-card
     why: "The cars' own pictures on the Cars scene"
+  - slug: ha-wall-panel
+    why: "The same illustrated headers, on small wall panels"
   hero:
     src: scene-maison.png
     dark: scene-maison-dark.png
@@ -8397,3 +8423,99 @@ projects:
   - src: rain.gif
     dark: rain-dark.gif
     caption: "Rain on the terrace"
+- slug: ha-wall-panel
+  title: Wall Panel
+  kind: card
+  category: themes
+  icon: mdiTabletDashboard
+  accent: '#2f6fdc'
+  tagline: "A whole dashboard for small wall panels: one screen per room, its devices found by themselves."
+  summary: "Made for the Sonoff NSPanel Pro and the Shelly Wall Display X1i / X2i: every Home Assistant area gets its own screen, its devices detected automatically, under the illustrated headers of the ha-* cards, with big tiles you can hit with a finger and text you can read from across the room. A home screen shows what needs a look and every room; everything the detection decides can be changed from the panel itself or in YAML."
+  highlights:
+  - "One screen per room, built from your areas: lights, covers, climate, media, locks, alarms, plugs, appliances, vacuums, cameras, sensors and scenes"
+  - "Home screen: the cutaway house lit room by room, what needs a look as a row of chips and every room on one line, without scrolling"
+  - "Illustrated 90 px headers following each room's state, and a hero tile with what matters most right now"
+  - "Square, landscape and portrait layouts from the screen's shape; four columns on a large landscape like the Shelly X2i"
+  - "Room bar at the bottom or rail on the left, configurable per layout"
+  - "Tap to toggle, press and hold for the controls and Customize: size, room, pin, show, group"
+  - "Night screensaver with the dark theme: a dim clock, the temperature and what needs a look"
+  - "Always-on friendly: burn-in pixel shift, still scenes on demand, only what changed redrawn"
+  - "Smoke, gas and CO detectors raised on the home screen and in the room"
+  - "Kiosk mode, back to the start screen after a while, one room per panel with ?room="
+  - "Light and dark, 22 languages"
+  homeassistant: 2024.8.0
+  keywords: "wall panel tablette murale écran mural dashboard tableau de bord strategy stratégie nspanel nspanel pro sonoff shelly wall display x1i x2i kiosk kiosque rooms pièces areas screensaver économiseur"
+  worksWith:
+  - slug: ha-room-card
+    why: "Its room scenes in every header"
+  - slug: ha-dashboard-header
+    why: "The same illustrated headers on your other dashboards"
+  cardTypes:
+  - wall-panel-card
+  hero:
+    src: square-home.png
+    caption: "Home"
+    group: Square
+  screenshots:
+  - src: square-living.png
+    caption: "Living room"
+    group: Square
+  - src: square-kitchen.png
+    caption: "Kitchen"
+    group: Square
+  - src: square-bedroom.png
+    caption: "Bedroom"
+    group: Square
+  - src: square-entrance.png
+    caption: "Entrance"
+    group: Square
+  - src: square-bathroom.png
+    caption: "Bathroom"
+    group: Square
+  - src: square-kids.png
+    caption: "Kids' room"
+    group: Square
+  - src: square-office.png
+    caption: "Office"
+    group: Square
+  - src: landscape-living.png
+    caption: "Living room"
+    group: Landscape
+  - src: landscape-home.png
+    caption: "Home"
+    group: Landscape
+  - src: wide-living.png
+    caption: "Living room, large landscape"
+    group: Landscape
+  - src: wide-home.png
+    caption: "Home, large landscape"
+    group: Landscape
+  - src: portrait-living.png
+    caption: "Portrait"
+    group: Portrait
+  - src: portrait-x2i-living.png
+    caption: "Portrait, Shelly X2i"
+    group: Portrait
+  - src: detail-cover.png
+    caption: "Cover controls"
+    group: Controls
+  - src: detail-climate.png
+    caption: "Thermostat controls"
+    group: Controls
+  - src: customize.png
+    caption: "Customize a tile"
+    group: Controls
+  - src: saver.png
+    caption: "Night screensaver"
+    group: Screensaver
+  animations:
+  - src: banner-home.gif
+    caption: "Home"
+  - src: banner-lights.gif
+    caption: "Lights on"
+  - src: banner-air.gif
+    caption: "Stale air"
+  - src: banner-humid.gif
+    caption: "Humid bathroom"
+  - src: banner-sensors.gif
+    caption: "A door left open"
