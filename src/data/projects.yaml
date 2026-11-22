@@ -78,20 +78,55 @@ contributors:
   contribution: Fixes for the discovery of Dreame robots and the flickering map
   project: ha-vacuum-card
 - login: domwu0001
-  contribution: German translation proposal
+  contribution: German translation
   project: ha-vacuum-card
-- login: FredM67
-  contribution: Detection of the Home Connect hob, with the analysis and the patch
-  project: ha-smart-appliance-card
 - login: aubierr
   contribution: ASUSTOR support through his ha-asustor integration, with the drawings of the 83 models
   project: ha-nas-card
-- login: FredM67
-  contribution: Detection of the sub-device warning in the discovery, with the patch
-  project: ha-smart-comfort
 - login: briis
   contribution: Mercedes-Benz logo, also picked from the mbapi2020 integration
   project: ha-vehicle-card
+- login: nvcs
+  contribution: A group member shown with its leader's playback state, with the patch
+  project: ha-media-card
+- login: domwu0001
+  contribution: German translation
+  project: ha-smart-appliance-card
+- login: domwu0001
+  contribution: German translation
+  project: ha-printer-card
+- login: FredM67
+  contribution: Detection of the Home Connect hob, the power state select kept out of the program options and the right times of a delayed start, with the patches
+  project: ha-smart-appliance-card
+- login: FredM67
+  contribution: "Discovery fixes, with the patches: the sub-device warning, humidifying purifiers kept, living spaces remembered, appliance sensors left out of the room's climate"
+  project: ha-smart-comfort
+- login: FredM67
+  contribution: The My pull requests tab, listing your open pull requests across all repositories
+  project: ha-github
+- login: FredM67
+  contribution: The whole run's progress on the install bar, and a module taking over the standalone integration's settings
+  project: ha-system-hub
+- login: FredM67
+  contribution: Apparent power per phase (SINSTS1-3)
+  project: ha-zlinky-card
+- login: FredM67
+  contribution: The Marketplace check skipped on pull requests from forks, in every repository
+- login: godric
+  contribution: Support of Samsung appliances through LocalThings
+  project: ha-smart-appliance-card
+- login: CHLINDE
+  contribution: Wake-on-LAN targets and the detection of a powered-off NAS
+  project: ha-nas-card
+- login: ytorres
+  contribution: Livebox fibre (GPON/SFP) discovery, the Arcadyan model and the missed calls count
+  project: ha-internet-box-card
+- login: mtheli
+  contribution: Support of the iRobot Braava 240
+  project: ha-vacuum-card
+- login: BugsBunny1403
+  contribution: The right address of the Orange Internet On the move portal
+  project: ha-orange-internet-on-the-move
 projects:
 - slug: ha-weather-card
   title: Weather Plus Card
