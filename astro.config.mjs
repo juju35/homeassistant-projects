@@ -3,6 +3,7 @@ import { copyFile, mkdir, readdir, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDist } from "./src/lib/dist-check.mjs";
+import { spriteDist } from "./src/lib/svg-sprite.mjs";
 
 // The screenshots re-encoded during the build (src/lib/optimize.ts) are copied from its cache to dist/img/.
 const CACHE_DIR = join(process.cwd(), "node_modules", ".cache", "hp-images");
@@ -18,6 +19,17 @@ const optimizedImages = {
       // Forget the encodings of captures that changed or left the site
       for (const f of await readdir(CACHE_DIR)) if (!used.has(f)) await rm(join(CACHE_DIR, f), { force: true });
       logger.info(`${used.size} optimized images copied to img/`);
+    },
+  },
+};
+
+// Repeated inline SVG drawings (icons, the Marketplace chip) written once per page as a sprite (src/lib/svg-sprite.mjs).
+const svgSprite = {
+  name: "svg-sprite",
+  hooks: {
+    "astro:build:done": async ({ dir, logger }) => {
+      const saved = await spriteDist(fileURLToPath(dir));
+      logger.info(`repeated SVG drawings moved to sprites: ${Math.round(saved / 1024)} KiB saved`);
     },
   },
 };
@@ -58,5 +70,5 @@ export default defineConfig({
   base: "/homeassistant-projects",
   trailingSlash: "always",
   redirects: Object.fromEntries(Object.entries(renamed).map(([o, n]) => [`/projects/${o}/`, `/homeassistant-projects/projects/${n}/`])),
-  integrations: [optimizedImages, distChecks],
+  integrations: [optimizedImages, svgSprite, distChecks],
 });
