@@ -723,6 +723,8 @@ projects:
   worksWith:
   - slug: ha-climate-air-card
     why: "Air conditioners, fans and purifiers; the thermostats moved here from it"
+  - slug: ha-tank-card
+    why: "The oil, propane or pellets left in the tank"
   cardTypes:
   - heating-card
   - heating-mini-card
@@ -1059,13 +1061,22 @@ projects:
   - Mini card with a detail button switching to the full card
   - "A second inverter read from a power sensor or a CT clamp (Fox ESS CT2), and a clamp in place of a slow integration reading"
   - "Animated header: the house, its solar panels, battery and grid pylon linked by the live power flows"
+  - "Plug-and-play solar: Anker Solix, EcoFlow, Zendure, Marstek, Hoymiles Wi-Fi and Beem, panels hung on the balcony of the header's house"
+  - "Forecast section: today's production against Forecast.Solar, Solcast or Open-Meteo, ahead or behind, and tomorrow"
+  - "Savings: today's self-consumed solar and export valued, this month and this year, with the Tempo red-day banner"
   homeassistant: 2024.8.0
-  keywords: "solar photovoltaic pv panneaux solaires inverter onduleur battery batterie powerwall enphase solaredge fronius huawei sma growatt apsystems solax goodwe foxess fox ess micro-inverters strings energy clamp ct2"
+  keywords: "solar photovoltaic pv panneaux solaires inverter onduleur battery batterie powerwall enphase solaredge fronius huawei sma growatt apsystems solax goodwe foxess fox ess micro-inverters strings energy clamp ct2 balcon balcony plug and play anker solix ecoflow zendure marstek hoymiles beem prévision forecast économies savings tempo"
   worksWith:
   - slug: ha-zlinky-card
     why: "What the Linky meter draws from the grid"
   - slug: ha-tempo-card
     why: "The Tempo day colors, to save the sun for red days"
+  - slug: ha-solar-forecast-card
+    why: "Today's forecast hour by hour and the best time to run appliances"
+  - slug: ha-solar-roof-card
+    why: "Each panel of the roof, and the ones to check"
+  - slug: ha-solar-router-card
+    why: "Where the solar surplus goes"
   cardTypes:
   - energy-card
   - energy-mini-card
@@ -1095,6 +1106,20 @@ projects:
     dark: card-foxess.png
     caption: "Fox ESS"
     group: Card
+  - src: card-anker.png
+    caption: Anker Solix balcony kit
+    group: Card
+  - src: card-ecoflow-light.png
+    dark: card-ecoflow.png
+    caption: EcoFlow
+    group: Card
+  - src: card-savings.png
+    caption: Forecast and savings
+    group: Card
+  - src: card-red-day-light.png
+    dark: card-red-day.png
+    caption: Tempo red day
+    group: Card
   - src: card-confirm.png
     dark: card-confirm-dark.png
     caption: Confirmation before a switch
@@ -1114,6 +1139,9 @@ projects:
   - src: mini-card-powerwall.png
     dark: mini-card-powerwall-dark.png
     caption: Tesla Powerwall
+    group: Mini card
+  - src: mini-card-anker.png
+    caption: Anker Solix
     group: Mini card
   - src: mini-card-zoom.png
     dark: mini-card-zoom-dark.png
@@ -4303,6 +4331,8 @@ projects:
     why: "The car being charged, its range and battery level"
   - slug: ha-energy-card
     why: "Solar production to charge from the sun"
+  - slug: ha-solar-router-card
+    why: "Charges on the solar surplus"
   cardTypes:
   - ev-charger-card
   - ev-charger-mini-card
@@ -4694,6 +4724,8 @@ projects:
   worksWith:
   - slug: ha-waste-card
     why: "Waste collections from the same calendars"
+  - slug: ha-countdown-card
+    why: "The days left to the next birthday or trip"
   cardTypes:
   - calendar-agenda-card
   - calendar-agenda-mini-card
@@ -4799,6 +4831,8 @@ projects:
   worksWith:
   - slug: ha-calendar-card
     why: "Appointments and things to do, side by side"
+  - slug: ha-meal-card
+    why: "The shopping list next to the week's meals"
   cardTypes:
   - todo-card
   - todo-mini-card
@@ -4913,6 +4947,9 @@ projects:
 - slug: ha-parcel
   title: Parcel
   kind: integration
+  worksWith:
+  - slug: ha-mailbox-card
+    why: "The parcels expected today next to the mail in the letterbox"
   withCard: true
   category: everyday
   icon: mdiPackageVariantClosed
@@ -5091,6 +5128,9 @@ projects:
   - "Illustrated media room header with the player's own device drawn big, animated as it plays"
   homeassistant: 2024.8.0
   keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver jellyfin alexa echo amazon homepod apple tv philips ambilight remote"
+  worksWith:
+  - slug: ha-media-server-card
+    why: "What the Jellyfin, Plex or Emby server streams"
   cardTypes:
   - media-card
   - media-mini-card
@@ -6030,6 +6070,8 @@ projects:
     why: "Shows the Marketplace updates next to it"
   - slug: ha-integration-watchdog
     why: "Shows the unavailable integrations next to it"
+  - slug: ha-pc-card
+    why: "The desktop computers of the home"
   cardTypes:
   - system-monitor-card
   - system-monitor-mini-card
@@ -6418,6 +6460,8 @@ projects:
     why: "The full Pronote timetable, homework and grades"
   - slug: ha-calendar-card
     why: "The family agenda"
+  - slug: ha-chores-card
+    why: "The kids' chores of the day"
   cardTypes:
   - family-day-card
   - family-day-mini-card
@@ -7019,6 +7063,8 @@ projects:
     why: "The off-peak and blue days, to heat the tank when it is cheap"
   - slug: ha-energy-card
     why: "What the home produces and draws, the water heater included"
+  - slug: ha-solar-router-card
+    why: "Heats the water with the solar surplus"
   cardTypes:
   - water-heater-card
   - water-heater-mini-card
@@ -8519,3 +8565,645 @@ projects:
     caption: "Humid bathroom"
   - src: banner-sensors.gif
     caption: "A door left open"
+- slug: ha-solar-forecast-card
+  title: Solar Forecast Card
+  kind: card
+  category: energy
+  icon: mdiSunClock
+  accent: '#f59f00'
+  tagline: "Today's solar forecast hour by hour, what was produced against it, and the best time to run appliances."
+  summary: "Cards for the solar forecast of Forecast.Solar, Solcast or Open-Meteo Solar Forecast: today as a ribbon of hours coloured by their energy, the hours already produced coloured by the actual production, whether the day is on track, above or below the forecast, the best hours left to run appliances, and the next two days."
+  highlights:
+  - "Today as a ribbon of hours, each in the colour of its forecast energy, the hours produced in the actual production"
+  - "The best hours left today to run the dishwasher or the washing machine, tomorrow's once the sun is gone"
+  - "Produced, still to come and the power now, with on track, above or below the forecast"
+  - "Tomorrow and the day after as thinner ribbons with their totals"
+  - "Forecast.Solar, Solcast PV Forecast and Open-Meteo Solar Forecast found automatically, planes added up"
+  - "Days counted in Home Assistant's time zone, daylight saving days included"
+  - "Mini card with the share of the day produced as a ring around the badge"
+  - "Illustrated header: the sun follows its arc over a house with panels, a cloud below the forecast, the moon by night"
+  homeassistant: 2024.8.0
+  keywords: "solar forecast prévision production solaire forecast.solar solcast open-meteo pv panneaux heures creuses best time appliances"
+  worksWith:
+  - slug: ha-energy-card
+    why: "The live power flow and the savings of the same panels"
+  - slug: ha-solar-router-card
+    why: "Sends the surplus of the sunny hours to the water heater"
+  cardTypes:
+  - solar-forecast-card
+  - solar-forecast-mini-card
+  hero:
+    src: sf-on_track.png
+    caption: "On track"
+    group: Card
+  screenshots:
+  - src: sf-below.png
+    caption: "Below the forecast"
+    group: Card
+  - src: sf-above.png
+    caption: "Above the forecast"
+    group: Card
+  - src: sf-night.png
+    caption: "Night"
+    group: Card
+  - src: sf-sensors.png
+    caption: "Sensors only"
+    group: Card
+  - src: sf-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: sf-mini-on_track.png
+    caption: "Producing"
+    group: Mini card
+  - src: sf-mini-night.png
+    caption: "Night"
+    group: Mini card
+  - src: sf-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: sf-producing.gif
+    caption: "Producing animation"
+  - src: sf-mini-producing.gif
+    caption: "Mini, producing animation"
+- slug: ha-solar-roof-card
+  title: Solar Roof Card
+  kind: card
+  category: energy
+  icon: mdiSolarPanelLarge
+  accent: '#1c7ed6'
+  tagline: "Every panel of the roof in a heat grid by string, and the ones producing less than their neighbours."
+  summary: "Cards for the panel-level data of micro-inverters and optimizers (Enphase, OpenDTU, AhoyDTU, Hoymiles, APsystems, Huawei, SolarEdge, Fox ESS): one cell per panel coloured by its power, each string with its total, and an alert for the panels that make much less than the others or report nothing."
+  highlights:
+  - "A heat grid per string: one cell per panel with its power, coloured by its share of the strongest"
+  - "Low and silent panels flagged against the median of their string, with since when"
+  - "Nothing flagged by night nor while the sun is under 10°, micro-inverters asleep are not silent"
+  - "Power now with the peak power, today's energy and the panels to check"
+  - "Enphase Envoy, OpenDTU, AhoyDTU, Hoymiles, APsystems ECU, Huawei Solar, SolarEdge optimizers and Fox ESS"
+  - "Any number of panels, no layout to draw"
+  - "Mini card with the share of panels in line as a ring and one small cell per panel"
+  - "Illustrated header: a roof of ten panels, those to check in red, a glint sweeping over them while they produce"
+  homeassistant: 2024.8.0
+  keywords: "solar panels panneaux micro-onduleurs micro-inverters strings enphase opendtu ahoydtu hoymiles apsystems huawei solaredge optimiseurs fox ess défaut panel fault"
+  worksWith:
+  - slug: ha-energy-card
+    why: "The power flow of the whole installation"
+  - slug: ha-solar-forecast-card
+    why: "Whether the day is on track with the forecast"
+  cardTypes:
+  - solar-roof-card
+  - solar-roof-mini-card
+  hero:
+    src: sr-alert.png
+    caption: "Two panels to check"
+    group: Card
+  screenshots:
+  - src: sr-ok.png
+    caption: "Every panel fine"
+    group: Card
+  - src: sr-night.png
+    caption: "Night"
+    group: Card
+  - src: sr-many.png
+    caption: "24 micro-inverters"
+    group: Card
+  - src: sr-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: sr-mini-alert.png
+    caption: "Two panels to check"
+    group: Mini card
+  - src: sr-mini-ok.png
+    caption: "Every panel fine"
+    group: Mini card
+  - src: sr-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: sr-producing.gif
+    caption: "Producing animation"
+  - src: sr-mini-producing.gif
+    caption: "Mini, producing animation"
+- slug: ha-solar-router-card
+  title: Solar Router Card
+  kind: card
+  category: energy
+  icon: mdiSunWireless
+  accent: '#2f9e44'
+  tagline: "The solar surplus and the devices it feeds: water heater, EV charger, pool pump, heaters."
+  summary: "Cards for a solar router or a surplus manager (Solar Router for ESPHome, Solar Optimizer, PV Excess Control, Shelly, ESPHome, MQTT): the surplus now and the energy routed today, then one tile per device with whether it runs on the surplus or from the grid, its power, its progress and its energy of the day."
+  highlights:
+  - "The surplus now and the energy routed today, on a band green while there is surplus"
+  - "One tile per device: on surplus, from the grid or waiting, its power, progress and energy of the day"
+  - "Water heaters, EV chargers, pool pumps, heaters and anything else, each with its icon and colour"
+  - "The surplus from a router's sensor, or from what the grid meter exports"
+  - "Solar Router for ESPHome, Solar Optimizer, PV Excess Control, Shelly, ESPHome and MQTT"
+  - "Mini card with the power routed and the device it feeds"
+  - "Illustrated header: the surplus running from the panels to the water heater, the EV charger and the pool"
+  homeassistant: 2024.8.0
+  keywords: "solar router routeur solaire surplus excédent autoconsommation water heater chauffe-eau cumulus ev charger borne pool piscine solar optimizer pv excess control esphome shelly"
+  worksWith:
+  - slug: ha-energy-card
+    why: "The whole power flow and the savings"
+  - slug: ha-water-heater-card
+    why: "The water heater the surplus heats"
+  - slug: ha-ev-charger-card
+    why: "The charger that takes the surplus"
+  cardTypes:
+  - solar-router-card
+  - solar-router-mini-card
+  hero:
+    src: sr-surplus.png
+    caption: "Surplus available"
+    group: Card
+  screenshots:
+  - src: sr-waiting.png
+    caption: "Waiting for surplus"
+    group: Card
+  - src: sr-night.png
+    caption: "Night"
+    group: Card
+  - src: sr-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: sr-mini-night.png
+    caption: "Night"
+    group: Mini card
+  - src: sr-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: sr-routing.gif
+    caption: "Routing"
+  - src: sr-mini-routing.gif
+    caption: "Mini card, routing"
+- slug: ha-tank-card
+  title: Tank Card
+  kind: card
+  category: energy
+  icon: mdiStorageTank
+  accent: '#e8590c'
+  tagline: "Heating oil, propane, pellets or rainwater: the days left, when to order and the last 30 days of use."
+  summary: "Cards for a tank level sensor (Mopeka, OilFox, Smart Oil Gauge, ESPHome, Zigbee): the days left at the current use, a runway to empty with the day to order by before the delivery time, the level and the use with its trend, and the last 30 days with the refills marked."
+  highlights:
+  - "Days left at the current use, with the quantity of the capacity"
+  - "Runway to empty: the day to order by, the delivery time hatched before the tank runs dry"
+  - "Heating oil, propane, pellets and rainwater, each with its colour and its own tank drawn"
+  - "Any level sensor: a share in %, a volume, a mass or the distance to the surface"
+  - "Use from a daily sensor or from the recorder's statistics, refills told apart"
+  - "Last 30 days of use with the refills marked"
+  - "Mini card with the level as a ring around the badge"
+  - "Illustrated header: the tank in its boiler room, filled to its level, the liquid swaying"
+  homeassistant: 2024.8.0
+  keywords: "tank cuve fioul heating oil propane gpl lpg pellets granulés silo rainwater récupérateur eau de pluie mopeka oilfox smart oil gauge level niveau"
+  worksWith:
+  - slug: ha-heating-card
+    why: "The heating the tank feeds"
+  - slug: ha-utility-meter-card
+    why: "Gas, water and electricity meters next to the tank"
+  cardTypes:
+  - tank-card
+  - tank-mini-card
+  hero:
+    src: tank-oil.png
+    caption: "Heating oil"
+    group: Card
+  screenshots:
+  - src: tank-pellets.png
+    caption: "Pellets, order now"
+    group: Card
+  - src: tank-oil_soon.png
+    caption: "Order soon"
+    group: Card
+  - src: tank-propane.png
+    caption: "Propane"
+    group: Card
+  - src: tank-water.png
+    caption: "Rainwater"
+    group: Card
+  - src: tank-empty.png
+    caption: "Almost empty"
+    group: Card
+  - src: tank-history.png
+    caption: "No history yet"
+    group: Card
+  - src: tank-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: tank-mini-oil.png
+    caption: "Heating oil"
+    group: Mini card
+  - src: tank-mini-pellets.png
+    caption: "Pellets"
+    group: Mini card
+  - src: tank-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: tank-liquid.gif
+    caption: "Liquid animation"
+- slug: ha-meal-card
+  title: Meal Card
+  kind: card
+  category: everyday
+  icon: mdiSilverwareForkKnife
+  accent: '#f76707'
+  tagline: "Tonight's dinner, the week's meals as plates and the shopping list to tick off."
+  summary: "Cards for the meal plan of Mealie, Grocy, KitchenOwl or Cookidoo and the shopping list of any to-do list (Bring!, OurGroceries, Local To-do): tonight's dinner in big, today's lunch, the week as a row of plates, and the shopping list by aisle, ticked off with a tap."
+  highlights:
+  - "Tonight's dinner in big, with its time and servings, or nothing planned"
+  - "The week as plates, today marked, a dashed plate when nothing is planned"
+  - "The shopping list by aisle, ticked off or put back with a tap"
+  - "Mealie, Grocy, KitchenOwl and Cookidoo plans, Bring!, OurGroceries or any to-do list"
+  - "Mealie details for every user, admin or not"
+  - "Mini card with tonight's dinner and what is left to buy"
+  - "Illustrated header: a kitchen corner whose pot steams while a dinner is planned"
+  homeassistant: 2024.8.0
+  keywords: "meal plan repas menu dîner déjeuner courses shopping list liste mealie grocy kitchenowl cookidoo bring ourgroceries recette"
+  worksWith:
+  - slug: ha-chores-card
+    why: "The household's day next to its meals"
+  - slug: ha-todo-card
+    why: "Other to-do lists of the home"
+  cardTypes:
+  - meal-card
+  - meal-mini-card
+  hero:
+    src: ml-planned.png
+    caption: "Dinner planned"
+    group: Card
+  screenshots:
+  - src: ml-unplanned.png
+    caption: "Nothing tonight"
+    group: Card
+  - src: ml-done.png
+    caption: "Next 7 days"
+    group: Card
+  - src: ml-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: ml-mini-planned.png
+    caption: "Dinner planned"
+    group: Mini card
+  - src: ml-mini-unplanned.png
+    caption: "Nothing tonight"
+    group: Mini card
+  - src: ml-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: ml-cooking.gif
+    caption: "Cooking animation"
+  - src: ml-mini-cooking.gif
+    caption: "Mini, cooking animation"
+- slug: ha-chores-card
+  title: Chores Card
+  kind: card
+  category: family
+  icon: mdiBroom
+  accent: '#7048e8'
+  tagline: "Everyone's chores of the day in one checklist, the overdue ones first, and the kids' points."
+  summary: "Cards for household chores from Chore Helper, Donetick, Grocy, KidsChores or any to-do list: one checklist of the day with each person's avatar, the overdue chores first, a tap to tick one off, a filter per person and the kids' points toward their reward."
+  highlights:
+  - "One checklist of the day, each chore with its person's avatar and points"
+  - "Overdue chores first, with how long they have waited"
+  - "Tick off with a tap: to-do items, Chore Helper chores, Grocy chores"
+  - "A filter per person and the kids' points left before the reward"
+  - "Chore Helper, Donetick, Grocy, KidsChores and any to-do list"
+  - "Mini card with the chores done as a progress ring"
+  - "Illustrated header: a tidy room where the broom sweeps while chores are left, stars once all is done"
+  homeassistant: 2024.8.0
+  keywords: "chores tâches ménagères corvées household ménage enfants kids points reward récompense donetick grocy chore helper kidschores todo"
+  worksWith:
+  - slug: ha-meal-card
+    why: "The meals of the same household"
+  - slug: ha-family-day-card
+    why: "Whether there is school tomorrow"
+  cardTypes:
+  - chores-card
+  - chores-mini-card
+  hero:
+    src: chores-overdue.png
+    caption: "Overdue chores"
+    group: Card
+  screenshots:
+  - src: chores-kid.png
+    caption: "One person"
+    group: Card
+  - src: chores-plain.png
+    caption: "Nothing overdue"
+    group: Card
+  - src: chores-done.png
+    caption: "All done"
+    group: Card
+  - src: chores-classic.png
+    caption: "Classic header"
+    group: Card
+  - src: chores-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: chores-mini-overdue.png
+    caption: "Overdue"
+    group: Mini card
+  - src: chores-mini-done.png
+    caption: "All done"
+    group: Mini card
+  - src: chores-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: chores-sweeping.gif
+    caption: "Sweeping animation"
+  - src: chores-done.gif
+    caption: "All done animation"
+- slug: ha-countdown-card
+  title: Countdown Card
+  kind: card
+  category: family
+  icon: mdiCalendarStar
+  accent: '#d6336c'
+  tagline: "Birthdays, holidays, trips and anniversaries: the next one in big and the days left to each."
+  summary: "Cards counting down to the events that matter, from calendars, Anniversaries sensors, date helpers or a list in the card: the next event in big with the age reached or the years, then the ones coming up with the days left to each."
+  highlights:
+  - "The next event in big: its picture by type, the days left, the age reached or the years"
+  - "Coming up: the next ones with their date and a pill of the days left"
+  - "Calendars, Anniversaries sensors, date helpers, timestamp sensors and a list in the card"
+  - "Birthdays, holidays, trips and anniversaries recognised by name in 22 languages"
+  - "29 February birthdays kept on the 28th, all-day events right across daylight saving"
+  - "Mini card with a calendar page of the next event"
+  - "Illustrated header: bunting, balloons that sway and confetti on the day itself"
+  homeassistant: 2024.8.0
+  keywords: "countdown compte à rebours anniversaire birthday vacances holidays voyage trip anniversaire de mariage anniversaries calendrier calendar jours restants"
+  worksWith:
+  - slug: ha-calendar-card
+    why: "The full agenda behind the countdown"
+  - slug: ha-family-day-card
+    why: "School days and holidays"
+  cardTypes:
+  - countdown-card
+  - countdown-mini-card
+  hero:
+    src: cd-soon.png
+    caption: "In 3 days"
+    group: Card
+  screenshots:
+  - src: cd-today.png
+    caption: "Today"
+    group: Card
+  - src: cd-later.png
+    caption: "Later"
+    group: Card
+  - src: cd-none.png
+    caption: "Nothing coming up"
+    group: Card
+  - src: cd-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: cd-mini-soon.png
+    caption: "In 3 days"
+    group: Mini card
+  - src: cd-mini-today.png
+    caption: "Today"
+    group: Mini card
+  - src: cd-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: cd-soon.gif
+    caption: "Balloons animation"
+  - src: cd-today.gif
+    caption: "Confetti animation"
+- slug: ha-sports-card
+  title: Sports Card
+  kind: card
+  category: appliances
+  icon: mdiScoreboard
+  accent: '#1098ad'
+  tagline: "Your teams' games: live score and clock, the next kick-off and channel, the last result."
+  summary: "Cards for TeamTracker: the live score with the clock and how far the game has gone, the win probability and the last play; before kick-off the date, venue, channel and odds; after it the result. Several teams get a tab each."
+  highlights:
+  - "Live score, clock with its quarter or period, and a bar of how far the game has gone"
+  - "Win probability and the last play while live"
+  - "Before kick-off the opponent, the date, the venue, the TV channel and the odds; after it the result"
+  - "Several teams in tabs, opening on the live game"
+  - "Crests from TeamTracker, else a shield in the team's colours"
+  - "Mini card with a small scoreboard over the stadium"
+  - "Illustrated header: a stadium whose floodlights shine while the game is live"
+  homeassistant: 2024.8.0
+  keywords: "sports score match football soccer nfl nba nhl mlb rugby teamtracker équipe team live score kick-off coup d'envoi"
+  worksWith:
+  - slug: ha-media-card
+    why: "The TV the game is on"
+  cardTypes:
+  - sports-card
+  - sports-mini-card
+  hero:
+    src: sp-live.png
+    caption: "Live"
+    group: Card
+  screenshots:
+  - src: sp-multi.png
+    caption: "Several teams"
+    group: Card
+  - src: sp-pre.png
+    caption: "Before kick-off"
+    group: Card
+  - src: sp-post.png
+    caption: "After"
+    group: Card
+  - src: sp-bye.png
+    caption: "Bye week"
+    group: Card
+  - src: sp-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: sp-mini-live.png
+    caption: "Live"
+    group: Mini card
+  - src: sp-mini-pre.png
+    caption: "Before kick-off"
+    group: Mini card
+  - src: sp-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: sp-live.gif
+    caption: "Live animation"
+  - src: sp-mini-live.gif
+    caption: "Mini, live animation"
+- slug: ha-pc-card
+  title: PC Card
+  kind: card
+  category: servers
+  icon: mdiDesktopTowerMonitor
+  accent: '#4263eb'
+  tagline: "A computer's state, session, CPU, GPU, RAM and disks, with lock, sleep, restart, shut down and wake."
+  summary: "Cards for a desktop or laptop through System Bridge, HASS.Agent, LNXlink or the macOS Companion app: on, locked, asleep or off, the signed-in user and the uptime, CPU, GPU and RAM bars over their last 24 hours, the disks, and the power controls with a confirmation, plus Wake on LAN."
+  highlights:
+  - "On, locked, asleep or off, with the signed-in user and the uptime"
+  - "CPU, GPU and RAM bars over their last 24 hours, with the temperatures"
+  - "Disks with their free space"
+  - "Lock, sleep, restart and shut down with a confirmation, wake with Wake on LAN"
+  - "System Bridge, HASS.Agent, LNXlink and the macOS Companion app"
+  - "Mini card with the CPU load as a ring around the badge"
+  - "Illustrated header: a desk whose screen and light follow the computer's state"
+  homeassistant: 2024.8.0
+  keywords: "pc ordinateur computer desktop laptop system bridge hass.agent lnxlink wake on lan cpu gpu ram disque windows linux macos veille shutdown"
+  worksWith:
+  - slug: ha-system-monitor-card
+    why: "The Home Assistant host itself"
+  - slug: ha-console-card
+    why: "The game consoles next to the PC"
+  cardTypes:
+  - pc-card
+  - pc-mini-card
+  hero:
+    src: pc-on.png
+    caption: "On"
+    group: Card
+  screenshots:
+  - src: pc-confirm.png
+    caption: "Shut down, confirmed"
+    group: Card
+  - src: pc-locked.png
+    caption: "Locked"
+    group: Card
+  - src: pc-sleep.png
+    caption: "Asleep"
+    group: Card
+  - src: pc-off.png
+    caption: "Off"
+    group: Card
+  - src: pc-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: pc-mini-on.png
+    caption: "On"
+    group: Mini card
+  - src: pc-mini-sleep.png
+    caption: "Asleep"
+    group: Mini card
+  - src: pc-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: pc-on.gif
+    caption: "On animation"
+  - src: pc-sleep.gif
+    caption: "Asleep animation"
+- slug: ha-media-server-card
+  title: Media Server Card
+  kind: card
+  category: servers
+  icon: mdiPlayBoxMultiple
+  accent: '#ae3ec9'
+  tagline: "What plays on Jellyfin, Plex or Emby, what is coming up, downloading and requested."
+  summary: "Cards for a home media server: the streams of Jellyfin, Plex or Emby (with Tautulli's bandwidth and transcodes), the next episodes, films and albums of Sonarr, Radarr and Lidarr, their download queue and Seerr's pending requests, as four counters that open their lists."
+  highlights:
+  - "Four counters: streams, coming up, downloading and requests, each opening its list"
+  - "Now playing on Jellyfin, Plex or Emby, with the device and how far it is"
+  - "Sonarr, Radarr and Lidarr queue with progress and free disk space"
+  - "Coming up by day and time, Seerr's pending requests with who asked"
+  - "Works for every user, admin or not"
+  - "Mini card with what plays and the next episode"
+  - "Illustrated header: a living room whose television breathes while something plays"
+  homeassistant: 2024.8.0
+  keywords: "media server serveur multimédia jellyfin plex emby tautulli sonarr radarr lidarr seerr overseerr jellyseerr streams téléchargements films séries"
+  worksWith:
+  - slug: ha-media-card
+    why: "The players the streams end on"
+  - slug: ha-docker-card
+    why: "The containers the stack runs in"
+  - slug: ha-nas-card
+    why: "The NAS the library lives on"
+  cardTypes:
+  - media-server-card
+  - media-server-mini-card
+  hero:
+    src: ms-playing.png
+    caption: "Playing"
+    group: Card
+  screenshots:
+  - src: ms-coming.png
+    caption: "Coming up"
+    group: Card
+  - src: ms-queue.png
+    caption: "Queue"
+    group: Card
+  - src: ms-requests.png
+    caption: "Requests"
+    group: Card
+  - src: ms-downloading.png
+    caption: "Downloading"
+    group: Card
+  - src: ms-idle.png
+    caption: "Idle"
+    group: Card
+  - src: ms-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: ms-mini-playing.png
+    caption: "Playing"
+    group: Mini card
+  - src: ms-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: ms-playing.gif
+    caption: "Playing animation"
+  - src: ms-mini-playing.gif
+    caption: "Mini, playing animation"
+- slug: ha-mailbox-card
+  title: Mailbox Card
+  kind: card
+  category: everyday
+  icon: mdiMailbox
+  accent: '#e03131'
+  tagline: "Mail in the letterbox: when it came, whether it was collected, the parcels expected and the last 7 days."
+  summary: "Cards for a letterbox fitted with a plain opening, vibration or motion sensor (Zigbee, Z-Wave, ESPHome, MQTT): the flag goes up when mail comes, how long it has been waiting, collected by the door sensor or a button, the parcels expected today from Parcel, and the last 7 days."
+  highlights:
+  - "The flag goes up when mail comes, taps within 10 minutes counted as one delivery"
+  - "When it arrived and how long it has been waiting"
+  - "Collected by the collection door's sensor or with the Collected button, else empty again at midnight"
+  - "Parcels expected today from the Parcel integration"
+  - "The last 7 days, a cell per day with mail"
+  - "Any opening, vibration or motion sensor: Zigbee, Z-Wave, ESPHome, MQTT"
+  - "Mini card with since when mail waits and the parcels"
+  - "Illustrated header: a picket fence and the mailbox, its red flag rising while mail waits"
+  homeassistant: 2024.8.0
+  keywords: "mailbox boîte aux lettres courrier mail letterbox facteur colis parcel capteur vibration ouverture zigbee aqara"
+  worksWith:
+  - slug: ha-parcel
+    why: "The parcels expected today"
+  cardTypes:
+  - mailbox-card
+  - mailbox-mini-card
+  hero:
+    src: mb-mail.png
+    caption: "Mail waiting"
+    group: Card
+  screenshots:
+  - src: mb-collected.png
+    caption: "Collected"
+    group: Card
+  - src: mb-empty.png
+    caption: "Empty"
+    group: Card
+  - src: mb-offline.png
+    caption: "Unavailable"
+    group: Card
+  - src: mb-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: mb-mini-mail.png
+    caption: "Mail waiting"
+    group: Mini card
+  - src: mb-mini-empty.png
+    caption: "Empty"
+    group: Mini card
+  - src: mb-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: mb-mail.gif
+    caption: "Mail animation"
