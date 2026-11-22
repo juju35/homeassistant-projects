@@ -1186,12 +1186,13 @@ projects:
   - 24 h power curve with the real peak of the day
   - "Tempo colours and EDF Zen Flex day types (Éco, Sobriété, Bonus) of today and tomorrow, on the mini card too"
   - "ESPHome teleinfo too, its indexes found by their names"
+  - "Without a ZLinky: the statistics the HA Linky app imports, consumption and cost included"
   - 'Contract comparison: your last 12 months priced as Base and as Off-peak / Peak'
   - 'Three-phase meters: apparent power per phase, each phase measured against its share of the subscribed power'
   - "A Linky drawn as it is, its screens scrolled with a tap; meter size and power unit label of your choice"
   - "Illustrated header with the Linky meter in its technical panel, its screen live and its LED blinking"
   homeassistant: 2024.8.0
-  keywords: "linky lixee zha zigbee2mqtt esphome teleinfo energy electricity tic meter power tempo zen flex tarif edf cost"
+  keywords: "linky lixee ha-linky enedis zha zigbee2mqtt esphome teleinfo energy electricity tic meter power tempo zen flex tarif edf cost"
   worksWith:
   - slug: ha-energy-card
     why: "Solar production and home batteries"
@@ -1211,6 +1212,9 @@ projects:
   - src: card-compare.png
     dark: card-compare-dark.png
     caption: Base or Off-peak / Peak over the last 12 months
+    group: Card
+  - src: card-linky.png
+    caption: From the HA Linky statistics
     group: Card
   - src: mini.png
     dark: mini-dark.png
@@ -4485,6 +4489,7 @@ projects:
   - Range, fuel level or gauge, battery, mileage and outside temperature
   - Charging and time left, plug, lock, doors, air conditioning and tyre pressures
   - The car's action buttons, plus buttons of your choice (a wallbox, a script, a lock…), with a confirmation tap
+  - Extra tiles for any entity of the car or of another device, and the licence plate typed by hand when the integration has none
   - Connected services subscription (VW group) and an offline chip (Teslemetry)
   - Map card with every vehicle and its picture, lease section, mini card
   - Orange Internet On the move section, with ha-orange-internet-on-the-move
@@ -4493,7 +4498,7 @@ projects:
   - "Animated roadside header with the car's own picture and its charging post, day or night"
   - "Outside temperature from the sensor of your choice, an outdoor sensor of the home for a car that has none"
   homeassistant: 2024.8.0
-  keywords: "car vehicle ev renault dacia tesla volvo skoda subaru nissan peugeot citroen opel fiat jeep stellantis kia hyundai toyota lexus volkswagen audi seat cupra mercedes polestar ford tank fuel charge tyre tire pressure"
+  keywords: "car vehicle ev plaque immatriculation licence plate extra tiles renault dacia tesla volvo skoda subaru nissan peugeot citroen opel fiat jeep stellantis kia hyundai toyota lexus volkswagen audi seat cupra mercedes polestar ford tank fuel charge tyre tire pressure"
   worksWith:
   - slug: ha-renault-picture
     why: "Shows the official MyRenault photo of your Renault on the card"
@@ -4546,6 +4551,9 @@ projects:
   - src: id4.png
     dark: id4-dark.png
     caption: Volkswagen ID.4
+    group: Vehicle card
+  - src: extra-tiles.png
+    caption: Extra tiles and a typed plate
     group: Vehicle card
   - src: formentor.png
     dark: formentor-dark.png
@@ -5782,6 +5790,7 @@ projects:
   - 'Security: refused logins with notifications, accounts and 2FA, long-lived tokens to revoke, exposure, add-ons not protected, credentials in clear'
   - 'Logs: errors and warnings grouped by integration, with their traceback, reload or ignore'
   - 'Updates: Home Assistant, add-ons, devices and the Marketplace in one tab, Update all with an optional backup first and a live install progress'
+  - The updates card can list the system updates too (Core, Supervisor, OS, apps, firmware) above the Marketplace ones
   - 'Backups: the last one, the next one, each location and the last 30 days, Back up now'
   - 'Sentinel: reloads the integrations whose entities are all unavailable, power cycles through a smart plug'
   - "Silent devices: ZHA, Zigbee2MQTT, Z-Wave, Matter, ESPHome and deCONZ devices not heard from, and weak signals, with a map of the Zigbee, Matter and Z-Wave meshes"
@@ -6003,6 +6012,9 @@ projects:
   - src: card-marketplace-ok.png
     dark: card-marketplace-ok-dark.png
     caption: Up to date
+    group: Updates card
+  - src: card-marketplace-system.png
+    caption: With the system updates
     group: Updates card
   - src: card-batteries.png
     dark: card-batteries-dark.png
@@ -7157,9 +7169,12 @@ projects:
   - Header pill with the state and the temperature, and three tiles that follow the state (power, energy, mode, tariff, cold water)
   - "Controls: the water heater's own modes, Boost, Away and Back home, the target in its steps, Heat now / Stop for a cumulus on a relay"
   - "PV-routed cumulus: its power meter as the entity, read-only, today's energy split between the grid and the solar surplus with the solar share, its panel drawn beside the tank, the sun turning by day and the moon by night"
+  - "Cost of hot water by day, week, month or year: the price of a m³ against the period before, then its electricity, its water and the standby days"
+  - "Fixed prices or price sensors (a dynamic price counted day by day), from the tank's own meters"
+  - "Today's heating on a 24 h strip over the off-peak hours, a run at the peak rate in red"
   - Mini card with a hot-water ring and the key readings, zooming to the full card
   homeassistant: 2024.8.0
-  keywords: "water heater cumulus chauffe-eau ballon eau chaude dhw ecs boiler heat pump thermodynamique relay smart plug off-peak heures creuses pv router routeur solaire photovoltaïque surplus autoconsommation mk2pvrouter msunpv f1atb"
+  keywords: "water heater cumulus coût cost price prix m3 standby maintien en température chauffe-eau ballon eau chaude dhw ecs boiler heat pump thermodynamique relay smart plug off-peak heures creuses pv router routeur solaire photovoltaïque surplus autoconsommation mk2pvrouter msunpv f1atb"
   worksWith:
   - slug: ha-tempo-card
     why: "The off-peak and blue days, to heat the tank when it is cheap"
@@ -7207,6 +7222,9 @@ projects:
   - src: wh-pv-night.png
     dark: wh-pv-night-dark.png
     caption: PV-routed, by night
+    group: Card
+  - src: wh-cost.png
+    caption: Cost and today's heating
     group: Card
   - src: wh-mini-heating.png
     dark: wh-mini-heating-dark.png
@@ -7574,6 +7592,7 @@ projects:
   - "Import from the plug labels, from recognised automations (turned off, never deleted) and from Smart Comfort's lights on presence"
   - "Naps shared with Smart Comfort through a schedule helper per room"
   - "Sidebar panel with Activity, Rules, Rooms, Journal, YAML and Settings tabs, and a count badge"
+  - "Presence lights in the Activity tab: a tile per room lit by presence, a countdown to the switch-off once it is empty, +15 min and Turn off"
   - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   - "Overview card and mini card, timers and activity cards, under an illustrated header with one object per family of rules"
   - "20 languages"
