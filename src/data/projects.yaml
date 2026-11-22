@@ -2516,6 +2516,10 @@ projects:
   worksWith:
   - slug: ha-camera
     why: "Shows its cameras with their privacy badge, HD / SD and pan and tilt"
+  hero:
+    src: camera-card.png
+    caption: In the Camera card
+    group: Camera card
 
 - slug: ha-family-link
   title: Family Link
@@ -3344,6 +3348,10 @@ projects:
   worksWith:
   - slug: ha-printer-card
     why: "Shows its printers, with their last values while off and the Scan section"
+  hero:
+    src: printer-card.png
+    caption: In Printer Card
+    group: Printer Card
 - slug: ha-3d-printer-card
   title: 3D Printer Card
   kind: card
@@ -4660,6 +4668,10 @@ projects:
   worksWith:
   - slug: ha-vehicle-card
     why: "Its picture is shown by the Vehicle Card"
+  hero:
+    src: vehicle-card.png
+    caption: The MyRenault photo in Vehicle Card
+    group: Vehicle Card
 - slug: ha-orange-internet-on-the-move
   title: Orange Internet On the move
   kind: integration
@@ -4680,6 +4692,10 @@ projects:
   worksWith:
   - slug: ha-vehicle-card
     why: "Shows its data plan in the card's Orange Internet On the move section"
+  hero:
+    src: vehicle-card.png
+    caption: The data plan in Vehicle Card
+    group: Vehicle Card
 - slug: ha-vehicle-consumption
   title: Vehicle Consumption
   kind: integration
