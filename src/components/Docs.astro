@@ -9,7 +9,10 @@ interface Props {
   project: Project;
 }
 const { project } = Astro.props;
-const sections = await getDocs(project);
+const all = await getDocs(project);
+// The README's Support section (Buy Me a Coffee) stands on its own between the gallery and the documentation, never folded.
+const support = all?.find((s) => s.fixed);
+const sections = all?.filter((s) => !s.fixed) ?? null;
 const changelog = await getChangelog(project);
 
 const iconFor = (t: string) => {
@@ -26,6 +29,19 @@ const iconFor = (t: string) => {
   return "mdiTextBoxOutline";
 };
 ---
+
+{
+  support && (
+    <section class="docs support" id={support.id} aria-labelledby={`${support.id}-title`}>
+      <div class="docs-head">
+        <h2 class="section-title" id={`${support.id}-title`}><Icon name="mdiCoffeeOutline" /> {support.title}</h2>
+      </div>
+      <div class="ha-card doc fixed">
+        <div class="md" set:html={support.html} />
+      </div>
+    </section>
+  )
+}
 
 <section class="docs" id="documentation">
   <p class="sr-only" id="docs-live" aria-live="polite"></p>
@@ -105,9 +121,9 @@ const iconFor = (t: string) => {
     };
     const openFor = (hash, scroll) => {
       const el = target(hash);
-      const fold = el && el.closest("details.doc");
+      const fold = el && el.closest(".doc");
       if (!fold) return;
-      fold.open = true;
+      if (fold.tagName === "DETAILS") fold.open = true;
       if (!scroll) return;
       // The README's own h2 is hidden (the fold shows it): scroll to the fold instead.
       const to = el.offsetParent === null ? fold : el;
@@ -118,7 +134,7 @@ const iconFor = (t: string) => {
       if (!a) return;
       const href = a.getAttribute("href");
       const el = target(href);
-      if (el && el.offsetParent === null && el.closest("details.doc")) {
+      if (el && el.offsetParent === null && el.closest(".doc")) {
         // Hidden target (closed fold or hidden h2): unfold and scroll ourselves.
         e.preventDefault();
         history.pushState(null, "", href);
@@ -199,6 +215,8 @@ const iconFor = (t: string) => {
   .doc > summary .section-title { margin: 0; color: var(--primary-text-color); }
   .doc > summary .section-title :global(svg:first-child) { color: var(--c); }
   .doc[open] > summary { border-bottom: 1px solid var(--divider-color); margin-bottom: 4px; }
+  /* Support: a plain card, always shown */
+  .doc.fixed { padding-top: 16px; }
   /* An open section keeps its title under the section bar while it is read: one tap folds it back */
   .doc[open] > summary {
     position: sticky; top: var(--subnav-bottom, 120px); z-index: 2;

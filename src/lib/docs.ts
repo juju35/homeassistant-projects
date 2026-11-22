@@ -11,12 +11,16 @@ export interface DocSection {
   title: string;
   html: string;
   open: boolean;
+  /** Always shown, never folded (the Support section and its Buy Me a Coffee button). */
+  fixed: boolean;
 }
 
 // README sections that are not documentation, or that the page already shows.
 const SKIP = /^(installation|screenshots|animations|animated scenes|development|releasing|translations|license|credits|upgrading\b|coming from\b|removal)/i;
 // Sections unfolded by default: how to configure and use it.
 const OPEN = /^(configuration|options|entities|actions?|services?|events?|card|mini card|map card)\b/i;
+// Sections that can't be folded at all.
+const FIXED = /^support$/i;
 
 const raw = (slug: string, path = "") => `https://raw.githubusercontent.com/${OWNER}/${slug}/main/${path}`;
 const blob = (slug: string, path = "") => `https://github.com/${OWNER}/${slug}/blob/main/${path}`;
@@ -193,7 +197,7 @@ async function load(p: Project): Promise<DocSection[] | null> {
       const safe = sanitizeReadme(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string);
       const parsed = siteLinks(safe, p.slug);
       const html = permalinks(codeCopy(tableLabels(bmcButtons(haButtons(dropScreenshots(alerts(fixHtml(parsed, p.slug))))))));
-      return { id, title, html: html.replace(/^<h2/, '<h2 class="doc-anchor"'), open: OPEN.test(title) };
+      return { id, title, html: html.replace(/^<h2/, '<h2 class="doc-anchor"'), open: OPEN.test(title) || FIXED.test(title), fixed: FIXED.test(title) };
     })
     .filter((s) => s.html.replace(/<h2[^>]*>.*?<\/h2>/s, "").trim());
   // #links to a section that isn't on the page: the gallery or the install card for those the page shows
