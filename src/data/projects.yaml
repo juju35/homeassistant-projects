@@ -644,10 +644,6 @@ projects:
     dark: panel-naps-dark.png
     caption: Quiet morning and naps of a bedroom
     group: Panel
-  - src: panel-presence.png
-    dark: panel-presence-dark.png
-    caption: Lights on presence
-    group: Panel
   - src: panel-schedule.png
     dark: panel-schedule-dark.png
     caption: Schedule
@@ -3726,9 +3722,8 @@ projects:
   - CPU, RAM and temperature gauges, with the last 24 hours of CPU and RAM behind them
   - Network rates with their last 24 hours, gaps shown as gaps
   - Alert thresholds you can set
-  - Volumes with RAID level and used space, and the RAID state in colour: healthy, rebuilding or degraded
+  - "Volumes with RAID level and used space, and the RAID state in colour: healthy, rebuilding or degraded"
   - Disks with temperature, power-on hours and SMART status
-  - Synology DSM update chip and reboot button with a confirmation
   - Compact mini card, its CPU and RAM bars with their last 24 hours
   - 'UGREEN and Synology: update available chip and reboot button with a confirmation'
   - "Shutdown next to reboot, and Wake-on-LAN to wake an offline NAS"
