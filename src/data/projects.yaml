@@ -721,6 +721,8 @@ projects:
   homeassistant: 2024.8.0
   keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule poêle granulés pellet wood stove palazzetti fumis edilkamin mcz maestro rika duepi plancher chauffant underfloor floor heating danfoss icon uponor heatmiser sèche-serviettes towel rail chaudière boiler gaz gas fioul oil"
   worksWith:
+  - slug: ha-opening-card
+    why: "The window that paused the heating, and how long it stayed open"
   - slug: ha-climate-air-card
     why: "Air conditioners, fans and purifiers; the thermostats moved here from it"
   - slug: ha-tank-card
@@ -846,6 +848,8 @@ projects:
   homeassistant: 2024.8.0
   keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity scenes philips hue"
   worksWith:
+  - slug: ha-opening-card
+    why: "Each door and window drawn, with its lock, handle and today's openings"
   - slug: ha-smart-comfort
     why: "Comfort alerts and adaptive lighting, room by room"
   - slug: ha-presence-card
@@ -1250,6 +1254,9 @@ projects:
   - "Next automatic opening and closing times as tiles, from a sensor or an input_datetime"
   homeassistant: 2024.8.0
   keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave rts no feedback invert portail battant swing gate pedestrian piéton barrière barrier levante volets battants hinged shutters pergola bioclimatique louvre lames horaires schedule"
+  worksWith:
+  - slug: ha-opening-card
+    why: "Doors, windows and their locks; its overview shows the garage doors and gates read only"
   cardTypes:
   - cover-card
   - cover-mini-card
@@ -2225,6 +2232,8 @@ projects:
   homeassistant: 2024.8.0
   keywords: "lock door nuki tedee yale august switchbot aqara matter zwave"
   worksWith:
+  - slug: ha-opening-card
+    why: "The door the lock is on: contact, open-too-long alert and today's openings"
   - slug: ha-doorbell-card
     why: "Opens the door from the doorbell card (lock option)"
   - slug: ha-alarm-card
@@ -2293,6 +2302,99 @@ projects:
   - src: padlock-unlocking.gif
     dark: padlock-unlocking-dark.gif
     caption: Padlock unlocking
+- slug: ha-opening-card
+  title: Opening Card
+  kind: card
+  category: security
+  icon: mdiDoorOpen
+  accent: '#9a6a3a'
+  tagline: "Doors, windows and the electrical panel, drawn and animated: open, locked, tilted, open too long."
+  summary: "Every door and window of the house, each drawn as its own kind (front door, French door, sliding patio door, wicket gate, pet flap, trapdoor, windows of every kind, electrical panel) and swinging open with its contact sensor, next to its lock, its window handle, its doorbell, its battery and the heating it pauses. An open-too-long alert, today's timeline of openings, an overview of the whole house with filters and a journal of the day."
+  highlights:
+  - 14 kinds of openings drawn, found from the device class and the name
+  - The leaf swings open with the contact; the room behind lights up
+  - Lock, Unlock and Open with a confirmation popup
+  - Window handle (open, tilted, closed) and the heating it paused
+  - Open-too-long alert with a pulsing icon
+  - "Today's timeline: openings, total open time, unlocked time"
+  - Doorbell, battery, pet flap, breakers and power tiles
+  - Overview of every door and window, with filters and a Journal tab
+  - Compact mini card and a journal card of its own
+  homeassistant: 2024.8.0
+  keywords: "door window opening contact sensor lock handle tilt doorbell pet flap trapdoor electrical panel breaker porte fenêtre ouverture serrure poignée oscillo-battant chatière tableau électrique aqara sonoff zigbee zwave matter shelly"
+  worksWith:
+  - slug: ha-smartlock-card
+    why: "The lock in detail: model drawn, keypad, auto-lock"
+  - slug: ha-cover-card
+    why: "Controls the garage doors and gates its overview shows read only"
+  - slug: ha-heating-card
+    why: "The radiators paused while a window is open"
+  - slug: ha-room-card
+    why: "The other sensors of each room"
+  cardTypes:
+  - opening-card
+  - opening-mini-card
+  - opening-overview-card
+  - opening-journal-card
+  hero:
+    src: card.png
+    dark: card-dark.png
+    caption: "Front door, locked"
+    group: Card
+  screenshots:
+  - src: card-alert.png
+    dark: card-alert-dark.png
+    caption: "Open too long"
+    group: Card
+  - src: card-window.png
+    dark: card-window-dark.png
+    caption: "Tilted window, heating paused"
+    group: Card
+  - src: card-panel.png
+    dark: card-panel-dark.png
+    caption: "Electrical panel, a breaker tripped"
+    group: Card
+  - src: card-pet.png
+    dark: card-pet-dark.png
+    caption: "Pet flap"
+    group: Card
+  - src: mini-card.png
+    dark: mini-card-dark.png
+    caption: "Default view"
+    group: Mini card
+  - src: mini-card-window.png
+    dark: mini-card-window-dark.png
+    caption: "Open window"
+    group: Mini card
+  - src: mini-card-zoomed.png
+    dark: mini-card-zoomed-dark.png
+    caption: "Mini card zoomed in"
+    group: Mini card
+  - src: overview.png
+    dark: overview-dark.png
+    caption: "Every door and window"
+    group: Overview card
+  - src: overview-journal.png
+    dark: overview-journal-dark.png
+    caption: "Journal tab"
+    group: Overview card
+  - src: journal-card.png
+    dark: journal-card-dark.png
+    caption: "Today's openings"
+    group: Journal card
+  animations:
+  - src: door-open.gif
+    dark: door-open-dark.gif
+    caption: "Door ajar"
+  - src: alert.gif
+    dark: alert-dark.gif
+    caption: "Open-too-long alert"
+  - src: window-tilt.gif
+    dark: window-tilt-dark.gif
+    caption: "Tilted window"
+  - src: pet-flap.gif
+    dark: pet-flap-dark.gif
+    caption: "Pet flap"
 - slug: ha-camera
   title: Home Camera
   kind: integration
