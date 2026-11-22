@@ -6,6 +6,7 @@ import "../styles/global.css";
 import Icon from "../components/Icon.astro";
 import { OWNER } from "../lib/projects";
 const LINKEDIN = "https://www.linkedin.com/in/julien-stephan-70a5522b/";
+const COFFEE = "https://buymeacoffee.com/julienstep9";
 
 interface Props {
   title: string;
@@ -68,6 +69,9 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
           <span class="brand-text"><b>Home Assistant</b> projects</span>
         </a>
         <nav class="actions">
+          <a class="coffee-pill" href={COFFEE} target="_blank" rel="noopener" title="Buy me a coffee" aria-label="Buy me a coffee">
+            <Icon name="mdiCoffee" /><span class="coffee-t">Buy me a coffee</span>
+          </a>
           <a class="icon-btn" href={`https://github.com/${OWNER}`} title="GitHub" aria-label="GitHub profile"><Icon name="mdiGithub" /></a>
           <a class="icon-btn" href={LINKEDIN} title="LinkedIn" aria-label="LinkedIn profile" rel="me noopener"><Icon name="mdiLinkedin" /></a>
           <button class="icon-btn" id="theme-toggle" type="button" aria-label="Theme: system" title="Theme: system" data-mode="auto">
@@ -153,7 +157,20 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
   .brand b { font-weight: 500; }
   .brand-text { color: var(--secondary-text-color); }
   .brand-text b { color: var(--primary-text-color); }
-  .actions { margin-left: auto; display: flex; gap: 4px; }
+  .actions { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+  /* Buy Me a Coffee, on every page: a pill in the official yellow, as round as the site's buttons; the cup alone on phones */
+  .coffee-pill {
+    display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px 0 11px; margin-right: 6px;
+    border-radius: 18px; background: #ffdd00; color: #000; font: 500 14px/1 var(--font); white-space: nowrap;
+    transition: filter 0.2s ease;
+  }
+  .coffee-pill :global(svg) { width: 20px; height: 20px; flex: none; }
+  .coffee-pill:hover { filter: brightness(1.05); }
+  .coffee-pill:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
+  @media (max-width: 600px) {
+    .coffee-pill { width: 36px; padding: 0; justify-content: center; margin-right: 2px; }
+    .coffee-t { display: none; }
+  }
   #theme-toggle .ic-auto, #theme-toggle .ic-light, #theme-toggle .ic-dark { display: none; }
   #theme-toggle[data-mode="auto"] .ic-auto { display: block; }
   #theme-toggle[data-mode="light"] .ic-light { display: block; }
