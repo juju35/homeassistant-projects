@@ -105,22 +105,14 @@ contributors:
   contribution: The My pull requests tab, listing your open pull requests across all repositories
   project: ha-github
 - login: FredM67
-  contribution: The whole run's progress on the install bar, and a module taking over the standalone integration's settings
+  contribution: The whole run's progress on the install bar
   project: ha-system-hub
-- login: FredM67
-  contribution: Apparent power per phase (SINSTS1-3)
-  project: ha-zlinky-card
-- login: FredM67
-  contribution: The Marketplace check skipped on pull requests from forks, in every repository
 - login: godric
   contribution: Support of Samsung appliances through LocalThings
   project: ha-smart-appliance-card
 - login: CHLINDE
   contribution: Wake-on-LAN targets and the detection of a powered-off NAS
   project: ha-nas-card
-- login: ytorres
-  contribution: Livebox fibre (GPON/SFP) discovery, the Arcadyan model and the missed calls count
-  project: ha-internet-box-card
 - login: mtheli
   contribution: Support of the iRobot Braava 240
   project: ha-vacuum-card
