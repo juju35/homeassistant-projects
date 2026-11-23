@@ -6,18 +6,33 @@ import MarketplaceBadge from "./MarketplaceBadge.astro";
 import { kindClass, kindLabel, projects, type Project } from "../lib/projects";
 import { formatDate, latestRelease } from "../lib/releases";
 import { compact, newSlugs, repoInfo } from "../lib/repo";
+import { getDocs } from "../lib/docs";
+import { getLogos } from "../lib/logos";
 
 interface Props {
   project: Project;
 }
 const { project: p } = Astro.props;
 const base = import.meta.env.BASE_URL;
-// Lower-case, accent-free text the home search matches every word of the query against
-const search = [p.title, p.slug, p.tagline, p.summary, p.keywords ?? "", ...p.highlights, ...(p.cardTypes ?? [])]
-  .join(" ")
-  .normalize("NFD")
-  .replace(/[\u0300-\u036f]/g, "")
-  .toLowerCase();
+// Words the home search matches every word of the query against: name, description, highlights, card types, the
+// brands of its README header and the headings of its documentation. Lower-case, accent-free, each word once.
+const docs = (await getDocs(p)) ?? [];
+const headings = docs.flatMap((d) => [d.title, ...[...d.html.matchAll(/<h[34][^>]*>([\s\S]*?)<\/h[34]>/g)].map((m) => m[1])]);
+const brandNames = (await getLogos(p)).brands.map((b) => b.alt);
+const search = [
+  ...new Set(
+    [p.title, p.slug, p.tagline, p.summary, p.keywords ?? "", ...p.highlights, ...(p.cardTypes ?? []), ...brandNames, ...headings]
+      .join(" ")
+      .replace(/<[^>]+>|&[a-z#0-9]+;/gi, " ")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .split(/[^a-z0-9._+-]+/)
+      // "weather-plus-card" is found as a whole and by each of its parts
+      .flatMap((w) => (w.includes("-") ? [w, ...w.split("-")] : [w]))
+      .filter((w) => w.length > 1),
+  ),
+].join(" ");
 // Projects it works with, declared on either side
 const related = projects.filter(
   (o) => o.slug !== p.slug && (p.worksWith?.some((w) => w.slug === o.slug) || o.worksWith?.some((w) => w.slug === p.slug)),

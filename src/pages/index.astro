@@ -133,7 +133,7 @@ const groups = categories
     </button>
     <label class="search tile">
       <Icon name="mdiMagnify" />
-      <input type="search" id="q" placeholder="Search projects" autocomplete="off" aria-label="Search a card or an integration" />
+      <input type="search" id="q" placeholder="Search projects, brands, features" autocomplete="off" aria-label="Search a card or an integration" />
       <kbd class="kbd" aria-hidden="true">/</kbd>
     </label>
   </section>
@@ -293,9 +293,9 @@ const groups = categories
     openFromHash(location.hash);
     const apply = () => {
       const term = q.value.trim().toLowerCase();
-      // Every word must match somewhere (name, description, brands, integration names…), accents ignored
+      // Every word must match the start of a word somewhere (name, description, brands, doc headings…), accents ignored
       const words = term.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/).filter(Boolean);
-      const matches = (c: HTMLElement) => words.every((w) => c.dataset.search!.includes(w));
+      const matches = (c: HTMLElement) => words.every((w) => (" " + c.dataset.search!).includes(" " + w));
       const isKind = (c: HTMLElement, k: string) => inFilter(c.dataset.kind!, k);
       // Archived projects are listed apart and left out of the counts (see SSR kindCounts(current))
       const isLive = (c: HTMLElement) => !c.classList.contains("archived");
