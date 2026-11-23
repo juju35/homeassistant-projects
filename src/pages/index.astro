@@ -497,6 +497,9 @@ const groups = categories
 
   /* Category cards: the illustrated header is the fold button */
   .group { margin-top: 16px; scroll-margin-top: 190px; overflow: hidden; }
+  /* The browser lays out and paints a category card only as it nears the screen (about 1,000 tiles' worth of
+     markup otherwise drawn at load); the placeholder height keeps the scrollbar and #category jumps right */
+  .group { content-visibility: auto; contain-intrinsic-size: auto 1600px; }
   .group-h { margin: 0; font: inherit; }
   .group-toggle {
     all: unset; display: block; width: 100%; cursor: pointer; text-align: left;
