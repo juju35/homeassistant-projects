@@ -92,6 +92,9 @@ const short = (iso: string) => {
     <div class="preview compact">
       <ProjectLogo project={p} size="lg" />
       <span class="sub">Runs in the background, no dashboard of its own</span>
+      {p.wip && !p.archived && (
+        <div class="wip-ribbon" aria-hidden="true"><span><Icon name="mdiHardHat" />Work in progress</span></div>
+      )}
     </div>
   )}
 
