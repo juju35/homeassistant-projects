@@ -6,6 +6,8 @@ import { fetchSource, tolerant } from "./sources";
 export interface Repo {
   created: string; // ISO
   stars: number;
+  /** Downloads of every release asset (the Marketplace installs and updates from them). */
+  downloads: number;
 }
 
 const cache = new Map<string, Promise<Repo | null>>();
@@ -28,8 +30,29 @@ async function load(slug: string): Promise<Repo | null> {
   if (!res) return null;
   const r = (await res.json()) as { created_at?: string; stargazers_count?: number };
   if (!r.created_at) return null;
-  return { created: r.created_at, stars: r.stargazers_count ?? 0 };
+  return { created: r.created_at, stars: r.stargazers_count ?? 0, downloads: await downloads(slug, headers, api) };
 }
+
+async function downloads(slug: string, headers: Record<string, string>, api: string): Promise<number> {
+  let total = 0;
+  for (let page = 1; page <= 5; page++) {
+    const res = await fetchSource(`${api}/repos/${OWNER}/${slug}/releases?per_page=100&page=${page}`, {
+      what: `${slug} releases`,
+      optional: true,
+      init: { headers },
+      tolerant: import.meta.env.DEV || tolerant(),
+    });
+    if (!res) break;
+    const list = (await res.json()) as { assets?: { download_count?: number }[] }[];
+    for (const r of list) for (const a of r.assets ?? []) total += a.download_count ?? 0;
+    if (list.length < 100) break;
+  }
+  return total;
+}
+
+// 47170 -> "47k", 1509 -> "1.5k", 860 -> "860"
+export const compact = (n: number) =>
+  n >= 10_000 ? `${Math.round(n / 1000)}k` : n >= 1000 ? `${(n / 1000).toFixed(1).replace(/\.0$/, "")}k` : String(n);
 
 // "New" badge: the projects whose repository is less than a week old, the 12 newest at most (most of the
 // catalogue is a few weeks old: a wider window would put the badge on half the tiles).

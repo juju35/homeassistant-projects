@@ -5,7 +5,7 @@ import Shot from "./Shot.astro";
 import MarketplaceBadge from "./MarketplaceBadge.astro";
 import { kindClass, kindLabel, projects, type Project } from "../lib/projects";
 import { formatDate, latestRelease } from "../lib/releases";
-import { newSlugs } from "../lib/repo";
+import { compact, newSlugs, repoInfo } from "../lib/repo";
 
 interface Props {
   project: Project;
@@ -26,6 +26,7 @@ const shots = (p.screenshots?.length ?? 0) + (p.hero ? 1 : 0);
 const anims = p.animations?.length ?? 0;
 const release = await latestRelease(p);
 const fresh = (await newSlugs()).has(p.slug);
+const repo = await repoInfo(p);
 // "Nov 22" this year, "Nov 22, 2025" before
 const short = (iso: string) => {
   const d = formatDate(iso);
@@ -40,6 +41,8 @@ const short = (iso: string) => {
   style={`--c:${p.accent}`}
   data-kind={p.kind}
   data-search={search}
+  data-dl={repo?.downloads ?? 0}
+  data-stars={repo?.stars ?? 0}
 >
   <div class="header">
     <ProjectLogo project={p} />
@@ -87,6 +90,8 @@ const short = (iso: string) => {
     {fresh && <span class="chip new-chip" title="Published this week">New</span>}
     {anims > 0 && <span class="chip" style={`--c:${p.accent}`}><Icon name="mdiAnimationPlay" />{anims} animation{anims > 1 ? "s" : ""}</span>}
     {shots > 0 && <span class="chip neutral"><Icon name="mdiImageMultiple" />{shots}</span>}
+    {repo && repo.downloads > 0 && <span class="chip neutral" title={`${repo.downloads.toLocaleString("en-US")} downloads of its releases`}><Icon name="mdiDownload" />{compact(repo.downloads)}</span>}
+    {repo && repo.stars > 0 && <span class="chip neutral" title={`${repo.stars} star${repo.stars > 1 ? "s" : ""} on GitHub`}><Icon name="mdiStarOutline" />{repo.stars}</span>}
     {release && <span class="chip neutral" title={`Latest release, ${formatDate(release.date)}`}>{release.tag} · {short(release.date)}</span>}
     <span class="chip neutral">HA {p.homeassistant}+</span>
   </div>
