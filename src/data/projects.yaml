@@ -1202,7 +1202,7 @@ projects:
   tagline: 'A sidebar panel for solar installations: production, self-consumption, batteries down to the cells, panel efficiency, production losses and payback.'
   summary: 'An integration and sidebar panel that reads the solar, battery, meter and forecast integrations you already have (Enphase, Huawei, SolarEdge, Fronius, SMA, Solax, Solarman, Victron, Powerwall, OpenDTU, Anker Solix, EcoFlow, Zendure, Marstek, BMS BLE, ZLinky, Solcast and more), detects most of them by itself, and finds where the production goes: clipping, shading, soiling, export limitation and outages, with methods from the PV monitoring literature. A demo mode lets you try every screen without any equipment.'
   highlights:
-  - Detection from the Energy dashboard and 21 integration profiles, YAML to override anything
+  - Detection from the Energy dashboard and 24 integration profiles, YAML to override anything
   - "Illustrated banner following the sun, the battery and the alerts, folding into a compact bar on scroll"
   - Live energy flow, the day's KPIs with their trend and the production chart over today, 7 days, 30 days or 12 months
   - Yield of each panel on a roof drawing, strings compared, performance index after IEC 61724-1
@@ -1210,11 +1210,16 @@ projects:
   - Any number of batteries of any brand as one fleet, with health and charge projections, modules and cells as a heat map
   - Each cell's drift over 30 days and the spread projected to the threshold
   - Payback ring, break-even date with a price-rise slider, gains calendar and the bill with and without solar
+  - "Offer comparator: 12 months of your real grid draw replayed under each EDF offer (Base, Heures Creuses, Tempo, Zen Week-End, Zen Flex)"
+  - Contract, price of the kWh and Tempo colour read from Tarif EDF, RTE Tempo or EDF Zen Flex, savings valued half hour by half hour
+  - Expected production from an irradiance sensor, the solar forecast or the weather's cloud cover, with no network call of its own
   - Clickable DC/AC layout, attachment suggestions and the data quality of the last 24 hours
-  - 12 sensors, an alert event, daily notifications and a sidebar badge with the number of alerts
+  - 12 sensors, an alert event, notifications through Notify Hub in your language and a sidebar badge with the number of alerts
   - Demo mode with a simulated installation and more than a year of history
   homeassistant: 2024.12.0
-  keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek zlinky linky solcast forecast.solar"
+  wip: true
+  wipNote: "Every screen works in demo mode; the integration profiles still need real installations to be confirmed."
+  keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek zlinky linky solcast forecast.solar comparateur offres tarif edf tempo zen week-end zen flex heures creuses rte tempo irradiance ensoleillement météo weather nébulosité ecowitt weatherflow"
   worksWith:
   - slug: ha-energy-card
     why: "The live power flow on a dashboard"
@@ -1222,6 +1227,8 @@ projects:
     why: "What the Linky meter draws from the grid"
   - slug: ha-tempo-card
     why: "The Tempo day colors, to save the sun for red days"
+  - slug: ha-notify-hub
+    why: "Its loss and battery alerts delivered through the hub"
   hero:
     src: light-overview.png
     dark: dark-overview.png
@@ -1263,6 +1270,10 @@ projects:
   - src: light-settings-alerts.png
     dark: dark-settings-alerts.png
     caption: Settings · Alerts
+    group: Panel
+  - src: light-settings-tariffs.png
+    dark: dark-settings-tariffs.png
+    caption: Settings · Contract and tariffs
     group: Panel
 - slug: ha-zlinky-card
   title: ZLinky Card
@@ -7813,6 +7824,8 @@ projects:
     why: "Its daily reminders sent through the hub"
   - slug: ha-house-rules
     why: "Reflexes of the home that notify"
+  - slug: ha-energy-hub
+    why: "Solar loss and battery alerts in the user's language"
   cardTypes:
   - notify-hub-card
   hero:

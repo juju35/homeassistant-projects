@@ -1,0 +1,56 @@
+---
+// "Work in progress" banner of a project page: the construction scene, what works already and what is missing,
+// a battery charging, the hazard tape underneath, and a link to tell about one's installation.
+import WipScene from "./WipScene.astro";
+import Icon from "./Icon.astro";
+import { repoUrl, type Project } from "../lib/projects";
+
+interface Props { project: Project }
+const { project } = Astro.props;
+---
+<div class="wip-banner" role="note">
+  <div class="scene"><WipScene /></div>
+  <div class="text">
+    <div class="kicker">Work in progress · beta <span class="battery" aria-hidden="true"><i></i></span></div>
+    <p class="title">{project.title} is being built</p>
+    <p class="note">{project.wipNote ?? "It works, but it is still taking shape: expect changes from one release to the next."}</p>
+    <a class="report" href={`${repoUrl(project)}/issues/new/choose`} target="_blank" rel="noopener">
+      <Icon name="mdiHardHat" /> Tell how it runs on yours
+    </a>
+  </div>
+</div>
+
+<style>
+  .wip-banner {
+    position: relative; display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 16px 18px 8px;
+    border-radius: 14px; overflow: hidden; color: #412402;
+    background: linear-gradient(#FFF4DC, #FCE3B4);
+  }
+  /* Hazard tape along the bottom, slowly moving */
+  .wip-banner::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 8px;
+    background: repeating-linear-gradient(45deg, #EF9F27 0 7px, #412402 7px 14px);
+    background-size: 20px 8px; animation: wip-tape 1.6s linear infinite;
+  }
+  @keyframes wip-tape { to { background-position: 20px 0; } }
+  .scene { flex: none; width: 210px; height: 77px; }
+  .text { min-width: 0; }
+  .kicker { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #854F0B; }
+  .battery { position: relative; width: 54px; height: 12px; border: 2px solid #633806; border-radius: 3px; }
+  .battery::after { content: ""; position: absolute; right: -5px; top: 2px; width: 3px; height: 4px; border-radius: 1px; background: #633806; }
+  .battery i { position: absolute; left: 1px; top: 1px; bottom: 1px; width: 10%; border-radius: 1px; background: #639922; animation: wip-charge 4s ease-in-out infinite; }
+  @keyframes wip-charge { 70%, 100% { width: calc(100% - 2px); } }
+  .title { margin: 4px 0 2px; font-size: 17px; font-weight: 700; }
+  .note { margin: 0; font-size: 13.5px; color: #633806; max-width: 62ch; }
+  .report {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 4px 12px; border-radius: 16px;
+    font-size: 13px; font-weight: 600; color: #412402; background: rgba(239, 159, 39, .28);
+  }
+  .report :global(svg) { width: 16px; height: 16px; }
+  .report:hover { background: rgba(239, 159, 39, .45); }
+  @media (max-width: 600px) {
+    .wip-banner { flex-direction: column; align-items: flex-start; padding: 8px 14px 18px; }
+    .scene { width: 160px; height: 59px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .wip-banner::after, .battery i { animation: none; } .battery i { width: 70%; } }
+</style>

@@ -58,6 +58,11 @@ Deployment is automatic (`deploy.yml`) on push to `main`, daily, and within ~15 
   integration's page its own README icon, shown whole (never cropped to a circle). For a new project, take
   `icon`/`accent` from its brand icon (integrations) or card pastille.
 - Archived/deprecated projects stay on the site (`archived: true`, optional `replacedBy`).
+- Projects still being built: `wip: true` (+ optional `wipNote`, what works and what is missing) gives the tile a
+  moving hazard-tape « Work in progress » corner ribbon and a « Beta » chip, and the page the illustrated banner
+  (`WipBanner.astro` / `WipScene.astro`: sun in a hard hat, crane lowering a panel, battery charging, link to the
+  repo's issues). The project's README carries the same scene as `images/wip.svg` under its logo (skipped as a logo by
+  `header-logos.ts`). Remove `wip` and the README banner together once the project is stable.
 - `contributors`: only people who actually opened a PR / supplied a patch or translation — one tile per
   login, several entries allowed.
 - Themes are a kind of their own (`kind: theme`); dashboard plugins without card types show as such.

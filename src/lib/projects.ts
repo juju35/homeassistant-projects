@@ -46,6 +46,10 @@ export interface Project {
   archived?: boolean;
   /** Slug of the project that replaces an archived one. */
   replacedBy?: string;
+  /** Still being built: a "work in progress" ribbon on its tile and a banner on its page. */
+  wip?: boolean;
+  /** What works already and what is missing, shown in the banner. */
+  wipNote?: string;
 }
 
 export interface Contributor {

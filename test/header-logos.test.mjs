@@ -36,10 +36,11 @@ test("a single brand logo after the own logo is a brand", () => {
   assert.deepEqual(brands, [{ src: `${BASE}images/alarmo.png`, alt: "Alarmo" }]);
 });
 
-test("the archived banner and badges are skipped, relative paths resolved", () => {
+test("the archived and work in progress banners and badges are skipped, relative paths resolved", () => {
   const md = [
     "# x",
     '<p align="center"><img src="images/archived.svg" alt="Archived" width="800"></p>',
+    '<p align="center"><img src="images/wip.svg" alt="Work in progress" width="720"></p>',
     '<p align="center"><img src="./custom_components/x/brand/icon.png" alt="X" width="120"></p>',
     '<p align="center"><a href="https://my.home-assistant.io/redirect/x"><img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Open"></a></p>',
   ].join("\n");

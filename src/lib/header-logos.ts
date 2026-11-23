@@ -1,6 +1,7 @@
 // Logos shown at the top of a project's README, above its first section: the project's own logo (the first picture
 // alone in a centered block: the integration icon, the card's pastille) and the logos of the brands and integrations
-// it supports (the pictures of the centered blocks that follow it). The "archived" banner is neither.
+// it supports (the pictures of the centered blocks that follow it). The "archived" and "work in progress" banners are
+// neither.
 // Plain module, no Astro import: unit-tested with `node --test` (test/header-logos.test.mjs).
 
 export interface HeaderLogo {
@@ -15,7 +16,7 @@ export interface HeaderLogos {
   brands: HeaderLogo[];
 }
 
-const NOT_A_LOGO = /shields\.io|\/badge\.svg|my\.home-assistant\.io|buymeacoffee|\/screenshots\/|\/archived\.svg/i;
+const NOT_A_LOGO = /shields\.io|\/badge\.svg|my\.home-assistant\.io|buymeacoffee|\/screenshots\/|\/archived\.svg|\/wip\.svg/i;
 // Pictures come from the project's own repository or from GitHub; anything else is ignored.
 const ALLOWED = /^https:\/\/(raw\.githubusercontent\.com|github\.com|user-images\.githubusercontent\.com)\//i;
 

@@ -1,0 +1,40 @@
+---
+// The construction scene of a project still being built: a sun in a hard hat, a crane lowering a solar panel
+// onto a house, a battery charging. Same drawing as the `wip.svg` banner of the project's README.
+---
+<svg class="wip-scene" viewBox="0 0 360 132" aria-hidden="true">
+  <g class="ray" stroke="#EF9F27" stroke-width="3" stroke-linecap="round">
+    <path d="M62 14v8M62 70v8M30 46h8M86 46h8M39 23l6 6M79 63l6 6M39 69l6-6M79 29l6-6" />
+  </g>
+  <circle cx="62" cy="46" r="18" fill="#FAC775" />
+  <path d="M42 44a20 20 0 0 1 40 0z" fill="#EF9F27" />
+  <rect x="38" y="42" width="48" height="5" rx="2.5" fill="#BA7517" />
+  <circle cx="56" cy="52" r="1.8" fill="#412402" /><circle cx="68" cy="52" r="1.8" fill="#412402" />
+  <path d="M56 58q6 4 12 0" stroke="#412402" stroke-width="1.8" fill="none" stroke-linecap="round" />
+  <path d="M118 128V22M118 22h96M118 22l20 -10h-20" stroke="#633806" stroke-width="4" fill="none" stroke-linejoin="round" />
+  <path d="M118 40l18-18M118 64l18-18M118 88l18-18" stroke="#633806" stroke-width="2" />
+  <circle class="beacon" cx="214" cy="18" r="4" fill="#E24B4A" />
+  <g class="swing">
+    <path d="M170 22v36" stroke="#412402" stroke-width="1.6" />
+    <path d="M164 58h12l-6 6z" fill="#412402" />
+    <g transform="translate(148 64) skewX(-12)">
+      <rect width="48" height="26" rx="2" fill="#185FA5" />
+      <path d="M12 0v26M24 0v26M36 0v26M0 13h48" stroke="#85B7EB" stroke-width="1.2" />
+    </g>
+  </g>
+  <rect x="246" y="92" width="84" height="40" fill="#FAEEDA" stroke="#854F0B" stroke-width="2" />
+  <rect x="280" y="104" width="16" height="28" fill="#BA7517" />
+  <path d="M236 94l52-34 52 34z" fill="#BA7517" stroke="#854F0B" stroke-width="2" stroke-linejoin="round" />
+  <path d="M262 82l26-17 26 17z" fill="none" stroke="#FAEEDA" stroke-width="1.6" stroke-dasharray="4 3" />
+</svg>
+
+<style>
+  .wip-scene { display: block; width: 100%; height: 100%; }
+  .swing { transform-origin: 170px 22px; animation: wip-swing 3.2s ease-in-out infinite; }
+  .ray { transform-origin: 62px 46px; animation: wip-spin 18s linear infinite; }
+  .beacon { animation: wip-blink 1.1s steps(2, end) infinite; }
+  @keyframes wip-swing { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+  @keyframes wip-spin { to { transform: rotate(360deg); } }
+  @keyframes wip-blink { 50% { opacity: .25; } }
+  @media (prefers-reduced-motion: reduce) { .swing, .ray, .beacon { animation: none; } }
+</style>
