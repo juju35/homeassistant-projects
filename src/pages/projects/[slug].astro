@@ -25,6 +25,7 @@ import { latestRelease, formatDate } from "../../lib/releases";
 import { imageSize } from "../../lib/imgsize";
 import { getChangelog } from "../../lib/changelog";
 import { getLogos } from "../../lib/logos";
+import { brandId } from "../../lib/brands";
 import { readme } from "../../lib/readme";
 import { networks } from "../../lib/networks";
 
@@ -225,13 +226,16 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
         {
           brands.length > 0 && (
             <section class="ha-card pad">
-              <h2 class="section-title"><Icon name="mdiTagMultipleOutline" /> Brands &amp; integrations</h2>
+              <div class="brands-head">
+                <h2 class="section-title"><Icon name="mdiTagMultipleOutline" /> Brands &amp; integrations</h2>
+                <a class="src muted" href={`${import.meta.env.BASE_URL}brands/`}>All brands <Icon name="mdiArrowRight" /></a>
+              </div>
               <ul class="brands">
                 {brands.slice(0, BRANDS_SHOWN).map((b) => (
-                  <li class="brand tile" title={b.alt}>
+                  <li><a class="brand tile" title={`${b.alt}: every project that supports it`} href={`${import.meta.env.BASE_URL}brands/#${brandId(b.alt)}`}>
                     <img src={b.src} alt="" loading="lazy" decoding="async" />
                     <span class="brand-name">{b.alt}</span>
-                  </li>
+                  </a></li>
                 ))}
               </ul>
               {brands.length > BRANDS_SHOWN && (
@@ -242,10 +246,10 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
                   </summary>
                   <ul class="brands">
                     {brands.slice(BRANDS_SHOWN).map((b) => (
-                      <li class="brand tile" title={b.alt}>
+                      <li><a class="brand tile" title={`${b.alt}: every project that supports it`} href={`${import.meta.env.BASE_URL}brands/#${brandId(b.alt)}`}>
                         <img src={b.src} alt="" loading="lazy" decoding="async" />
                         <span class="brand-name">{b.alt}</span>
-                      </li>
+                      </a></li>
                     ))}
                   </ul>
                 </details>
@@ -537,6 +541,13 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
   }
   /* Brands & integrations: a grid of logo tiles, the name under each logo */
   .brands { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+  .brands-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brands-head .src { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
+  .brands-head .src:hover { color: var(--primary-text-color); }
+  .brands-head .src :global(svg) { width: 16px; height: 16px; }
+  .brands > li { display: contents; }
+  a.brand { color: inherit; transition: background-color .2s ease; }
+  a.brand:hover { background: color-mix(in srgb, var(--primary-color) 10%, var(--secondary-background-color)); }
   .brand { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 6px; text-align: center; min-width: 0; }
   /* On a white chip, so dark logos stay readable in the dark theme */
   .brand img { height: 40px; width: auto; min-width: 40px; max-width: 80px; object-fit: contain; padding: 4px; box-sizing: border-box; background: #fff; border-radius: 10px; }

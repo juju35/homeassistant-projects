@@ -143,12 +143,14 @@ const groups = categories
     {groups.map((g) => (
       <a class="chip neutral" href={`#${g.id}`}><Icon name={g.icon} />{g.label}</a>
     ))}
+    <a class="chip neutral to-brands" href={`${base}brands/`}><Icon name="mdiTagMultipleOutline" />Brands</a>
   </nav>
   </div>
   <nav class="wrap jump below" aria-label="Categories">
     {groups.map((g) => (
       <a class="chip neutral" href={`#${g.id}`}><Icon name={g.icon} />{g.label}</a>
     ))}
+    <a class="chip neutral to-brands" href={`${base}brands/`}><Icon name="mdiTagMultipleOutline" />Brands</a>
   </nav>
 
   <div class="wrap">
