@@ -48,6 +48,8 @@ jobs:
         env:
           # Latest release of each project, read from the GitHub API at build time
           GITHUB_TOKEN: ${{ github.token }}
+      # Every internal link and #anchor of the pages must resolve (scripts/check-links.mjs)
+      - run: node scripts/check-links.mjs dist
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
           path: dist
