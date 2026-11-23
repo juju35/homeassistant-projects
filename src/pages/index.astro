@@ -128,6 +128,9 @@ const groups = categories
       <button class="seg" type="button" data-filter="integration" aria-pressed="false"><Icon name="mdiPuzzle" class="seg-i" /><span class="seg-l">Integrations</span> <span class="n">{integrations}</span></button>
       <button class="seg" type="button" data-filter="theme" aria-pressed="false"><Icon name="mdiThemeLightDark" class="seg-i" /><span class="seg-l">Themes</span> <span class="n">{themes}</span></button>
     </div>
+    <button class="sort-btn" type="button" id="sort" aria-pressed="false" title="Sort by popularity (downloads, then stars)">
+      <Icon name="mdiSortAlphabeticalAscending" class="sort-az" /><Icon name="mdiFire" class="sort-pop" /><span class="sort-l">A–Z</span>
+    </button>
     <label class="search tile">
       <Icon name="mdiMagnify" />
       <input type="search" id="q" placeholder="Search projects" autocomplete="off" aria-label="Search a card or an integration" />
@@ -334,6 +337,25 @@ const groups = categories
       }),
     );
     q.addEventListener("input", apply);
+    // Sort: A–Z (the order of the page) or popular (release downloads, then GitHub stars)
+    const sortBtn = document.getElementById("sort") as HTMLButtonElement;
+    const grids = [...document.querySelectorAll<HTMLElement>(".grid")];
+    grids.forEach((g) => [...g.children].forEach((c, i) => ((c as HTMLElement).dataset.i = String(i))));
+    const num = (c: Element, k: string) => Number((c as HTMLElement).dataset[k] ?? 0);
+    const setSort = (popular: boolean) => {
+      sortBtn.setAttribute("aria-pressed", String(popular));
+      sortBtn.title = popular ? "Sorted by popularity: sort A–Z" : "Sort by popularity (downloads, then stars)";
+      sortBtn.querySelector(".sort-l")!.textContent = popular ? "Popular" : "A–Z";
+      for (const g of grids)
+        g.append(...[...g.children].sort((a, b) =>
+          popular ? num(b, "dl") - num(a, "dl") || num(b, "stars") - num(a, "stars") || num(a, "i") - num(b, "i") : num(a, "i") - num(b, "i"),
+        ));
+      const url = new URL(location.href);
+      popular ? url.searchParams.set("sort", "popular") : url.searchParams.delete("sort");
+      history.replaceState(null, "", url);
+    };
+    sortBtn.addEventListener("click", () => setSort(sortBtn.getAttribute("aria-pressed") !== "true"));
+    if (new URLSearchParams(location.search).get("sort") === "popular") setSort(true);
     // Restore the filters from the URL
     const params = new URLSearchParams(location.search);
     const k = params.get("kind");
@@ -436,6 +458,18 @@ const groups = categories
   .seg:hover { color: var(--primary-text-color); }
   .seg.active { color: color-mix(in srgb, var(--primary-color), var(--ink) var(--ink-amt)); background: color-mix(in srgb, var(--primary-color) 14%, transparent); }
   .seg:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 1px; }
+  .sort-btn {
+    all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px;
+    border-radius: 20px; font-size: 14px; font-weight: 500; color: var(--secondary-text-color);
+    background: var(--card-background-color); border: 1px solid var(--divider-color); box-sizing: border-box;
+    transition: color .2s ease, background-color .2s ease;
+  }
+  .sort-btn :global(svg) { width: 18px; height: 18px; }
+  .sort-btn:hover { color: var(--primary-text-color); }
+  .sort-btn:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 1px; }
+  .sort-btn :global(.sort-pop), .sort-btn[aria-pressed="true"] :global(.sort-az) { display: none; }
+  .sort-btn[aria-pressed="true"] :global(.sort-pop) { display: block; color: #f4511e; }
+  .sort-btn[aria-pressed="true"] { color: var(--primary-text-color); background: color-mix(in srgb, #f4511e 12%, var(--card-background-color)); }
   .search {
     flex: 1; min-width: 220px; max-width: 420px; margin-left: auto;
     display: flex; align-items: center; gap: 8px;
@@ -544,11 +578,14 @@ const groups = categories
     .seg-i { display: block; }
     .seg .n { display: none; }
     .search { min-width: 0; height: 40px; }
+    .sort-btn { flex: none; width: 40px; padding: 0; justify-content: center; }
+    .sort-l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
     .sticky .jump { display: none; }
     .jump.below { display: flex; }
     .group { scroll-margin-top: 130px; }
     .group-body { padding: 12px; }
-    .seg { padding: 9px 14px; }
+    .seg { padding: 9px 11px; }
+    .kbd { display: none; }
     .jump .chip { min-height: 36px; padding-block: 6px; }
     .jump { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
   }
