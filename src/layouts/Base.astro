@@ -51,6 +51,7 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
     <meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <link rel="sitemap" href={`${base}sitemap.xml`} type="application/xml" />
+    <link rel="alternate" type="application/atom+xml" title="New versions" href={`${base}releases.xml`} />
     <script is:inline>
       // Before first paint, so the page never flashes the wrong theme.
       try {
