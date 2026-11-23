@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
 import ProjectLogo from "../components/ProjectLogo.astro";
 import { brands } from "../lib/brands";
+import { brandKind } from "../lib/brand-kinds.mjs";
 
 const list = await brands();
 const base = import.meta.env.BASE_URL;
@@ -11,6 +12,12 @@ const letter = (name: string) => {
   return /[A-Z]/.test(c) ? c : "#";
 };
 const letters = [...new Set(list.map((b) => letter(b.name)))];
+const nBrands = list.filter((b) => brandKind(b.id) === "brand").length;
+const nIntegrations = list.length - nBrands;
+// Kinds of the projects that support it, for the "Supported by" filter
+const kinds = (b: (typeof list)[number]) => [...new Set(b.projects.map((p) => p.kind))].join(" ");
+const nByCard = list.filter((b) => b.projects.some((p) => p.kind === "card")).length;
+const nByIntegration = list.filter((b) => b.projects.some((p) => p.kind === "integration")).length;
 const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 ---
 
@@ -19,6 +26,16 @@ const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
     <h1 class="section-title"><Icon name="mdiTagMultipleOutline" />Brands &amp; integrations</h1>
     <p class="muted lead">{list.length} brands and integrations, and the cards and integrations that support them.</p>
     <div class="tools">
+      <div class="segmented" role="group" aria-label="Type" data-group="type">
+        <button class="seg active" type="button" data-v="all" aria-pressed="true"><span class="seg-l">All</span> <span class="n">{list.length}</span></button>
+        <button class="seg" type="button" data-v="brand" aria-pressed="false"><Icon name="mdiFactory" class="seg-i" /><span class="seg-l">Brands</span> <span class="n">{nBrands}</span></button>
+        <button class="seg" type="button" data-v="integration" aria-pressed="false"><Icon name="mdiHomeAssistant" class="seg-i" /><span class="seg-l">Integrations</span> <span class="n">{nIntegrations}</span></button>
+      </div>
+      <div class="segmented" role="group" aria-label="Supported by" data-group="by">
+        <button class="seg active" type="button" data-v="all" aria-pressed="true" title="Supported by any project"><span class="seg-l">Any project</span></button>
+        <button class="seg" type="button" data-v="card" aria-pressed="false" title="Supported by a card"><Icon name="mdiViewDashboardVariant" class="seg-i" /><span class="seg-l">Cards</span> <span class="n">{nByCard}</span></button>
+        <button class="seg" type="button" data-v="integration" aria-pressed="false" title="Supported by an integration"><Icon name="mdiPuzzle" class="seg-i" /><span class="seg-l">Integrations</span> <span class="n">{nByIntegration}</span></button>
+      </div>
       <label class="search tile">
         <Icon name="mdiMagnify" />
         <input type="search" id="bq" placeholder="Search a brand" autocomplete="off" aria-label="Search a brand" />
@@ -35,12 +52,12 @@ const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
         <h2 class="letter">{l}</h2>
         <ul class="brand-grid">
           {list.filter((b) => letter(b.name) === l).map((b) => (
-            <li class="ha-card brand-card" id={b.id} data-name={fold(b.name)}>
+            <li class="ha-card brand-card" id={b.id} data-name={fold(b.name)} data-type={brandKind(b.id)} data-by={kinds(b)}>
               <div class="brand-head">
                 <img src={b.src} alt="" loading="lazy" decoding="async" />
                 <div>
                   <h3 class="brand-title">{b.name}</h3>
-                  <span class="muted n">{b.projects.length} project{b.projects.length > 1 ? "s" : ""}</span>
+                  <span class="muted n">{brandKind(b.id) === "integration" ? "Integration" : "Brand"} · {b.projects.length} project{b.projects.length > 1 ? "s" : ""}</span>
                 </div>
               </div>
               <ul class="uses">
@@ -64,13 +81,46 @@ const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
     const q = document.getElementById("bq") as HTMLInputElement;
     const cards = [...document.querySelectorAll<HTMLElement>(".brand-card")];
     const groups = [...document.querySelectorAll<HTMLElement>("[data-letter]")];
-    const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
-    q.addEventListener("input", () => {
+    const letters = [...document.querySelectorAll<HTMLAnchorElement>(".letters a")];
+    const fold = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    const state: Record<string, string> = { type: "all", by: "all" };
+    const segs = [...document.querySelectorAll<HTMLElement>("[data-group]")];
+    const pass = (c: HTMLElement, s: Record<string, string>, t: string) =>
+      (s.type === "all" || c.dataset.type === s.type) &&
+      (s.by === "all" || c.dataset.by!.split(" ").includes(s.by)) &&
+      (!t || c.dataset.name!.includes(t));
+    const apply = () => {
       const t = fold(q.value);
-      for (const c of cards) c.hidden = !!t && !c.dataset.name!.includes(t);
+      for (const c of cards) c.hidden = !pass(c, state, t);
       for (const g of groups) g.hidden = !g.querySelector(".brand-card:not([hidden])");
+      for (const a of letters) a.hidden = !!document.querySelector(`${a.getAttribute("href")}[hidden]`);
+      // Each button counts what it would show with the other filter and the search
+      for (const g of segs)
+        for (const b of g.querySelectorAll<HTMLElement>(".seg")) {
+          const n = b.querySelector(".n");
+          if (n) n.textContent = String(cards.filter((c) => pass(c, { ...state, [g.dataset.group!]: b.dataset.v! }, t)).length);
+        }
       document.getElementById("bempty")!.hidden = cards.some((c) => !c.hidden);
-    });
+      const url = new URL(location.href);
+      for (const k of ["type", "by"]) state[k] === "all" ? url.searchParams.delete(k) : url.searchParams.set(k, state[k]);
+      history.replaceState(null, "", url);
+    };
+    for (const g of segs)
+      for (const b of g.querySelectorAll<HTMLElement>(".seg"))
+        b.addEventListener("click", () => {
+          for (const x of g.querySelectorAll<HTMLElement>(".seg")) {
+            x.classList.toggle("active", x === b);
+            x.setAttribute("aria-pressed", String(x === b));
+          }
+          state[g.dataset.group!] = b.dataset.v!;
+          apply();
+        });
+    q.addEventListener("input", apply);
+    const params = new URLSearchParams(location.search);
+    for (const k of ["type", "by"]) {
+      const v = params.get(k);
+      document.querySelector<HTMLElement>(`[data-group="${k}"] .seg[data-v="${v}"]`)?.click();
+    }
     addEventListener("keydown", (e) => {
       if (e.key === "/" && document.activeElement !== q) { e.preventDefault(); q.focus(); }
     });
@@ -97,7 +147,21 @@ const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
   .search :global(svg) { width: 20px; height: 20px; flex: none; }
   .search input { all: unset; flex: 1; min-width: 0; font-size: 14px; color: var(--primary-text-color); }
   .search:focus-within { border-color: var(--focus-color); outline: 2px solid var(--focus-color); outline-offset: 1px; }
-  .letters { display: flex; gap: 4px; flex-wrap: wrap; }
+  .segmented {
+    display: inline-flex; gap: 4px; padding: 4px; flex: none;
+    background: var(--card-background-color); border: 1px solid var(--divider-color); border-radius: 22px;
+  }
+  .seg {
+    all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 18px; font-size: 14px; font-weight: 500; color: var(--secondary-text-color);
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .seg .n { font-weight: 400; }
+  .seg :global(.seg-i) { width: 16px; height: 16px; }
+  .seg:hover { color: var(--primary-text-color); }
+  .seg.active { color: color-mix(in srgb, var(--primary-color), var(--ink) var(--ink-amt)); background: color-mix(in srgb, var(--primary-color) 14%, transparent); }
+  .seg:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 1px; }
+  .letters { display: flex; gap: 4px; flex-wrap: wrap; flex-basis: 100%; }
   .letters .chip { min-width: 28px; justify-content: center; padding: 3px 6px; }
   .letter-group { scroll-margin-top: 130px; }
   .letter { margin: 24px 0 10px; font-size: 18px; font-weight: 500; color: var(--secondary-text-color); }
@@ -123,6 +187,9 @@ const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
   .empty { padding: 40px 0; text-align: center; }
   @media (max-width: 600px) {
     .tools { position: static; }
-    .search { flex: 1 1 100%; }
+    .search { flex: 1 1 100%; order: -1; }
+    .segmented { flex: 1 1 100%; }
+    .seg { flex: 1; justify-content: center; padding: 8px 6px; font-size: 13px; }
+    .seg :global(.seg-i) { display: none; }
   }
 </style>
