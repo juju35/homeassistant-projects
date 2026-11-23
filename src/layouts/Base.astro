@@ -73,11 +73,12 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
           <span class="brand-text"><b>Home Assistant</b> projects</span>
         </a>
         <nav class="actions">
+          <a class="brands-btn" href={`${base}brands/`} title="Every brand and integration, and the projects that support it" aria-label="Brands"><Icon name="mdiTagMultipleOutline" /><span>Brands</span></a>
           <a class="coffee-btn" href={COFFEE} target="_blank" rel="noopener" title="Buy me a coffee">
             <svg class="coffee-cup" aria-hidden="true" viewBox="0 0 24 24"><g fill="none" stroke="#0D0C22" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M6.9 10.2 8.2 21.1c.1.6.5.9 1 .9h5.6c.5 0 .9-.3 1-.9l1.3-10.9" fill="#fff"/><path d="M7.4 12.6c1.6-.7 3.3.5 4.9-.1 1.4-.6 2.7-.6 4.1-.2L16.7 10.2H7.3Z" fill="#FFDD00" stroke="none"/><rect x="5.3" y="7.4" width="13.4" height="2.9" rx="1.45" fill="#FFDD00"/><path d="M8.4 7.3V5.6c0-.9 1.6-1.9 3.6-1.9s3.6 1 3.6 1.9v1.7" fill="#FFDD00"/></g></svg><span>Buy me a coffee</span>
           </a>
           <a class="icon-btn" href={`https://github.com/${OWNER}`} title="GitHub" aria-label="GitHub profile"><Icon name="mdiGithub" /></a>
-          <a class="icon-btn" href={LINKEDIN} title="LinkedIn" aria-label="LinkedIn profile" rel="me noopener"><Icon name="mdiLinkedin" /></a>
+          <a class="icon-btn linkedin" href={LINKEDIN} title="LinkedIn" aria-label="LinkedIn profile" rel="me noopener"><Icon name="mdiLinkedin" /></a>
           <button class="icon-btn" id="theme-toggle" type="button" aria-label="Theme: system" title="Theme: system" data-mode="auto">
             <Icon name="mdiThemeLightDark" class="ic-auto" />
             <Icon name="mdiWhiteBalanceSunny" class="ic-light" />
@@ -162,6 +163,22 @@ const image = new URL(`${base}${imagePath}`, Astro.site).href;
   .brand-text { color: var(--secondary-text-color); }
   .brand-text b { color: var(--primary-text-color); }
   .actions { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+  /* Brands index, on every page: a pill beside the coffee button, its icon alone on phones */
+  .brands-btn {
+    display: inline-flex; align-items: center; gap: 6px; flex: none; height: 36px; padding: 0 14px 0 11px; margin-right: 4px;
+    box-sizing: border-box; border-radius: 18px; font-size: 14px; font-weight: 500; white-space: nowrap;
+    color: var(--primary-text-color); background: var(--card-background-color); border: 1px solid var(--divider-color);
+    transition: background-color .2s ease;
+  }
+  .brands-btn :global(svg) { width: 18px; height: 18px; color: var(--primary-color); }
+  .brands-btn:hover { background: color-mix(in srgb, var(--primary-color) 10%, var(--card-background-color)); }
+  .brands-btn:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
+  @media (max-width: 600px) {
+    .brands-btn { width: 36px; padding: 0; justify-content: center; }
+    .brands-btn span { display: none; }
+  }
+  /* LinkedIn stays in the footer: the top bar keeps room for the rest on narrow phones */
+  @media (max-width: 420px) { .linkedin { display: none; } }
   /* Buy Me a Coffee, on every page: the official button (yellow pill, the take-away cup, Cookie lettering in BMC navy) */
   .coffee-btn {
     display: inline-flex; align-items: center; gap: 5px; flex: none; height: 36px; padding: 0 16px 0 10px; margin-right: 6px;

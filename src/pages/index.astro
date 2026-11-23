@@ -12,6 +12,7 @@ import ProjectLogo from "../components/ProjectLogo.astro";
 import { news } from "../lib/whats-new";
 import { headline } from "../lib/news.mjs";
 import { formatDate } from "../lib/releases";
+import { brands } from "../lib/brands";
 
 const counts = kindCounts(current);
 const cards = counts.card;
@@ -27,6 +28,9 @@ const byTitle = (a: { title: string }, b: { title: string }) =>
   a.title.localeCompare(b.title, "en", { sensitivity: "base", numeric: true });
 // The six latest versions, one per project
 const latest = await news(6);
+// The brands most projects support, and how many there are in all
+const allBrands = await brands();
+const topBrands = [...allBrands].sort((a, b) => b.projects.length - a.projects.length || a.name.localeCompare(b.name, "en")).slice(0, 12);
 const groups = categories
   .map((c) => ({ ...c, items: current.filter((p) => p.category === c.id).sort(byTitle) }))
   .filter((g) => g.items.length);
@@ -117,6 +121,29 @@ const groups = categories
           </li>
         ))}
       </ul>
+    </section>
+  )}
+
+  {topBrands.length > 0 && (
+    <section class="wrap bteaser" aria-labelledby="brands-title">
+      <div class="ha-card bt-card">
+        <div class="bt-head">
+          <span class="logo" style="--c:var(--primary-color)"><Icon name="mdiTagMultipleOutline" /></span>
+          <div>
+            <h2 class="bt-title" id="brands-title">Works with {allBrands.length} brands &amp; integrations</h2>
+            <p class="muted bt-sub">Find the cards and integrations for your devices</p>
+          </div>
+          <a class="btn bt-all" href={`${base}brands/`}>All brands <Icon name="mdiArrowRight" /></a>
+        </div>
+        <ul class="bt-row">
+          {topBrands.map((b) => (
+            <li><a class="bt-logo" href={`${base}brands/#${b.id}`} title={`${b.name}: ${b.projects.length} projects`}>
+              <img src={b.src} alt="" loading="lazy" decoding="async" />
+              <span>{b.name}</span>
+            </a></li>
+          ))}
+        </ul>
+      </div>
     </section>
   )}
 
@@ -431,6 +458,38 @@ const groups = categories
     }
     .news-list::-webkit-scrollbar { display: none; }
     .news-item { flex: 0 0 82%; scroll-snap-align: start; }
+  }
+
+  /* Brands teaser: the most supported brands, each opening its entry of the brands page */
+  .bteaser { margin-top: 16px; }
+  .bt-card { padding: 16px 20px; }
+  .bt-head { display: flex; align-items: center; gap: 14px; }
+  .bt-head .logo { flex: none; }
+  .bt-head > div { flex: 1; min-width: 0; }
+  .bt-title { margin: 0; font-size: 16px; font-weight: 500; }
+  .bt-sub { margin: 2px 0 0; font-size: 13px; }
+  .bt-all {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; flex: none;
+    padding: 8px 16px; border-radius: 18px; font-size: 14px; font-weight: 500;
+    background: var(--primary-color); color: var(--card-background-color); transition: filter .2s ease;
+  }
+  .bt-all:hover { filter: brightness(1.08); }
+  .bt-all :global(svg) { width: 18px; height: 18px; }
+  .bt-row { list-style: none; margin: 14px 0 0; padding: 0; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
+  .bt-row::-webkit-scrollbar { display: none; }
+  .bt-logo {
+    flex: none; display: flex; flex-direction: column; align-items: center; gap: 6px; width: 80px; padding: 6px 2px;
+    border-radius: 12px; font-size: 12px; line-height: 1.25; color: var(--secondary-text-color); text-align: center;
+    transition: background-color .2s ease;
+  }
+  .bt-logo:hover { background: var(--secondary-background-color); color: var(--primary-text-color); }
+  /* On a white chip, so dark logos stay readable in the dark theme */
+  .bt-logo img { width: 72px; height: 44px; object-fit: contain; padding: 6px; box-sizing: border-box; background: #fff; border-radius: 10px; }
+  @media (max-width: 600px) {
+    .bt-card { padding: 14px 16px; }
+    .bt-head { flex-wrap: wrap; }
+    .bt-all { margin-left: 0; width: 100%; justify-content: center; order: 3; box-sizing: border-box; }
+    .bt-row { mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
   }
 
   /* Filters stay under the top bar while scrolling */
