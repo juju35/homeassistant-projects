@@ -2133,6 +2133,8 @@ projects:
   homeassistant: 2024.8.0
   keywords: "person people home away zone device tracker proximity"
   worksWith:
+  - slug: ha-findmy
+    why: "The family's iPhones located through iCloud"
   - slug: ha-room-card
     why: "The home room by room"
   cardTypes:
@@ -2184,6 +2186,8 @@ projects:
   homeassistant: 2024.8.0
   keywords: "traceur balise tag clés collier chien chat objet perdu tracker tile airtag find my google find my smarttag tractive bermuda ibeacon ble paj gps traccar icloud"
   worksWith:
+  - slug: ha-findmy
+    why: "AirTags, iPhones and AirPods from Apple's Find My"
   - slug: ha-presence-card
     why: "People at home, and the things they carry"
   - slug: ha-pet-card
@@ -2219,6 +2223,33 @@ projects:
     caption: "Radar"
   - src: ring.gif
     caption: "Ringing"
+- slug: ha-findmy
+  title: Find My
+  kind: integration
+  category: security
+  icon: mdiRadar
+  accent: '#34c759'
+  tagline: "Your Apple devices from iCloud and your AirTags from the Find My network, with their position, battery and last seen time."
+  summary: "An integration for Apple's Find My with two sources: an iCloud account for iPhone, iPad, Mac, Apple Watch and AirPods (and the family's devices), with Play sound, Display message and Lost Mode; and a Find My network account for AirTags and Find My accessories, imported all at once from the data exported from a Mac. Positions and batteries survive restarts and the hours Apple has nothing new, and an expired Apple session asks to sign in again on its own."
+  highlights:
+  - "iCloud devices: position, battery, charging, status and Lost Mode, with a Play sound button"
+  - "AirTags and accessories: position, battery state and last seen time, decrypted from the Find My network"
+  - "Every accessory of a Mac export added at once, with its name and key alignment"
+  - Verification codes by trusted device or text message, and a sign-in prompt as soon as Apple ends the session
+  - Last position, battery and last seen time kept across restarts and failed fetches
+  - Home Assistant stays responsive while accessory keys are derived and reports decrypted
+  - Display message, Lost Mode and refresh actions
+  - Light on Apple, 15 minutes between Find My network fetches
+  - "23 languages: French, English, German, Spanish, Italian, Dutch and more"
+  homeassistant: 2026.6.0
+  wip: true
+  wipNote: "Every part is covered by tests; it still needs to be tried on real iCloud accounts and AirTags."
+  keywords: "localiser find my apple icloud airtag airtags airpods iphone ipad mac apple watch traceur balise tag clés objet perdu tracker mode perdu lost mode faire sonner play sound localisation position device tracker famille family sharing"
+  worksWith:
+  - slug: ha-tracker-card
+    why: "Its AirTags on the radar, with their last seen time and battery"
+  - slug: ha-presence-card
+    why: "Where the family's iPhones are"
 - slug: ha-alarm-card
   title: Alarm Card
   kind: integration
