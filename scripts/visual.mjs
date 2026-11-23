@@ -60,12 +60,19 @@ for (const [vpName, vp] of VIEWPORTS) {
       });
       await page.goto(origin + BASE + path, { waitUntil: "load" });
       await page.evaluate(() => document.fonts.ready);
-      const { scroll, width } = await page.evaluate(() => ({
+      const { scroll, width, height } = await page.evaluate(() => ({
         scroll: document.documentElement.scrollWidth,
         width: window.innerWidth,
+        height: document.documentElement.scrollHeight,
       }));
       if (scroll > width + 1) problems.push(`${where}: ${scroll}px wide for a ${width}px screen`);
-      await page.screenshot({ path: `${out}/${name}-${vpName}-${scheme}.png`, fullPage: true });
+      // WebKit can't capture more than 32,767 device pixels high: the long home page is cut there
+      const max = Math.floor(32_000 / (vp.deviceScaleFactor ?? 1));
+      await page.screenshot({
+        path: `${out}/${name}-${vpName}-${scheme}.png`,
+        fullPage: true,
+        clip: { x: 0, y: 0, width, height: Math.min(height, max) },
+      });
       await page.close();
     }
     await context.close();
