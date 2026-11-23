@@ -24,5 +24,8 @@
   },
   "overrides": {
     "fflate": "^0.8.2"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
   }
 }

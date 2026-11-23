@@ -21,7 +21,12 @@ npm ci
 npm test                               # unit tests (node --test test/*.test.mjs)
 ALLOW_MISSING_SOURCES=1 npm run build  # full build; offline/agent sandbox: api.github.com is refused (403),
                                        # releases are skipped — never publish such a build
+node scripts/check-links.mjs dist      # internal links and #anchors of the build
+node scripts/visual.mjs dist           # WebKit renders to visual/ (BROWSER=chromium BROWSER_PATH=… locally)
+node scripts/check-captures.mjs        # every capture of projects.yaml answers 200 (also weekly in CI)
 ```
+On a PR, the **Rendering** workflow renders the home, two project pages and the 404 in WebKit (light/dark,
+desktop/phone) and attaches the captures as the `webkit-captures` artifact: look at them for Safari.
 The build takes ~10 min the first time (every capture is fetched and re-encoded to WebP); run it in the
 background. It fails on a duplicate id or any **IPTV** mention in the pages (`src/lib/dist-check.mjs`).
 
