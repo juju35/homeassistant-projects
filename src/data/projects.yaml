@@ -6230,11 +6230,11 @@ projects:
   - "Each source with an age ring against its limit, its size and its next run"
   - "Back up now from the card, with the right service or button for each source"
   - "Home Assistant backups, Google Drive Backup, Samba Backup, OneDrive Backup, Auto Backup"
-  - "Proxmox VE, Duplicati, Duplicati Monitor, Backrest, Veeam, or any last-backup sensor"
+  - "Proxmox VE (core or Proxmox VE Custom), Duplicati, Duplicati Monitor, Backrest, Veeam, or any last-backup sensor"
   - "Mini card with the sources to watch and a round back-up button"
   - "Illustrated header: the home server and its backup disk linked to the cloud, in the worst status"
   homeassistant: 2024.8.0
-  keywords: "sauvegarde backup backups google drive backup samba onedrive auto backup proxmox duplicati backrest veeam restore"
+  keywords: "sauvegarde backup backups google drive backup samba onedrive auto backup proxmox proxmoxve proxmoxve_custom duplicati backrest veeam restore"
   worksWith:
   - slug: ha-proxmox
     why: "The Proxmox nodes and their backups"
