@@ -52,7 +52,7 @@ const short = (iso: string) => {
 <!-- A calm tile of its category card: the whole tile opens the project (its title link covers it), the Add to
      Marketplace badge sits on top -->
 <article
-  class:list={["project", { archived: p.archived }]}
+  class:list={["project", { archived: p.archived, wip: p.wip }]}
   style={`--c:${p.accent}`}
   data-kind={p.kind}
   data-search={search}
@@ -78,6 +78,9 @@ const short = (iso: string) => {
   {p.hero ? (
     <div class="preview">
       <Shot project={p} shot={p.hero} />
+      {p.wip && !p.archived && (
+        <div class="wip-ribbon" aria-hidden="true"><span><Icon name="mdiHardHat" />Work in progress</span></div>
+      )}
       {p.archived && (
         <div class="tapes" aria-hidden="true">
           <div class="tape t1"><span>{"ARCHIVED · NO LONGER UPDATED · ".repeat(6)}</span></div>
@@ -103,6 +106,7 @@ const short = (iso: string) => {
 
   <div class="meta">
     {fresh && <span class="chip new-chip" title="Published this week">New</span>}
+    {p.wip && <span class="chip wip-chip" title="Still being built: works, but changes from one release to the next"><Icon name="mdiHardHat" />Beta</span>}
     {anims > 0 && <span class="chip" style={`--c:${p.accent}`}><Icon name="mdiAnimationPlay" />{anims} animation{anims > 1 ? "s" : ""}</span>}
     {shots > 0 && <span class="chip neutral"><Icon name="mdiImageMultiple" />{shots}</span>}
     {repo && repo.downloads > 0 && <span class="chip neutral" title={`${repo.downloads.toLocaleString("en-US")} downloads of its releases`}><Icon name="mdiDownload" />{compact(repo.downloads)}</span>}
@@ -113,6 +117,23 @@ const short = (iso: string) => {
 </article>
 
 <style>
+  /* Work in progress: a corner ribbon of hazard tape, its stripes slowly moving */
+  .project.wip .preview { position: relative; overflow: hidden; }
+  .wip-ribbon {
+    position: absolute; top: 30px; right: -58px; width: 230px; transform: rotate(35deg);
+    padding: 3px 0; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    background: repeating-linear-gradient(45deg, #EF9F27 0 9px, #412402 9px 18px);
+    background-size: 25.5px 100%; animation: wip-tape 1.8s linear infinite;
+  }
+  .wip-ribbon span {
+    display: flex; align-items: center; justify-content: center; gap: 4px;
+    margin: 0 8px; padding: 3px 0; background: #FAC775; color: #412402;
+    font: 700 10.5px/1 system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .wip-ribbon :global(svg) { width: 13px; height: 13px; }
+  @keyframes wip-tape { to { background-position: 25.5px 0; } }
+  @media (prefers-reduced-motion: reduce) { .wip-ribbon { animation: none; } }
+  .wip-chip { --c: #BA7517; }
   .project.archived .preview { position: relative; overflow: hidden; }
   .project.archived .preview :global(img) { filter: grayscale(.85) brightness(.92); }
   /* Crime scene tape across the preview of an archived project */

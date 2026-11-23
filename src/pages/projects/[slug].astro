@@ -1,4 +1,5 @@
 ---
+import WipBanner from "../../components/WipBanner.astro";
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
 import ProjectLogo from "../../components/ProjectLogo.astro";
@@ -122,6 +123,7 @@ const replacement = project.replacedBy ? projects.find((p) => p.slug === project
           </p>
         </div>
       )}
+      {project.wip && !project.archived && <WipBanner project={project} />}
       <p class="lead">{project.tagline}</p>
       <p class="summary muted">{project.summary}</p>
       <div class="actions">
