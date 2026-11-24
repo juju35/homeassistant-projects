@@ -147,6 +147,8 @@ const groups = categories
     </section>
   )}
 
+  <div class="wrap support-slot"><Support /></div>
+
   <div class="sticky">
   <section class="wrap toolbar" aria-label="Filter projects">
     <div class="segmented" role="group" aria-label="Type">
@@ -235,7 +237,6 @@ const groups = categories
 
     <Languages />
     <MadeIn />
-    <Support />
 
     <section class="contrib" id="contributing" aria-labelledby="contributing-title">
       <h2 class="section-title" id="contributing-title"><Icon name="mdiHandHeartOutline" />Contributions</h2>
@@ -462,6 +463,8 @@ const groups = categories
 
   /* Brands teaser: the most supported brands, each opening its entry of the brands page */
   .bteaser { margin-top: 16px; }
+  /* Support sits right under the brands teaser, spaced like the sections above it */
+  .support-slot :global(.support) { margin-top: 16px; }
   .bt-card { padding: 16px 20px; }
   .bt-head { display: flex; align-items: center; gap: 14px; }
   .bt-head .logo { flex: none; }
