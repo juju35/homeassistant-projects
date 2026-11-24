@@ -17,3 +17,7 @@ npm-debug.log*
 # OS
 .DS_Store
 visual/
+
+# presentation video
+video/.cache/
+video/dist/

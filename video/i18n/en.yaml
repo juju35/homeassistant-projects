@@ -1,0 +1,125 @@
+# English texts of the video (scene.html is already in English).
+first_language: en
+categories:
+  climate:
+    label: Climate & weather
+    sub: Animated weather, UV, rain within the hour, heating and comfort
+  energy:
+    label: Energy
+    sub: Solar, Linky, Tempo, EcoWatt, meters and tanks
+  home:
+    label: Home control
+    sub: Rooms, lights, covers, scenes, rules and notifications
+  outdoor:
+    label: Garden, pool & pets
+    sub: Pool, watering, mowers, aquariums and pets
+  security:
+    label: Security & presence
+    sub: Alarm, cameras, locks, detectors and presence
+  appliances:
+    label: Appliances & media
+    sub: Appliances, vacuums, printers, media, consoles
+  network:
+    label: Network & smart home
+    sub: Internet boxes, routers, Zigbee, Matter, Z-Wave and DNS
+  servers:
+    label: Servers & homelab
+    sub: NAS, Docker, Proxmox, reverse proxy, UPS, services
+  car:
+    label: Car & travel
+    sub: Vehicle, charging, fuel, public transport, flights and trains
+  family:
+    label: Family & school
+    sub: Pronote, school portals, Family Link, chores and events
+  everyday:
+    label: Everyday life
+    sub: Calendar, lists, timers, parcels, meals and mail
+  maintenance:
+    label: Maintenance
+    sub: System hub, GitHub, upkeep, backups and devices
+  themes:
+    label: Themes & dashboards
+    sub: Liquid Glass, Neutral, illustrated headers and wall panels
+domains:
+- Lights
+- Covers, blinds, gates
+- Locks
+- Heating, thermostats
+- AC, fans, purifiers
+- Water heaters
+- Robot vacuums
+- Robot mowers
+- Media players
+- Remotes
+- Alarms
+- Cameras
+- People, trackers
+- Doors, windows
+- Smoke, CO, leaks
+- Plugs, appliances
+- Meters, energy
+- Calendars, lists
+- Weather
+- Timers, scenes
+focus:
+  ha-smart-comfort:
+    tag: Alerts that understand the situation, and a home that adjusts itself.
+    simple:
+    - - mdiMagicStaff
+      - One “Discover” button
+      - rooms, sensors, ACs and purifiers found and set up in one click
+    - - mdiGestureTap
+      - Notifications you can act on
+      - “Snooze 4 h” or “Got it” right from your phone
+    - - mdiTune
+      - Everything in one panel
+      - each room is set with a few switches
+  ha-system-hub:
+    tag: Home Assistant's health scored out of 100, and failures fixed before you even see them.
+    simple:
+    - - mdiToggleSwitchOutline
+      - Install it, then forget it
+      - each module turns on in one click and watches on its own
+    - - mdiUpdate
+      - “Update all”
+      - HA, add-ons, devices and Marketplace in a single button
+    - - mdiBellBadgeOutline
+      - A badge that tells you
+      - the sidebar shows when something needs a look
+  ha-house-rules:
+    tag: Your home's reflexes, reliable and thoughtful, without writing a single automation.
+    simple:
+    - - mdiImport
+      - Takes over your automations
+      - existing reflexes are imported as rules (never deleted)
+    - - mdiPlayCircleOutline
+      - A “Test” button
+      - on every rule, to see the result right away
+    - - mdiHomeOutline
+      - Room by room
+      - each room shows its rules and what is going on
+  ha-energy-hub:
+    tag: 'Your solar panels explained: what they produce, what they lose and why.'
+    simple:
+    - - mdiMagnifyScan
+      - Nothing to wire
+      - your installation is detected on its own, across 24 solar integrations
+    - - mdiViewDashboardOutline
+      - No dashboard to build
+      - the full panel is ready right after install
+    - - mdiPlayBoxOutline
+      - A demo mode
+      - to try everything before you even have panels
+  ha-maintenance:
+    tag: 'Household upkeep that tracks itself: filters, brushes, ink and recurring chores.'
+    simple:
+    - - mdiMagnifyScan
+      - Nothing to type in
+      - your devices' consumables are found on their own
+    - - mdiCheckCircle
+      - A “Done” button
+      - that also resets the device's own counter
+    - - mdiCalendarMonth
+      - A calendar of due dates
+      - and a single reminder a day, each item once
+captions: {}
