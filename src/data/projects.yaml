@@ -308,9 +308,10 @@ projects:
   - "Midea PortaSplit air conditioner and Rituals Perfume Genie diffuser (brass or black) drawn as they are, a localised Genie included"
   - "Ground- and water-source heat pumps: horizontal collector, borehole, well, doublet or lake loop drawn in place of the outdoor unit, the brine or water flowing while it runs"
   - "Heat pumps measured but not controlled: a read-only card from a power sensor, with heat output, COP and SCOP, flow and return temperatures"
+  - "Metered heat pumps tell the heating circulation running on its own from the heat pump itself, with the water flowing in the pipes"
   - "Ceiling fans hanging in the room, the blades turning with the speed and the other way when reversed, with their light and direction (Bond, Big Ass Fans, Modern Forms…)"
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse circulateur circulation plancher chauffant"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
@@ -610,6 +611,7 @@ projects:
   - Episodes instead of cooldowns, grouped in one digest notification
   - Quiet hours, presence and iOS / Android interruption levels, with Snooze and Got it buttons
   - Air conditioners, fans and purifiers controlled automatically, quieter at night
+  - "A control switch per family of devices: air conditioners, fans or purifiers left alone while the others are still driven"
   - Adaptive lighting by time of day, with a quiet morning and nap slots per room
   - "Lights on presence moved to House Rules, imported from it in one click; naps shared with it through a schedule helper"
   - Outdoor places and air quality index to suggest opening or closing the windows
@@ -732,6 +734,7 @@ projects:
   highlights:
   - "Zones found by area, as text tabs, a flickering flame on a zone that heats"
   - "Animated thermostat with target, presets, boost and what it really does"
+  - Versatile Thermostat zones stopped by their auto start/stop read Paused, still in service, not Off
   - "Pilot wire radiators: comfort, eco, frost protection, off, comfort −1 / −2"
   - "Pellet and wood stoves: fire behind the glass, phase from ignition to cooling down, power level, pellets left with a low alert"
   - "Weekly schedule of a schedule helper, today highlighted with a \"now\" line"
@@ -742,7 +745,7 @@ projects:
   - "Boilers: gas with its burner's blue flame, oil with its tank gauge, and pellet, with the flow and return temperatures and the burner's modulation"
   - "Underfloor heating glowing in the floor, and towel rails with the time left on boost"
   homeassistant: 2024.8.0
-  keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule poêle granulés pellet wood stove palazzetti fumis edilkamin mcz maestro rika duepi plancher chauffant underfloor floor heating danfoss icon uponor heatmiser sèche-serviettes towel rail chaudière boiler gaz gas fioul oil"
+  keywords: "chauffage thermostat radiator valve trv fil pilote pilot wire netatmo tado heatzy nodon legrand zigbee2mqtt zha schedule poêle granulés pellet wood stove palazzetti fumis edilkamin mcz maestro rika duepi plancher chauffant underfloor floor heating danfoss icon uponor heatmiser sèche-serviettes towel rail chaudière boiler gaz gas fioul oil versatile thermostat vtherm auto start stop"
   worksWith:
   - slug: ha-opening-card
     why: "The window that paused the heating, and how long it stayed open"
@@ -856,6 +859,8 @@ projects:
   summary: Pick a room and the cards find its entities by themselves. The overview shows every room as a tile coloured by what matters most, and unfolds its sensors, lights and plugs on tap.
   highlights:
   - Overview of every room, coloured by openings and presence
+  - "Room card: a whole room in one card from its area, an illustrated header of the room and its status, then folding sections for its lights, plugs and sensors"
+  - Room mini card on two lines, its status, readings and pills, zooming to the full Room card
   - 'Sensors card: what is open comes first, with how long'
   - Lights and plugs cards with power draw
   - "Room scenes under the lights, Philips Hue scenes found by their Hue room, dynamic ones started moving"
@@ -869,7 +874,7 @@ projects:
   - "Animated illustrated header on every card, drawn from the room's entities on its wall and floor"
   - "Entities the discovery misses added to a room of the overviews, with their own name and icon"
   homeassistant: 2024.8.0
-  keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity scenes philips hue"
+  keywords: "room area leak door window motion presence lights plugs switch environment co2 humidity scenes philips hue pièce room card area zone"
   worksWith:
   - slug: ha-opening-card
     why: "Each door and window drawn, with its lock, handle and today's openings"
@@ -880,6 +885,8 @@ projects:
   - slug: ha-wall-panel
     why: "Its room scenes on a whole dashboard for wall panels"
   cardTypes:
+  - room-card
+  - room-mini-card
   - room-overview-card
   - room-sensors-card
   - room-sensors-mini-card
@@ -904,6 +911,27 @@ projects:
     dark: overview-details-dark.png
     caption: Room details
     group: Overview
+  - src: room-busy.png
+    caption: Room card
+    group: Room
+  - src: room-quiet.png
+    caption: A quiet room
+    group: Room
+  - src: room-folded.png
+    caption: Sections folded
+    group: Room
+  - src: room-tiles.png
+    caption: Tiles
+    group: Room
+  - src: room-mini-busy.png
+    caption: Mini card
+    group: Room
+  - src: room-mini-quiet.png
+    caption: Mini a quiet room
+    group: Room
+  - src: room-mini-zoom.png
+    caption: Mini zoomed in
+    group: Room
   - src: sensors-open.png
     dark: sensors-open-dark.png
     caption: Sensors
@@ -1217,7 +1245,7 @@ projects:
   - 12 sensors, an alert event, notifications through Notify Hub in your language and a sidebar badge with the number of alerts
   - Demo mode with a simulated installation and more than a year of history
   homeassistant: 2024.12.0
-  keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek indevolt hoymiles zlinky linky denky tasmota teleinfo solcast forecast.solar comparateur offres tarif edf tempo zen week-end zen flex heures creuses rte tempo irradiance ensoleillement météo weather nébulosité ecowitt weatherflow"
+  keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek indevolt hoymiles zlinky linky denky tasmota teleinfo solcast forecast.solar comparateur offres tarif edf tempo zen week-end zen flex heures creuses rte tempo irradiance ensoleillement météo weather nébulosité ecowitt weatherflow indevolt denky hoymiles s-miles hibattery"
   worksWith:
   - slug: ha-energy-card
     why: "The live power flow on a dashboard"
@@ -1478,12 +1506,13 @@ projects:
   - "History chart by hour, day or month against the previous period"
   - "Optional cost, fixed or from a price entity"
   - "Night leak detection, with an alert"
+  - Shut-off valve button next to the flow, red while open during a suspected leak
   - "Animated water and gas meters, mini card with a detail button"
   - "Electricity meters too (kWh): consumption, cost and live power, drawn as a smart meter, a spinning-disc Ferraris meter or a DIN-rail sub-meter"
   - "Gas in kWh with the daily conversion factor read from a sensor (GRDF), or a fixed one"
   - "Illustrated header with the meter in its place: water in the cellar, electricity by the panel, gas on the house front"
   homeassistant: 2024.8.0
-  keywords: "eau gaz compteur water gas meter gazpar grdf suez veolia leak fuite consumption utility_meter electricity électricité kwh linky enedis ferraris sub-meter conversion"
+  keywords: "eau gaz compteur water gas meter gazpar grdf suez veolia leak fuite consumption utility_meter electricity électricité kwh linky enedis ferraris sub-meter conversion vanne valve coupure électrovanne"
   cardTypes:
   - utility-meter-card
   - utility-meter-mini-card
@@ -2550,6 +2579,9 @@ projects:
   - 'Privacy badge per camera: live dot or lock'
   - HD / SD switch, setting each Tapo camera's own stream quality
   - Pan and tilt controls, round pad in full screen
+  - "Frigate: its events under the grid, a tap playing the clip in the camera's tile, and an Events tab in the panel with the day as a timeline"
+  - Frigate cameras paired with their native camera, its privacy switch and pan and tilt, the SD stream from go2rtc over WebRTC, Open in Frigate
+  - Reolink, UniFi Protect and ONVIF streams of one camera found as its HD and SD, continuous pan and tilt held on the arrows, preset positions
   - Motion badge while a motion, occupancy or person sensor of the camera is on
   - Low latency streams, WebRTC alone when the camera offers it, with its sound
   - Mini card with a snapshot per camera, opening the full card
@@ -2559,7 +2591,7 @@ projects:
   - "The panel's top bar is the card's illustrated camera, following the cameras' state; it can be hidden for non-admins or everyone"
   - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2024.12.0
-  keywords: "camera cctv privacy ptz frigate reolink tapo webrtc go2rtc panel"
+  keywords: "camera cctv privacy ptz frigate reolink tapo webrtc go2rtc panel frigate go2rtc reolink unifi protect onvif ezviz arlo netatmo événements events preset"
   worksWith:
   - slug: ha-tapo
     why: "Its privacy mode, pan and tilt and stream quality are found by the cards"
@@ -2594,10 +2626,19 @@ projects:
     dark: card-fullscreen.png
     caption: Fullscreen camera with the round pan and tilt pad
     group: Card
+  - src: card-frigate.png
+    caption: Frigate cameras and their events
+    group: Card
+  - src: card-frigate-events.png
+    caption: Frigate events unfolded
+    group: Card
   - src: card-mini.png
     dark: card-mini-dark.png
     caption: A snapshot per camera
     group: Mini card
+  - src: panel-events.png
+    caption: Events tab, the day's Frigate events
+    group: Panel
   - src: panel-settings.png
     caption: "Settings tab"
     group: Panel
@@ -2796,7 +2837,7 @@ projects:
   summary: 'One card for 13 kinds of appliances, from washing machines to wine cabinets: it works out the type and the brand, finds the entities, and shows the status, progress and finish time, the programs and their options, start, pause and stop, with an illustration animated by what the appliance is doing.'
   highlights:
   - 13 appliance types detected by themselves, each with its animated illustration
-  - Home Connect (cloud or local), Miele, SmartThings, Samsung LocalThings, LG ThinQ, Whirlpool and Matter
+  - Home Connect (cloud or local), Miele, SmartThings, Samsung LocalThings, LG ThinQ, Whirlpool, hOn (Haier, Candy, Hoover) and Matter
   - Brand logo next to the title, buttons in the brand's colour
   - Status, progress bar, finish time and program step
   - Program picker and options, start, pause, resume and stop
@@ -2804,9 +2845,10 @@ projects:
   - Reminder when a program has finished and the door is still closed
   - Chips opening the more-info dialog of their entity
   - 'Energy of the current and last cycle, from the appliance''s or a smart plug''s meter'
+  - "Entities of your own: chips of other sensors, a Commands section of selects, switches and buttons, the power from a smart plug"
   - Mini card with a detail button unfolding the full card
   homeassistant: 2024.8.0
-  keywords: "home connect home connect local bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance localthings"
+  keywords: "home connect home connect local bosch siemens neff gaggenau constructa miele smartthings samsung lg thinq whirlpool maytag kitchenaid matter dishwasher washer washing machine dryer oven microwave hob coffee hood fridge freezer wine styler appliance localthings hon haier candy hoover prise connectée commandes"
   cardTypes:
   - smart-appliance-card
   - smart-appliance-mini-card
@@ -2831,6 +2873,9 @@ projects:
   - src: fridge.png
     dark: fridge-dark.png
     caption: Bosch fridge-freezer
+    group: Bosch
+  - src: fridge-own-entities.png
+    caption: Entities of your own
     group: Bosch
   - src: mini-bosch.png
     dark: mini-bosch-dark.png
@@ -3014,11 +3059,12 @@ projects:
   - Battery, status, current room, progress and errors
   - Cleaning mode, suction, mop intensity and route
   - Room selection and dock actions, Dreame and Xiaomi Miio included, with your own list of rooms if needed
+  - Rooms cleaned once, twice or three times in one go (Roborock, Dreame)
   - "Roborock: the live Vacuum Map, rooms named and the robot on its path, in 2D or 3D, on the card and the mini card while cleaning"
   - Map paused while the card is off-screen
   - "Map as a section that unfolds while the robot cleans (show_map: always_folded)"
   homeassistant: 2024.8.0
-  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d"
+  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d passes passages repeat"
   worksWith:
   - slug: ha-vacuum-map
     why: "Its live Roborock map, drawn in the map section"
@@ -3480,10 +3526,11 @@ projects:
   - "Nozzle, bed and chamber temperatures with their targets"
   - "Bambu Lab AMS spools: colour, filament, remaining amount, humidity"
   - "Print thumbnail and camera, pause / resume / stop with a confirmation"
+  - "Power button for the printer's smart plug, turning off asking first and warning when a print is under way"
   - "Mini card with a detail button showing the full card"
   - "Illustrated workshop header: the toolhead sweeping and the spool turning while printing"
   homeassistant: 2024.8.0
-  keywords: "imprimante 3d 3d printer bambu lab ams octoprint klipper moonraker mainsail fluidd prusa prusalink voron creality"
+  keywords: "imprimante 3d 3d printer bambu lab ams octoprint klipper moonraker mainsail fluidd prusa prusalink voron creality prise connectée smart plug power alimentation"
   worksWith:
   - slug: ha-printer-card
     why: "Paper printers: ink, paper and scans"
@@ -4212,6 +4259,7 @@ projects:
   summary: 'An admin panel over the built-in Proxmox VE integration, with the Proxmox logo in the sidebar: your nodes with their rings and 24-hour curves, every virtual machine and LXC container with the action that fits, storage gauges and backups, and cards for your dashboards: a node card, a machine card and their mini cards. It reads the integration''s entities and presses its buttons, with nothing more to configure.'
   highlights:
   - 'Nodes: CPU, RAM and disk rings with 24-hour curves, uptime, version, pending update, node-wide actions'
+  - Built-in Proxmox VE integration and the custom one, its 6.x proxmoxve_custom domain included
   - 'VMs and containers: status, CPU, RAM and uptime, start, shut down, restart, snapshot and more, search and node filter'
   - Details unfolded under each machine, with every action that fits its status
   - Confirmation before stopping or restarting anything
@@ -4570,11 +4618,13 @@ projects:
   - "Energy flowing along the cable and a breathing LED ring while charging"
   - "Three tiles: the session's energy, time and cost, or the current limit, last session and lifetime total"
   - "Controls: pause / start, the current limit in steps, unlock the cable once charged"
+  - Paused charges read as such with a Resume button, current presets from 6 to 32 A in one tap
+  - "The charger's own settings folded under the controls: dynamic control, modes, a schedule, a minimum current"
   - "A glass pill for the car's battery level, or the charging power without it"
   - "Mini card on two lines with a battery ring and a zoom to the full card"
-  - "Entities found automatically from Wallbox, Easee, Zaptec, Ohme, Tesla, myenergi, OCPP and more"
+  - "Entities found automatically from Wallbox, Easee, Zaptec, Ohme, Tesla, myenergi, V2C Trydan, OCPP and more"
   homeassistant: 2024.8.0
-  keywords: "ev charger wallbox easee zaptec ohme tesla myenergi go-e alfen peblar ocpp car electric charging session kwh current limit cable lock borne recharge"
+  keywords: "ev charger wallbox easee zaptec ohme tesla myenergi go-e alfen peblar ocpp car electric charging session kwh current limit cable lock borne recharge v2c trydan pause presets réglages"
   worksWith:
   - slug: ha-vehicle-card
     why: "The car being charged, its range and battery level"
@@ -4601,6 +4651,12 @@ projects:
     group: Card
   - src: ev-error.png
     caption: "Error"
+    group: Card
+  - src: ev-paused-presets.png
+    caption: Paused, current presets
+    group: Card
+  - src: ev-settings.png
+    caption: Charger settings
     group: Card
   - src: ev-compact.png
     caption: "Without the illustration"
@@ -6009,14 +6065,17 @@ projects:
   icon: mdiHomeAnalytics
   accent: '#03a9f4'
   tagline: 'The care of your Home Assistant in one admin panel: resources, updates, backups, logs, security, devices and Git.'
-  summary: 'One integration and one sidebar panel for everything that keeps Home Assistant healthy: System Monitor resources, Home Assistant''s own containers, the database, security, logs, every update, backups, the integration sentinel, silent devices, batteries, Git versioning, failed automations and cleanup. Each feature is a module you turn on or off, in four groups, with a Status tab that sums them up.'
+  summary: 'One integration and one sidebar panel for everything that keeps Home Assistant healthy: System Monitor resources, Home Assistant''s own containers, the database, security, logs, every update, backups, the integration sentinel, silent devices, batteries, Git versioning, failed automations and cleanup. Each feature is a module you turn on or off, in five groups, with a Status tab that sums them up.'
   highlights:
   - 'Status tab: an emblem, the points to check and a score, each area by group; the sidebar icon follows the status'
-  - 'Panel in four groups: System, Reliability, Maintenance and Devices, the modules as sub-tabs, ordered as you like'
+  - "Panel in five groups: System, Security, Reliability, Maintenance and Devices, the modules as sub-tabs, ordered as you like"
   - 'Resources: System Monitor sensors, reload the configuration, restart Home Assistant or reboot the host, each confirmed, from the panel or the System Monitor card'
+  - "The panel's buttons and shortcuts chosen in the settings: File editor, Marketplace, Settings, Integrations, Logs, Developer tools"
   - 'Containers: Home Assistant Core, the Supervisor and every add-on, with state, version, CPU and memory; monitoring only'
   - 'Database: size and growth of SQLite, MariaDB or PostgreSQL, its tables, retention and the devices that write the most, each unfolding to its entities, purge their history or copy the recorder exclusion, purge and repack'
-  - 'Security: refused logins with notifications, accounts and 2FA, long-lived tokens to revoke, exposure, add-ons not protected, credentials in clear'
+  - "Security, a group of its own: Logins, Accounts, Add-ons & config and Outbound, refused logins, 2FA, tokens to revoke, add-ons not protected, credentials in clear"
+  - Outbound connections of Home Assistant by integration, a host new for an integration flagged until marked known
+  - Security card and mini card, what needs a look the worst first
   - 'Logs: errors and warnings grouped by integration, with their traceback, reload or ignore'
   - 'Updates: Home Assistant, add-ons, devices and the Marketplace in one tab, Update all with an optional backup first and a live install progress'
   - The updates card can list the system updates too (Core, Supervisor, OS, apps, firmware) above the Marketplace ones
@@ -6032,7 +6091,7 @@ projects:
   - "Versioning: a changes viewer with the files and lines changed, then commit and push from the panel"
   - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   homeassistant: 2024.12.0
-  keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status mesh map zwave z-wave js réseau maillage"
+  keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status mesh map zwave z-wave js réseau maillage sécurité security connexions sortantes outbound raccourcis shortcuts"
   worksWith:
   - slug: ha-docker-card
     why: "The other Docker containers of the homelab"
@@ -6086,6 +6145,15 @@ projects:
   - src: panel-security.png
     dark: panel-security-dark.png
     caption: Security tab
+    group: Panel
+  - src: panel-security-accounts.png
+    caption: Security, accounts
+    group: Panel
+  - src: panel-security-system.png
+    caption: "Security, add-ons & config"
+    group: Panel
+  - src: panel-security-outbound.png
+    caption: Security, outbound connections
     group: Panel
   - src: panel-logs.png
     dark: panel-logs-dark.png
@@ -6198,6 +6266,18 @@ projects:
     dark: card-status-mini-dark.png
     caption: Status mini card
     group: Status cards
+  - src: card-security.png
+    caption: Security card
+    group: Security cards
+  - src: card-security-ok.png
+    caption: All in order
+    group: Security cards
+  - src: card-security-mini.png
+    caption: Mini card
+    group: Security cards
+  - src: card-security-mini-zoom.png
+    caption: Mini zoomed in
+    group: Security cards
   - src: card-system-monitor.png
     dark: card-system-monitor-dark.png
     caption: Resources card
@@ -7477,21 +7557,21 @@ projects:
     dark: wh-pv-heating-dark.gif
     caption: Solar heating
 - slug: ha-ent-one
-  title: ENT ONE
+  title: ONE
   kind: integration
   withCard: true
   category: family
   icon: mdiBookEducationOutline
   accent: '#3949ab'
-  tagline: The ENT ONE school workspace in Home Assistant, liaison book, homework, messages and news, with a card and a panel.
-  summary: An integration for ENT ONE, the digital workspace of French primary schools built on Edifice, exposing the unread messages, words to sign, homework to do, news and blog as sensors, a school calendar and a to-do list per homework notebook. A Lovelace card and a sidebar panel ship with it; it is an unofficial community project.
+  tagline: The ONE school workspace in Home Assistant, liaison book, homework, messages and news, with a card and a panel.
+  summary: An integration for ONE, the digital workspace of French primary schools built on Edifice, exposing the unread messages, words to sign, homework to do, news and blog as sensors, a school calendar and a to-do list per homework notebook. A Lovelace card and a sidebar panel ship with it; it is an unofficial community project.
   highlights:
   - Unread messages, words to sign, homework to do, news and blog sensors, each with its items as attributes
   - School calendar with the ENT's events and every homework on its due date
   - A to-do list per homework notebook, ticking an item marks the homework done in the ENT
   - Actions to sign a word of the liaison book and to refresh now, events and optional notifications for automations
   - Card shipped with the integration, counts, words to sign, homework to tick, messages, calendar and news, with a mini card
-  - ENT ONE sidebar panel with Home, Homework, Liaison book, Messages, News, Blog and Settings tabs
+  - ONE sidebar panel with Home, Homework, Liaison book, Messages, News, Blog and Settings tabs
   - Credentials kept in Home Assistant, silent re-login, diagnostics with counts only, no name or message leaving the home
   - "A count on the sidebar: words to sign, homework to do and unread messages of every child"
   - "Animated school corner header: the pen writing when there is homework or a word to sign, the unread messages"
@@ -7592,6 +7672,7 @@ projects:
   - Homework calendar and a to-do list per child, ticking an item marks the homework done in the portal
   - Messages and homework unfold to their text and attachments, images shown and PDFs opened through Home Assistant
   - Reply to the teacher in each message's private conversation, or write a new message to the teacher
+  - "Files attached to a reply or a new message, from the panel or an action (a camera snapshot…), and messages translated by the portal"
   - Answer surveys for the children concerned, and change the answer until the deadline
   - Book a parent-meeting slot for each child, day by day, or cancel it
   - The livret, school reports and attestations of each child with their PDF, signed as consulted
@@ -7604,7 +7685,7 @@ projects:
   - "Animated school corner header: the envelope of the liaison book to sign, the pen writing when there is homework left"
   - Credentials in the entry or in secrets.yaml, optional two-factor code, diagnostics with counts only
   homeassistant: 2026.6.0
-  keywords: "educartable edumoov école primaire school cahier de liaison signature signer homework devoirs actualités news réunion parents rendez-vous sondage cahier de vie livret scolaire notifications attestation enseignant enfants éducation calendrier agenda"
+  keywords: "educartable edumoov école primaire school cahier de liaison signature signer homework devoirs actualités news réunion parents rendez-vous sondage cahier de vie livret scolaire notifications attestation enseignant enfants éducation calendrier agenda pièce jointe attachment traduction translate"
   worksWith:
   - slug: ha-ent-one
     why: "The other primary-school workspace, built on Edifice"
@@ -8032,6 +8113,7 @@ projects:
   - "One action for every automation, notify_hub.send, with four priorities: critical, alert, info and digest"
   - "A notify target for every integration: notify.notify_hub can be picked wherever a notify service is asked for"
   - "People, not phones: each person's phones found from their person entity"
+  - Notify entities as channels (Telegram bot…), people left out of every notification, presence read from a room sensor
   - "Quiet hours, duplicates dropped, digests at the times you choose and an away mode"
   - "Critical notifications with an Acknowledge button, escalated to everyone then to an SMS service, cleared on every phone once acknowledged"
   - "Sources found by themselves from the calling automation, with rules per source: people, forced priority, quiet hours ignored, muted"
@@ -8041,7 +8123,7 @@ projects:
   - "Card with today's figures and the latest notifications, under an illustrated header whose bell rings"
   - "22 languages"
   homeassistant: 2024.12.0
-  keywords: "notifications notify mobile app companion phone téléphone priority priorité critical acknowledge acquitter escalation sms quiet hours heures calmes digest résumé duplicates doublons away absence sources journal persistent notification repairs"
+  keywords: "notifications notify mobile app companion phone téléphone priority priorité critical acknowledge acquitter escalation sms quiet hours heures calmes digest résumé duplicates doublons away absence sources journal persistent notification repairs telegram notify entity espresence présence"
   worksWith:
   - slug: ha-maintenance
     why: "Its daily reminders sent through the hub"
@@ -8097,6 +8179,7 @@ projects:
   - "One tile per schedule with its state line, its switch and a 0–24 h bar of today's slots"
   - "Weekly grid with the slots labelled by their value, today highlighted and the weekly total"
   - "Slot editor in place: add, move, change or delete a slot, overlaps refused"
+  - The entities of a schedule changed from the slot editor, the actions edited entity by entity, the entities named on each tile
   - "New schedule button, filters by tags and entities, read-only mode"
   - "Mini card with the next actions of every schedule, zooming to the full card"
   - "Slots relative to sunrise or sunset, day presets (every day, workdays, weekend) and slots dragged by their edges in the weekly grid"
@@ -8128,6 +8211,12 @@ projects:
     dark: card-edit-dark.png
     caption: "Slot editor"
     group: Card
+  - src: card-edit-entities.png
+    caption: Entities of a schedule
+    group: Card
+  - src: card-edit-actions.png
+    caption: Actions entity by entity
+    group: Card
   - src: card-new.png
     dark: card-new-dark.png
     caption: "New schedule"
@@ -8139,6 +8228,9 @@ projects:
   - src: card-classic.png
     dark: card-classic-dark.png
     caption: "Classic header"
+    group: Card
+  - src: card-entities.png
+    caption: Entities on the tiles
     group: Card
   - src: mini-card.png
     dark: mini-card-dark.png
@@ -8853,9 +8945,11 @@ projects:
   - "Day and night following the Home Assistant theme, or forced"
   - "Home Assistant's toolbar kept: search, Assist and the dashboard menu as round buttons; edit mode and subviews keep the native header"
   - "Per view: a view changes the scene, the subtitle or the status, or turns the header off"
+  - "Banners on the Energy panel, one scene per tab: the meters with today's use, the Linky in the Tempo colour, the power running to the house"
+  - App pages opened from the sidebar (Terminal & SSH…) get a banner too
   - "On a phone the scene moves under the buttons and the tabs scroll"
   homeassistant: 2025.6.0
-  keywords: "dashboard header bandeau en-tête banner tabs onglets illustrated scene toolbar compact theme ha-neutral cars voitures station driveway"
+  keywords: "dashboard header bandeau en-tête banner tabs onglets illustrated scene toolbar compact theme ha-neutral cars voitures station driveway panneau énergie energy panel add-on app ingress"
   worksWith:
   - slug: ha-neutral
     why: "The theme it is designed for"
@@ -8897,6 +8991,12 @@ projects:
     dark: scene-exterieur-dark.png
     caption: "Outdoor"
     group: Scenes
+  - src: energy-overview.png
+    caption: Energy panel, overview
+    group: Energy panel
+  - src: energy-electricity.png
+    caption: Energy panel, electricity
+    group: Energy panel
   - src: cars-driveway.png
     dark: cars-driveway-dark.png
     caption: "Cars on the driveway"
@@ -8934,6 +9034,8 @@ projects:
   - src: alarm-triggered.gif
     dark: alarm-triggered-dark.gif
     caption: "The alarm triggered"
+  - src: energy-now.gif
+    caption: "Energy panel, power now"
   - src: rain.gif
     dark: rain-dark.gif
     caption: "Rain on the terrace"
@@ -9105,6 +9207,7 @@ projects:
   highlights:
   - "A heat grid per string: one cell per panel with its power, coloured by its share of the strongest"
   - "Low and silent panels flagged against the median of their string, with since when"
+  - Panels compared only with those of their string facing the same way, unused inputs left out
   - "Nothing flagged by night nor while the sun is under 10°, micro-inverters asleep are not silent"
   - "Power now with the peak power, today's energy and the panels to check"
   - "Enphase Envoy, OpenDTU, AhoyDTU, Hoymiles, APsystems ECU, Huawei Solar, SolarEdge optimizers and Fox ESS"
@@ -9112,7 +9215,7 @@ projects:
   - "Mini card with the share of panels in line as a ring and one small cell per panel"
   - "Illustrated header: a roof of ten panels, those to check in red, a glint sweeping over them while they produce"
   homeassistant: 2024.8.0
-  keywords: "solar panels panneaux micro-onduleurs micro-inverters strings enphase opendtu ahoydtu hoymiles apsystems huawei solaredge optimiseurs fox ess défaut panel fault"
+  keywords: "solar panels panneaux micro-onduleurs micro-inverters strings enphase opendtu ahoydtu hoymiles apsystems huawei solaredge optimiseurs fox ess défaut panel fault orientation est ouest east west"
   worksWith:
   - slug: ha-energy-card
     why: "The power flow of the whole installation"
