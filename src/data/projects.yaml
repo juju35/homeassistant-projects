@@ -1202,7 +1202,7 @@ projects:
   tagline: 'A sidebar panel for solar installations: production, self-consumption, batteries down to the cells, panel efficiency, production losses and payback.'
   summary: 'An integration and sidebar panel that reads the solar, battery, meter and forecast integrations you already have (Enphase, Huawei, SolarEdge, Fronius, SMA, Solax, Solarman, Victron, Powerwall, OpenDTU, Anker Solix, EcoFlow, Zendure, Marstek, BMS BLE, ZLinky, Solcast and more), detects most of them by itself, and finds where the production goes: clipping, shading, soiling, export limitation and outages, with methods from the PV monitoring literature. A demo mode lets you try every screen without any equipment.'
   highlights:
-  - Detection from the Energy dashboard and 24 integration profiles, YAML to override anything
+  - Detection from the Energy dashboard and 27 integration profiles, YAML to override anything
   - "Illustrated banner following the sun, the battery and the alerts, folding into a compact bar on scroll"
   - Live energy flow, the day's KPIs with their trend and the production chart over today, 7 days, 30 days or 12 months
   - Yield of each panel on a roof drawing, strings compared, performance index after IEC 61724-1
@@ -1217,9 +1217,7 @@ projects:
   - 12 sensors, an alert event, notifications through Notify Hub in your language and a sidebar badge with the number of alerts
   - Demo mode with a simulated installation and more than a year of history
   homeassistant: 2024.12.0
-  wip: true
-  wipNote: "Every screen works in demo mode; the integration profiles still need real installations to be confirmed."
-  keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek zlinky linky solcast forecast.solar comparateur offres tarif edf tempo zen week-end zen flex heures creuses rte tempo irradiance ensoleillement météo weather nébulosité ecowitt weatherflow"
+  keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek indevolt hoymiles zlinky linky denky tasmota teleinfo solcast forecast.solar comparateur offres tarif edf tempo zen week-end zen flex heures creuses rte tempo irradiance ensoleillement météo weather nébulosité ecowitt weatherflow"
   worksWith:
   - slug: ha-energy-card
     why: "The live power flow on a dashboard"
