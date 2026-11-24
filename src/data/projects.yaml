@@ -7426,6 +7426,8 @@ projects:
     why: "The secondary-school workspace, for when the children grow up"
   - slug: ha-family-day-card
     why: "The family's day, the school events included"
+  - slug: ha-ent-educartable
+    why: "The EDUMOOV family portal, for the schools that use it"
   cardTypes:
   - ent-one-card
   - ent-one-mini-card
@@ -7494,6 +7496,29 @@ projects:
     caption: "Card header, homework left"
   - src: card-header-messages.gif
     caption: "Card header, unread messages"
+- slug: ha-ent-educartable
+  title: Educartable
+  kind: integration
+  category: family
+  icon: mdiBookOpenVariant
+  accent: '#f28c1e'
+  tagline: The Educartable family portal in Home Assistant, homework per child, liaison book to sign and school news.
+  summary: A read-only integration for Educartable, the EDUMOOV family portal of many French primary schools. It signs in with the family account and exposes a homework sensor per child, the liaison book messages still to sign and the recent news, events and parent meetings; it is an unofficial community project.
+  highlights:
+  - A device per child with a Homework to do sensor, the homework in its attributes
+  - Liaison book to sign sensor, across all the children
+  - News sensor with the recent news, events and parent meetings
+  - Optional two-factor code, credentials can be kept in secrets.yaml
+  - A refresh action to fetch the latest data on demand
+  homeassistant: 2026.6.0
+  wip: true
+  wipNote: "Read-only for now: signing the liaison book, marking homework done, attachments, the card and the panel are still to come."
+  keywords: "educartable edumoov école primaire school cahier de liaison homework devoirs actualités news ent parents enfants éducation"
+  worksWith:
+  - slug: ha-ent-one
+    why: "The other primary-school workspace, built on Edifice"
+  - slug: ha-family-day-card
+    why: "The family's day, the school events included"
 - slug: ha-flight-board-card
   title: Flight Board Card
   kind: card
