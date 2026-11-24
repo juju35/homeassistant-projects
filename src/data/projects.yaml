@@ -7503,24 +7503,28 @@ projects:
   category: family
   icon: mdiBookOpenVariant
   accent: '#f28c1e'
-  tagline: The Educartable family portal in Home Assistant, homework per child, liaison book to sign and school news, with a card and a panel.
-  summary: An integration for Educartable, the EDUMOOV family portal of many French primary schools. It signs in with the family account and exposes a homework sensor per child, the liaison book messages still to sign and the recent news, events and parent meetings, with a homework calendar and a to-do list per child. A Lovelace card and a sidebar panel ship with it; it is an unofficial community project.
+  tagline: The Educartable family portal in Home Assistant, homework, liaison book, surveys, parent meetings and the livret, with a card and a panel.
+  summary: An integration for Educartable, the EDUMOOV family portal of many French primary schools. It signs in with the family account and exposes a homework sensor per child, the liaison book messages still to sign, the recent news, events and parent meetings and the school reports of the livret, with a homework calendar and a to-do list per child. Replies to the teacher, new messages, surveys, appointments and signatures are done from Home Assistant. A Lovelace card and a sidebar panel ship with it; it is an unofficial community project.
   highlights:
   - A device per child with a Homework to do sensor, the homework in its attributes
   - Liaison book to sign and News sensors, across all the children
   - Sign a liaison-book message with the signer's name, or mark it as read, from the card, the panel or an action
   - Homework calendar and a to-do list per child, ticking an item marks the homework done in the portal
   - Messages and homework unfold to their text and attachments, images shown and PDFs opened through Home Assistant
-  - Events and optional notifications for new homework, liaison-book messages and news
+  - Reply to the teacher in each message's private conversation, or write a new message to the teacher
+  - Answer surveys for the children concerned, and change the answer until the deadline
+  - Book a parent-meeting slot for each child, day by day, or cancel it
+  - The livret, school reports and attestations of each child with their PDF, signed as consulted
+  - Events and optional notifications for new homework, liaison-book messages, news and school reports
   - Card shipped with the integration, counts, liaison book to sign, homework to tick and news, with a mini card
-  - Educartable sidebar panel with Home, Homework, Liaison book, News and Settings tabs
-  - "A count on the sidebar: messages to sign and homework to do of every child"
+  - Educartable sidebar panel with Home, Homework, Liaison book, News, School reports and Settings tabs
+  - "A count on the sidebar: messages to sign, homework to do and school reports to sign of every child"
   - "Animated school corner header: the envelope of the liaison book to sign, the pen writing when there is homework left"
   - Credentials in the entry or in secrets.yaml, optional two-factor code, diagnostics with counts only
   homeassistant: 2026.6.0
   wip: true
-  wipNote: "Signing, ticking homework and attachments are in beta and still to confirm on real accounts; replies to the teacher, surveys, parent meetings and the livret are being built."
-  keywords: "educartable edumoov école primaire school cahier de liaison signature signer homework devoirs actualités news réunion parents enfants éducation calendrier agenda"
+  wipNote: "Every action on the portal (signing, ticking homework, replies, new messages, surveys, appointments, the livret) is in beta and still to confirm on real accounts; attachments in replies and the pupil's skills are still to come."
+  keywords: "educartable edumoov école primaire school cahier de liaison signature signer homework devoirs actualités news réunion parents rendez-vous sondage livret scolaire attestation enseignant enfants éducation calendrier agenda"
   worksWith:
   - slug: ha-ent-one
     why: "The other primary-school workspace, built on Edifice"
@@ -7546,6 +7550,18 @@ projects:
   - src: panel-news.png
     dark: panel-news-dark.png
     caption: News
+    group: Panel
+  - src: panel-documents.png
+    dark: panel-documents-dark.png
+    caption: School reports
+    group: Panel
+  - src: panel-conversation.png
+    dark: panel-conversation-dark.png
+    caption: Survey and conversation
+    group: Panel
+  - src: panel-write.png
+    dark: panel-write-dark.png
+    caption: New message
     group: Panel
   - src: panel-bare.png
     caption: "Top bar hidden"
