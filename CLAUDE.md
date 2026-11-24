@@ -86,6 +86,17 @@ Deployment is automatic (`deploy.yml`) on push to `main`, daily, and within ~15 
    ones tied to the news.
 5. `npm test`, background build, PR titled like `feat: add X and this week's new features (#n)`.
 
+## Routine: "regenerate the presentation video"
+Everything is in `video/` (see `video/README.md` for the scene list and what to edit):
+```sh
+(cd video && npm ci) && pip install pyyaml pillow playwright
+python3 video/build.py --lang fr && python3 video/render.py --lang fr --still 5.5   # check the stills first
+python3 video/render.py --lang fr        # then en; output in video/dist/ (git-ignored)
+```
+Counts, categories, brand logos and project tiles follow `projects.yaml` and the READMEs automatically;
+captures, animations and spotlight texts are chosen in `video/content.yaml` and `video/i18n/<lang>.yaml`.
+Keep the owner's video rules listed at the end of `video/README.md` (no IPTV, no YAML, light background…).
+
 ## Conventions
 - Prefer YAML over UI configuration; keep changes minimal; test iteratively.
 - The `ha-*` repos stay **independent** and untouched by the site: anything missing (logo, capture,

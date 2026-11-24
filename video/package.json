@@ -1,0 +1,9 @@
+{
+  "name": "homeassistant-projects-video",
+  "private": true,
+  "description": "Assets for the presentation video (see README.md)",
+  "dependencies": {
+    "@mdi/js": "^7.4.47",
+    "flag-icons": "^7.2.3"
+  }
+}

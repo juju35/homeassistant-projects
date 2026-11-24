@@ -1,0 +1,280 @@
+# French texts of the video. `ui`: [English snippet of scene.html, French replacement] pairs.
+first_language: fr
+categories:
+  climate:
+    label: Climat & météo
+    sub: Météo animée, UV, pluie dans l'heure, chauffage et confort
+  energy:
+    label: Énergie
+    sub: Solaire, Linky, Tempo, EcoWatt, compteurs et cuves
+  home:
+    label: Pilotage de la maison
+    sub: Pièces, lumières, volets, scènes, règles et notifications
+  outdoor:
+    label: Jardin, piscine & animaux
+    sub: Piscine, arrosage, tondeuses, aquariums et animaux
+  security:
+    label: Sécurité & présence
+    sub: Alarme, caméras, serrures, détecteurs et présence
+  appliances:
+    label: Électroménager & multimédia
+    sub: Électroménager, aspirateurs, imprimantes, médias, consoles
+  network:
+    label: Réseau & domotique
+    sub: Box internet, routeurs, Zigbee, Matter, Z-Wave et DNS
+  servers:
+    label: Serveurs & homelab
+    sub: NAS, Docker, Proxmox, reverse proxy, onduleurs, services
+  car:
+    label: Voiture & déplacements
+    sub: Véhicule, recharge, carburants, transports, vols et trains
+  family:
+    label: Famille & école
+    sub: Pronote, ENT, Family Link, tâches et événements
+  everyday:
+    label: Quotidien
+    sub: Agenda, listes, minuteurs, colis, repas et courrier
+  maintenance:
+    label: Maintenance
+    sub: Hub système, GitHub, entretien, sauvegardes et appareils
+  themes:
+    label: Thèmes & dashboards
+    sub: Liquid Glass, Neutre, bandeaux illustrés et panneaux muraux
+domains:
+- Lumières
+- Volets, stores, portails
+- Serrures
+- Chauffage, thermostats
+- Clim, ventilo, purificateurs
+- Chauffe-eau
+- Robots aspirateurs
+- Robots tondeuses
+- Lecteurs multimédia
+- Télécommandes
+- Alarmes
+- Caméras
+- Personnes, traceurs
+- Portes, fenêtres
+- Fumée, CO, fuites
+- Prises, appareils
+- Compteurs, énergie
+- Agendas, listes
+- Météo
+- Minuteurs, scènes
+focus:
+  ha-smart-comfort:
+    tag: Des alertes qui comprennent la situation, et une maison qui se règle seule.
+    simple:
+    - - mdiMagicStaff
+      - Un bouton « Découvrir »
+      - pièces, capteurs, clim et purificateurs trouvés et réglés en un clic
+    - - mdiGestureTap
+      - Des notifications qui se manipulent
+      - « Reporter 4 h » ou « Compris » directement depuis le téléphone
+    - - mdiTune
+      - Tout dans un panneau
+      - chaque pièce se règle en quelques interrupteurs
+  ha-system-hub:
+    tag: La santé de Home Assistant notée sur 100, et les pannes réparées avant que vous ne les voyiez.
+    simple:
+    - - mdiToggleSwitchOutline
+      - Installer, puis oublier
+      - chaque module s’active d’un clic et surveille tout seul
+    - - mdiUpdate
+      - « Tout mettre à jour »
+      - HA, add-ons, appareils et Marketplace en un seul bouton
+    - - mdiBellBadgeOutline
+      - Un badge qui prévient
+      - la barre latérale dit quand il y a quelque chose à regarder
+  ha-house-rules:
+    tag: Les réflexes de la maison, fiables et réfléchis, sans écrire une automatisation.
+    simple:
+    - - mdiImport
+      - Reprend vos automatisations
+      - les réflexes existants sont importés en règles (jamais supprimés)
+    - - mdiPlayCircleOutline
+      - Un bouton « Tester »
+      - sur chaque règle, pour voir le résultat tout de suite
+    - - mdiHomeOutline
+      - Pièce par pièce
+      - chaque pièce montre ses règles et ce qui s’y passe
+  ha-energy-hub:
+    tag: 'Vos panneaux solaires expliqués : ce qu’ils produisent, ce qu’ils perdent et pourquoi.'
+    simple:
+    - - mdiMagnifyScan
+      - Rien à câbler
+      - l’installation est détectée seule, sur 24 intégrations solaires
+    - - mdiViewDashboardOutline
+      - Aucun dashboard à construire
+      - le panneau complet est prêt dès l’installation
+    - - mdiPlayBoxOutline
+      - Un mode démo
+      - pour tout essayer avant même d’avoir des panneaux
+  ha-maintenance:
+    tag: 'L’entretien de la maison suivi tout seul : filtres, brosses, encre et tâches récurrentes.'
+    simple:
+    - - mdiMagnifyScan
+      - Rien à saisir
+      - les consommables de vos appareils sont trouvés tout seuls
+    - - mdiCheckCircle
+      - Un bouton « Fait »
+      - qui remet aussi le compteur de l’appareil à zéro
+    - - mdiCalendarMonth
+      - Un agenda des échéances
+      - et un seul rappel par jour, chaque élément une fois
+captions:
+  ha-smart-appliance-card#1: Lave-linge en marche
+  ha-vacuum-card#2: Lavage de la serpillière
+ui:
+- - My Home Assistant projects
+  - Mes projets Home Assistant
+- - Cards, integrations and themes · by Julien (juju35)
+  - Cartes, intégrations et thèmes · par Julien (juju35)
+- - '[D.counts.total,''projects'',''#1d2330''],[D.counts.cards,''cards'',''#6b7385''],[D.counts.integ,''integrations'',''#2563eb''],[D.counts.themes,''themes'',''#c2387f'']'
+  - '[D.counts.total,''projets'',''#1d2330''],[D.counts.cards,''cartes'',''#6b7385''],[D.counts.integ,''intégrations'',''#2563eb''],[D.counts.themes,''thèmes'',''#c2387f'']'
+- - '''supported brands and integrations'''
+  - '''marques et intégrations compatibles'''
+- - '''sidebar panels'''
+  - '''panneaux latéraux'''
+- - </span> brands and integrations</div>
+  - </span> marques et intégrations</div>
+- - 'Every card adapts to the integrations you already have: Roborock, Shelly, Matter, Tesla, Freebox…'
+  - 'Chaque carte s''adapte aux intégrations que vous avez déjà : Roborock, Shelly, Matter, Tesla, Freebox…'
+- - Works with <span style="color:#18bcf2">almost every integration</span>
+  - Compatible avec <span style="color:#18bcf2">quasi toutes les intégrations</span>
+- - 'The cards read Home Assistant’s standard entities: if your device shows up in HA, the card handles it, whatever the brand.'
+  - 'Les cartes lisent les entités standard de Home Assistant : si votre appareil remonte dans HA, la carte le gère, quelle que soit sa marque.'
+- - '} projects</div>'
+  - '} projets</div>'
+- - WORKS WITH
+  - COMPATIBLE AVEC
+- - const kindFr={card:'Card',integration:'Integration',theme:'Theme'};
+  - const kindFr={card:'Carte',integration:'Intégration',theme:'Thème'};
+- - Sidebar panels</div>
+  - Panneaux latéraux</div>
+- - '} integrations with their own panel'
+  - '} intégrations avec leur propre panneau'
+- - Cards come alive with the real state of your devices, in light and dark themes
+  - Les cartes s'animent selon l'état réel des appareils, en thème clair comme sombre
+- - '>Light and dark</div>'
+  - '>Clair et sombre</div>'
+- - Every card, panel and animation comes in both themes and follows Home Assistant’s
+  - Chaque carte, panneau et animation existe dans les deux thèmes et suit celui de Home Assistant
+- - Dark</span>
+  - Sombre</span>
+- - Light</span>
+  - Clair</span>
+- - '[''Cards'',''Mini cards'',''Panels'',''README screenshots and GIFs'']'
+  - '[''Cartes'',''Mini-cartes'',''Panneaux'',''Captures et GIF des README'']'
+- - </span> languages</div>
+  - </span> langues</div>
+- - Every card, integration and panel is translated, and shows in Home Assistant’s language.
+  - Chaque carte, intégration et panneau est traduit, et s’affiche dans la langue de Home Assistant.
+- - Panel tab
+  - Onglet du panneau
+- - 'Translations loaded on demand: cards stay light'
+  - 'Traductions chargées à la demande : les cartes restent légères'
+- - Issues answered in each reporter’s language
+  - Réponses aux issues dans la langue de chacun
+- - Everything is documented, with screenshots and changelog
+  - Tout est documenté, avec captures et changelog
+- - '''Almost every HA integration'''
+  - '''Quasi toutes les intégrations HA'''
+- - '`${D.counts.brands} brands and integrations`'
+  - '`${D.counts.brands} marques et intégrations`'
+- - '`${D.counts.panels} panels`'
+  - '`${D.counts.panels} panneaux`'
+- - '''Light and dark'''
+  - '''Clair et sombre'''
+- - '''22 languages'''
+  - '''22 langues'''
+- - Made in Brittany, France
+  - Fait en France, en Bretagne
+- - Thanks for watching
+  - Merci d'avoir regardé
+- - SPOTLIGHT
+  - À LA UNE
+- - SMART<span
+  - INTELLIGENT<span
+- - '>example</span>'
+  - '>exemple</span>'
+- - Living room, a hot afternoon
+  - Salon, un après-midi chaud
+- - fill="#e5484d">26 °C threshold<
+  - fill="#e5484d">seuil 26 °C<
+- - Classic automation
+  - Automatisation classique
+- - '''1 notification: “Living room too hot”'''
+  - '''1 notification : « Salon trop chaud »'''
+- - '''AC turned on by itself'''
+  - '''Clim allumée toute seule'''
+- - '''Solved: notification cleared'''
+  - '''Réglé : notification effacée'''
+- - One problem = <b style="color:#1d2330">one episode</b>. No reminders while it lasts, no flapping around the threshold, and it acts before it warns.
+  - Un problème = <b style="color:#1d2330">un épisode</b>. Pas de rappel tant qu’il dure, pas de va-et-vient autour du seuil, et il agit avant de prévenir.
+- - '''Cellar sensor (Zigbee) silent for 6 h'',''#d97706'',-8,''To check'''
+  - '''Capteur de la cave (Zigbee) muet depuis 6 h'',''#d97706'',-8,''À regarder'''
+- - '''Tapo integration: all entities unavailable'',''#e5484d'',-10,''Failure'''
+  - '''Intégration Tapo : toutes les entités indisponibles'',''#e5484d'',-10,''Panne'''
+- - '''Sentinel: Tapo reloaded automatically'',''#16a34a'',+10,''Self-healed'''
+  - '''Sentinelle : Tapo rechargée automatiquement'',''#16a34a'',+10,''Réparé seul'''
+- - '''3 updates available, including Home Assistant'',''#2563eb'',-3,''To do'''
+  - '''3 mises à jour disponibles, dont Home Assistant'',''#2563eb'',-3,''À faire'''
+- - '''Backup succeeded last night, copy in the cloud'',''#16a34a'',0,''OK'''
+  - '''Sauvegarde réussie cette nuit, copie dans le cloud'',''#16a34a'',0,''OK'''
+- - health / 100
+  - santé / 100
+- - '`${act} point${act>1?''s'':''''} to check`:''All good'''
+  - '`${act} point${act>1?''s'':''''} à regarder`:''Tout va bien'''
+- - It watches, <b style="color:#1d2330">fixes what it can on its own</b>, and only flags what really needs your attention.
+  - Il surveille, <b style="color:#1d2330">répare ce qu’il peut seul</b>, et ne vous signale que ce qui demande vraiment votre attention.
+- - '''The robot enters the kitchen'',[[''mdiLightbulbOn'',''Light turned on''],[''mdiLightbulbOn'',''Off when it leaves, unless someone had turned it on'']]'
+  - '''Le robot entre dans la cuisine'',[[''mdiLightbulbOn'',''Lumière allumée''],[''mdiLightbulbOn'',''Éteinte à son départ, sauf si quelqu’un l’avait allumée'']]'
+- - '''Leak under the sink'',[[''mdiAlarmLight'',''Lights flash''],[''mdiBellRing'',''Then the chime''],[''mdiCellphoneMessage'',''Then a critical alert'']]'
+  - '''Fuite sous l’évier'',[[''mdiAlarmLight'',''Les lumières clignotent''],[''mdiBellRing'',''Puis le carillon''],[''mdiCellphoneMessage'',''Puis une alerte critique'']]'
+- - '''Washer cut off before the end'',[[''mdiRestart'',''Resumed automatically'']]'
+  - '''Lave-linge coupé avant la fin'',[[''mdiRestart'',''Relancé automatiquement'']]'
+- - '''Space heater plug turned on'',[[''mdiTimerSandComplete'',''Turned off after an hour'']]'
+  - '''Prise du radiateur d’appoint allumée'',[[''mdiTimerSandComplete'',''Coupée au bout d’une heure'']]'
+- - '[''mdiWeatherNight'',''Quiet hours: no light, no sound''],[''mdiHomeExportOutline'',''Nobody home''],[''mdiShieldLock'',''Alarm armed'']'
+  - '[''mdiWeatherNight'',''Heures calmes : pas de lumière ni de son''],[''mdiHomeExportOutline'',''Personne à la maison''],[''mdiShieldLock'',''Alarme armée'']'
+- - AND IT TAKES THE CONTEXT INTO ACCOUNT
+  - ET IL TIENT COMPTE DU CONTEXTE
+- - Expected production (weather)
+  - Production attendue (météo)
+- - Actual production
+  - Production réelle
+- - 'Clipping: inverter saturated'
+  - 'Écrêtage : onduleur saturé'
+- - Recurring shading · panel P15
+  - Ombrage récurrent · panneau P15
+- - '[[''Production'',21.4,'' kWh'',1],[''Losses'',2.5,'' kWh'',1],[''Self-consumption'',47,'' %'',0],[''Savings'',2.03,'' €'',2]]'
+  - '[[''Production'',21.4,'' kWh'',1],[''Pertes'',2.5,'' kWh'',1],[''Autoconsommation'',47,'' %'',0],[''Économies'',2.03,'' €'',2]]'
+- - .toFixed(tt[3])+tt[2]
+  - .toFixed(tt[3]).replace('.',',')+tt[2]
+- - It compares every hour with what the weather allowed, <b style="color:#1d2330">finds the cause of each loss</b> and explains it plainly.
+  - Il compare chaque heure à ce que la météo permettait, <b style="color:#1d2330">trouve la cause des pertes</b> et l’explique en clair.
+- - '[1.4,''mdiRobotVacuum'',''Main brush'',''Robot vacuum · Roborock'',62,''≈ 41 days'',''#16a34a'',''Up to date'']'
+  - '[1.4,''mdiRobotVacuum'',''Brosse principale'',''Robot aspirateur · Roborock'',62,''≈ 41 jours'',''#16a34a'',''À jour'']'
+- - '[2.2,''mdiAirPurifier'',''Purifier filter'',''Bedroom · Xiaomi'',12,''≈ 18 days'',''#d97706'',''Soon'']'
+  - '[2.2,''mdiAirPurifier'',''Filtre du purificateur'',''Chambre · Xiaomi'',12,''≈ 18 jours'',''#d97706'',''Bientôt'']'
+- - '[3.0,''mdiPrinter'',''Black toner'',''Printer · Brother'',6,''≈ 9 days'',''#d97706'',''Soon'']'
+  - '[3.0,''mdiPrinter'',''Toner noir'',''Imprimante · Brother'',6,''≈ 9 jours'',''#d97706'',''Bientôt'']'
+- - '[3.8,''mdiCoffeeMaker'',''Descale the coffee maker'',''Task · every 2 months'',null,''for 3 days'',''#e5484d'',''Overdue'']'
+  - '[3.8,''mdiCoffeeMaker'',''Détartrer la cafetière'',''Tâche · tous les 2 mois'',null,''depuis 3 jours'',''#e5484d'',''En retard'']'
+- - ${i<3?'found by itself':'recurring task'}
+  - ${i<3?'trouvé tout seul':'tâche récurrente'}
+- - Done</div></div>`});
+  - Fait</div></div>`});
+- - Maintenance · 3 items to do
+  - Maintenance · 3 éléments à faire
+- - One reminder a day, each item once
+  - Un seul rappel par jour, chaque élément une fois
+- - ms.textContent=q>=1?'Up to date · reset':'resetting…'
+  - ms.textContent=q>=1?'À jour · remis à zéro':'remise à zéro…'
+- - ms.textContent='Soon · ≈ 18 days'
+  - ms.textContent='Bientôt · ≈ 18 jours'
+- - It reads your devices’ sensors, <b style="color:#1d2330">estimates the days left</b> at their rate of wear, and resets the device’s counter once it’s done.
+  - Il lit les capteurs de vos appareils, <b style="color:#1d2330">estime les jours restants</b> à leur rythme d’usure, et remet le compteur de l’appareil à zéro quand c’est fait.
+- - '''Home Assistant Marketplace'''
+  - '''Marketplace Home Assistant'''

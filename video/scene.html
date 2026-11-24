@@ -1,0 +1,476 @@
+<!--
+  Scenes of the presentation video (see video/README.md).
+  Visible text is written in English here; other languages replace exact snippets with the
+  `ui` pairs of video/i18n/<lang>.yaml — when you change an English string, update its pair.
+  Loaded by video/render.py from video/.cache/, so asset paths are relative to that folder.
+-->
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#f4f6fb;font-family:Inter,sans-serif;color:#1d2330}
+#root{position:absolute;inset:0}
+.glow{position:absolute;inset:0}
+.abs{position:absolute}
+.pill{display:inline-flex;align-items:center;justify-content:center;border-radius:50%}
+.tile{box-shadow:0 4px 16px rgba(30,40,80,.07);position:absolute;width:378px;height:96px;border-radius:18px;background:#ffffff;border:1px solid #e3e7ef;display:flex;align-items:center;padding:0 18px;gap:16px}
+.tile .pill{width:52px;height:52px;flex:none}
+.tile .t{font-weight:650;font-size:21px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .k{font-size:15px;margin-top:5px;font-weight:500}
+.hdr{position:absolute;left:80px;top:70px;width:772px;height:210px;border-radius:24px;overflow:hidden}
+.shot{position:absolute;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(30,40,80,.16);border:1px solid #e3e7ef;background:#ffffff}
+.shot img{width:100%;height:100%;display:block}
+.cap{position:absolute;font-size:22px;font-weight:600;color:#3b4352;text-align:center}
+.chip{box-shadow:0 4px 16px rgba(30,40,80,.08);display:inline-flex;align-items:center;gap:12px;padding:14px 24px;border-radius:999px;background:#ffffff;border:1px solid #e3e7ef;font-size:24px;font-weight:550}
+.lt{display:flex;align-items:center;justify-content:center;border-radius:14px;background:#fff;border:1px solid #e3e7ef;box-shadow:0 3px 10px rgba(30,40,80,.08);padding:9px;flex:none}
+.lt img{max-width:100%;max-height:100%;object-fit:contain}
+.lt.more{background:#eef1f6;border:1px solid #e3e7ef;color:#3b4352;font-weight:700;font-size:20px}
+.bt2{flex:none;border-radius:18px;background:#ffffff;box-shadow:0 4px 18px rgba(30,40,80,.08);border:1px solid #e6e9f0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:10px}
+.bt2 .lg{height:60px;width:120px;display:flex;align-items:center;justify-content:center}
+.bt2 .lg img{max-width:100%;max-height:100%;object-fit:contain}
+.bt2 .bnm{font-size:14px;font-weight:600;color:#3b4250;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:17px;font-weight:700;color:#d97706;padding:5px 12px;border-radius:999px;background:rgba(251,191,36,.12)}
+.dot{width:13px;height:13px;border-radius:50%;display:inline-block}
+.tile .k{margin-top:3px}
+</style></head><body><div id="bg" style="position:absolute;inset:-200px"></div><div id="root"></div>
+<script>
+const P=new URLSearchParams(location.search);const SC=+P.get('scene');
+let D;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>{x=clamp(x);return 1-Math.pow(1-x,3)};
+const easeIO=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const svg=(name,size,color)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24"><path fill="${color}" d="${D.icons[name]}"/></svg>`;
+const hex=(h,a)=>{const n=parseInt(h.slice(1),16);return `rgba(${n>>16},${(n>>8)&255},${n&255},${a})`};
+const kindFr={card:'Card',integration:'Integration',theme:'Theme'};
+const root=document.getElementById('root');
+const $=id=>document.getElementById(id);
+let DUR=6;
+const preload=[];
+// GIF players: canvas + preloaded frames
+const players={};
+function gifCanvas(id,g,w,h,css){
+  const dark=g.startsWith('D:');const gg=dark?g.slice(2):g;const m=D.gifmeta[g];const imgs=m.map((_,i)=>{const im=new Image();im.src=`${dark?'frames-dark':'frames'}/${gg}/${String(i).padStart(3,'0')}.png`;preload.push(im);return im});
+  players[id]={imgs,m,total:m.reduce((a,b)=>a+b,0),w,h,last:-1};
+  return `<canvas id="${id}" width="${w}" height="${h}" style="${css}"></canvas>`;
+}
+function play(id,ms){const p=players[id];let t=((ms%p.total)+p.total)%p.total,i=0;while(i<p.m.length-1&&t>=p.m[i]){t-=p.m[i];i++}
+  if(i!==p.last){const c=$(id).getContext('2d');c.clearRect(0,0,p.w,p.h);c.drawImage(p.imgs[i],0,0);p.last=i}}
+const fadeAll=(t)=>{root.style.opacity=clamp(t/.3)*(1-clamp((t-(DUR-0.35))/.35))};
+const rise=(id,t,d,dy=20,dur=.5)=>{const e=$(id);const x=ease((t-d)/dur);e.style.opacity=x;e.style.transform=`translateY(${(1-x)*dy}px)`};
+const logoTile=(b,size,cls='')=>`<div class="lt ${cls}" style="width:${size}px;height:${size}px"><img src="${b.file}"></div>`;
+
+function buildIntro(){
+  DUR=7;
+  const all=D.cats.flatMap(c=>c.projects);
+  let h=`<div class="glow" style="background:radial-gradient(900px 600px at 50% 45%, rgba(3,169,244,.20), transparent 70%)"></div>`;
+  let k=0;
+  for(let r=0;r<9;r++)for(let c=0;c<16;c++){const p=all[(k*7)%all.length];k++;
+    h+=`<div class="abs pill fi" data-r="${r}" data-c="${c}" style="left:${c*124+18}px;top:${r*124}px;width:72px;height:72px;background:${hex(p.a,.13)}">${svg(p.i,38,hex(p.a,.75))}</div>`}
+  h+=`<div class="abs" style="inset:0;background:radial-gradient(820px 470px at 50% 52%, rgba(244,246,251,.96) 45%, rgba(244,246,251,.55) 100%)"></div>`;
+  h+=`<div class="abs" id="logo" style="left:0;right:0;top:170px;text-align:center">${svg('mdiHomeAssistant',100,'#18bcf2')}</div>`;
+  h+=`<div class="abs" id="ttl" style="left:0;right:0;top:295px;text-align:center;font-size:84px;font-weight:800;letter-spacing:-2px">My Home Assistant projects</div>`;
+  h+=`<div class="abs" id="by" style="left:0;right:0;top:405px;text-align:center;font-size:30px;color:#566073;font-weight:500">Cards, integrations and themes · by Julien (juju35)</div>`;
+  const st=[[D.counts.total,'projects','#1d2330'],[D.counts.cards,'cards','#6b7385'],[D.counts.integ,'integrations','#2563eb'],[D.counts.themes,'themes','#c2387f']];
+  st.forEach((s,i)=>{h+=`<div class="abs" id="n${i}" style="left:${330+i*330}px;top:500px;width:270px;text-align:center"><div class="num" style="font-size:72px;font-weight:800;color:${s[2]}">0</div><div style="font-size:26px;color:#566073">${s[1]}</div></div>`});
+  const ch=[['mdiHandshakeOutline',D.counts.brands,'supported brands and integrations','#0d9488'],['mdiAnimationPlayOutline',D.counts.anims,'animations','#d97706'],['mdiDockLeft',D.counts.panels,'sidebar panels','#7c3aed']];
+  h+=`<div class="abs" style="left:0;right:0;top:720px;display:flex;justify-content:center;gap:24px">${ch.map((c,i)=>`<div class="chip" id="ch${i}" style="font-size:28px;padding:18px 30px">${svg(c[0],34,c[3])}<b class="num2" style="color:${c[3]};font-weight:800">${c[1]}</b> ${c[2]}</div>`).join('')}</div>`;
+  root.innerHTML=h;
+  const fis=[...document.querySelectorAll('.fi')];
+  return t=>{
+    fis.forEach(e=>{const r=+e.dataset.r,c=+e.dataset.c;const d=Math.hypot(r-4,(c-7.5)/1.4)*.08;const x=ease((t-d)/.6);e.style.opacity=x*.5;e.style.transform=`translate(${-t*10}px,${Math.sin(t*.8+c)*5}px) scale(${.6+.4*x})`});
+    const lg=$('logo');lg.style.opacity=ease((t-.3)/.5);lg.style.transform=`scale(${.7+.3*ease((t-.3)/.6)})`;
+    rise('ttl',t,.6);rise('by',t,.9);
+    st.forEach((s,i)=>{const e=$('n'+i);const x=(t-1.3-i*.15)/1.2;e.style.opacity=ease(x*3);e.querySelector('.num').textContent=Math.round(s[0]*easeIO(x))});
+    ch.forEach((c,i)=>{rise('ch'+i,t,2.6+i*.25,24);$('ch'+i).querySelector('.num2').textContent=Math.round(c[1]*easeIO((t-2.6-i*.25)/1.2))});
+    fadeAll(t);
+  };
+}
+
+function buildBrands(){
+  DUR=9;
+  const B=D.brandsAll;const rows=6,TW=168,TH=118,G=18;
+  let h=`<div class="glow" style="background:radial-gradient(1000px 500px at 50% 0%, rgba(20,184,166,.20), transparent 70%)"></div>`;
+  h+=`<div class="abs" id="bt" style="left:0;right:0;top:70px;text-align:center;font-size:72px;font-weight:800;letter-spacing:-1.5px"><span id="bn" style="color:#0d9488">0</span> brands and integrations</div>`;
+  h+=`<div class="abs" id="bs" style="left:0;right:0;top:170px;text-align:center;font-size:30px;color:#566073;font-weight:500">Every card adapts to the integrations you already have: Roborock, Shelly, Matter, Tesla, Freebox…</div>`;
+  const per=Math.ceil(B.length/rows);
+  for(let r=0;r<rows;r++){
+    const items=B.slice(r*per,(r+1)*per);
+    h+=`<div class="abs brow" id="r${r}" style="top:${250+r*(TH+G)}px;left:0;height:${TH}px;display:flex;gap:${G}px">`+
+      [...items,...items].map(b=>`<div class="bt2" style="width:${TW}px;height:${TH}px"><div class="lg"><img src="${b.file}"></div><div class="bnm">${b.name}</div></div>`).join('')+`</div>`;
+  }
+  h+=`<div class="abs" style="left:0;top:240px;bottom:0;width:180px;background:linear-gradient(90deg,#f4f6fb,transparent)"></div><div class="abs" style="right:0;top:240px;bottom:0;width:180px;background:linear-gradient(270deg,#f4f6fb,transparent)"></div>`;
+  root.innerHTML=h;
+  const W=per*(TW+G);
+  return t=>{
+    rise('bt',t,.1);rise('bs',t,.5);
+    $('bn').textContent=Math.round(D.counts.brands*easeIO((t-.2)/1.8));
+    for(let r=0;r<rows;r++){const e=$('r'+r);const sp=60+((r*37)%5)*12;const dir=r%2?1:-1;
+      let x=(dir<0? -(t*sp) : -W + t*sp) - (r*113)%400;
+      e.style.transform=`translateX(${x}px)`;e.style.opacity=ease((t-.4-r*.1)/.6)}
+    fadeAll(t);
+  };
+}
+
+function buildCat(c){
+  DUR=7.5;
+  let h=`<div class="glow" style="background:radial-gradient(1100px 700px at 75% 45%, ${hex(c.accent,.18)}, transparent 70%),radial-gradient(700px 500px at 10% 10%, ${hex(c.accent,.10)}, transparent 70%)"></div>`;
+  h+=`<div class="hdr" id="hdr" style="top:56px;background:linear-gradient(135deg, ${hex(c.accent,1)} 0%, ${hex(c.accent,.72)} 100%);box-shadow:0 14px 40px ${hex(c.accent,.28)};color:#fff">
+    <div class="abs" id="s0" style="right:70px;top:26px;opacity:.9">${svg(c.scene[0],130,'rgba(255,255,255,.92)')}</div>
+    <div class="abs" id="s1" style="right:215px;top:34px;opacity:.55">${svg(c.scene[1],60,'rgba(255,255,255,.9)')}</div>
+    <div class="abs" id="s2" style="right:14px;top:36px;opacity:.5">${svg(c.scene[2],56,'rgba(255,255,255,.9)')}</div>
+    <div class="abs" style="left:0;right:0;bottom:0;height:12px;background:rgba(0,0,0,.18)"></div>
+    <div class="abs pill" style="left:30px;top:34px;width:64px;height:64px;background:rgba(255,255,255,.22)">${svg(c.icon,36,'#fff')}</div>
+    <div class="abs" style="left:30px;top:118px;font-size:36px;font-weight:750;letter-spacing:-.5px;white-space:nowrap;text-shadow:0 2px 12px rgba(0,0,0,.25)">${c.label}</div>
+    <div class="abs" style="left:112px;top:46px;font-size:20px;font-weight:600;padding:7px 14px;border-radius:999px;background:rgba(0,0,0,.25)">${c.projects.length} projects</div>
+  </div>`;
+  h+=`<div class="abs" id="sub" style="left:82px;top:284px;width:780px;font-size:23px;color:#566073;font-weight:500">${c.sub}</div>`;
+  c.projects.forEach((p,i)=>{
+    const col=i%2,row=Math.floor(i/2);
+    const kc=p.k==='integration'?'#2563eb':p.k==='theme'?'#c2387f':'#6b7385';
+    h+=`<div class="tile" id="t${i}" style="left:${80+col*394}px;top:${334+row*94}px;height:82px">
+      <div class="pill" style="background:${hex(p.a,.2)}">${svg(p.i,30,p.a)}</div>
+      <div style="min-width:0"><div class="t">${p.t}</div><div class="k" style="color:${kc}">${kindFr[p.k]}</div></div></div>`;
+  });
+  // brand strip
+  const NB=11, br=c.brands.slice(0,NB), more=c.brands.length-br.length;
+  if(br.length){
+    h+=`<div class="abs" id="bl" style="left:82px;top:912px;font-size:19px;font-weight:600;color:#6b7385;letter-spacing:.3px">WORKS WITH</div>`;
+    h+=`<div class="abs" style="left:80px;top:944px;display:flex;gap:10px">${br.map((b,i)=>`<div class="lt" id="b${i}" style="width:60px;height:60px"><img src="${b.file}"></div>`).join('')}${more>0?`<div class="lt more" id="bm" style="height:60px;padding:0 14px;width:auto">+${more}</div>`:''}</div>`;
+  }
+  const BX=930,BY=70,BW=910,BH=850;
+  c.anims.forEach((f,i)=>{
+    const s=Math.min(BW/f.w,BH/f.h,f.type==='gif'?1.8:1.25);
+    const w=f.w*s,hh=f.h*s;const L=BX+(BW-w)/2,T=BY+(BH-hh)/2;
+    const inner=f.type==='gif'?gifCanvas('g'+i,f.gif,f.w,f.h,'width:100%;height:100%;display:block'):`<img src="${f.src}">`;
+    h+=`<div class="shot" id="f${i}" style="left:${L}px;top:${T}px;width:${w}px;height:${hh}px;${f.type==='gif'?'background:transparent;border:none;box-shadow:0 30px 80px rgba(30,40,80,.14)':''}">${inner}</div>`;
+    h+=`<div class="cap" id="c${i}" style="left:${BX}px;width:${BW}px;top:${BY+BH+46}px;display:flex;justify-content:center;align-items:center;gap:14px">
+      ${f.type==='gif'?`<span class="tag">${svg('mdiPlayCircleOutline',20,'#d97706')} Animation</span>`:''}<span>${f.title}${f.cap?` <span style="color:#8a92a3">· ${f.cap}</span>`:''}</span></div>`;
+  });
+  root.innerHTML=h;
+  const n=c.anims.length;
+  return t=>{
+    const hd=$('hdr');hd.style.opacity=ease(t/.5);hd.style.transform=`translateY(${(1-ease(t/.6))*-30}px)`;
+    for(let k=0;k<3;k++){$('s'+k).style.transform=`translate(${Math.sin(t*0.9+k*2)*6 - t*2*(k+1)}px,${Math.cos(t*1.1+k)*4}px)`}
+    $('sub').style.opacity=ease((t-.3)/.5);
+    c.projects.forEach((p,i)=>{const e=$('t'+i);const x=(t-.45-i*.07)/.45;e.style.opacity=ease(x);e.style.transform=`translateY(${(1-ease(x))*24}px)`});
+    if(br.length){$('bl').style.opacity=ease((t-1.3)/.4);br.forEach((b,i)=>{const e=$('b'+i);const x=ease((t-1.4-i*.06)/.35);e.style.opacity=x;e.style.transform=`scale(${.6+.4*x})`});
+      if(more>0){const x=ease((t-1.4-br.length*.06)/.35);$('bm').style.opacity=x}}
+    const per=(DUR-0.4)/n;
+    c.anims.forEach((f,i)=>{
+      const st=0.25+i*per, en=st+per;
+      const a=clamp((t-st)/.45)*(i==n-1?1:clamp((en+.2-t)/.45));
+      const e=$('f'+i);e.style.opacity=ease(a);
+      e.style.transform=`scale(${0.94+0.06*ease(clamp((t-st)/.6))+0.02*clamp((t-st)/per)}) translateY(${(1-ease(clamp((t-st)/.6)))*30}px)`;
+      $('c'+i).style.opacity=ease(a);
+      if(f.type==='gif'&&a>0)play('g'+i,Math.max(0,t-st)*1000);
+    });
+    fadeAll(t);
+  };
+}
+
+function buildPanels(half){
+  const list=D.panels, show=list.slice(half*7,half*7+7), SLOT=1.55;
+  DUR=0.35+show.length*SLOT+0.3;
+  let h=`<div class="glow" style="background:radial-gradient(1100px 700px at 70% 50%, rgba(139,92,246,.18), transparent 70%)"></div>`;
+  h+=`<div class="abs" id="ph" style="left:80px;top:62px;display:flex;align-items:center;gap:18px"><div class="pill" style="width:64px;height:64px;background:rgba(196,181,253,.18)">${svg('mdiDockLeft',36,'#7c3aed')}</div><div><div style="font-size:44px;font-weight:800;letter-spacing:-.8px">Sidebar panels</div><div style="font-size:21px;color:#566073;margin-top:4px">${list.length} integrations with their own panel</div></div></div>`;
+  list.forEach((p,i)=>{
+    h+=`<div class="abs pli" id="l${i}" style="left:80px;top:${210+i*58}px;width:540px;height:50px;display:flex;align-items:center;gap:14px;padding:0 14px;border-radius:14px">
+      <div class="pill" style="width:36px;height:36px;flex:none;background:${hex(p.accent,.2)}">${svg(p.icon,21,p.accent)}</div><div style="font-size:21px;font-weight:600;white-space:nowrap">${p.title}</div></div>`;
+  });
+  const FX=680,FY=70,FW=1160,FH=920,BAR=46;
+  h+=`<div class="abs" id="frame" style="left:${FX}px;top:${FY}px;width:${FW}px;height:${FH}px;border-radius:20px;overflow:hidden;background:#ffffff;border:1px solid #e3e7ef;box-shadow:0 30px 90px rgba(30,40,80,.18)">
+    <div style="height:${BAR}px;background:#eef1f6;display:flex;align-items:center;gap:9px;padding:0 18px;border-bottom:1px solid #e3e7ef"><i class="dot" style="background:#ff5f57"></i><i class="dot" style="background:#febc2e"></i><i class="dot" style="background:#28c840"></i><div id="url" style="margin-left:18px;font-size:17px;color:#6b7385"></div></div>`;
+  show.forEach((p,i)=>{
+    const s=(FW)/p.w; const hh=p.h*s;
+    h+=`<div class="abs" id="pp${i}" style="left:0;top:${BAR}px;width:${FW}px;height:${FH-BAR}px;overflow:hidden;opacity:0"><img id="pi${i}" src="${p.file}" style="position:absolute;left:0;top:0;width:${FW}px;height:${hh}px;transform-origin:50% 0"></div>`;
+  });
+  h+=`</div>`;
+  root.innerHTML=h;
+  return t=>{
+    rise('ph',t,.05);
+    const fr=$('frame');fr.style.opacity=ease((t-.15)/.5);fr.style.transform=`translateY(${(1-ease((t-.15)/.6))*30}px)`;
+    let cur=-1;
+    show.forEach((p,i)=>{
+      const st=0.35+i*SLOT,en=st+SLOT;
+      const a=clamp((t-st+.15)/.3)*(i==show.length-1?1:clamp((en+.15-t)/.3));
+      $('pp'+i).style.opacity=a;
+      const hh=p.h*(FW/p.w),vis=FH-BAR;
+      $('pi'+i).style.transform=`scale(${1+0.02*clamp((t-st)/SLOT)})`;
+      if(t>=st-.15)cur=i;
+    });
+    list.forEach((p,i)=>{const e=$('l'+i);const j=i-half*7;const x=ease((t-.2-i*.04)/.4);
+      const on=j===cur;e.style.opacity=x*(on?1:(j>=0&&j<7?.75:.35));e.style.background=on?hex(p.accent,.22):'transparent';e.style.boxShadow=on?`inset 0 0 0 1px ${hex(p.accent,.6)}`:'none'});
+    if(cur>=0)$('url').textContent='Home Assistant  ·  '+show[cur].title+(show[cur].cap&&show[cur].cap!==show[cur].title?'  ·  '+show[cur].cap:'');
+    fadeAll(t);
+  };
+}
+
+function buildMontage(){
+  DUR=8;
+  const M=D.montage;
+  let h=`<div class="glow" style="background:radial-gradient(1100px 600px at 50% 10%, rgba(251,191,36,.14), transparent 70%)"></div>`;
+  h+=`<div class="abs" id="mt" style="left:0;right:0;top:50px;text-align:center;font-size:64px;font-weight:800;letter-spacing:-1.3px"><span id="mn" style="color:#d97706">0</span> animations</div>`;
+  h+=`<div class="abs" id="ms" style="left:0;right:0;top:136px;text-align:center;font-size:27px;color:#566073">Cards come alive with the real state of your devices, in light and dark themes</div>`;
+  const CW=425,CH=262,G=20,X0=(1920-(4*CW+3*G))/2,Y0=200;
+  M.forEach((m,i)=>{const c=i%4,r=Math.floor(i/4);
+    const s=Math.min((CW-20)/m.w,(CH-50)/m.h);const w=m.w*s,hh=m.h*s;
+    h+=`<div class="abs mc" id="m${i}" style="left:${X0+c*(CW+G)}px;top:${Y0+r*(CH+G)}px;width:${CW}px;height:${CH}px;border-radius:20px;background:#ffffff;border:1px solid #e3e7ef">
+      <div class="abs" style="left:${(CW-w)/2}px;top:10px;width:${w}px;height:${hh}px">${gifCanvas('mg'+i,m.gif,m.w,m.h,'width:100%;height:100%;display:block')}</div>
+      <div class="abs" style="left:0;right:0;bottom:9px;text-align:center;font-size:17px;font-weight:600;color:#566073;white-space:nowrap">${m.title}${m.cap?` <span style="color:#8a92a3">· ${m.cap}</span>`:''}</div></div>`});
+  root.innerHTML=h;
+  return t=>{
+    rise('mt',t,.05);rise('ms',t,.35);$('mn').textContent=Math.round(D.counts.anims*easeIO((t-.1)/1.6));
+    M.forEach((m,i)=>{const e=$('m'+i);const x=ease((t-.5-i*.08)/.5);e.style.opacity=x;e.style.transform=`scale(${.85+.15*x})`;play('mg'+i,Math.max(0,t-.5-i*.08)*1000)});
+    fadeAll(t);
+  };
+}
+
+function buildDomains(){
+  DUR=9;const M=D.domains;
+  let h=`<div class="glow" style="background:radial-gradient(1100px 600px at 50% 0%, rgba(24,188,242,.18), transparent 70%)"></div>`;
+  h+=`<div class="abs" id="dt" style="left:0;right:0;top:46px;text-align:center;font-size:60px;font-weight:800;letter-spacing:-1.2px">Works with <span style="color:#18bcf2">almost every integration</span></div>`;
+  h+=`<div class="abs" id="ds" style="left:200px;right:200px;top:136px;text-align:center;font-size:27px;color:#566073;line-height:1.35">The cards read Home Assistant’s standard entities: if your device shows up in HA, the card handles it, whatever the brand.</div>`;
+  const CW=336,CH=166,G=20,X0=80,Y0=250;
+  M.forEach((m,i)=>{const c=i%5,r=Math.floor(i/5);
+    h+=`<div class="abs dm" id="d${i}" style="left:${X0+c*(CW+G)}px;top:${Y0+r*(CH+G)}px;width:${CW}px;height:${CH}px;border-radius:20px;background:#ffffff;border:1px solid #e3e7ef;padding:18px 20px">
+      <div style="display:flex;align-items:center;gap:14px"><div class="pill" style="width:50px;height:50px;flex:none;background:${hex(m.a,.18)}">${svg(m.i,28,m.a)}</div><div style="font-size:21px;font-weight:700;line-height:1.15">${m.l}</div></div>
+      <div style="margin-top:14px;font-family:ui-monospace,Menlo,monospace;font-size:16px;color:#2563eb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.d}</div>
+      <div style="margin-top:8px;font-size:17px;color:#3b4352;font-weight:600;white-space:nowrap">→ ${m.c}</div></div>`});
+  root.innerHTML=h;
+  return t=>{
+    rise('dt',t,.05);rise('ds',t,.4);
+    M.forEach((m,i)=>{const e=$('d'+i);const x=ease((t-.8-i*.07)/.45);e.style.opacity=x;e.style.transform=`translateY(${(1-x)*22}px)`;
+      const k=Math.floor((t-2.6)/0.32);const on=t>2.6&&(k%M.length)===i;
+      e.style.borderColor=on?hex(m.a,.8):'#e3e7ef';e.style.boxShadow=on?`0 0 0 2px ${hex(m.a,.35)}, 0 12px 40px ${hex(m.a,.18)}`:'none'});
+    fadeAll(t);
+  };
+}
+
+function buildTwins(){
+  DUR=8.5;const T=D.twins;
+  let h=`<div class="abs" id="tt" style="left:0;right:0;top:70px;display:flex;justify-content:center;align-items:center;gap:20px"><div class="pill" style="width:72px;height:72px;background:#1d2330">${svg('mdiThemeLightDark',40,'#fff')}</div><div style="font-size:64px;font-weight:800;letter-spacing:-1.3px">Light and dark</div></div>`;
+  h+=`<div class="abs" id="ts" style="left:0;right:0;top:170px;text-align:center;font-size:28px;color:#566073">Every card, panel and animation comes in both themes and follows Home Assistant’s</div>`;
+  const CW=560,G=40,X0=(1920-(3*CW+2*G))/2;
+  T.forEach((m,i)=>{const s=CW/m.w,hh=m.h*s,top=300+(400-hh)/2;
+    h+=`<div class="abs" id="w${i}" style="left:${X0+i*(CW+G)}px;top:${top}px;width:${CW}px;height:${hh}px;border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(30,40,80,.18)">
+      <div class="abs" style="inset:0">${gifCanvas('tl'+i,m.gif,m.w,m.h,'width:100%;height:100%;display:block')}</div>
+      <div class="abs" id="dk${i}" style="inset:0">${gifCanvas('td'+i,'D:'+m.gif,m.w,m.h,'width:100%;height:100%;display:block')}</div>
+      <div class="abs" id="ln${i}" style="top:0;bottom:0;width:4px;margin-left:-2px;background:#fff;box-shadow:0 0 18px rgba(0,0,0,.35)"><div class="pill" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.25)">${svg('mdiThemeLightDark',24,'#1d2330')}</div></div>
+    </div>`;
+    h+=`<div class="abs" id="wl${i}" style="left:${X0+i*(CW+G)}px;width:${CW}px;top:${300+400+30}px;display:flex;justify-content:space-between;align-items:center">
+      <span class="chip" style="font-size:19px;padding:9px 16px;background:#1d2330;color:#fff;border:none">${svg('mdiWeatherNight',22,'#fff')}Dark</span>
+      <span style="font-size:20px;font-weight:650">${m.title}</span>
+      <span class="chip" style="font-size:19px;padding:9px 16px">${svg('mdiWhiteBalanceSunny',22,'#d97706')}Light</span></div>`;
+  });
+  h+=`<div class="abs" id="tf" style="left:0;right:0;top:860px;display:flex;justify-content:center;gap:22px">${['Cards','Mini cards','Panels','README screenshots and GIFs'].map((x,i)=>`<div class="chip" id="tc${i}">${svg('mdiThemeLightDark',26,'#2563eb')}${x}</div>`).join('')}</div>`;
+  root.innerHTML=h;
+  return t=>{
+    rise('tt',t,.05);rise('ts',t,.35);
+    T.forEach((m,i)=>{rise('w'+i,t,.6+i*.15,30,.6);rise('wl'+i,t,.9+i*.15,16,.5);
+      const p=clamp(.5+.46*Math.sin((t-1.2)*1.15+i*0.9))*100;
+      $('dk'+i).style.clipPath=`inset(0 ${100-p}% 0 0)`;$('ln'+i).style.left=p+'%';
+      play('tl'+i,t*1000);play('td'+i,t*1000)});
+    for(let i=0;i<4;i++)rise('tc'+i,t,1.8+i*.12,14,.45);
+    fadeAll(t);
+  };
+}
+
+function bells(n,col){return Array.from({length:n}).map(()=>svg('mdiBellRing',22,col)).join('')}
+function demoSC(f,X,Y,W,H){
+  // temperature curve around a 26 °C threshold
+  const N=160,T=[];for(let i=0;i<N;i++){const x=i/(N-1);let v;
+    if(x<.22)v=23.6+2.9*easeIO(x/.22);else if(x<.6)v=26.25+.42*Math.sin(x*58)+.22*Math.sin(x*23+1);else v=26.25+.42*Math.sin(.6*58)+.22*Math.sin(.6*23+1)-(2.3)*ease((x-.6)/.25);T.push(v)}
+  const cx=X+40,cw=W-80,cy=Y+70,ch=230,ty=v=>cy+ch-(v-22.5)/(28-22.5)*ch,tx=x=>cx+x*cw;
+  // classic: notify on each upward crossing + every 0.07 while above
+  const cls=[];let above=false,last=-1;T.forEach((v,i)=>{const x=i/(N-1);if(v>26&&!above){cls.push(x);last=x}else if(v>26&&x-last>.07){cls.push(x);last=x}above=v>26});
+  let xs=T.findIndex(v=>v>26)/(N-1)+.03, xc=.6+.25*.62;
+  const path=T.map((v,i)=>`${i?'L':'M'}${tx(i/(N-1)).toFixed(1)},${ty(v).toFixed(1)}`).join('');
+  let h=`<svg class="abs" style="left:0;top:0" width="1920" height="1080"><defs><clipPath id="cp"><rect id="cpr" x="${cx}" y="${cy-20}" width="0" height="${ch+40}"/></clipPath></defs>
+    <line x1="${cx}" x2="${cx+cw}" y1="${ty(26)}" y2="${ty(26)}" stroke="#e5484d" stroke-width="2" stroke-dasharray="7 7" opacity=".7"/>
+    <text x="${cx+cw}" y="${ty(26)-10}" text-anchor="end" font-size="17" font-weight="700" fill="#e5484d">26 °C threshold</text>
+    <path d="${path}" fill="none" stroke="${f.accent}" stroke-width="4" stroke-linejoin="round" clip-path="url(#cp)"/>
+    <line id="cur" y1="${cy-10}" y2="${cy+ch+10}" stroke="#1d2330" stroke-width="1.5" opacity=".25"/></svg>`;
+  h+=`<div class="abs" style="left:${cx}px;top:${cy-46}px;font-size:18px;font-weight:700;color:#566073;display:flex;gap:8px;align-items:center">${svg('mdiThermometer',20,'#566073')}Living room, a hot afternoon</div>`;
+  const L1=cy+ch+40,L2=L1+110;
+  h+=`<div class="abs" style="left:${cx}px;top:${L1}px;font-size:18px;font-weight:700;color:#8a92a3">Classic automation</div><div class="abs" id="cn" style="right:${1920-(cx+cw)}px;top:${L1-4}px;font-size:24px;font-weight:800;color:#e5484d"></div>`;
+  cls.forEach((x,i)=>{h+=`<div class="abs" id="cb${i}" style="left:${tx(x)-13}px;top:${L1+30}px;opacity:0">${svg('mdiBellRing',26,'#e5484d')}</div>`});
+  h+=`<div class="abs" style="left:${cx}px;top:${L2}px;font-size:18px;font-weight:700;color:${f.accent}">${f.name}</div><div class="abs" id="sn" style="right:${1920-(cx+cw)}px;top:${L2-4}px;font-size:24px;font-weight:800;color:${f.accent}"></div>`;
+  const ev=[[xs,'mdiBellRing','1 notification: “Living room too hot”'],[.6,'mdiAirConditioner','AC turned on by itself'],[xc,'mdiCheckCircle','Solved: notification cleared']];
+  ev.forEach((e,i)=>{h+=`<div class="abs" id="se${i}" style="left:${tx(e[0])-14}px;top:${L2+30}px;opacity:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px">${svg(e[1],28,f.accent)}<div style="font-size:15.5px;font-weight:650;color:#1d2330;white-space:nowrap;background:#fff;border:1px solid ${hex(f.accent,.35)};padding:4px 10px;border-radius:999px;margin-left:${i==2?-200:-10}px;margin-top:${i==1?40:0}px">${e[2]}</div></div>`});
+  h+=`<div class="abs" id="sk" style="left:${cx}px;top:${L2+150}px;width:${cw}px;font-size:19px;color:#566073;line-height:1.4">One problem = <b style="color:#1d2330">one episode</b>. No reminders while it lasts, no flapping around the threshold, and it acts before it warns.</div>`;
+  return [h,t=>{const p=clamp((t-1.6)/8.2);$('cpr').setAttribute('width',cw*p);const c=$('cur');c.setAttribute('x1',tx(p));c.setAttribute('x2',tx(p));
+    let n=0;cls.forEach((x,i)=>{const on=p>=x;if(on)n++;const e=$('cb'+i);e.style.opacity=on?1:0;e.style.transform=`scale(${on?1:.5})`});$('cn').textContent=n?`${n} notifications`:'';
+    let m=0;ev.forEach((e,i)=>{const on=p>=e[0];if(on&&i==0)m=1;const el=$('se'+i);const k=ease((p-e[0])*12);el.style.opacity=on?k:0;el.style.transform=`translateY(${(1-k)*10}px)`});$('sn').textContent=m?'1 notification':'';
+    $('sk').style.opacity=ease((t-9.6)/.6)}];
+}
+function demoSH(f,X,Y,W,H){
+  const ev=[[2.0,'mdiAccessPointNetworkOff','Cellar sensor (Zigbee) silent for 6 h','#d97706',-8,'To check'],
+            [3.5,'mdiPowerPlugOffOutline','Tapo integration: all entities unavailable','#e5484d',-10,'Failure'],
+            [5.0,'mdiShieldRefreshOutline','Sentinel: Tapo reloaded automatically','#16a34a',+10,'Self-healed'],
+            [6.5,'mdiUpdate','3 updates available, including Home Assistant','#2563eb',-3,'To do'],
+            [8.0,'mdiBackupRestore','Backup succeeded last night, copy in the cloud','#16a34a',0,'OK']];
+  const RX=X+190,RY=Y+260,R=130;
+  let h=`<svg class="abs" style="left:0;top:0" width="1920" height="1080"><circle cx="${RX}" cy="${RY}" r="${R}" fill="none" stroke="#e8ebf1" stroke-width="22"/><circle id="ring" cx="${RX}" cy="${RY}" r="${R}" fill="none" stroke="#16a34a" stroke-width="22" stroke-linecap="round" transform="rotate(-90 ${RX} ${RY})" stroke-dasharray="${2*Math.PI*R}" stroke-dashoffset="0"/></svg>`;
+  h+=`<div class="abs" style="left:${RX-R}px;top:${RY-52}px;width:${2*R}px;text-align:center"><div id="sc" style="font-size:76px;font-weight:800;line-height:1">100</div><div style="font-size:19px;color:#6b7385;font-weight:600">health / 100</div></div>`;
+  h+=`<div class="abs" id="pts" style="left:${RX-R}px;top:${RY+R+34}px;width:${2*R}px;text-align:center;font-size:19px;font-weight:700"></div>`;
+  const FX=X+400,FW=W-430;
+  ev.forEach((e,i)=>{h+=`<div class="abs" id="ev${i}" style="left:${FX}px;top:${Y+40+i*112}px;width:${FW}px;height:96px;border-radius:16px;background:#fff;border:1px solid #e3e7ef;display:flex;align-items:center;gap:14px;padding:0 16px;opacity:0">
+    <div class="pill" style="width:46px;height:46px;flex:none;background:${hex(e[3],.13)}">${svg(e[1],26,e[3])}</div><div style="flex:1;min-width:0"><div style="font-size:17.5px;font-weight:650;line-height:1.3">${e[2]}</div><div style="font-size:15px;font-weight:700;color:${e[3]};margin-top:3px">${e[5]}${e[4]?` · ${e[4]>0?'+':''}${e[4]} pts`:''}</div></div></div>`});
+  h+=`<div class="abs" id="sk" style="left:${X+40}px;top:${Y+620}px;width:${W-80}px;font-size:19px;color:#566073;line-height:1.4">It watches, <b style="color:#1d2330">fixes what it can on its own</b>, and only flags what really needs your attention.</div>`;
+  return [h,t=>{let s=100,n=0;ev.forEach((e,i)=>{const k=ease((t-e[0])/.5);const el=$('ev'+i);el.style.opacity=k;el.style.transform=`translateX(${(1-k)*30}px)`;s+=e[4]*clamp((t-e[0]-.2)/.6)});
+    const act=[t>=2.0&&1,t>=3.5&&t<5.0&&1,t>=6.5&&1].filter(Boolean).length;
+    $('sc').textContent=Math.round(s);const col=s>=95?'#16a34a':s>=85?'#d97706':'#e5484d';const r=$('ring');r.setAttribute('stroke',col);r.setAttribute('stroke-dashoffset',2*Math.PI*R*(1-s/100));
+    const pt=$('pts');pt.textContent=act?`${act} point${act>1?'s':''} to check`:'All good';pt.style.color=col;$('sk').style.opacity=ease((t-9.4)/.6)}];
+}
+function demoHR(f,X,Y,W,H){
+  const rows=[[1.6,'mdiRobotVacuum','The robot enters the kitchen',[['mdiLightbulbOn','Light turned on'],['mdiLightbulbOn','Off when it leaves, unless someone had turned it on']]],
+             [3.6,'mdiWaterAlert','Leak under the sink',[['mdiAlarmLight','Lights flash'],['mdiBellRing','Then the chime'],['mdiCellphoneMessage','Then a critical alert']]],
+             [5.8,'mdiWashingMachine','Washer cut off before the end',[['mdiRestart','Resumed automatically']]],
+             [7.4,'mdiPowerSocketEu','Space heater plug turned on',[['mdiTimerSandComplete','Turned off after an hour']]]];
+  let h='';
+  rows.forEach((r,i)=>{const y=Y+30+i*128;
+    h+=`<div class="abs" id="hr${i}" style="left:${X+36}px;top:${y}px;width:${W-72}px;opacity:0">
+      <div style="display:flex;align-items:center;gap:12px"><div class="pill" style="width:44px;height:44px;background:#eef1f6">${svg(r[1],26,'#3b4352')}</div><div style="font-size:20px;font-weight:700">${r[2]}</div></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 56px">${r[3].map((a,j)=>`<div id="ha${i}_${j}" style="display:flex;align-items:center;gap:8px;font-size:16.5px;font-weight:650;padding:7px 13px;border-radius:999px;background:${hex(f.accent,.1)};border:1px solid ${hex(f.accent,.3)};opacity:.15">${j?svg('mdiArrowRight',16,f.accent):''}${svg(a[0],20,f.accent)}${a[1]}</div>`).join('')}</div></div>`});
+  const cs=[['mdiWeatherNight','Quiet hours: no light, no sound'],['mdiHomeExportOutline','Nobody home'],['mdiShieldLock','Alarm armed']];
+  h+=`<div class="abs" id="hc" style="left:${X+36}px;top:${Y+545}px;width:${W-72}px"><div style="font-size:16px;font-weight:700;color:#8a92a3;letter-spacing:.5px;margin-bottom:9px">AND IT TAKES THE CONTEXT INTO ACCOUNT</div><div style="display:flex;flex-wrap:wrap;gap:8px">${cs.map(c=>`<div class="chip" style="font-size:16px;padding:8px 14px;gap:8px">${svg(c[0],20,'#6b7385')}${c[1]}</div>`).join('')}</div></div>`;
+  return [h,t=>{rows.forEach((r,i)=>{const k=ease((t-r[0])/.45);const e=$('hr'+i);e.style.opacity=k;e.style.transform=`translateY(${(1-k)*14}px)`;
+    r[3].forEach((a,j)=>{const q=clamp((t-r[0]-.5-j*.55)/.3);const el=$(`ha${i}_${j}`);el.style.opacity=.15+.85*q;el.style.transform=`scale(${.96+.04*q})`})});
+    const k=ease((t-9.2)/.5);$('hc').style.opacity=k;$('hc').style.transform=`translateY(${(1-k)*12}px)`}];
+}
+function demoEH(f,X,Y,W,H){
+  const cx=X+50,cw=W-100,cy=Y+60,ch=290,h0=6,h1=21,CAP=3.7;
+  const pot=x=>4.7*Math.exp(-Math.pow((x-13.4)/3.1,2)),act=x=>{let v=Math.min(pot(x),CAP);if(x>15.4&&x<16.9)v*=1-.48*Math.sin((x-15.4)/1.5*Math.PI);return v};
+  const tx=x=>cx+(x-h0)/(h1-h0)*cw,ty=v=>cy+ch-v/5*ch;const N=150,xs=Array.from({length:N},(_,i)=>h0+i*(h1-h0)/(N-1));
+  const P=xs.map((x,i)=>`${i?'L':'M'}${tx(x).toFixed(1)},${ty(pot(x)).toFixed(1)}`).join('');
+  const A='M'+tx(h0)+','+ty(0)+xs.map(x=>`L${tx(x).toFixed(1)},${ty(act(x)).toFixed(1)}`).join('')+`L${tx(h1)},${ty(0)}Z`;
+  const band=(a,b,c)=>{const s=xs.filter(x=>x>=a&&x<=b);return 'M'+s.map(x=>`${tx(x).toFixed(1)},${ty(pot(x)).toFixed(1)}`).join('L')+'L'+s.reverse().map(x=>`${tx(x).toFixed(1)},${ty(act(x)).toFixed(1)}`).join('L')+'Z'};
+  let h=`<svg class="abs" style="left:0;top:0" width="1920" height="1080"><defs><linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${f.accent}" stop-opacity=".55"/><stop offset="1" stop-color="${f.accent}" stop-opacity=".08"/></linearGradient><clipPath id="ec"><rect id="ecr" x="${cx}" y="${cy-30}" width="0" height="${ch+60}"/></clipPath></defs>
+    <line x1="${cx}" x2="${cx+cw}" y1="${ty(0)}" y2="${ty(0)}" stroke="#d5dae3"/>
+    ${[8,11,14,17,20].map(x=>`<text x="${tx(x)}" y="${ty(0)+24}" text-anchor="middle" font-size="15" fill="#8a92a3">${x} h</text>`).join('')}
+    <g clip-path="url(#ec)"><path d="${A}" fill="url(#eg)" stroke="${f.accent}" stroke-width="3"/><path d="${P}" fill="none" stroke="#8a92a3" stroke-width="2" stroke-dasharray="6 6"/>
+    <path id="b1" d="${band(11.0,15.8)}" fill="#e5484d" opacity="0"/><path id="b2" d="${band(15.4,16.9)}" fill="#7c3aed" opacity="0"/></g></svg>`;
+  h+=`<div class="abs" style="left:${cx}px;top:${cy-44}px;display:flex;gap:22px;font-size:16px;font-weight:650;color:#566073"><span style="display:flex;align-items:center;gap:7px"><i style="width:22px;border-top:2px dashed #8a92a3"></i>Expected production (weather)</span><span style="display:flex;align-items:center;gap:7px"><i style="width:22px;height:10px;background:${hex(f.accent,.5)};border-radius:3px"></i>Actual production</span></div>`;
+  h+=`<div class="abs" id="l1" style="left:${tx(14.3)}px;top:${ty(4.4)}px;opacity:0"><div style="font-size:16px;font-weight:700;color:#e5484d;background:#fff;border:1px solid #f3b4b6;border-radius:999px;padding:5px 12px;white-space:nowrap">Clipping: inverter saturated</div></div>`;
+  h+=`<div class="abs" id="l2" style="left:${tx(16.2)}px;top:${ty(2.6)-10}px;opacity:0"><div style="font-size:16px;font-weight:700;color:#7c3aed;background:#fff;border:1px solid #d4c6fb;border-radius:999px;padding:5px 12px;white-space:nowrap">Recurring shading · panel P15</div></div>`;
+  const tiles=[['Production',21.4,' kWh',1],['Losses',2.5,' kWh',1],['Self-consumption',47,' %',0],['Savings',2.03,' €',2]];
+  const TW=(W-100-3*14)/4;
+  tiles.forEach((tt,i)=>{h+=`<div class="abs" id="et${i}" style="left:${cx+i*(TW+14)}px;top:${Y+430}px;width:${TW}px;height:96px;border-radius:16px;background:#fff;border:1px solid #e3e7ef;padding:14px 16px;opacity:0"><div style="font-size:15px;color:#6b7385;font-weight:600">${tt[0]}</div><div class="num" style="font-size:32px;font-weight:800;margin-top:4px;color:${i==1?'#e5484d':'#1d2330'}">0</div></div>`});
+  h+=`<div class="abs" id="sk" style="left:${cx}px;top:${Y+560}px;width:${cw}px;font-size:19px;color:#566073;line-height:1.4">It compares every hour with what the weather allowed, <b style="color:#1d2330">finds the cause of each loss</b> and explains it plainly.</div>`;
+  return [h,t=>{const p=clamp((t-1.4)/6.5);$('ecr').setAttribute('width',cw*p);
+    const hp=h0+p*(h1-h0);$('b1').setAttribute('opacity',hp>13.6?.35*ease((hp-13.6)/1.5):0);$('b2').setAttribute('opacity',hp>16.6?.4*ease((hp-16.6)/1):0);
+    $('l1').style.opacity=hp>13.8?ease((hp-13.8)/1.2):0;$('l2').style.opacity=hp>16.8?ease((hp-16.8)/1):0;
+    tiles.forEach((tt,i)=>{const k=clamp((t-7.6-i*.18)/.9);const e=$('et'+i);e.style.opacity=ease(k*2);e.querySelector('.num').textContent=(tt[1]*easeIO(k)).toFixed(tt[3])+tt[2]});
+    $('sk').style.opacity=ease((t-9.4)/.6)}];
+}
+function demoMT(f,X,Y,W,H){
+  const it=[[1.4,'mdiRobotVacuum','Main brush','Robot vacuum · Roborock',62,'≈ 41 days','#16a34a','Up to date'],
+            [2.2,'mdiAirPurifier','Purifier filter','Bedroom · Xiaomi',12,'≈ 18 days','#d97706','Soon'],
+            [3.0,'mdiPrinter','Black toner','Printer · Brother',6,'≈ 9 days','#d97706','Soon'],
+            [3.8,'mdiCoffeeMaker','Descale the coffee maker','Task · every 2 months',null,'for 3 days','#e5484d','Overdue']];
+  let h='';const LX=X+36,LW=W-72;
+  it.forEach((e,i)=>{const y=Y+24+i*112;
+    h+=`<div class="abs" id="mi${i}" style="left:${LX}px;top:${y}px;width:${LW}px;height:98px;border-radius:16px;background:#fff;border:1px solid #e3e7ef;display:flex;align-items:center;gap:16px;padding:0 18px;opacity:0">
+      <div class="pill" style="width:50px;height:50px;flex:none;background:${hex(f.accent,.12)}">${svg(e[1],28,f.accent)}</div>
+      <div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:19px;font-weight:700">${e[2]}</span><span id="mf${i}" style="font-size:13px;font-weight:700;color:${f.accent};background:${hex(f.accent,.12)};padding:3px 9px;border-radius:999px">${i<3?'found by itself':'recurring task'}</span></div>
+        <div style="font-size:15px;color:#6b7385;margin-top:3px">${e[3]}</div>
+        ${e[4]!==null?`<div style="margin-top:8px;height:8px;border-radius:4px;background:#eef1f6;width:340px;overflow:hidden"><div id="mb${i}" style="height:100%;width:${e[4]}%;background:${e[6]};border-radius:4px"></div></div>`:''}</div>
+      <div style="text-align:right;flex:none;width:190px"><div id="mv${i}" style="font-size:22px;font-weight:800;color:${e[6]}">${e[4]!==null?e[4]+' %':''}</div><div id="ms${i}" style="font-size:15px;font-weight:650;color:${e[6]}">${e[7]} · ${e[5]}</div></div>
+      <div id="md${i}" style="flex:none;font-size:15px;font-weight:700;padding:8px 14px;border-radius:999px;border:1px solid ${hex(f.accent,.4)};color:${f.accent};display:flex;gap:6px;align-items:center">${svg('mdiCheck',18,f.accent)}Done</div></div>`});
+  h+=`<div class="abs" id="mn" style="left:${LX}px;top:${Y+484}px;width:${LW}px;height:70px;border-radius:18px;background:#1d2330;color:#fff;display:flex;align-items:center;gap:14px;padding:0 18px;opacity:0;box-shadow:0 12px 30px rgba(30,40,80,.25)">${svg('mdiCellphoneMessage',28,'#5eead4')}<div><div style="font-size:17px;font-weight:700">Maintenance · 3 items to do</div><div style="font-size:15px;opacity:.75">One reminder a day, each item once</div></div></div>`;
+  h+=`<div class="abs" id="sk" style="left:${LX}px;top:${Y+590}px;width:${LW}px;font-size:19px;color:#566073;line-height:1.4">It reads your devices’ sensors, <b style="color:#1d2330">estimates the days left</b> at their rate of wear, and resets the device’s counter once it’s done.</div>`;
+  return [h,t=>{it.forEach((e,i)=>{const k=ease((t-e[0])/.45);const el=$('mi'+i);el.style.opacity=k;el.style.transform=`translateX(${(1-k)*30}px)`});
+    // press Done on the purifier filter
+    const q=clamp((t-5.8)/.9),d=$('md1');d.style.background=t>5.6&&t<6.4?hex(f.accent,.18):'transparent';d.style.transform=`scale(${t>5.6&&t<5.9?.94:1})`;
+    if(t>5.8){const v=Math.round(12+88*easeIO(q));$('mb1').style.width=v+'%';$('mb1').style.background='#16a34a';$('mv1').textContent=v+' %';$('mv1').style.color='#16a34a';const ms=$('ms1');ms.textContent=q>=1?'Up to date · reset':'resetting…';ms.style.color='#16a34a'}
+    else{$('mb1').style.width='12%';$('mb1').style.background='#d97706';$('mv1').textContent='12 %';$('mv1').style.color='#d97706';const ms=$('ms1');ms.textContent='Soon · ≈ 18 days';ms.style.color='#d97706'}
+    const n=ease((t-7.6)/.5);$('mn').style.opacity=n;$('mn').style.transform=`translateY(${(1-n)*16}px)`;$('sk').style.opacity=ease((t-9.2)/.6)}];
+}
+function buildFocus(f){
+  DUR=15;
+  let h=`<div class="glow" style="background:radial-gradient(1000px 700px at 30% 60%, ${hex(f.accent,.10)}, transparent 70%)"></div>`;
+  h+=`<div class="abs" id="fn" style="left:80px;top:52px;display:flex;align-items:center;gap:22px"><img src="${f.icon}" style="width:88px;height:88px;border-radius:22px;box-shadow:0 10px 30px ${hex(f.accent,.35)}"><div>
+     <div style="display:flex;align-items:center;gap:16px"><div style="font-size:54px;font-weight:800;letter-spacing:-1.2px;line-height:1">${f.name}</div><div style="display:inline-flex;align-items:center;gap:7px;font-size:15px;font-weight:700;letter-spacing:1.5px;color:${f.accent};padding:6px 12px;border-radius:999px;background:${hex(f.accent,.12)}">${svg('mdiStarFourPoints',16,f.accent)}SPOTLIGHT</div></div>
+     <div style="font-size:25px;color:#3b4352;margin-top:10px;font-weight:600">${f.tag}</div></div></div>`;
+  const DX=80,DY=200,DW=960,DH=820;
+  h+=`<div class="abs" id="dc" style="left:${DX}px;top:${DY}px;width:${DW}px;height:${DH}px;border-radius:26px;background:rgba(255,255,255,.75);border:1px solid #e3e7ef;box-shadow:0 14px 50px rgba(30,40,80,.08)"></div>`;
+  h+=`<div class="abs" id="dl" style="left:${DX+30}px;top:${DY+24}px;display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;letter-spacing:1.5px;color:${f.accent}">${svg('mdiBrain',24,f.accent)}SMART<span style="font-size:15px;font-weight:600;letter-spacing:0;color:#8a92a3;margin-left:8px">example</span></div>`;
+  const demo={'ha-maintenance':demoMT,'ha-smart-comfort':demoSC,'ha-system-hub':demoSH,'ha-house-rules':demoHR,'ha-energy-hub':demoEH}[f.slug](f,DX,DY+70,DW,DH-70);
+  h+=`<div class="abs" id="dm" style="left:0;top:0;width:1920px;height:1080px">${demo[0]}</div>`;
+  const FX=1080,FY=200,FW=760,FH=470,BAR=40;
+  h+=`<div class="abs" id="ff" style="left:${FX}px;top:${FY}px;width:${FW}px;height:${FH}px;border-radius:18px;overflow:hidden;background:#fff;border:1px solid #e3e7ef;box-shadow:0 24px 70px rgba(30,40,80,.16)">
+    <div style="height:${BAR}px;background:#eef1f6;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid #e3e7ef"><i class="dot" style="background:#ff5f57"></i><i class="dot" style="background:#febc2e"></i><i class="dot" style="background:#28c840"></i><div style="margin-left:14px;font-size:15px;color:#6b7385">Home Assistant · ${f.name}</div></div>`;
+  const shots=f.shots.slice(0,2);
+  shots.forEach((p,i)=>{const hh=p.h*FW/p.w;h+=`<div class="abs" id="sp${i}" style="left:0;top:${BAR}px;width:${FW}px;height:${FH-BAR}px;overflow:hidden;opacity:0"><img id="si${i}" src="${p.file}" style="position:absolute;left:0;top:0;width:${FW}px;height:${hh}px;transform-origin:50% 0"></div>`});
+  h+=`</div>`;
+  h+=`<div class="abs" id="sl" style="left:${FX}px;top:${FY+FH+34}px;display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;letter-spacing:1.5px;color:${f.accent}">${svg('mdiGestureTapButton',24,f.accent)}SIMPLE</div>`;
+  f.simple.forEach((p,i)=>{h+=`<div class="abs" id="sm${i}" style="left:${FX}px;top:${FY+FH+76+i*92}px;width:${FW}px;height:80px;border-radius:18px;background:#fff;border:1px solid #e3e7ef;box-shadow:0 4px 16px rgba(30,40,80,.06);display:flex;align-items:center;gap:16px;padding:0 18px">
+    <div class="pill" style="width:48px;height:48px;flex:none;background:${hex(f.accent,.14)}">${svg(p[0],27,f.accent)}</div><div><div style="font-size:20px;font-weight:750">${p[1]}</div><div style="font-size:16.5px;color:#566073;margin-top:3px">${p[2]}</div></div></div>`});
+  root.innerHTML=h;
+  return t=>{
+    rise('fn',t,.05);rise('dc',t,.3,20);rise('dl',t,.5,10);
+    $('dm').style.opacity=ease((t-.6)/.5);demo[1](t);
+    const fr=$('ff');fr.style.opacity=ease((t-.5)/.5);fr.style.transform=`translateY(${(1-ease((t-.5)/.6))*24}px)`;
+    shots.forEach((p,i)=>{const SL=(DUR-.8)/shots.length,st=.5+i*SL,en=st+SL;const a=clamp((t-st+.15)/.35)*(i==shots.length-1?1:clamp((en+.15-t)/.35));$('sp'+i).style.opacity=a;$('si'+i).style.transform=`scale(${1+0.02*clamp((t-st)/SL)})`});
+    rise('sl',t,2.0,10);f.simple.forEach((p,i)=>{const e=$('sm'+i);const k=ease((t-2.2-i*.25)/.45);e.style.opacity=k;e.style.transform=`translateX(${(1-k)*24}px)`});
+    fadeAll(t);
+  };
+}
+
+function buildLangs(){
+  DUR=10;const L=D.langs,n=L.length;
+  let h=`<div class="glow" style="background:radial-gradient(900px 600px at 25% 50%, rgba(37,99,235,.10), transparent 70%)"></div>`;
+  h+=`<div class="abs" id="lt" style="left:80px;top:110px;display:flex;align-items:center;gap:20px"><div class="pill" style="width:76px;height:76px;background:rgba(37,99,235,.12)">${svg('mdiTranslate',42,'#2563eb')}</div><div style="font-size:70px;font-weight:800;letter-spacing:-1.5px"><span id="ln" style="color:#2563eb">0</span> languages</div></div>`;
+  h+=`<div class="abs" id="ls" style="left:80px;top:220px;width:700px;font-size:27px;color:#566073;line-height:1.4">Every card, integration and panel is translated, and shows in Home Assistant’s language.</div>`;
+  h+=`<div class="abs" id="lc" style="left:80px;top:390px;width:700px;height:300px;border-radius:26px;background:#fff;border:1px solid #e3e7ef;box-shadow:0 20px 60px rgba(30,40,80,.12);overflow:hidden">
+     <div style="height:64px;display:flex;align-items:center;gap:14px;padding:0 26px;border-bottom:1px solid #eef1f6"><div class="pill" style="width:40px;height:40px;background:rgba(37,99,235,.12)">${svg('mdiCog',24,'#2563eb')}</div><div style="font-size:18px;color:#8a92a3;font-weight:600">Panel tab</div><div id="lcode" style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:700;color:#2563eb;padding:4px 12px;border-radius:999px;background:rgba(37,99,235,.10)"></div></div>
+     <div id="lw" style="position:absolute;left:0;right:0;top:110px;text-align:center;font-size:72px;font-weight:800;letter-spacing:-1px"></div>
+     <div style="position:absolute;left:0;right:0;top:210px;display:flex;justify-content:center;align-items:center;gap:12px"><img id="lflag" style="width:40px;height:30px;border-radius:4px;box-shadow:0 0 0 1px rgba(0,0,0,.08)"><span id="lname" style="font-size:24px;color:#6b7385;font-weight:600"></span></div></div>`;
+  const ch=[['mdiLightningBolt','Translations loaded on demand: cards stay light'],['mdiAccountVoice','Issues answered in each reporter’s language']];
+  h+=`<div class="abs" style="left:80px;top:730px;display:flex;flex-direction:column;gap:14px">${ch.map((c,i)=>`<div class="chip" id="lch${i}" style="font-size:21px;padding:13px 20px">${svg(c[0],24,'#2563eb')}${c[1]}</div>`).join('')}</div>`;
+  const CW=230,CH=118,G=14,X0=880,Y0=90;
+  L.forEach((l,i)=>{const c=i%4,r=Math.floor(i/4);
+    h+=`<div class="abs" id="lg${i}" style="left:${X0+c*(CW+G)}px;top:${Y0+r*(CH+G)}px;width:${CW}px;height:${CH}px;border-radius:18px;background:#fff;border:1px solid #e3e7ef;box-shadow:0 4px 14px rgba(30,40,80,.06);padding:16px 18px">
+      <img src="flags/${l[0]}.svg" style="width:44px;height:33px;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.08);display:block;margin-bottom:9px"><div style="font-size:21px;font-weight:750;white-space:nowrap">${l[1]}</div><div style="position:absolute;right:16px;top:18px;font-family:ui-monospace,Menlo,monospace;font-size:15px;color:#8a92a3">${l[0]}</div></div>`});
+  root.innerHTML=h;
+  return t=>{
+    rise('lt',t,.05);rise('ls',t,.35);rise('lc',t,.6,24);$('ln').textContent=Math.round(n*easeIO((t-.2)/1.4));
+    ch.forEach((c,i)=>rise('lch'+i,t,1.6+i*.2,14));
+    const step=(DUR-2.2)/n;const k=Math.max(0,Math.min(n-1,Math.floor((t-1.2)/step)));const ph=((t-1.2)/step)-k;
+    $('lw').textContent=L[k][2];$('lname').textContent=L[k][1];const fl=$('lflag');if(fl.dataset.k!=k){fl.src=`flags/${L[k][0]}.svg`;fl.dataset.k=k}fl.style.opacity=t<1.2?0:1;$('lcode').textContent=L[k][0];
+    const a=t<1.2?0:Math.min(1,ph*5,k==n-1?1:(1-ph)*5);$('lw').style.opacity=a;$('lw').style.transform=`translateY(${(1-a)*12}px)`;$('lname').style.opacity=a;
+    L.forEach((l,i)=>{const e=$('lg'+i);const x=ease((t-.6-i*.05)/.4);e.style.opacity=x;e.style.transform=`scale(${.9+.1*x})`;
+      const on=t>=1.2&&i===k;e.style.borderColor=on?'#2563eb':'#e3e7ef';e.style.background=on?'rgba(37,99,235,.08)':'#fff';e.style.boxShadow=on?'0 0 0 2px rgba(37,99,235,.25),0 10px 30px rgba(37,99,235,.15)':'0 4px 14px rgba(30,40,80,.06)'});
+    fadeAll(t);
+  };
+}
+
+function buildOutro(){
+  DUR=8.5;
+  let h=`<div class="glow" style="background:radial-gradient(900px 600px at 50% 40%, rgba(37,99,235,.22), transparent 70%)"></div>`;
+  h+=`<div class="abs" id="o1" style="left:0;right:0;top:200px;text-align:center;font-size:40px;color:#566073;font-weight:550">Everything is documented, with screenshots and changelog</div>`;
+  h+=`<div class="abs" id="o2" style="left:0;right:0;top:280px;text-align:center;font-size:76px;font-weight:800;letter-spacing:-1.5px;color:#1d2330">juju35.github.io/homeassistant-projects</div>`;
+  const chips=[['mdiPuzzleCheckOutline','Almost every HA integration','#18bcf2'],['mdiHandshakeOutline',`${D.counts.brands} brands and integrations`,'#0d9488'],['mdiAnimationPlayOutline',`${D.counts.anims} animations`,'#d97706'],['mdiDockLeft',`${D.counts.panels} panels`,'#7c3aed'],['mdiStorefrontOutline','Home Assistant Marketplace','#2563eb'],['mdiThemeLightDark','Light and dark','#2563eb'],['mdiTranslate','22 languages','#2563eb'],['mdiGithub','Open source · github.com/juju35','#2563eb']];
+  h+=`<div class="abs" style="left:180px;right:180px;top:450px;display:flex;flex-wrap:wrap;justify-content:center;gap:22px">${chips.map((c,i)=>`<div class="chip" id="cp${i}">${svg(c[0],30,c[2])}${c[1]}</div>`).join('')}</div>`;
+  h+=`<div class="abs" id="o3" style="left:0;right:0;top:680px;display:flex;justify-content:center"><div style="display:flex;align-items:center;gap:26px;padding:22px 34px 22px 22px;border-radius:30px;background:#fff;border:1px solid #e3e7ef;box-shadow:0 16px 50px rgba(30,40,80,.12)">
+     <img src="me.jpg" style="width:118px;height:118px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 6px 20px rgba(30,40,80,.18)">
+     <div><div style="font-size:30px;font-weight:800">Julien <span style="color:#8a92a3;font-weight:600">· juju35</span></div>
+       <div style="font-size:23px;color:#3b4352;margin-top:6px;display:flex;align-items:center;gap:8px">${svg('mdiHeart',22,'#e5484d')}Made in Brittany, France</div>
+       <div style="margin-top:14px;display:inline-flex;align-items:center;gap:10px;padding:10px 20px 10px 14px;border-radius:999px;background:#FFDD00;color:#1d2330;font-size:21px;font-weight:700">${svg('mdiCoffee',26,'#1d2330')}buymeacoffee.com/julienstep9</div></div></div></div>`;
+  h+=`<div class="abs" id="o4" style="left:0;right:0;top:940px;text-align:center;font-size:24px;color:#6b7385">Thanks for watching</div>`;
+  root.innerHTML=h;
+  return t=>{
+    [['o1',.2],['o2',.5],['o3',2.0],['o4',2.8]].forEach(([id,d])=>rise(id,t,d));
+    chips.forEach((c,i)=>rise('cp'+i,t,1.0+i*.13,16,.45));
+    root.style.opacity=clamp(t/.3)*(1-clamp((t-(DUR-0.8))/.8));
+  };
+}
+let R;
+window.setup=async(d)=>{D=d;const NC=D.cats.length;
+  const FC=D.focus.length; R = SC===0?buildIntro():SC===1?buildBrands():SC===2?buildDomains():SC<3+FC?buildFocus(D.focus[SC-3]):SC<=NC+2+FC?buildCat(D.cats[SC-3-FC]):SC===NC+3+FC?buildPanels(0):SC===NC+4+FC?buildPanels(1):SC===NC+5+FC?buildMontage():SC===NC+6+FC?buildTwins():SC===NC+7+FC?buildLangs():buildOutro();
+  await Promise.all([...document.images,...preload].map(i=>i.decode().catch(()=>{})));
+  await document.fonts.ready; return DUR;};
+const BL=[[96,165,250],[148,163,184],[125,211,252]];
+window.render=t=>{const T=t+SC*3.1;const g=BL.map((c,i)=>{const x=50+38*Math.sin(T*.11+i*1.7),y=50+36*Math.cos(T*.09+i*2.3);return `radial-gradient(700px 520px at ${x}% ${y}%, rgba(${c},.13), transparent 70%)`}).join(',');
+document.getElementById('bg').style.background=g+',linear-gradient(160deg,#f8f9fb,#f2f4f7)';R(t)};
+</script></body></html>

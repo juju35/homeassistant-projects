@@ -1,0 +1,337 @@
+# Content of the presentation video that does not come from src/data/projects.yaml:
+# which captures and animations each scene shows. Texts live in video/i18n/<lang>.yaml.
+#   anim: index in the project's `animations` (light `src`; twins also use the `dark` file)
+#   shot: a file of the project's screenshots/ folder, or `hero`
+exclude:
+- ha-iptv
+categories:
+  climate:
+  - slug: ha-uv-card
+    anim: 0
+  - slug: ha-rain-card
+    anim: 0
+  - slug: ha-climate-air-card
+    anim: 0
+  energy:
+  - slug: ha-solar-forecast-card
+    anim: 0
+  - slug: ha-ecowatt-card
+    anim: 0
+  - slug: ha-power-device-card
+    anim: 0
+  home:
+  - slug: ha-room-card
+    anim: 0
+  - slug: ha-cover-card
+    anim: 0
+  - slug: ha-light-card
+    anim: 0
+  outdoor:
+  - slug: ha-pool-card
+    anim: 0
+  - slug: ha-mower-card
+    anim: 0
+  - slug: ha-pet-card
+    anim: 0
+  security:
+  - slug: ha-camera
+    anim: 0
+  - slug: ha-alarm-card
+    anim: 0
+  - slug: ha-doorbell-card
+    anim: 0
+  appliances:
+  - slug: ha-smart-appliance-card
+    anim: 1
+  - slug: ha-vacuum-card
+    anim: 2
+  - slug: ha-printer-card
+    anim: 0
+  network:
+  - slug: ha-internet-box-card
+    anim: 0
+  - slug: ha-speedtest-card
+    anim: 0
+  - slug: ha-switch-card
+    shot: hero
+  servers:
+  - slug: ha-docker-card
+    anim: 0
+  - slug: ha-nas-card
+    anim: 0
+  - slug: ha-certificate-card
+    anim: 1
+  car:
+  - slug: ha-train-board-card
+    anim: 0
+  - slug: ha-ev-charger-card
+    anim: 0
+  - slug: ha-carburants-france
+    anim: 0
+  family:
+  - slug: ha-family-day-card
+    anim: 0
+  - slug: ha-pronote-card
+    anim: 0
+  - slug: ha-chores-card
+    anim: 0
+  everyday:
+  - slug: ha-parcel
+    anim: 0
+  - slug: ha-mailbox-card
+    anim: 0
+  - slug: ha-stock-card
+    anim: 0
+  maintenance:
+  - slug: ha-system-hub
+    anim: 0
+  - slug: ha-maintenance
+    anim: 0
+  - slug: ha-backup-card
+    anim: 0
+  themes:
+  - slug: ha-liquid-glass
+    shot: hero
+  - slug: ha-neutral
+    shot: hero
+  - slug: ha-dashboard-header
+    shot: hero
+focus:
+- slug: ha-smart-comfort
+  name: Smart Comfort
+  accent: '#26a69a'
+  shots:
+  - panel-overview.png
+- slug: ha-system-hub
+  name: System Hub
+  accent: '#03a9f4'
+  shots:
+  - panel-status.png
+  - panel-silent-zigbee.png
+- slug: ha-house-rules
+  name: House Rules
+  accent: '#4f46e5'
+  shots:
+  - panel-activity.png
+  - panel-rooms.png
+- slug: ha-energy-hub
+  name: Energy Hub
+  accent: '#ef9f27'
+  shots:
+  - light-overview.png
+  - light-losses.png
+- slug: ha-maintenance
+  name: Maintenance
+  accent: '#0d9488'
+  shots:
+  - panel-due.png
+  - panel-calendar.png
+panels:
+- slug: ha-energy-hub
+  shot: light-overview-30d.png
+- slug: ha-proxmox
+  shot: panel-vms.png
+- slug: ha-system-hub
+  shot: panel-system.png
+- slug: ha-camera
+  shot: panel-settings.png
+- slug: ha-ent-one
+  shot: panel-homework.png
+- slug: ha-notify-hub
+  shot: panel-routing.png
+- slug: ha-maintenance
+  shot: panel-calendar.png
+- slug: ha-smart-comfort
+  shot: panel-start.png
+- slug: ha-alarm-card
+  shot: panel-general.png
+- slug: ha-github
+  shot: panel-repos.png
+- slug: ha-house-rules
+  shot: panel-activity.png
+- slug: ha-calendar-card
+  shot: panel.png
+- slug: ha-todo-card
+  shot: panel.png
+- slug: ha-pronote-card
+  shot: panel.png
+montage:
+- slug: ha-light-card
+  anim: 1
+- slug: ha-smart-appliance-card
+  anim: 0
+- slug: ha-water-heater-card
+  anim: 1
+- slug: ha-sky-card
+  anim: 1
+- slug: ha-rain-card
+  anim: 1
+- slug: ha-console-card
+  anim: 1
+- slug: ha-power-device-card
+  anim: 1
+- slug: ha-safety-card
+  anim: 0
+- slug: ha-water-pump-card
+  anim: 1
+- slug: ha-pet-card
+  anim: 1
+- slug: ha-climate-air-card
+  anim: 1
+- slug: ha-cover-card
+  anim: 1
+twins:
+- slug: ha-light-card
+  anim: 1
+- slug: ha-water-heater-card
+  anim: 1
+- slug: ha-smart-appliance-card
+  anim: 1
+domains:
+- icon: mdiLightbulbOutline
+  domain: light
+  card: Light Card · Room Cards
+  accent: '#f59f00'
+- icon: mdiWindowShutter
+  domain: cover
+  card: Cover Card
+  accent: '#5c6bc0'
+- icon: mdiLockSmart
+  domain: lock
+  card: Smart Lock Card
+  accent: '#43a047'
+- icon: mdiThermostat
+  domain: climate
+  card: Heating Card
+  accent: '#ef6c00'
+- icon: mdiAirConditioner
+  domain: climate · fan · humidifier
+  card: Climate Air Cards
+  accent: '#039be5'
+- icon: mdiWaterBoiler
+  domain: water_heater
+  card: Water Heater Card
+  accent: '#e64a19'
+- icon: mdiRobotVacuum
+  domain: vacuum
+  card: Vacuum Card
+  accent: '#ea0029'
+- icon: mdiRobotMower
+  domain: lawn_mower
+  card: Mower Card
+  accent: '#5a9e3c'
+- icon: mdiSpeakerMultiple
+  domain: media_player
+  card: Media Card
+  accent: '#8e24aa'
+- icon: mdiRemoteTv
+  domain: remote · media_player
+  card: Remote Card
+  accent: '#546e7a'
+- icon: mdiShieldHome
+  domain: alarm_control_panel
+  card: Alarm Card
+  accent: '#e5484d'
+- icon: mdiCctv
+  domain: camera
+  card: Cameras
+  accent: '#e5484d'
+- icon: mdiAccountMultiple
+  domain: person · device_tracker
+  card: Presence · Tracker
+  accent: '#5b6cf0'
+- icon: mdiDoorOpen
+  domain: binary_sensor
+  card: Opening Card
+  accent: '#9a6a3a'
+- icon: mdiSmokeDetectorVariant
+  domain: binary_sensor
+  card: Safety Card
+  accent: '#e53935'
+- icon: mdiPowerSocketEu
+  domain: switch · sensor
+  card: Power Device Card
+  accent: '#f08c00'
+- icon: mdiMeterElectric
+  domain: sensor
+  card: Utility Meter · Energy
+  accent: '#43a047'
+- icon: mdiCalendarMonth
+  domain: calendar · todo
+  card: Calendar · To-do
+  accent: '#1e88e5'
+- icon: mdiWeatherPartlyCloudy
+  domain: weather
+  card: Weather Card
+  accent: '#f5a623'
+- icon: mdiTimerOutline
+  domain: timer · scene · script
+  card: Timer · Scene Card
+  accent: '#fb8c00'
+languages:
+- - fr
+  - Français
+  - Paramètres
+- - en
+  - English
+  - Settings
+- - de
+  - Deutsch
+  - Einstellungen
+- - es
+  - Español
+  - Ajustes
+- - it
+  - Italiano
+  - Impostazioni
+- - nl
+  - Nederlands
+  - Instellingen
+- - pt
+  - Português
+  - Definições
+- - pl
+  - Polski
+  - Ustawienia
+- - sr
+  - Српски
+  - Подешавања
+- - sr-Latn
+  - Srpski
+  - Podešavanja
+- - ro
+  - Română
+  - Setări
+- - da
+  - Dansk
+  - Indstillinger
+- - sv
+  - Svenska
+  - Inställningar
+- - bg
+  - Български
+  - Настройки
+- - ru
+  - Русский
+  - Настройки
+- - uk
+  - Українська
+  - Налаштування
+- - hu
+  - Magyar
+  - Beállítások
+- - sk
+  - Slovenčina
+  - Nastavenia
+- - cs
+  - Čeština
+  - Nastavení
+- - sl
+  - Slovenščina
+  - Nastavitve
+- - lv
+  - Latviešu
+  - Iestatījumi
+- - el
+  - Ελληνικά
+  - Ρυθμίσεις
