@@ -7557,21 +7557,21 @@ projects:
     dark: wh-pv-heating-dark.gif
     caption: Solar heating
 - slug: ha-ent-one
-  title: ENT ONE
+  title: ONE
   kind: integration
   withCard: true
   category: family
   icon: mdiBookEducationOutline
   accent: '#3949ab'
-  tagline: The ENT ONE school workspace in Home Assistant, liaison book, homework, messages and news, with a card and a panel.
-  summary: An integration for ENT ONE, the digital workspace of French primary schools built on Edifice, exposing the unread messages, words to sign, homework to do, news and blog as sensors, a school calendar and a to-do list per homework notebook. A Lovelace card and a sidebar panel ship with it; it is an unofficial community project.
+  tagline: The ONE school workspace in Home Assistant, liaison book, homework, messages and news, with a card and a panel.
+  summary: An integration for ONE, the digital workspace of French primary schools built on Edifice, exposing the unread messages, words to sign, homework to do, news and blog as sensors, a school calendar and a to-do list per homework notebook. A Lovelace card and a sidebar panel ship with it; it is an unofficial community project.
   highlights:
   - Unread messages, words to sign, homework to do, news and blog sensors, each with its items as attributes
   - School calendar with the ENT's events and every homework on its due date
   - A to-do list per homework notebook, ticking an item marks the homework done in the ENT
   - Actions to sign a word of the liaison book and to refresh now, events and optional notifications for automations
   - Card shipped with the integration, counts, words to sign, homework to tick, messages, calendar and news, with a mini card
-  - ENT ONE sidebar panel with Home, Homework, Liaison book, Messages, News, Blog and Settings tabs
+  - ONE sidebar panel with Home, Homework, Liaison book, Messages, News, Blog and Settings tabs
   - Credentials kept in Home Assistant, silent re-login, diagnostics with counts only, no name or message leaving the home
   - "A count on the sidebar: words to sign, homework to do and unread messages of every child"
   - "Animated school corner header: the pen writing when there is homework or a word to sign, the unread messages"
