@@ -5673,6 +5673,8 @@ projects:
   worksWith:
   - slug: ha-family-link
     why: "Its timetable turns the Family Link school mode on and off"
+  - slug: ha-ent-skolengo
+    why: "The other secondary-school ENT, for the schools on Skolengo"
   cardTypes:
   - pronote-card
   - pronote-mini-card
@@ -5723,6 +5725,82 @@ projects:
     caption: "Done"
   - src: anim-homework.gif
     caption: "Homework"
+- slug: ha-ent-skolengo
+  title: Skolengo
+  kind: card
+  category: family
+  icon: mdiSchool
+  accent: '#2f6fed'
+  tagline: "Timetable, homework, grades and school life of your children from the Skolengo ENT, in cards and an optional sidebar panel."
+  summary: "Cards for the community Skolengo integration, the ENT of many French secondary schools: today's and the next school day's timetable, homework done or to do, grades and averages per term, skill-based evaluations, absences, observations and the school news. One tab per student, found on their own."
+  highlights:
+  - "Several students, one tab each, the school news of each one's school"
+  - "Timetable in Home Assistant's time zone, canceled lessons standing out, the lunch break on the real gap"
+  - "Homework grouped by due day, done or to do, its full text and teacher in a popup"
+  - "Grades per term: overall average, latest grades with coefficient and class average, averages per subject"
+  - "Skill-based evaluations, one chip per skill in the colour of its mastery level"
+  - "School life: absences and late arrivals with their status, exemptions, positive and negative observations, punishments"
+  - "School news with their attachments, opened through Home Assistant"
+  - "Illustrated desk header following the student's day: homework, a new grade, a fresh news"
+  - "Animated school picture and a mini card with the next lesson and homework"
+  - "Optional sidebar panel with a tab per section, a button per student and the homework left counted on its sidebar entry"
+  homeassistant: 2024.8.0
+  keywords: "skolengo kosmos ent collège lycée école devoirs notes moyennes compétences emploi du temps absences retards dispenses observations punitions actualités school homework grades timetable panel badge"
+  worksWith:
+  - slug: ha-pronote-card
+    why: "The other secondary-school software, for the schools on Pronote"
+  - slug: ha-family-day-card
+    why: "Is there school tomorrow, holidays included"
+  cardTypes:
+  - skolengo-card
+  - skolengo-mini-card
+  hero:
+    src: card.png
+    caption: "Skolengo Card"
+    group: Card
+  screenshots:
+  - src: card-next-day.png
+    caption: "Next day"
+    group: Card
+  - src: card-homework.png
+    caption: "Homework"
+    group: Card
+  - src: card-homework-popup.png
+    caption: "Homework popup"
+    group: Card
+  - src: card-grades.png
+    caption: "Grades"
+    group: Card
+  - src: card-school-life.png
+    caption: "School life"
+    group: Card
+  - src: card-news-popup.png
+    caption: "School news"
+    group: Card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  - src: mini-card-students.png
+    caption: "Students"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Expanded"
+    group: Mini card
+  - src: panel.png
+    caption: "Today"
+    group: Panel
+  - src: panel-grades.png
+    caption: "Grades"
+    group: Panel
+  animations:
+  - src: anim-class.gif
+    caption: "Class"
+  - src: anim-canceled.gif
+    caption: "Canceled"
+  - src: anim-homework.gif
+    caption: "Homework"
+  - src: anim-done.gif
+    caption: "Done"
 - slug: ha-stock-card
   title: Stock Card
   kind: card
@@ -6723,6 +6801,8 @@ projects:
   worksWith:
   - slug: ha-pronote-card
     why: "The full Pronote timetable, homework and grades"
+  - slug: ha-ent-skolengo
+    why: "The full Skolengo timetable, homework and grades"
   - slug: ha-calendar-card
     why: "The family agenda"
   - slug: ha-chores-card
@@ -7422,6 +7502,8 @@ projects:
   worksWith:
   - slug: ha-pronote-card
     why: "The secondary-school workspace, for when the children grow up"
+  - slug: ha-ent-skolengo
+    why: "The Skolengo ENT of secondary schools, for when the children grow up"
   - slug: ha-family-day-card
     why: "The family's day, the school events included"
   - slug: ha-ent-educartable
