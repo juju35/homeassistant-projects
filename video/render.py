@@ -8,6 +8,7 @@ synthesised pad is added as sound.
     python3 video/render.py --lang fr                  # full video → video/dist/
     python3 video/render.py --lang fr --scenes 3,4     # re-render some scenes, then join again
     python3 video/render.py --lang fr --still 4.5      # one JPEG per scene at t=4.5 s, to check
+    python3 video/render.py --lang en --site           # web copy + poster for the site's home page
 """
 import argparse
 import json
@@ -99,13 +100,35 @@ def join(lang, count):
     print(f"{final.relative_to(VIDEO.parent)}: {d:.1f} s")
 
 
+def site_copy(lang):
+    """Lighter web copy of the finished video and its poster, in public/video/ for the home page."""
+    final = DIST / NAMES.get(lang, f"home-assistant-projects-{lang}.mp4")
+    if not final.exists():
+        raise SystemExit(f"render the video first: {final.relative_to(VIDEO.parent)} is missing")
+    out = VIDEO.parent / "public" / "video"
+    out.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(final), "-c:v", "libx264", "-preset", "slow",
+                    "-crf", "30", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart",
+                    str(out / "tour.mp4")], check=True)
+    # poster: the intro once its titles and counters are in place
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", "4.5", "-i", str(final), "-frames:v", "1",
+                    "-vf", "scale=1280:-2", "-q:v", "4", str(out / "tour.jpg")], check=True)
+    d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
+                              str(out / "tour.mp4")], capture_output=True, text=True, check=True).stdout)
+    mb = (out / "tour.mp4").stat().st_size / 1e6
+    print(f"public/video/tour.mp4: {mb:.1f} MB, {d / 60:.1f} min (TOUR_MINUTES in src/pages/index.astro)")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang", default="fr")
     ap.add_argument("--scenes", help="comma-separated scene numbers (default: all)")
     ap.add_argument("--still", type=float, help="write one JPEG per scene at this time instead of rendering")
     ap.add_argument("--jobs", type=int, default=3, help="parallel browsers")
+    ap.add_argument("--site", action="store_true", help="only write the web copy and poster to public/video/")
     a = ap.parse_args()
+    if a.site:
+        return site_copy(a.lang)
     data = json.loads((CACHE / f"data.{a.lang}.json").read_text())
     count = scene_count(data)
     scenes = [int(s) for s in a.scenes.split(",")] if a.scenes else list(range(count))

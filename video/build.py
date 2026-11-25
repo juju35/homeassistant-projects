@@ -5,7 +5,7 @@ Reads src/data/projects.yaml, video/content.yaml and video/i18n/<lang>.yaml, fet
 project's README, brand logos, screenshots and animations from raw.githubusercontent.com,
 splits the GIFs into frames and writes video/.cache/data.<lang>.json for render.py.
 
-    python3 video/build.py --lang fr        # or en; downloads are cached between runs
+    python3 video/build.py --lang fr        # or en; everything is fetched again (--offline to reuse the cache)
 """
 import argparse
 import hashlib
@@ -28,19 +28,25 @@ RAW = "https://raw.githubusercontent.com/juju35/{slug}/main/{path}"
 NODE = VIDEO / "node_modules"
 
 
+FETCHED = set()   # files downloaded during this run
+OFFLINE = False   # --offline: reuse what is already in video/.cache/
+
+
 def fetch(url, dest):
-    """Download url to dest once (cached). Returns True when the file exists."""
+    """Download url to dest, again on every run so READMEs and captures are current
+    (once per run; --offline reuses the cache). Returns True when the file exists."""
     dest = Path(dest)
-    if dest.exists() and dest.stat().st_size:
+    if dest in FETCHED or (OFFLINE and dest.exists() and dest.stat().st_size):
         return True
     dest.parent.mkdir(parents=True, exist_ok=True)
     tmp = dest.with_suffix(dest.suffix + ".part")
     ok = subprocess.run(["curl", "-sfL", "-o", str(tmp), url]).returncode == 0
     if ok:
         tmp.rename(dest)
+        FETCHED.add(dest)
     else:
         tmp.unlink(missing_ok=True)
-    return ok
+    return ok or dest.exists()
 
 
 def fetch_all(jobs):
@@ -94,21 +100,24 @@ def brand_id(alt):
 def split_gif(gif, out):
     """Write every frame of gif as out/NNN.png; return the frame durations (ms) and size."""
     im = Image.open(gif)
-    out.mkdir(parents=True, exist_ok=True)
+    shutil.rmtree(out, ignore_errors=True)  # the GIF may have changed since the last run
+    out.mkdir(parents=True)
     durations = []
     for i in range(im.n_frames):
         im.seek(i)
         durations.append(im.info.get("duration", 100) or 100)
-        frame = out / f"{i:03d}.png"
-        if not frame.exists():
-            im.convert("RGBA").save(frame)
+        im.convert("RGBA").save(out / f"{i:03d}.png")
     return durations, list(im.size)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang", default="fr", choices=[p.stem for p in (VIDEO / "i18n").glob("*.yaml")])
-    lang = ap.parse_args().lang
+    ap.add_argument("--offline", action="store_true", help="reuse the downloads already in video/.cache/")
+    args = ap.parse_args()
+    lang = args.lang
+    global OFFLINE
+    OFFLINE = args.offline
 
     site = yaml.safe_load((ROOT / "src/data/projects.yaml").read_text())
     content = yaml.safe_load((VIDEO / "content.yaml").read_text())
@@ -154,8 +163,12 @@ def main():
 
     gifmeta, gifsize = {}, {}
 
-    def anim(slug, idx, dark=False):
-        a = by_slug[slug]["animations"][idx]
+    def anim(slug, ref, dark=False):
+        anims = by_slug[slug].get("animations") or []
+        idx = ref if isinstance(ref, int) else next((i for i, x in enumerate(anims) if x["src"] == ref), None)
+        if idx is None:
+            raise SystemExit(f"content.yaml: {slug} has no animation {ref!r} any more")
+        a = anims[idx]
         name = (a.get("dark") or a["src"]) if dark else a["src"]
         key = f"{slug}__{idx}"
         gif = CACHE / ("gif-dark" if dark else "gif") / f"{key}.gif"
@@ -164,7 +177,7 @@ def main():
         durations, size = split_gif(gif, CACHE / ("frames-dark" if dark else "frames") / key)
         gifmeta[("D:" if dark else "") + key] = durations
         gifsize[key] = size
-        cap = text.get("captions", {}).get(f"{slug}#{idx}", a.get("caption", ""))
+        cap = text.get("captions", {}).get(f"{slug}/{a['src']}", a.get("caption", ""))
         return {"type": "gif", "slug": slug, "title": by_slug[slug]["title"], "gif": key, "cap": cap,
                 "w": size[0], "h": size[1]}
 

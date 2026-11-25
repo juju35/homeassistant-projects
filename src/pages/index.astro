@@ -22,6 +22,8 @@ const themes = counts.theme;
 // and el
 const LANGUAGES = 22;
 const base = import.meta.env.BASE_URL;
+// Length of public/video/tour.mp4 (written by video/render.py --site), shown under the player
+const TOUR_MINUTES = 4;
 const animations = current.reduce((n, p) => n + (p.animations?.length ?? 0), 0);
 // Within a category (and in Archived), projects in alphabetical order of their name
 const byTitle = (a: { title: string }, b: { title: string }) =>
@@ -53,6 +55,8 @@ const groups = categories
         </div>
       </Scene>
       <div class="hero-body">
+      <div class="hero-intro">
+      <div class="hero-text">
       <p class="lead">
         Dashboard cards that look at home in Home Assistant and find their entities by themselves,
         and integrations that keep things quiet until something really needs you. Light and dark themes,
@@ -61,6 +65,15 @@ const groups = categories
         Slovenčina, Čeština, Slovenščina, Latviešu and Ελληνικά.
       </p>
       <p class="stats-inline muted">{cards} cards · {integrations} integrations · {themes} {themes === 1 ? "theme" : "themes"} · {animations} animations · {LANGUAGES} languages</p>
+      </div>
+      <figure class="tour">
+        <video controls playsinline preload="none" poster={`${base}video/tour.jpg`} width="1920" height="1080"
+          aria-label="Video tour of the projects">
+          <source src={`${base}video/tour.mp4`} type="video/mp4" />
+        </video>
+        <figcaption class="muted"><Icon name="mdiPlayCircleOutline" />Watch the {TOUR_MINUTES}-minute tour</figcaption>
+      </figure>
+      </div>
       <div class="stats">
         <div class="tile stat" style="--c:#5b6cf0">
           <span class="logo"><Icon name="mdiViewDashboardVariant" /></span>
@@ -418,6 +431,15 @@ const groups = categories
   h1 { margin: 0; font-size: clamp(20px, 3.2vw, 24px); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; }
   .hero-sub { font-size: 13px; margin-top: 2px; }
   .lead { margin: 0; max-width: 70ch; color: var(--secondary-text-color); font-size: 15px; }
+  /* Video tour beside the intro text; under it on narrow screens */
+  .hero-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 400px); gap: 20px; align-items: start; }
+  .hero-text { display: flex; flex-direction: column; gap: 12px; }
+  .tour { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .tour video { width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 12px; background: var(--secondary-background-color);
+    border: 1px solid var(--divider-color); display: block; }
+  .tour figcaption { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+  .tour figcaption :global(svg) { width: 16px; height: 16px; }
+  @media (max-width: 860px) { .hero-intro { grid-template-columns: minmax(0, 1fr); } .tour { max-width: 560px; } }
   .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
   .stat { display: flex; align-items: center; gap: 12px; padding: 12px; }
   .stat .v { font-size: 22px; font-weight: 500; line-height: 1.1; }

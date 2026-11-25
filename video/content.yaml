@@ -1,94 +1,94 @@
 # Content of the presentation video that does not come from src/data/projects.yaml:
 # which captures and animations each scene shows. Texts live in video/i18n/<lang>.yaml.
-#   anim: index in the project's `animations` (light `src`; twins also use the `dark` file)
+#   anim: file of the project's `animations` (its light `src`; twins also use its `dark` twin)
 #   shot: a file of the project's screenshots/ folder, or `hero`
 exclude:
 - ha-iptv
 categories:
   climate:
   - slug: ha-uv-card
-    anim: 0
+    anim: uv-low.gif
   - slug: ha-rain-card
-    anim: 0
+    anim: dry.gif
   - slug: ha-climate-air-card
-    anim: 0
+    anim: purifier.gif
   energy:
   - slug: ha-solar-forecast-card
-    anim: 0
+    anim: sf-producing.gif
   - slug: ha-ecowatt-card
-    anim: 0
+    anim: tight.gif
   - slug: ha-power-device-card
-    anim: 0
+    anim: pd-airfryer.gif
   home:
   - slug: ha-room-card
-    anim: 0
+    anim: sensors-blink.gif
   - slug: ha-cover-card
-    anim: 0
+    anim: awning-opening.gif
   - slug: ha-light-card
-    anim: 0
+    anim: lc-tree.gif
   outdoor:
   - slug: ha-pool-card
-    anim: 0
+    anim: cover-closing.gif
   - slug: ha-mower-card
-    anim: 0
+    anim: mowing.gif
   - slug: ha-pet-card
-    anim: 0
+    anim: card-dispense.gif
   security:
   - slug: ha-camera
-    anim: 0
+    anim: live.gif
   - slug: ha-alarm-card
-    anim: 0
+    anim: armed.gif
   - slug: ha-doorbell-card
-    anim: 0
+    anim: mini-ringing.gif
   appliances:
   - slug: ha-smart-appliance-card
-    anim: 1
+    anim: washer-running.gif
   - slug: ha-vacuum-card
-    anim: 2
+    anim: mop-washing.gif
   - slug: ha-printer-card
-    anim: 0
+    anim: scan-busy.gif
   network:
   - slug: ha-internet-box-card
-    anim: 0
+    anim: fan.gif
   - slug: ha-speedtest-card
-    anim: 0
+    anim: testing.gif
   - slug: ha-switch-card
     shot: hero
   servers:
   - slug: ha-docker-card
-    anim: 0
+    anim: card-sections.gif
   - slug: ha-nas-card
-    anim: 0
+    anim: fans.gif
   - slug: ha-certificate-card
-    anim: 1
+    anim: card-renewal.gif
   car:
   - slug: ha-train-board-card
-    anim: 0
+    anim: departure.gif
   - slug: ha-ev-charger-card
-    anim: 0
+    anim: ev-charging.gif
   - slug: ha-carburants-france
-    anim: 0
+    anim: refreshing.gif
   family:
   - slug: ha-family-day-card
-    anim: 0
+    anim: school.gif
   - slug: ha-pronote-card
-    anim: 0
+    anim: anim-canceled.gif
   - slug: ha-chores-card
-    anim: 0
+    anim: chores-sweeping.gif
   everyday:
   - slug: ha-parcel
-    anim: 0
+    anim: refreshing.gif
   - slug: ha-mailbox-card
-    anim: 0
+    anim: mb-mail.gif
   - slug: ha-stock-card
-    anim: 0
+    anim: card-ticks.gif
   maintenance:
   - slug: ha-system-hub
-    anim: 0
+    anim: card-batteries-due.gif
   - slug: ha-maintenance
-    anim: 0
+    anim: card-overdue.gif
   - slug: ha-backup-card
-    anim: 0
+    anim: running.gif
   themes:
   - slug: ha-liquid-glass
     shot: hero
@@ -157,36 +157,36 @@ panels:
   shot: panel.png
 montage:
 - slug: ha-light-card
-  anim: 1
+  anim: lc-garland.gif
 - slug: ha-smart-appliance-card
-  anim: 0
+  anim: dishwasher-running.gif
 - slug: ha-water-heater-card
-  anim: 1
+  anim: wh-pv-heating.gif
 - slug: ha-sky-card
-  anim: 1
+  anim: golden-hour.gif
 - slug: ha-rain-card
-  anim: 1
+  anim: rain-soon.gif
 - slug: ha-console-card
-  anim: 1
+  anim: cc-xbox-playing.gif
 - slug: ha-power-device-card
-  anim: 1
+  anim: pd-washer.gif
 - slug: ha-safety-card
-  anim: 0
+  anim: safety-alarm.gif
 - slug: ha-water-pump-card
-  anim: 1
+  anim: wp-well.gif
 - slug: ha-pet-card
-  anim: 1
+  anim: card-fountain.gif
 - slug: ha-climate-air-card
-  anim: 1
+  anim: purifier-dyson.gif
 - slug: ha-cover-card
-  anim: 1
+  anim: blind-opening.gif
 twins:
 - slug: ha-light-card
-  anim: 1
+  anim: lc-garland.gif
 - slug: ha-water-heater-card
-  anim: 1
+  anim: wh-pv-heating.gif
 - slug: ha-smart-appliance-card
-  anim: 1
+  anim: washer-running.gif
 domains:
 - icon: mdiLightbulbOutline
   domain: light

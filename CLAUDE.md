@@ -92,6 +92,7 @@ Everything is in `video/` (see `video/README.md` for the scene list and what to 
 (cd video && npm ci) && pip install pyyaml pillow playwright
 python3 video/build.py --lang fr && python3 video/render.py --lang fr --still 5.5   # check the stills first
 python3 video/render.py --lang fr        # then en; output in video/dist/ (git-ignored)
+python3 video/render.py --lang en --site # web copy + poster in public/video/, played in the home page hero
 ```
 Counts, categories, brand logos and project tiles follow `projects.yaml` and the READMEs automatically;
 captures, animations and spotlight texts are chosen in `video/content.yaml` and `video/i18n/<lang>.yaml`.
