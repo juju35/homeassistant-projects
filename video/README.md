@@ -14,8 +14,11 @@ python3 video/build.py --lang fr        # fetch READMEs, logos, captures, GIF fr
 python3 video/render.py --lang fr       # ~10 min with 3 browsers → video/dist/projets-home-assistant-fr.mp4
 ```
 
-`--lang en` gives `video/dist/home-assistant-projects-en.mp4`. Needs `ffmpeg` and access to
-`raw.githubusercontent.com`. Downloads are cached in `video/.cache/` (delete it to refetch).
+`--lang en` gives `video/dist/home-assistant-projects-en.mp4`. The site's home page plays the
+English one: `python3 video/render.py --lang en --site` writes a lighter copy (`public/video/tour.mp4`)
+and its poster (`tour.jpg`); update `TOUR_MINUTES` in `src/pages/index.astro` if the length changed. Needs `ffmpeg` and access to
+`raw.githubusercontent.com`. Every build fetches the READMEs, logos, captures and animations again,
+so the video shows the repos as they are now (`--offline` reuses `video/.cache/`).
 
 Check before a full render, and redo only what changed:
 
@@ -41,7 +44,7 @@ python3 video/render.py --lang fr --scenes 3,13   # re-render those scenes, then
 
 ## Edit
 
-- **Which captures/animations** a scene shows: `content.yaml` (`anim` = index in the project's
+- **Which captures/animations** a scene shows: `content.yaml` (`anim` = file of the project's
   `animations`, `shot` = file of its `screenshots/` or `hero`).
 - **Texts**: `i18n/<lang>.yaml` (category labels, device types, spotlight tagline and « Simple » points,
   caption overrides). `scene.html` is written in English; `i18n/fr.yaml` `ui` lists the exact
@@ -52,6 +55,8 @@ python3 video/render.py --lang fr --scenes 3,13   # re-render those scenes, then
 - **New language**: add `i18n/<code>.yaml` (with `ui` pairs) and the flag mapping in `build.py` if needed.
 
 ## Rules decided by the owner
+
+- On the site: English version only, in the home page hero, beside the intro text.
 
 - Never show IPTV / `ha-iptv`; archived projects are left out.
 - Light, sober background (pale grey, faint blue haze); light-theme captures and GIFs.

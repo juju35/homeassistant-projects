@@ -123,8 +123,8 @@ focus:
       - Un agenda des échéances
       - et un seul rappel par jour, chaque élément une fois
 captions:
-  ha-smart-appliance-card#1: Lave-linge en marche
-  ha-vacuum-card#2: Lavage de la serpillière
+  ha-smart-appliance-card/washer-running.gif: Lave-linge en marche
+  ha-vacuum-card/mop-washing.gif: Lavage de la serpillière
 ui:
 - - My Home Assistant projects
   - Mes projets Home Assistant
