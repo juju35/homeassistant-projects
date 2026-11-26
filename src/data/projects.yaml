@@ -310,10 +310,10 @@ projects:
   - "Heat pumps measured but not controlled: a read-only card from a power sensor, with heat output, COP and SCOP, flow and return temperatures"
   - "Metered heat pumps tell the heating circulation running on its own from the heat pump itself, with the water flowing in the pipes"
   - "Ceiling fans hanging in the room, the blades turning with the speed and the other way when reversed, with their light and direction (Bond, Big Ass Fans, Modern Forms…)"
-  - "SwitchBot purifiers (Air Purifier, Table), Circulator Fan and humidifiers drawn from their model, with the SwitchBot logo"
+  - "Every SwitchBot purifier, fan and humidifier drawn from its model: Air Purifier and Air Purifier Table, Circulator Fans, the Standing Circulator Fan on its pole, Humidifier and Evaporative Humidifier, with the SwitchBot logo"
   - A room temperature sensor of your own on air conditioners and heat pumps, the unit's probe shown under it
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse circulateur circulation plancher chauffant switchbot air purifier table circulator fan vornado evaporative humidifier sonde température pièce room sensor"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse circulateur circulation plancher chauffant switchbot air purifier table circulator fan standing circulator sur pied battery vornado evaporative humidifier sonde température pièce room sensor"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
@@ -381,6 +381,9 @@ projects:
   - src: purifier-switchbot-mini.png
     caption: "SwitchBot mini card"
     group: Air purifier
+  - src: purifier-switchbot-plain-card.png
+    caption: "SwitchBot Air Purifier"
+    group: Air purifier
   - src: fan-card.png
     dark: fan-card-dark.png
     caption: Fan
@@ -394,6 +397,9 @@ projects:
     group: Fan
   - src: fan-circulator-mini.png
     caption: "Circulator Fan mini card"
+    group: Fan
+  - src: fan-circulator-standing-card.png
+    caption: "SwitchBot Standing Circulator Fan"
     group: Fan
   - src: aircon-card.png
     dark: aircon-card-dark.png
@@ -556,8 +562,12 @@ projects:
     caption: Dyson bladeless purifier
   - src: purifier-switchbot-table.gif
     caption: "SwitchBot Air Purifier Table"
+  - src: purifier-switchbot-plain.gif
+    caption: "SwitchBot Air Purifier"
   - src: fan-circulator.gif
     caption: "Circulator fan"
+  - src: fan-circulator-standing.gif
+    caption: "Standing circulator fan"
   - src: fan.gif
     dark: fan-dark.gif
     caption: Fan
@@ -3090,10 +3100,10 @@ projects:
   - "Roborock: the live Vacuum Map, rooms named and the robot on its path, in 2D or 3D, on the card and the mini card while cleaning"
   - Map paused while the card is off-screen
   - "Map as a section that unfolds while the robot cleans (show_map: always_folded)"
-  - "SwitchBot robots over Bluetooth or SwitchBot Cloud: the K series with its slim auto-empty tower, S1, S10 and S20 with their roller mop"
+  - "Every SwitchBot robot drawn as it is, over Bluetooth or SwitchBot Cloud: K10+ and its tower, K11+ and K11+ Pro with their compact base (black too), K20+ Pro under its FusionPlatform, S1, S10, S20 and S30 with their roller mop and stations"
   - The last map of a job kept on screen with its cleaned path once the robot docks
   homeassistant: 2024.8.0
-  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d passes passages repeat switchbot k10 k11 k20 s1 s10 s20 omnistation last map dernière carte"
+  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d passes passages repeat switchbot k10 k11 k11+ pro k20 fusionplatform s1 s10 s20 s30 omnistation last map dernière carte"
   worksWith:
   - slug: ha-vacuum-map
     why: "Its live Roborock map, drawn in the map section"
