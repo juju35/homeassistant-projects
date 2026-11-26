@@ -1281,8 +1281,10 @@ projects:
   - 12 sensors, an alert event, notifications through Notify Hub in your language and a sidebar badge with the number of alerts
   - Demo mode with a simulated installation and more than a year of history
   - "The entity behind every role chosen from the panel or the options, with backups: several arrays added up, a Linky module standing in for the meter"
+  - "Large consumers (EV charger, heat pump, air conditioning, water heater) as their own nodes in the flow and slices of the consumption curve, found in the Energy dashboard or declared in YAML"
+  - "A second tariff per consumer, on the main meter or its own: its own kWh price, no solar share on a separate meter, the bill and savings priced right"
   homeassistant: 2024.12.0
-  keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek indevolt hoymiles zlinky linky denky tasmota teleinfo solcast forecast.solar comparateur offres tarif edf tempo zen week-end zen flex heures creuses rte tempo irradiance ensoleillement météo weather nébulosité ecowitt weatherflow indevolt denky hoymiles s-miles hibattery"
+  keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek indevolt hoymiles zlinky linky denky tasmota teleinfo solcast forecast.solar comparateur offres tarif edf tempo zen week-end zen flex heures creuses rte tempo irradiance ensoleillement météo weather nébulosité ecowitt weatherflow indevolt denky hoymiles s-miles hibattery gros consommateurs large consumers borne de recharge ev charger wallbox pompe à chaleur heat pump climatisation chauffe-eau water heater compteur séparé separate meter second tarif"
   worksWith:
   - slug: ha-energy-card
     why: "The live power flow on a dashboard"
@@ -5406,8 +5408,9 @@ projects:
   - Light and dark mode
   - Mini card on one row, its QR opening the full card
   - "Animated header: a router sending its WiFi waves to a laptop"
+  - "The QR code alone for a wall or shared screen: network name, password and hint can be hidden"
   homeassistant: 2024.8.0
-  keywords: "wifi qr code guest network"
+  keywords: "wifi qr code guest network invité mot de passe password masquer hide écran mural wall screen"
   cardTypes:
   - wifi-qr-card
   - wifi-qr-mini-card
@@ -9004,6 +9007,8 @@ projects:
   summary: "Each dashboard gets a 90 px scene (a house, devices, cars, energy, a server rack, security, family, a terrace) with its title, a live subtitle, a status pill and calm text tabs, or a compact bar with pill tabs. The scene follows your home, by day and night, and Home Assistant's own toolbar keeps working. Set in the dashboard's YAML, nothing native lost."
   highlights:
   - "Eight scenes, one per kind of dashboard: home, devices, cars, energy, system, security, family, outdoor"
+  - "Thirteen room scenes too: bathroom, toilet, bedroom, nursery, kids and teen rooms, garage, hallway, office, laundry, entrance, entryway and garden, each following its own devices"
+  - "French scene names accepted as aliases (salle de bain, chambre bébé, jardin…), with spaces, dashes and accents"
   - "The scene follows your home: lit windows, the robot vacuum leaving its dock, today's Tempo colour, a blinking server LED, the alarm shield turning red, rain on the terrace"
   - "Cars drawn from their own picture, as on the Vehicle Card, on the road, the driveway or at the pump of a station with its prices"
   - "Live title, subtitle and status pill from entities or templates"
@@ -9015,7 +9020,7 @@ projects:
   - App pages opened from the sidebar (Terminal & SSH…) get a banner too
   - "On a phone the scene moves under the buttons and the tabs scroll"
   homeassistant: 2025.6.0
-  keywords: "dashboard header bandeau en-tête banner tabs onglets illustrated scene toolbar compact theme ha-neutral cars voitures station driveway panneau énergie energy panel add-on app ingress"
+  keywords: "dashboard header bandeau en-tête banner tabs onglets illustrated scene toolbar compact theme ha-neutral cars voitures station driveway panneau énergie energy panel add-on app ingress room pièce bathroom salle de bain toilet toilettes wc bedroom chambre nursery chambre bébé kids enfant teen ado garage hallway couloir office bureau laundry buanderie entrance entrée entryway garden jardin"
   worksWith:
   - slug: ha-neutral
     why: "The theme it is designed for"
@@ -9057,6 +9062,58 @@ projects:
     dark: scene-exterieur-dark.png
     caption: "Outdoor"
     group: Scenes
+  - src: scene-bathroom.png
+    dark: scene-bathroom-dark.png
+    caption: "Bathroom"
+    group: Rooms
+  - src: scene-toilet.png
+    dark: scene-toilet-dark.png
+    caption: "Toilet"
+    group: Rooms
+  - src: scene-bedroom.png
+    dark: scene-bedroom-dark.png
+    caption: "Bedroom"
+    group: Rooms
+  - src: scene-nursery.png
+    dark: scene-nursery-dark.png
+    caption: "Nursery"
+    group: Rooms
+  - src: scene-kids_room.png
+    dark: scene-kids_room-dark.png
+    caption: "Kids room"
+    group: Rooms
+  - src: scene-teen_room.png
+    dark: scene-teen_room-dark.png
+    caption: "Teen room"
+    group: Rooms
+  - src: scene-garage.png
+    dark: scene-garage-dark.png
+    caption: "Garage"
+    group: Rooms
+  - src: scene-hallway.png
+    dark: scene-hallway-dark.png
+    caption: "Hallway"
+    group: Rooms
+  - src: scene-office.png
+    dark: scene-office-dark.png
+    caption: "Office"
+    group: Rooms
+  - src: scene-laundry.png
+    dark: scene-laundry-dark.png
+    caption: "Laundry"
+    group: Rooms
+  - src: scene-entrance.png
+    dark: scene-entrance-dark.png
+    caption: "Entrance (outside)"
+    group: Rooms
+  - src: scene-entryway.png
+    dark: scene-entryway-dark.png
+    caption: "Entryway (inside)"
+    group: Rooms
+  - src: scene-garden.png
+    dark: scene-garden-dark.png
+    caption: "Garden"
+    group: Rooms
   - src: energy-overview.png
     caption: Energy panel, overview
     group: Energy panel
@@ -9101,7 +9158,44 @@ projects:
     dark: alarm-triggered-dark.gif
     caption: "The alarm triggered"
   - src: energy-now.gif
+    dark: energy-now-dark.gif
     caption: "Energy panel, power now"
+  - src: bathroom-steam.gif
+    dark: bathroom-steam-dark.gif
+    caption: "Bathroom: steam, extractor fan"
+  - src: toilet-occupied.gif
+    dark: toilet-occupied-dark.gif
+    caption: "Toilet occupied, fan on"
+  - src: bedroom-sleep.gif
+    dark: bedroom-sleep-dark.gif
+    caption: "Bedroom asleep, shutter down"
+  - src: nursery-music.gif
+    dark: nursery-music-dark.gif
+    caption: "Nursery: lullaby, mobile turning"
+  - src: kids-sleep.gif
+    dark: kids-sleep-dark.gif
+    caption: "Kids room asleep"
+  - src: garage-opening.gif
+    dark: garage-opening-dark.gif
+    caption: "Garage door opening"
+  - src: hallway-motion.gif
+    dark: hallway-motion-dark.gif
+    caption: "Hallway: motion, door ajar"
+  - src: office-busy.gif
+    dark: office-busy-dark.gif
+    caption: "Office: on air during a call"
+  - src: laundry-running.gif
+    dark: laundry-running-dark.gif
+    caption: "Washer and dryer running"
+  - src: entrance-doorbell.gif
+    dark: entrance-doorbell-dark.gif
+    caption: "Doorbell ringing, parcel delivered"
+  - src: entryway-unlocked.gif
+    dark: entryway-unlocked-dark.gif
+    caption: "Entryway: door open, alarm pending"
+  - src: garden-watering.gif
+    dark: garden-watering-dark.gif
+    caption: "Garden: watering, mower out"
   - src: rain.gif
     dark: rain-dark.gif
     caption: "Rain on the terrace"
