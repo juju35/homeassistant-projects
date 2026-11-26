@@ -45,7 +45,7 @@ categories:
     anim: washer-running.gif
   - slug: ha-vacuum-card
     anim: mop-washing.gif
-  - slug: ha-printer-card
+  - slug: ha-printer-scanner-card
     anim: scan-busy.gif
   network:
   - slug: ha-internet-box-card
