@@ -9446,18 +9446,19 @@ projects:
   icon: mdiSilverwareForkKnife
   accent: '#f76707'
   tagline: "Tonight's dinner, the week's meals as plates, planned from the card, and the shopping list to tick off."
-  summary: "Cards for the meal plan of Mealie, Grocy, KitchenOwl or Cookidoo and the shopping list of any to-do list (Bring!, OurGroceries, Local To-do): tonight's dinner in big, today's lunch, the week as a row of plates, and the shopping list by aisle, ticked off with a tap."
+  summary: "Cards for the meal plan of Mealie (or Bonap, its front-end), Grocy, KitchenOwl or Cookidoo and the shopping list of any to-do list (Bring!, OurGroceries, Local To-do): tonight's dinner in big, today's lunch, the week as a row of plates, and the shopping list by aisle, ticked off with a tap."
   highlights:
   - "Tonight's dinner in big, with its time and servings, or nothing planned"
   - "The week as plates, today marked, a dashed plate when nothing is planned"
   - "The shopping list by aisle, ticked off or put back with a tap"
   - "Mealie, Grocy, KitchenOwl and Cookidoo plans, Bring!, OurGroceries or any to-do list"
+  - "Bonap's plans too: each slot's main course, starters and desserts aside, Bonap's servings and guests kept"
   - "Mealie details for every user, admin or not"
   - "Mini card with tonight's dinner and what is left to buy"
   - "Illustrated header: a kitchen corner whose pot steams while a dinner is planned"
-  - "Plan the week from the card with Mealie: a recipe, a note, leftovers or a random recipe, or clear a day"
+  - "Plan the week from the card with Mealie: a recipe, a note, leftovers (the same recipe again) or a random recipe, or clear a day"
   homeassistant: 2024.8.0
-  keywords: "meal plan repas menu dîner déjeuner courses shopping list liste mealie grocy kitchenowl cookidoo bring ourgroceries recette planifier planning edit modifier restes leftovers aléatoire random"
+  keywords: "meal plan repas menu dîner déjeuner courses shopping list liste mealie grocy kitchenowl cookidoo bring ourgroceries recette planifier planning edit modifier restes leftovers aléatoire random bonap"
   worksWith:
   - slug: ha-chores-card
     why: "The household's day next to its meals"
