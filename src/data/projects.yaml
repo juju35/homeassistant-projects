@@ -94,7 +94,7 @@ contributors:
   project: ha-smart-appliance-card
 - login: domwu0001
   contribution: German translation
-  project: ha-printer-card
+  project: ha-printer-scanner-card
 - login: FredM67
   contribution: Detection of the Home Connect hob, the power state select kept out of the program options and the right times of a delayed start, with the patches
   project: ha-smart-appliance-card
@@ -3368,7 +3368,7 @@ projects:
   - src: mammotion-charging-light.gif
     dark: mammotion-charging.gif
     caption: Mini card charging
-- slug: ha-printer-card
+- slug: ha-printer-scanner-card
   title: Printer Card
   kind: card
   category: appliances
@@ -3505,7 +3505,7 @@ projects:
   homeassistant: 2025.8.0
   keywords: "hp printer officejet envy deskjet laserjet smart tank ink toner pages scan scanner escl airscan pdf local"
   worksWith:
-  - slug: ha-printer-card
+  - slug: ha-printer-scanner-card
     why: "Shows its printers, with their last values while off and the Scan section"
   hero:
     src: printer-card.png
@@ -3532,7 +3532,7 @@ projects:
   homeassistant: 2024.8.0
   keywords: "imprimante 3d 3d printer bambu lab ams octoprint klipper moonraker mainsail fluidd prusa prusalink voron creality prise connectée smart plug power alimentation"
   worksWith:
-  - slug: ha-printer-card
+  - slug: ha-printer-scanner-card
     why: "Paper printers: ink, paper and scans"
   cardTypes:
   - printer-3d-card
@@ -7205,7 +7205,7 @@ projects:
     why: "Sends its daily reminders"
   - slug: ha-vacuum-card
     why: "The robot vacuums whose brushes and filters it follows"
-  - slug: ha-printer-card
+  - slug: ha-printer-scanner-card
     why: "The printers whose ink and toner it follows"
   cardTypes:
   - maintenance-card
