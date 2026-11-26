@@ -310,8 +310,10 @@ projects:
   - "Heat pumps measured but not controlled: a read-only card from a power sensor, with heat output, COP and SCOP, flow and return temperatures"
   - "Metered heat pumps tell the heating circulation running on its own from the heat pump itself, with the water flowing in the pipes"
   - "Ceiling fans hanging in the room, the blades turning with the speed and the other way when reversed, with their light and direction (Bond, Big Ass Fans, Modern Forms…)"
+  - "SwitchBot purifiers (Air Purifier, Table), Circulator Fan and humidifiers drawn from their model, with the SwitchBot logo"
+  - A room temperature sensor of your own on air conditioners and heat pumps, the unit's probe shown under it
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse circulateur circulation plancher chauffant"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse circulateur circulation plancher chauffant switchbot air purifier table circulator fan vornado evaporative humidifier sonde température pièce room sensor"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
@@ -373,6 +375,12 @@ projects:
     dark: purifier-dyson-dark.png
     group: Air purifier
     caption: Dyson
+  - src: purifier-switchbot-card.png
+    caption: "SwitchBot Air Purifier Table"
+    group: Air purifier
+  - src: purifier-switchbot-mini.png
+    caption: "SwitchBot mini card"
+    group: Air purifier
   - src: fan-card.png
     dark: fan-card-dark.png
     caption: Fan
@@ -380,6 +388,12 @@ projects:
   - src: fan-mini.png
     dark: fan-mini-dark.png
     caption: Mini card
+    group: Fan
+  - src: fan-circulator-card.png
+    caption: "SwitchBot Circulator Fan"
+    group: Fan
+  - src: fan-circulator-mini.png
+    caption: "Circulator Fan mini card"
     group: Fan
   - src: aircon-card.png
     dark: aircon-card-dark.png
@@ -481,6 +495,12 @@ projects:
     dark: humidifier-empty-dark.png
     caption: Water tank empty
     group: Humidifier
+  - src: humidifier-switchbot-card.png
+    caption: "SwitchBot Evaporative Humidifier"
+    group: Humidifier
+  - src: humidifier-switchbot-mini.png
+    caption: "SwitchBot Humidifier mini card"
+    group: Humidifier
   - src: humidifier-diffuser.png
     dark: humidifier-diffuser-dark.png
     caption: Essential oil diffuser
@@ -534,6 +554,10 @@ projects:
   - src: purifier-dyson.gif
     dark: purifier-dyson-dark.gif
     caption: Dyson bladeless purifier
+  - src: purifier-switchbot-table.gif
+    caption: "SwitchBot Air Purifier Table"
+  - src: fan-circulator.gif
+    caption: "Circulator fan"
   - src: fan.gif
     dark: fan-dark.gif
     caption: Fan
@@ -576,6 +600,8 @@ projects:
   - src: humidifier.gif
     dark: humidifier-dark.gif
     caption: Humidifier
+  - src: humidifier-switchbot-evaporative.gif
+    caption: "SwitchBot Evaporative Humidifier"
   - src: humidifier-vocolinc.gif
     dark: humidifier-vocolinc-dark.gif
     caption: VOCOlinc MistFlow
@@ -1244,6 +1270,7 @@ projects:
   - Clickable DC/AC layout, attachment suggestions and the data quality of the last 24 hours
   - 12 sensors, an alert event, notifications through Notify Hub in your language and a sidebar badge with the number of alerts
   - Demo mode with a simulated installation and more than a year of history
+  - "The entity behind every role chosen from the panel or the options, with backups: several arrays added up, a Linky module standing in for the meter"
   homeassistant: 2024.12.0
   keywords: "solar photovoltaïque photovoltaic pv panneaux solaires onduleur inverter batterie battery cellules cells bms écrêtage clipping ombrage shading encrassement soiling pertes losses autoconsommation self-consumption rendement amortissement payback enphase huawei solaredge fronius sma solax solarman victron powerwall opendtu anker solix ecoflow zendure marstek indevolt hoymiles zlinky linky denky tasmota teleinfo solcast forecast.solar comparateur offres tarif edf tempo zen week-end zen flex heures creuses rte tempo irradiance ensoleillement météo weather nébulosité ecowitt weatherflow indevolt denky hoymiles s-miles hibattery"
   worksWith:
@@ -3050,7 +3077,7 @@ projects:
   category: appliances
   icon: mdiRobotVacuum
   accent: '#ea0029'
-  tagline: Robot vacuum cards for Roborock, Xiaomi, Dreame, Ecovacs, Dyson and iRobot.
+  tagline: Robot vacuum cards for Roborock, Xiaomi, Dreame, Ecovacs, Dyson, iRobot and SwitchBot.
   summary: A drawn device picture matching about 130 models, brand colours, battery, status, current room, cleaning settings and room cleaning, with animations while cleaning, returning or washing the mop.
   highlights:
   - About 130 models recognised, drawn picture per model
@@ -3063,8 +3090,10 @@ projects:
   - "Roborock: the live Vacuum Map, rooms named and the robot on its path, in 2D or 3D, on the card and the mini card while cleaning"
   - Map paused while the card is off-screen
   - "Map as a section that unfolds while the robot cleans (show_map: always_folded)"
+  - "SwitchBot robots over Bluetooth or SwitchBot Cloud: the K series with its slim auto-empty tower, S1, S10 and S20 with their roller mop"
+  - The last map of a job kept on screen with its cleaned path once the robot docks
   homeassistant: 2024.8.0
-  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d passes passages repeat"
+  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d passes passages repeat switchbot k10 k11 k20 s1 s10 s20 omnistation last map dernière carte"
   worksWith:
   - slug: ha-vacuum-map
     why: "Its live Roborock map, drawn in the map section"
@@ -3109,6 +3138,9 @@ projects:
     dark: card-braava.png
     caption: Braava
     group: Card
+  - src: card-switchbot.png
+    caption: "SwitchBot card"
+    group: Card
   - src: card-narrow.png
     dark: card-narrow-dark.png
     caption: Narrow card
@@ -3148,6 +3180,10 @@ projects:
   - src: mini-card-braava-light.png
     dark: mini-card-braava.png
     caption: Braava
+    group: Mini card
+  - src: mini-card-switchbot-light.png
+    dark: mini-card-switchbot.png
+    caption: "SwitchBot mini card"
     group: Mini card
   - src: mini-card-narrow.png
     dark: mini-card-narrow-dark.png
@@ -3199,6 +3235,13 @@ projects:
   - src: braava-mopping-light.gif
     dark: braava-mopping.gif
     caption: Braava mopping
+  - src: switchbot-cleaning.gif
+    caption: "SwitchBot cleaning"
+  - src: switchbot-returning.gif
+    caption: "SwitchBot returning"
+  - src: switchbot-s10-cleaning-light.gif
+    dark: switchbot-s10-cleaning.gif
+    caption: "SwitchBot S10 mopping"
 - slug: ha-vacuum-map
   title: Vacuum Map
   kind: integration
@@ -3389,8 +3432,9 @@ projects:
   - Chips opening the more-info dialog of their entity
   - Empty forecast for each cartridge and part, at the pace of the last 90 days
   - Offline state that keeps the ink or toner levels still known, on the card and the mini card
+  - Power button for the printer's smart plug, kept while it is off, turning off asking first and warning during a job
   homeassistant: 2024.8.0
-  keywords: "printer hp hpprinter brother ipp ink toner canon epson ecotank pixma maxify megatank laserjet officejet scan scanner pdf"
+  keywords: "printer hp hpprinter brother ipp ink toner canon epson ecotank pixma maxify megatank laserjet officejet scan scanner pdf prise connectée smart plug power alimentation"
   worksWith:
   - slug: ha-hp
     why: "Its printers are found first, with their last values while off and the Scan section"
@@ -3521,16 +3565,16 @@ projects:
   summary: "Cards for 3D printers: a drawn printer animated by its state inside a progress ring, the time left and the layers, the temperatures, the Bambu Lab AMS spools, the print thumbnail and camera, and pause, resume and stop buttons."
   highlights:
   - "Bambu Lab, OctoPrint, Moonraker (Klipper) and PrusaLink, several printers"
-  - "Progress ring around a drawn printer, animated by its state"
+  - "The print on stage: its preview filling up layer by layer, or the live camera, a round button switching between them"
   - "Time left, estimated end, layers and the Bambu Lab stage and errors"
   - "Nozzle, bed and chamber temperatures with their targets"
-  - "Bambu Lab AMS spools: colour, filament, remaining amount, humidity"
-  - "Print thumbnail and camera, pause / resume / stop with a confirmation"
+  - "Bambu Lab AMS and external spools drawn in their filament's colour, as full as what is left, the one in use turning"
+  - "Live camera through Home Assistant's own player, stopped off-screen, opening full size; pause / resume / stop with a confirmation"
   - "Power button for the printer's smart plug, turning off asking first and warning when a print is under way"
   - "Mini card with a detail button showing the full card"
   - "Illustrated workshop header: the toolhead sweeping and the spool turning while printing"
   homeassistant: 2024.8.0
-  keywords: "imprimante 3d 3d printer bambu lab ams octoprint klipper moonraker mainsail fluidd prusa prusalink voron creality prise connectée smart plug power alimentation"
+  keywords: "imprimante 3d 3d printer bambu lab ams octoprint klipper moonraker mainsail fluidd prusa prusalink voron creality prise connectée smart plug power alimentation caméra live camera webrtc filament bobine spool"
   worksWith:
   - slug: ha-printer-scanner-card
     why: "Paper printers: ink, paper and scans"
@@ -3544,6 +3588,9 @@ projects:
   screenshots:
   - src: card-confirm.png
     caption: "Confirm"
+    group: Card
+  - src: card-camera.png
+    caption: "Camera on the stage"
     group: Card
   - src: card-finished.png
     caption: "Finished"
@@ -5271,7 +5318,7 @@ projects:
   category: everyday
   icon: mdiPackageVariantClosed
   accent: '#ff7a00'
-  tagline: Deliveries tracked in the Parcel app, with a card to follow and add them.
+  tagline: Deliveries tracked in the Parcel app, 17TRACK or AfterShip, with a card to follow and add them.
   summary: See the deliveries tracked in Parcel and add new ones from an automation, a script or the card shipped with the integration.
   highlights:
   - Deliveries sensor with every delivery's events
@@ -5285,8 +5332,9 @@ projects:
   - Notifications when a parcel is out for delivery or delivered, with no automation to write
   - Diagnostics with the API key, tracking numbers and addresses redacted
   - "Illustrated delivery header, 90 px on the full and the mini card, with a road strip"
+  - "Cards without Parcel: the deliveries of 17TRACK or AfterShip, added from the card too, with a Card only setup"
   homeassistant: 2024.12.0
-  keywords: "parcel delivery package tracking colis"
+  keywords: "parcel delivery package tracking colis 17track seventeentrack aftership android suivi"
   cardTypes:
   - parcel-card
   - parcel-mini-card
@@ -5443,8 +5491,10 @@ projects:
   - "Several players in one card, hidden while nothing plays if you like"
   - "Mini card with a detail button showing the full card"
   - "Illustrated media room header with the player's own device drawn big, animated as it plays"
+  - "Long titles cut, wrapped on a few lines or scrolling as a marquee"
+  - Favorites with an icon of your own when they have no picture
   homeassistant: 2024.8.0
-  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver jellyfin alexa echo amazon homepod apple tv philips ambilight remote"
+  keywords: "media player multiroom musique enceinte sonos music assistant squeezebox google cast chromecast airplay spotify tv receiver jellyfin alexa echo amazon homepod apple tv philips ambilight remote marquee défilement titre long favoris icône"
   worksWith:
   - slug: ha-media-server-card
     why: "What the Jellyfin, Plex or Emby server streams"
@@ -5486,6 +5536,9 @@ projects:
     group: Card
   - src: card-queue.png
     caption: "Queue"
+    group: Card
+  - src: card-favorites.png
+    caption: "Favorites with icons"
     group: Card
   - src: card-receiver.png
     caption: "Receiver"
@@ -7427,10 +7480,6 @@ projects:
     dark: safety-mini-maintenance-dark.png
     caption: Maintenance
     group: Mini card
-  - src: safety-mini-alarm.png
-    dark: safety-mini-alarm-dark.png
-    group: Mini card
-    caption: Alarm
   - src: safety-mini-zoom.png
     dark: safety-mini-zoom-dark.png
     caption: Zoomed in
@@ -7846,7 +7895,7 @@ projects:
   icon: mdiTrain
   accent: '#00838f'
   tagline: A station departures and arrivals board, under an animated station where a train waits and leaves.
-  summary: Reads the sensors of twelve rail integrations, detected automatically from the entity, DB Infoscreen, National Rail UK, Swiss Transport, Public Transport and more. The next trains with their time, type, destination, platform and status, under an illustration of a station where a train leaves on Departures and comes in on Arrivals, by day or by night. A compact mini card comes with it.
+  summary: Reads the sensors of thirteen rail integrations, detected automatically from the entity, DB Infoscreen, National Rail UK, Swiss Transport, GTFS2, Public Transport and more. The next trains with their time, type, destination, platform and status, under an illustration of a station where a train leaves on Departures and comes in on Arrivals, by day or by night. A compact mini card comes with it.
   highlights:
   - Animated station header, canopy, clock, catenary and platform, a generic train leaving on Departures or coming in on Arrivals
   - Day and night, the sky turning dark with stars, the station and platform lamps lighting up, the train's headlight on
@@ -7855,8 +7904,10 @@ projects:
   - Statistics in the header, the number of trains and the share on time over the board
   - Train detail in a popup, scheduled and expected times, platform, operator, calling points and disruptions
   - Station notices above the board, and a mini card with the next train, zooming to the full board
+  - "GTFS2 timetables of any network, SNCF open data without a token, with real-time delays and the arrival time"
+  - A day separator when the board runs past midnight
   homeassistant: 2024.8.0
-  keywords: "train station departures arrivals railway rail sncf deutsche bahn national rail ns sbb trafikverket trenitalia nmbs db infoscreen gare"
+  keywords: "train station departures arrivals railway rail sncf deutsche bahn national rail ns sbb trafikverket trenitalia nmbs db infoscreen gare gtfs gtfs2 gtfs-rt open data horaires temps réel arrivée"
   worksWith:
   - slug: ha-public-transport
     why: "The buses, trams and metros nearby"
@@ -8122,8 +8173,9 @@ projects:
   - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
   - "Card with today's figures and the latest notifications, under an illustrated header whose bell rings"
   - "22 languages"
+  - "Captured notifications held back after a restart or for a delay, with rules by integration and id, so a fixed repair is never sent"
   homeassistant: 2024.12.0
-  keywords: "notifications notify mobile app companion phone téléphone priority priorité critical acknowledge acquitter escalation sms quiet hours heures calmes digest résumé duplicates doublons away absence sources journal persistent notification repairs telegram notify entity espresence présence"
+  keywords: "notifications notify mobile app companion phone téléphone priority priorité critical acknowledge acquitter escalation sms quiet hours heures calmes digest résumé duplicates doublons away absence sources journal persistent notification repairs telegram notify entity espresence présence délai delay grace redémarrage restart règles rules"
   worksWith:
   - slug: ha-maintenance
     why: "Its daily reminders sent through the hub"
@@ -8492,10 +8544,11 @@ projects:
   - "Each console drawn: PS5, PS4, Xbox Series X and S, One, Switch and Switch 2 in their dock"
   - "The game's cover on the TV, its title and how long it has been played"
   - "Trophies by grade, Gamerscore, achievements, party, friends, Game Pass"
-  - "A Switch's screen time as a ring, bedtime, restriction mode, +15 min of bonus time and suspend"
+  - "A Switch's screen time as a ring, bedtime, restriction mode, bonus time and suspend"
   - "Power and home controls"
   - "Mini card with the state, the game and the session, zooming to the full card"
   - "Played today tile, counted from the history for PlayStation and Xbox, or read from a sensor"
+  - Tap the Switch's ring to set today's limit in 15-minute steps and pick a bonus from your own list
   homeassistant: 2024.8.0
   keywords: "console playstation ps5 ps4 xbox series nintendo switch game gaming trophies gamerscore screen time parental controls ps5-mqtt jeu vidéo temps d'écran"
   worksWith:
@@ -8539,6 +8592,9 @@ projects:
   - src: cc-switch-time-up.png
     dark: cc-switch-time-up-dark.png
     caption: "Time's up"
+    group: Card
+  - src: cc-switch-screen-time.png
+    caption: "Screen time panel"
     group: Card
   - src: cc-classic.png
     dark: cc-classic-dark.png
@@ -9379,7 +9435,7 @@ projects:
   category: everyday
   icon: mdiSilverwareForkKnife
   accent: '#f76707'
-  tagline: "Tonight's dinner, the week's meals as plates and the shopping list to tick off."
+  tagline: "Tonight's dinner, the week's meals as plates, planned from the card, and the shopping list to tick off."
   summary: "Cards for the meal plan of Mealie, Grocy, KitchenOwl or Cookidoo and the shopping list of any to-do list (Bring!, OurGroceries, Local To-do): tonight's dinner in big, today's lunch, the week as a row of plates, and the shopping list by aisle, ticked off with a tap."
   highlights:
   - "Tonight's dinner in big, with its time and servings, or nothing planned"
@@ -9389,8 +9445,9 @@ projects:
   - "Mealie details for every user, admin or not"
   - "Mini card with tonight's dinner and what is left to buy"
   - "Illustrated header: a kitchen corner whose pot steams while a dinner is planned"
+  - "Plan the week from the card with Mealie: a recipe, a note, leftovers or a random recipe, or clear a day"
   homeassistant: 2024.8.0
-  keywords: "meal plan repas menu dîner déjeuner courses shopping list liste mealie grocy kitchenowl cookidoo bring ourgroceries recette"
+  keywords: "meal plan repas menu dîner déjeuner courses shopping list liste mealie grocy kitchenowl cookidoo bring ourgroceries recette planifier planning edit modifier restes leftovers aléatoire random"
   worksWith:
   - slug: ha-chores-card
     why: "The household's day next to its meals"
@@ -9412,6 +9469,12 @@ projects:
     group: Card
   - src: ml-narrow.png
     caption: "Narrow"
+    group: Card
+  - src: ml-edit-day.png
+    caption: "Editing a day's meals"
+    group: Card
+  - src: ml-edit-recipe.png
+    caption: "Searching a recipe"
     group: Card
   - src: ml-mini-planned.png
     caption: "Dinner planned"
