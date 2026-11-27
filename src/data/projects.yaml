@@ -2766,55 +2766,42 @@ projects:
   - family-link-card
   - family-link-mini-card
   hero:
-    src: card-light.png
-    dark: card.png
+    src: card.png
     caption: Phone
     group: Card
   screenshots:
-  - src: card-tablet-locked-light.png
-    dark: card-tablet-locked.png
+  - src: card-tablet-locked.png
     caption: Tablet locked
     group: Card
-  - src: card-bonus-light.png
-    dark: card-bonus.png
+  - src: card-bonus.png
     caption: Time bonus
     group: Card
-  - src: card-location-light.png
-    dark: card-location.png
+  - src: card-location.png
     caption: Location route
     group: Card
-  - src: card-emergency-light.png
-    dark: card-emergency.png
+  - src: card-emergency.png
     caption: Emergency
     group: Card
-  - src: card-school-light.png
-    dark: card-school.png
+  - src: card-school.png
     group: Card
     caption: School mode
-  - src: mini-card-light.png
-    dark: mini-card.png
+  - src: mini-card.png
     caption: Default view
     group: Mini card
-  - src: mini-card-devices-light.png
-    dark: mini-card-devices.png
+  - src: mini-card-devices.png
     caption: Several devices
     group: Mini card
-  - src: mini-card-locked-light.png
-    dark: mini-card-locked.png
+  - src: mini-card-locked.png
     caption: Locked
     group: Mini card
   animations:
-  - src: anim-phone-light.gif
-    dark: anim-phone.gif
+  - src: anim-phone.gif
     caption: Phone
-  - src: anim-tablet-locked-light.gif
-    dark: anim-tablet-locked.gif
+  - src: anim-tablet-locked.gif
     caption: Tablet locked
-  - src: anim-bonus-light.gif
-    dark: anim-bonus.gif
+  - src: anim-bonus.gif
     caption: Time bonus
-  - src: anim-mini-devices-light.gif
-    dark: anim-mini-devices.gif
+  - src: anim-mini-devices.gif
     caption: Mini card devices
 - slug: ha-doorbell-card
   title: Doorbell Card
