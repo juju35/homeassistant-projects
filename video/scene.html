@@ -169,13 +169,13 @@ function buildCat(c){
 }
 
 function buildPanels(half){
-  const list=D.panels, show=list.slice(half*7,half*7+7), SLOT=1.55;
+  const list=D.panels, PER=Math.ceil(list.length/2), show=list.slice(half*PER,half*PER+PER), SLOT=1.55, STEP=Math.min(58,Math.floor(820/list.length)), LH=STEP-8, LF=STEP<58?19:21;
   DUR=0.35+show.length*SLOT+0.3;
   let h=`<div class="glow" style="background:radial-gradient(1100px 700px at 70% 50%, rgba(139,92,246,.18), transparent 70%)"></div>`;
   h+=`<div class="abs" id="ph" style="left:80px;top:62px;display:flex;align-items:center;gap:18px"><div class="pill" style="width:64px;height:64px;background:rgba(196,181,253,.18)">${svg('mdiDockLeft',36,'#7c3aed')}</div><div><div style="font-size:44px;font-weight:800;letter-spacing:-.8px">Sidebar panels</div><div style="font-size:21px;color:#566073;margin-top:4px">${list.length} integrations with their own panel</div></div></div>`;
   list.forEach((p,i)=>{
-    h+=`<div class="abs pli" id="l${i}" style="left:80px;top:${210+i*58}px;width:540px;height:50px;display:flex;align-items:center;gap:14px;padding:0 14px;border-radius:14px">
-      <div class="pill" style="width:36px;height:36px;flex:none;background:${hex(p.accent,.2)}">${svg(p.icon,21,p.accent)}</div><div style="font-size:21px;font-weight:600;white-space:nowrap">${p.title}</div></div>`;
+    h+=`<div class="abs pli" id="l${i}" style="left:80px;top:${210+i*STEP}px;width:540px;height:${LH}px;display:flex;align-items:center;gap:14px;padding:0 14px;border-radius:14px">
+      <div class="pill" style="width:36px;height:36px;flex:none;background:${hex(p.accent,.2)}">${svg(p.icon,21,p.accent)}</div><div style="font-size:${LF}px;font-weight:600;white-space:nowrap">${p.title}</div></div>`;
   });
   const FX=680,FY=70,FW=1160,FH=920,BAR=46;
   h+=`<div class="abs" id="frame" style="left:${FX}px;top:${FY}px;width:${FW}px;height:${FH}px;border-radius:20px;overflow:hidden;background:#ffffff;border:1px solid #e3e7ef;box-shadow:0 30px 90px rgba(30,40,80,.18)">
@@ -198,8 +198,8 @@ function buildPanels(half){
       $('pi'+i).style.transform=`scale(${1+0.02*clamp((t-st)/SLOT)})`;
       if(t>=st-.15)cur=i;
     });
-    list.forEach((p,i)=>{const e=$('l'+i);const j=i-half*7;const x=ease((t-.2-i*.04)/.4);
-      const on=j===cur;e.style.opacity=x*(on?1:(j>=0&&j<7?.75:.35));e.style.background=on?hex(p.accent,.22):'transparent';e.style.boxShadow=on?`inset 0 0 0 1px ${hex(p.accent,.6)}`:'none'});
+    list.forEach((p,i)=>{const e=$('l'+i);const j=i-half*PER;const x=ease((t-.2-i*.04)/.4);
+      const on=j===cur;e.style.opacity=x*(on?1:(j>=0&&j<PER?.75:.35));e.style.background=on?hex(p.accent,.22):'transparent';e.style.boxShadow=on?`inset 0 0 0 1px ${hex(p.accent,.6)}`:'none'});
     if(cur>=0)$('url').textContent='Home Assistant  ·  '+show[cur].title+(show[cur].cap&&show[cur].cap!==show[cur].title?'  ·  '+show[cur].cap:'');
     fadeAll(t);
   };
