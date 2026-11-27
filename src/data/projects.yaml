@@ -146,6 +146,8 @@ projects:
     why: "The UV index in detail, with the WHO risk level"
   - slug: ha-garden-card
     why: "Watering zones that follow the rain"
+  - slug: ha-tide-card
+    why: "The tide at the seaside"
   cardTypes:
   - weather-plus-card
   - weather-plus-mini-card
@@ -319,6 +321,8 @@ projects:
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
   - slug: ha-heating-card
     why: "Thermostats and radiators, which moved there from these cards"
+  - slug: ha-airing-card
+    why: "Whether to open the windows or run the purifier"
   cardTypes:
   - climate-air-overview-card
   - climate-air-purifier-card
@@ -671,6 +675,8 @@ projects:
     why: "Room by room view of the sensors behind its comfort alerts"
   - slug: ha-house-rules
     why: "Lights on presence and the naps, shared"
+  - slug: ha-airing-card
+    why: "Whether to air each room now"
   cardTypes:
   - smart-comfort-card
   - smart-comfort-mini-card
@@ -920,6 +926,8 @@ projects:
     why: "Who is home, and who is away"
   - slug: ha-wall-panel
     why: "Its room scenes on a whole dashboard for wall panels"
+  - slug: ha-airing-card
+    why: "Whether to air the room now"
   cardTypes:
   - room-card
   - room-mini-card
@@ -1170,6 +1178,8 @@ projects:
     why: "Where the solar surplus goes"
   - slug: ha-energy-hub
     why: "A whole panel for the installation, its batteries and its losses"
+  - slug: ha-energy-ranking-card
+    why: "The devices that use the most"
   cardTypes:
   - energy-card
   - energy-mini-card
@@ -1368,6 +1378,8 @@ projects:
   worksWith:
   - slug: ha-energy-card
     why: "Solar production and home batteries"
+  - slug: ha-energy-ranking-card
+    why: "Which devices make up the total"
   cardTypes:
   - zlinky-card
   - zlinky-mini-card
@@ -1635,6 +1647,8 @@ projects:
     why: "The Tempo indexes of the ZLinky module for the cost"
   - slug: ha-energy-card
     why: "Solar production to get through red days"
+  - slug: ha-energy-ranking-card
+    why: "What each device costs at the day's price"
   cardTypes:
   - tempo-card
   - tempo-mini-card
@@ -2203,6 +2217,8 @@ projects:
     why: "The family's iPhones located through iCloud"
   - slug: ha-room-card
     why: "The home room by room"
+  - slug: ha-timeline-card
+    why: "Who came and went today"
   cardTypes:
   - presence-card
   - presence-mini-card
@@ -2348,6 +2364,8 @@ projects:
   worksWith:
   - slug: ha-smartlock-card
     why: "The connected locks of the home"
+  - slug: ha-guest-card
+    why: "A guest mode with the door code and the alarm"
   cardTypes:
   - alarm-card
   - alarm-mini-card
@@ -2446,6 +2464,8 @@ projects:
     why: "Opens the door from the doorbell card (lock option)"
   - slug: ha-alarm-card
     why: "The alarm of the home"
+  - slug: ha-guest-card
+    why: "A guest mode with the door code and the lock"
   cardTypes:
   - smartlock-card
   - smartlock-mini-card
@@ -2539,6 +2559,8 @@ projects:
     why: "The radiators paused while a window is open"
   - slug: ha-room-card
     why: "The other sensors of each room"
+  - slug: ha-timeline-card
+    why: "When each door and window opened today"
   cardTypes:
   - opening-card
   - opening-mini-card
@@ -5411,6 +5433,9 @@ projects:
   - "The QR code alone for a wall or shared screen: network name, password and hint can be hidden"
   homeassistant: 2024.8.0
   keywords: "wifi qr code guest network invité mot de passe password masquer hide écran mural wall screen"
+  worksWith:
+  - slug: ha-guest-card
+    why: "The guest Wi-Fi with the door, the alarm and the contacts"
   cardTypes:
   - wifi-qr-card
   - wifi-qr-mini-card
@@ -5511,6 +5536,8 @@ projects:
   worksWith:
   - slug: ha-media-server-card
     why: "What the Jellyfin, Plex or Emby server streams"
+  - slug: ha-tv-guide-card
+    why: "Tonight's programmes and a play button"
   cardTypes:
   - media-card
   - media-mini-card
@@ -6953,6 +6980,8 @@ projects:
     why: "The family agenda"
   - slug: ha-chores-card
     why: "The kids' chores of the day"
+  - slug: ha-routine-card
+    why: "The routine of a school morning"
   cardTypes:
   - family-day-card
   - family-day-mini-card
@@ -7038,6 +7067,8 @@ projects:
   worksWith:
   - slug: ha-media-card
     why: "What is playing, with artwork and controls"
+  - slug: ha-tv-guide-card
+    why: "What is on each channel tonight"
   cardTypes:
   - remote-card
   - remote-mini-card
@@ -7107,6 +7138,8 @@ projects:
     why: "The weather of the day"
   - slug: ha-uv-card
     why: "The UV index"
+  - slug: ha-tide-card
+    why: "The tides the moon drives"
   cardTypes:
   - sky-card
   - sky-mini-card
@@ -8196,6 +8229,8 @@ projects:
     why: "Reflexes of the home that notify"
   - slug: ha-energy-hub
     why: "Solar loss and battery alerts in the user's language"
+  - slug: ha-timeline-card
+    why: "Everything that happened at home today"
   cardTypes:
   - notify-hub-card
   hero:
@@ -8343,6 +8378,8 @@ projects:
     why: "The whole home's energy"
   - slug: ha-smart-appliance-card
     why: "Appliances with an integration of their own"
+  - slug: ha-energy-ranking-card
+    why: "Every plug ranked by its energy"
   cardTypes:
   - power-device-card
   - power-device-mini-card
@@ -9618,6 +9655,8 @@ projects:
     why: "The meals of the same household"
   - slug: ha-family-day-card
     why: "Whether there is school tomorrow"
+  - slug: ha-routine-card
+    why: "The children's morning and evening routines"
   cardTypes:
   - chores-card
   - chores-mini-card
@@ -9946,3 +9985,424 @@ projects:
   animations:
   - src: mb-mail.gif
     caption: "Mail animation"
+- slug: ha-routine-card
+  title: Routine Card
+  kind: card
+  category: family
+  icon: mdiWeatherSunsetUp
+  accent: '#7c4ddb'
+  tagline: "The children's morning or evening routine: the step in progress in big, every step as a tile, the week's stars."
+  summary: "Cards for a child's routine, one Home Assistant helper per step: the step in progress with its timer and what comes next, every step as a tile to tick, a status that turns red once the routine is late, and the week's stars with their reward."
+  highlights:
+  - "The step in progress in big: a progress ring, a timer that turns red once over, the next step"
+  - "Every step as a tile, done, in progress or to do; a tap ticks it"
+  - "One button marks the step in progress done"
+  - "A status that turns red when the routine is late, with a pulsing badge"
+  - "The week's stars, with a goal and a reward"
+  - "Mini card with a progress ring"
+  - "Illustrated header: the sun rises with the morning's progress, the windows go dark one by one in the evening"
+  homeassistant: 2024.8.0
+  keywords: "routine matin soir morning evening enfants kids children étapes steps checklist liste minuteur timer étoiles stars récompense reward brossage des dents cartable"
+  worksWith:
+  - slug: ha-chores-card
+    why: "The household chores of the whole family"
+  - slug: ha-family-day-card
+    why: "Is there school tomorrow"
+  cardTypes:
+  - routine-card
+  - routine-mini-card
+  hero:
+    src: rt-progress.png
+    caption: "In progress"
+    group: Card
+  screenshots:
+  - src: rt-idle.png
+    caption: "Not started"
+    group: Card
+  - src: rt-late.png
+    caption: "Late"
+    group: Card
+  - src: rt-done.png
+    caption: "All done"
+    group: Card
+  - src: rt-evening.png
+    caption: "Evening"
+    group: Card
+  - src: rt-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: rt-mini-progress.png
+    caption: "In progress"
+    group: Mini card
+  - src: rt-mini-done.png
+    caption: "All done"
+    group: Mini card
+  - src: rt-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: rt-progress.gif
+    caption: "Sunrise animation"
+  - src: rt-done.gif
+    caption: "Sparkles animation"
+  - src: rt-evening.gif
+    caption: "Evening animation"
+- slug: ha-timeline-card
+  title: Timeline Card
+  kind: card
+  category: everyday
+  icon: mdiTimelineClockOutline
+  accent: '#2f6fde'
+  tagline: "What happened at home today: the logbook grouped by part of the day, in the colour of each state."
+  summary: "Cards that turn Home Assistant's logbook into a readable day: entries grouped by morning, afternoon and evening, coloured by state, repeats folded, with filter pills for people, openings, devices and alerts."
+  highlights:
+  - "Grouped by part of the day, newest first, with the time of each entry"
+  - "The colour of the state: home, open, at work, playing, alert or at rest"
+  - "Filter pills for people, openings, devices and alerts, with their count"
+  - "Repeats folded into one row, the first rows then Show all"
+  - "Only the entities you choose, or all but some"
+  - "Mini card with the last entry and how long ago"
+  - "Illustrated header: a house whose door opens and whose beacon pulses on an alert"
+  homeassistant: 2024.8.0
+  keywords: "timeline chronologie journal logbook historique history événements events aujourd'hui today activité activity maison home alerte alert"
+  worksWith:
+  - slug: ha-notify-hub
+    why: "The alerts sent to your phone"
+  - slug: ha-presence-card
+    why: "Who is home right now"
+  - slug: ha-opening-card
+    why: "The doors and windows open now"
+  cardTypes:
+  - timeline-card
+  - timeline-mini-card
+  hero:
+    src: tl-day.png
+    caption: "Today"
+    group: Card
+  screenshots:
+  - src: tl-filter.png
+    caption: "Openings only"
+    group: Card
+  - src: tl-more.png
+    caption: "Show all"
+    group: Card
+  - src: tl-alert.png
+    caption: "An alert"
+    group: Card
+  - src: tl-empty.png
+    caption: "Nothing yet"
+    group: Card
+  - src: tl-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: tl-mini-day.png
+    caption: "Today"
+    group: Mini card
+  - src: tl-mini-alert.png
+    caption: "An alert"
+    group: Mini card
+  - src: tl-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: tl-alert.gif
+    caption: "Alert animation"
+- slug: ha-guest-card
+  title: Guest Card
+  kind: card
+  category: family
+  icon: mdiAccountHeart
+  accent: '#1e8e5a'
+  tagline: "Everything guests and babysitters need: the Wi-Fi QR code, the front door and the alarm, tonight's plan and who to call."
+  summary: "A card for guests and babysitters, driven by a guest mode switch: the guest Wi-Fi as a QR code, the password and door code behind a button, the front door lock and the alarm, the evening's plan and the contacts. Guest mode off, it folds down to its header."
+  highlights:
+  - "Guest Wi-Fi QR code, full screen with a tap"
+  - "The Wi-Fi password and the door code masked behind a button"
+  - "The front door lock and the alarm in their state's colour"
+  - "Tonight's plan, from the card or a calendar"
+  - "Contacts as phone links, and the emergency number"
+  - "Guest mode with an end time, folded down to its header when off"
+  - "Illustrated header: the door opens with guest mode, the porch light breathes"
+  homeassistant: 2024.8.0
+  keywords: "invités guests mode invité guest mode baby-sitter babysitter nounou wifi qr code serrure lock alarme alarm alarmo contacts urgence emergency soirée"
+  worksWith:
+  - slug: ha-wifi-card
+    why: "Every network's QR code"
+  - slug: ha-alarm-card
+    why: "The alarm in full"
+  - slug: ha-smartlock-card
+    why: "The front door lock in full"
+  cardTypes:
+  - guest-card
+  - guest-mini-card
+  hero:
+    src: gs-active.png
+    caption: "Guest mode on"
+    group: Card
+  screenshots:
+  - src: gs-ending.png
+    caption: "Ending soon"
+    group: Card
+  - src: gs-off.png
+    caption: "Guest mode off"
+    group: Card
+  - src: gs-revealed.png
+    caption: "Password shown"
+    group: Card
+  - src: gs-wifi.png
+    caption: "The Wi-Fi alone"
+    group: Card
+  - src: gs-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: gs-mini-active.png
+    caption: "Guest mode on"
+    group: Mini card
+  - src: gs-mini-off.png
+    caption: "Guest mode off"
+    group: Mini card
+  - src: gs-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: gs-active.gif
+    caption: "Welcome animation"
+- slug: ha-tide-card
+  title: Tide Card
+  kind: card
+  category: climate
+  icon: mdiWaves
+  accent: '#0c8599'
+  tagline: "The tide of the day: its curve with now marked, the high and low waters, the coefficients of the coming week."
+  summary: "Cards for the tide integrations: the day's curve with the current height, the high and low waters as tiles, the coefficients of the coming 7 days with the next spring tide, and a sea whose level follows the tide."
+  highlights:
+  - "The curve of the day, measured or drawn between the high and low waters, with now marked"
+  - "High and low waters as tiles with their time, height and coefficient"
+  - "Coefficients of the coming 7 days, spring tides in amber"
+  - "Marées France, NOAA Tides, World Tides, UKHO Tides, Norwegian Tide, or any sensor"
+  - "Mini card with the next high or low water"
+  - "Illustrated header: the sea level follows the tide, the lighthouse shines by night"
+  homeassistant: 2024.8.0
+  keywords: "marée marées tide tides coefficient pleine mer basse mer high water low water grande marée spring tide shom marées france noaa world tides ukho mer sea plage"
+  worksWith:
+  - slug: ha-weather-card
+    why: "The weather at the seaside"
+  - slug: ha-sky-card
+    why: "The sun and the moon behind the tides"
+  cardTypes:
+  - tide-card
+  - tide-mini-card
+  hero:
+    src: td-rising.png
+    caption: "Rising"
+    group: Card
+  screenshots:
+  - src: td-spring.png
+    caption: "Spring tide, falling"
+    group: Card
+  - src: td-noaa.png
+    caption: "NOAA Tides"
+    group: Card
+  - src: td-none.png
+    caption: "No tide data"
+    group: Card
+  - src: td-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: td-mini-rising.png
+    caption: "Rising"
+    group: Mini card
+  - src: td-mini-spring.png
+    caption: "Spring tide"
+    group: Mini card
+  - src: td-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: td-waves.gif
+    caption: "Waves animation"
+  - src: td-mini-waves.gif
+    caption: "Mini card animation"
+- slug: ha-tv-guide-card
+  title: TV Guide Card
+  kind: card
+  category: appliances
+  icon: mdiTelevisionPlay
+  accent: '#ae3ec9'
+  tagline: "Tonight's TV: the programme of each channel at prime time, a progress bar while on air, a play button."
+  summary: "Cards for the TV guide integrations: one row per channel with its logo, the genre, the times and the programme that follows, a progress bar while on air, genre filters and an optional play button for your TV or box."
+  highlights:
+  - "One row per channel: logo, genre, times, the programme and the one that follows"
+  - "Tonight at prime time, or what is on now"
+  - "Genre filters: movie, series, sport, kids, news, documentary, show"
+  - "Optional play button for a media player, a source, a script or Jellyfin Live TV"
+  - "XMLTV EPG, Programme TNT FR, open-epg, What's On TV, Freeview, calendars, mixed in one card"
+  - "Mini card with the programme to watch"
+  - "Illustrated header: a living room whose television lights up while on air"
+  homeassistant: 2024.8.0
+  keywords: "programme tv tv guide guide tv ce soir tonight prime time chaînes channels epg xmltv tnt freeview film movie série series sport jellyfin télévision television"
+  worksWith:
+  - slug: ha-media-card
+    why: "The TV the programme plays on"
+  - slug: ha-remote-card
+    why: "The remote to change channel"
+  cardTypes:
+  - tv-guide-card
+  - tv-guide-mini-card
+  hero:
+    src: tv-live.png
+    caption: "On air"
+    group: Card
+  screenshots:
+  - src: tv-later.png
+    caption: "Before the evening"
+    group: Card
+  - src: tv-none.png
+    caption: "Nothing in the guide"
+    group: Card
+  - src: tv-series.png
+    caption: "Series only"
+    group: Card
+  - src: tv-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: tv-mini-live.png
+    caption: "On air"
+    group: Mini card
+  - src: tv-mini-later.png
+    caption: "Before the evening"
+    group: Mini card
+  - src: tv-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: tv-live.gif
+    caption: "Television animation"
+  - src: tv-mini-live.gif
+    caption: "Small television animation"
+- slug: ha-airing-card
+  title: Airing Card
+  kind: card
+  category: climate
+  icon: mdiWindowOpenVariant
+  accent: '#66a80f'
+  tagline: "Should you air the home now? One answer from indoor CO₂ and humidity and the air, rain and pollen outside."
+  summary: "A card that answers whether to open the windows: Good time, Not ideal, Not now or No need, with the advised time, the reasons, an indoor and outdoor table, each room's readings and a timed airing button."
+  highlights:
+  - "One answer: Good time, Not ideal, Not now or No need"
+  - "Opens for a room's CO₂ or humidity, waits for poor air, pollen, rain, a storm or heat outside"
+  - "The advised airing time and the reasons as chips"
+  - "Indoor and outdoor table, and a tile per room"
+  - "Timed airing with a timer helper or the card's own countdown"
+  - "Reads the rooms of Smart Comfort with no setup"
+  - "Illustrated header: curtains that draw back with the answer, a breeze, rain or haze outside"
+  homeassistant: 2024.8.0
+  keywords: "aérer aération airing ventilation fenêtre window co2 humidité humidity qualité de l'air air quality atmo waqi pollen pluie rain météo-france smart comfort"
+  worksWith:
+  - slug: ha-smart-comfort
+    why: "Its rooms and outdoor readings, read with no setup"
+  - slug: ha-climate-air-card
+    why: "Purifiers and fans once the windows are closed"
+  - slug: ha-room-card
+    why: "Each room's CO₂ and humidity in full"
+  cardTypes:
+  - airing-card
+  - airing-mini-card
+  hero:
+    src: ar-yes.png
+    caption: "Yes"
+    group: Card
+  screenshots:
+  - src: ar-meh.png
+    caption: "Not ideal"
+    group: Card
+  - src: ar-no.png
+    caption: "Not now"
+    group: Card
+  - src: ar-none.png
+    caption: "No need"
+    group: Card
+  - src: ar-airing.png
+    caption: "Airing"
+    group: Card
+  - src: ar-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: ar-mini-yes.png
+    caption: "Yes"
+    group: Mini card
+  - src: ar-mini-no.png
+    caption: "Not now"
+    group: Mini card
+  - src: ar-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: ar-yes.gif
+    caption: "Open window animation"
+  - src: ar-meh.gif
+    caption: "Rain animation"
+  - src: ar-no.gif
+    caption: "Closed window"
+- slug: ha-energy-ranking-card
+  title: Energy Ranking Card
+  kind: card
+  category: energy
+  icon: mdiFlash
+  accent: '#c77700'
+  tagline: "Your biggest energy consumers: ranked by day, week or month, with their cost and a trend for each."
+  summary: "Cards that rank the devices of the Energy dashboard by their energy over the day, week or month, with their cost, a trend against the period before and the share nobody measures, at a fixed, dashboard or hourly price."
+  highlights:
+  - "The devices ranked with a bar, their kWh and their cost"
+  - "A trend for each one against the same stretch of the period before"
+  - "Day, week and month tabs on the card"
+  - "Other and unmeasured: the grid import minus what the devices measure"
+  - "Costs at the dashboard's price, a fixed price or an hourly price entity"
+  - "No setup: the devices and price come from the Energy dashboard"
+  - "Mini card with the device in the lead"
+  - "Illustrated header: bars in the colour of the trend and a flickering bolt"
+  homeassistant: 2024.8.0
+  keywords: "énergie energy consommation consumption classement ranking top appareils devices kwh coût cost prix price tableau énergie energy dashboard linky zlinky tempo tibber nord pool shelly"
+  worksWith:
+  - slug: ha-energy-card
+    why: "Solar production and the home's consumption"
+  - slug: ha-zlinky-card
+    why: "The Linky meter behind the total"
+  - slug: ha-power-device-card
+    why: "Each appliance on its plug"
+  - slug: ha-tempo-card
+    why: "Today's Tempo colour and price"
+  cardTypes:
+  - energy-ranking-card
+  - energy-ranking-mini-card
+  hero:
+    src: er-day.png
+    caption: "Today"
+    group: Card
+  screenshots:
+  - src: er-week.png
+    caption: "This week"
+    group: Card
+  - src: er-month.png
+    caption: "This month"
+    group: Card
+  - src: er-none.png
+    caption: "Nothing measured"
+    group: Card
+  - src: er-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: er-classic.png
+    caption: "Classic header"
+    group: Card
+  - src: er-mini-day.png
+    caption: "Today"
+    group: Mini card
+  - src: er-mini-zoom.png
+    caption: "Zoomed in"
+    group: Mini card
+  animations:
+  - src: er-day.gif
+    caption: "Bars animation"
+  - src: er-mini-day.gif
+    caption: "Mini card animation"
