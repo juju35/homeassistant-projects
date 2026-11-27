@@ -2731,10 +2731,6 @@ projects:
   worksWith:
   - slug: ha-camera
     why: "Shows its cameras with their privacy badge, HD / SD and pan and tilt"
-  hero:
-    src: camera-card.png
-    caption: In the Camera card
-    group: Camera card
 
 - slug: ha-family-link
   title: Family Link
@@ -2766,55 +2762,42 @@ projects:
   - family-link-card
   - family-link-mini-card
   hero:
-    src: card-light.png
-    dark: card.png
+    src: card.png
     caption: Phone
     group: Card
   screenshots:
-  - src: card-tablet-locked-light.png
-    dark: card-tablet-locked.png
+  - src: card-tablet-locked.png
     caption: Tablet locked
     group: Card
-  - src: card-bonus-light.png
-    dark: card-bonus.png
+  - src: card-bonus.png
     caption: Time bonus
     group: Card
-  - src: card-location-light.png
-    dark: card-location.png
+  - src: card-location.png
     caption: Location route
     group: Card
-  - src: card-emergency-light.png
-    dark: card-emergency.png
+  - src: card-emergency.png
     caption: Emergency
     group: Card
-  - src: card-school-light.png
-    dark: card-school.png
+  - src: card-school.png
     group: Card
     caption: School mode
-  - src: mini-card-light.png
-    dark: mini-card.png
+  - src: mini-card.png
     caption: Default view
     group: Mini card
-  - src: mini-card-devices-light.png
-    dark: mini-card-devices.png
+  - src: mini-card-devices.png
     caption: Several devices
     group: Mini card
-  - src: mini-card-locked-light.png
-    dark: mini-card-locked.png
+  - src: mini-card-locked.png
     caption: Locked
     group: Mini card
   animations:
-  - src: anim-phone-light.gif
-    dark: anim-phone.gif
+  - src: anim-phone.gif
     caption: Phone
-  - src: anim-tablet-locked-light.gif
-    dark: anim-tablet-locked.gif
+  - src: anim-tablet-locked.gif
     caption: Tablet locked
-  - src: anim-bonus-light.gif
-    dark: anim-bonus.gif
+  - src: anim-bonus.gif
     caption: Time bonus
-  - src: anim-mini-devices-light.gif
-    dark: anim-mini-devices.gif
+  - src: anim-mini-devices.gif
     caption: Mini card devices
 - slug: ha-doorbell-card
   title: Doorbell Card
@@ -3585,10 +3568,6 @@ projects:
   worksWith:
   - slug: ha-printer-scanner-card
     why: "Shows its printers, with their last values while off and the Scan section"
-  hero:
-    src: printer-card.png
-    caption: In Printer Card
-    group: Printer Card
 - slug: ha-3d-printer-card
   title: 3D Printer Card
   kind: card
@@ -4918,10 +4897,6 @@ projects:
   worksWith:
   - slug: ha-vehicle-card
     why: "Its picture is shown by the Vehicle Card"
-  hero:
-    src: vehicle-card.png
-    caption: The MyRenault photo in Vehicle Card
-    group: Vehicle Card
 - slug: ha-orange-internet-on-the-move
   title: Orange Internet On the move
   kind: integration
@@ -4942,10 +4917,6 @@ projects:
   worksWith:
   - slug: ha-vehicle-card
     why: "Shows its data plan in the card's Orange Internet On the move section"
-  hero:
-    src: vehicle-card.png
-    caption: The data plan in Vehicle Card
-    group: Vehicle Card
 - slug: ha-vehicle-consumption
   title: Vehicle Consumption
   kind: integration
