@@ -1739,6 +1739,73 @@ projects:
     caption: "Tight grid"
   - src: cut.gif
     caption: "Power cuts"
+- slug: ha-plant-card
+  title: Plant Card
+  kind: card
+  category: outdoor
+  icon: mdiSprout
+  accent: '#2e9e5b'
+  tagline: "Indoor and outdoor plants drawn as they are, with their pot temperature and soil moisture."
+  summary: "Cards for indoor and outdoor plants: 79 illustrated species and 104 varieties, from the Monstera Albo and the Pilea Mojito to the olive tree and the tomato. Each tile shows the pot temperature and the soil moisture against the ideal range of the species, and the drawing follows the sensors: drooping foliage and a falling leaf when the soil is dry, drops when it is soaked, frost when it is cold, heat waves when the pot overheats. A tap opens the plant's detail with the last 24 hours."
+  highlights:
+  - "79 illustrated plants, 37 indoor and 42 outdoor, and 104 varieties: variegated, black, lime or purple foliage, flower and fruit colors"
+  - "The drawing follows the state: dry, too wet, too cold or frost, pot too hot"
+  - "Pot temperature and soil moisture against the ideal range of each kind of plant, or your own"
+  - "Detail popup: moisture gauge, pot temperature and the last 24 hours"
+  - "Indoor / outdoor filter and an illustrated header with the plants on a shelf"
+  - "Any soil sensor: Mi Flora, ESPHome, Zigbee, Ecowitt, Tuya; the Plant integration and Plant Monitor"
+  - "Mini card for one plant with a detail button"
+  homeassistant: 2024.8.0
+  keywords: "plante plantes plant plants jardin garden houseplant plante d'intérieur arrosage watering humidité du sol soil moisture température du pot mi flora miflora xiaomi plant monitor monstera pilea mojito orchidée orchid olivier tomate basilic succulente cactus variegata"
+  worksWith:
+  - slug: ha-garden-card
+    why: "Watering zones for the garden around the pots"
+  - slug: ha-weather-card
+    why: "Frost and heat ahead for the outdoor plants"
+  cardTypes:
+  - plant-card
+  - plant-mini-card
+  hero:
+    src: card.png
+    caption: "Plant Card"
+    group: Card
+  screenshots:
+  - src: card-detail.png
+    caption: "Detail"
+    group: Card
+  - src: card-outdoor-light.png
+    dark: card-outdoor.png
+    caption: "Outdoor"
+    group: Card
+  - src: card-room.png
+    caption: "One room"
+    group: Card
+  - src: card-narrow.png
+    caption: "Narrow"
+    group: Card
+  - src: mini-card.png
+    caption: "Default view"
+    group: Mini card
+  - src: mini-card-dry.png
+    caption: "Needs water"
+    group: Mini card
+  - src: mini-card-cold-light.png
+    dark: mini-card-cold.png
+    caption: "Frost risk"
+    group: Mini card
+  - src: mini-card-zoom.png
+    caption: "Detail view"
+    group: Mini card
+  animations:
+  - src: sway.gif
+    caption: "All good"
+  - src: dry.gif
+    caption: "Needs water"
+  - src: wet-light.gif
+    dark: wet.gif
+    caption: "Too wet"
+  - src: hot.gif
+    caption: "Pot too hot"
 - slug: ha-pool-card
   title: Pool Card
   kind: card
@@ -2100,6 +2167,8 @@ projects:
     why: "The rain forecast and drought restrictions behind watering"
   - slug: ha-mower-card
     why: "The robot mower of the garden"
+  - slug: ha-plant-card
+    why: "The soil moisture and pot temperature of each plant"
   cardTypes:
   - garden-card
   - garden-mini-card
