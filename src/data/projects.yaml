@@ -314,8 +314,9 @@ projects:
   - "Ceiling fans hanging in the room, the blades turning with the speed and the other way when reversed, with their light and direction (Bond, Big Ass Fans, Modern Forms…)"
   - "Every SwitchBot purifier, fan and humidifier drawn from its model: Air Purifier and Air Purifier Table, Circulator Fans, the Standing Circulator Fan on its pole, Humidifier and Evaporative Humidifier, with the SwitchBot logo"
   - A room temperature sensor of your own on air conditioners and heat pumps, the unit's probe shown under it
+  - "Every Midea appliance (core Midea, Midea AC LAN, Smart AC, Air Appliances, Auto Cloud) with its own drawings: Breezeless, floor console, box window unit, Duo portable, tower and Cube dehumidifiers, purifiers without a fan entity"
   homeassistant: 2024.8.0
-  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse circulateur circulation plancher chauffant switchbot air purifier table circulator fan standing circulator sur pied battery vornado evaporative humidifier sonde température pièce room sensor"
+  keywords: "air conditioner ac clim climatisation purifier dyson xiaomi midea fan ventilateur climate filter heat pump pompe à chaleur pac air water eau chaude ecs altherma aquarea ecodan toug t.one aldes daikin onecta melcloud mitsubishi vicare viessmann vitocal myuplink nibe atlantic cozytouch overkiz alfea hitachi yutaki humidifier humidificateur dehumidifier déshumidificateur diffuser diffuseur huile essentielle essential oil aroma vocolinc flowerbud mistflow homekit portasplit rituals perfume genie multi-zone zones géothermie geothermal ground source water source nappe forage borehole well lake cop scop modbus ventilation vmc double flux simple flux mvhr hrv heat recovery comfoconnect zehnder comfoair duco renson vallox prana flow-it bypass boost ceiling fan ventilateur de plafond bond big ass fans modern forms hunter reverse circulateur circulation plancher chauffant switchbot air purifier table circulator fan standing circulator sur pied battery vornado evaporative humidifier sonde température pièce room sensor breezeless easycool duo cube déshumidificateur dehumidifier tower fan"
   worksWith:
   - slug: ha-smart-comfort
     why: "Drives these air conditioners, fans and purifiers from its comfort alerts"
@@ -388,6 +389,12 @@ projects:
   - src: purifier-switchbot-plain-card.png
     caption: "SwitchBot Air Purifier"
     group: Air purifier
+  - src: purifier-midea-card.png
+    caption: "Midea purifier"
+    group: Air purifier
+  - src: purifier-midea-mini.png
+    caption: "Midea purifier mini card"
+    group: Air purifier
   - src: fan-card.png
     dark: fan-card-dark.png
     caption: Fan
@@ -404,6 +411,9 @@ projects:
     group: Fan
   - src: fan-circulator-standing-card.png
     caption: "SwitchBot Standing Circulator Fan"
+    group: Fan
+  - src: fan-tower-card.png
+    caption: "Tower fan"
     group: Fan
   - src: aircon-card.png
     dark: aircon-card-dark.png
@@ -437,6 +447,18 @@ projects:
     dark: aircon-portasplit-dark.png
     group: Air conditioner
     caption: Midea PortaSplit
+  - src: aircon-breezeless-card.png
+    caption: "Midea Breezeless"
+    group: Air conditioner
+  - src: aircon-console-card.png
+    caption: "Floor console"
+    group: Air conditioner
+  - src: aircon-window-box-card.png
+    caption: "Box window unit"
+    group: Air conditioner
+  - src: aircon-duo-card.png
+    caption: "Midea Duo portable"
+    group: Air conditioner
   - src: heatpump-card.png
     dark: heatpump-card-dark.png
     caption: Heat pump
@@ -539,6 +561,15 @@ projects:
     dark: humidifier-dehumidifier-dark.png
     caption: Dehumidifier
     group: Dehumidifier
+  - src: humidifier-midea-card.png
+    caption: "Midea dehumidifier"
+    group: Dehumidifier
+  - src: humidifier-midea-mini.png
+    caption: "Midea dehumidifier mini card"
+    group: Dehumidifier
+  - src: humidifier-cube-card.png
+    caption: "Midea Cube"
+    group: Dehumidifier
   - src: ventilation-card.png
     dark: ventilation-card-dark.png
     caption: Heat recovery
@@ -635,6 +666,22 @@ projects:
     caption: "Ceiling fan turning"
   - src: fan-ceiling-reverse.gif
     caption: "Ceiling fan reversed"
+  - src: aircon-breezeless.gif
+    caption: "Midea Breezeless cooling"
+  - src: aircon-window-box.gif
+    caption: "Box window unit cooling"
+  - src: aircon-duo.gif
+    caption: "Midea Duo cooling"
+  - src: aircon-console.gif
+    caption: "Floor console"
+  - src: purifier-midea.gif
+    caption: "Midea purifier"
+  - src: humidifier-midea.gif
+    caption: "Midea dehumidifier drying"
+  - src: humidifier-cube.gif
+    caption: "Midea Cube drying"
+  - src: fan-tower.gif
+    caption: "Tower fan"
 - slug: ha-smart-comfort
   title: Smart Comfort
   kind: integration
@@ -666,8 +713,12 @@ projects:
   - "Annex rooms (cellar, garage, laundry, attic) with alert defaults of their own"
   - "A status header on the overview with a comfort score, and the count of active alerts on the sidebar"
   - "Hide the dashboards' top bar, for everyone or for non-admins"
+  - "Dehumidifiers driven by humidity and condensation risk, with a shower boost of the dehumidifiers and fans"
+  - "Heating from a schedule helper: comfort, eco, away and frost protection, off while windows are open or it is warm outdoors"
+  - "Condensation risk and air to dry alerts, from a wall temperature sensor or estimated"
+  - "Presence from several entities and from an absences or holidays calendar"
   homeassistant: 2024.12.0
-  keywords: "comfort notifications alerts co2 humidity temperature noise pm2.5 pm10 air quality purifier windows lights lighting adaptive presence motion nap night activity log mini card annex cellar garage cave badge yaml sync house rules"
+  keywords: "comfort notifications alerts co2 humidity temperature noise pm2.5 pm10 air quality purifier windows lights lighting adaptive presence motion nap night activity log mini card annex cellar garage cave badge yaml sync house rules déshumidificateur dehumidifier douche shower chauffage heating radiateur fil pilote hors-gel frost condensation point de rosée dew point vacances holidays"
   worksWith:
   - slug: ha-climate-air-card
     why: "Shows the air conditioners, fans and purifiers it drives"
@@ -1440,8 +1491,9 @@ projects:
   - "Illustrated facade header with the covers drawn at their position, moving as they open and close"
   - "Pergola louvres turning with the tilt, the sun shining between them"
   - "Next automatic opening and closing times as tiles, from a sensor or an input_datetime"
+  - "Travel time option: the picture, slider and percentage follow the estimated position while a motor that reports it only once stopped moves"
   homeassistant: 2024.8.0
-  keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave rts no feedback invert portail battant swing gate pedestrian piéton barrière barrier levante volets battants hinged shutters pergola bioclimatique louvre lames horaires schedule"
+  keywords: "volet roulant store rideau portail porte de garage shutter blind curtain awning garage gate somfy tahoma overkiz shelly velux knx zigbee z-wave rts no feedback invert portail battant swing gate pedestrian piéton barrière barrier levante volets battants hinged shutters pergola bioclimatique louvre lames horaires schedule travel time temps de course position estimée"
   worksWith:
   - slug: ha-opening-card
     why: "Doors, windows and their locks; its overview shows the garage doors and gates read only"
@@ -2827,6 +2879,8 @@ projects:
   worksWith:
   - slug: ha-pronote-card
     why: "The Pronote timetable it shows drives the school mode"
+  - slug: ha-family-panel
+    why: "Screen time in the Family panel"
   cardTypes:
   - family-link-card
   - family-link-mini-card
@@ -3178,8 +3232,9 @@ projects:
   - "Map as a section that unfolds while the robot cleans (show_map: always_folded)"
   - "Every SwitchBot robot drawn as it is, over Bluetooth or SwitchBot Cloud: K10+ and its tower, K11+ and K11+ Pro with their compact base (black too), K20+ Pro under its FusionPlatform, S1, S10, S20 and S30 with their roller mop and stations"
   - The last map of a job kept on screen with its cleaned path once the robot docks
+  - "Dreame: the station's tanks, dust bag, detergent and drying with Empty bin, Wash mop and Dry mop; X50 Ultra recognised"
   homeassistant: 2024.8.0
-  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d passes passages repeat switchbot k10 k11 k11+ pro k20 fusionplatform s1 s10 s20 s30 omnistation last map dernière carte"
+  keywords: "robot vacuum roborock xiaomi mijia dreame ecovacs dyson irobot roomba braava mop map 3d passes passages repeat switchbot k10 k11 k11+ pro k20 fusionplatform s1 s10 s20 s30 omnistation last map dernière carte x50 ultra station base auto-vidage self-wash"
   worksWith:
   - slug: ha-vacuum-map
     why: "Its live Roborock map, drawn in the map section"
@@ -3849,6 +3904,8 @@ projects:
   worksWith:
   - slug: ha-router-card
     why: "Firewalls, routers and Wi-Fi mesh behind the box"
+  - slug: ha-network-panel
+    why: "The box with the whole network in one panel"
   cardTypes:
   - internet-box-card
   - internet-box-mini-card
@@ -3937,6 +3994,8 @@ projects:
     why: "The box of the line and the speed it really gets"
   - slug: ha-router-card
     why: "The router of the line and the speed it really gets"
+  - slug: ha-network-panel
+    why: "The Speed tab of the Network panel"
   cardTypes:
   - speedtest-card
   - speedtest-mini-card
@@ -3995,6 +4054,8 @@ projects:
     why: "The network switch and its ports"
   - slug: ha-dns-filter-card
     why: "AdGuard Home or Pi-hole filtering the network"
+  - slug: ha-network-panel
+    why: "Routers and access points in the Network panel"
   cardTypes:
   - router-card
   - router-mini-card
@@ -4057,6 +4118,8 @@ projects:
   worksWith:
   - slug: ha-ups-card
     why: "The UPS that protects the NAS (NUT)"
+  - slug: ha-homelab-panel
+    why: "Several NAS side by side in the Homelab panel"
   cardTypes:
   - nas-card
   - nas-mini-card
@@ -4124,6 +4187,8 @@ projects:
   worksWith:
   - slug: ha-router-card
     why: "The router, firewall or Wi-Fi mesh of the network"
+  - slug: ha-network-panel
+    why: "Every switch's front panel in the Network panel"
   cardTypes:
   - ha-switch-card
   - ha-switch-mini-card
@@ -4182,6 +4247,8 @@ projects:
     why: "The containers of Home Assistant itself: Core, Supervisor and add-ons"
   - slug: ha-proxmox
     why: "The Proxmox VMs and LXC containers that host Docker"
+  - slug: ha-homelab-panel
+    why: "The containers in the Homelab panel"
   cardTypes:
   - docker-card
   - docker-mini-card
@@ -4260,6 +4327,8 @@ projects:
   worksWith:
   - slug: ha-router-card
     why: "The router or firewall of the network"
+  - slug: ha-network-panel
+    why: "The DNS tab of the Network panel"
   cardTypes:
   - dns-filter-card
   - dns-filter-mini-card
@@ -4334,6 +4403,10 @@ projects:
   worksWith:
   - slug: ha-certificate-card
     why: "Expiry of the certificates of its hosts"
+  - slug: ha-homelab-panel
+    why: "The proxy hosts in the Homelab panel"
+  - slug: ha-network-panel
+    why: "The proxy hosts in the Network panel"
   cardTypes:
   - reverse-proxy-card
   - reverse-proxy-mini-card
@@ -4406,6 +4479,8 @@ projects:
   worksWith:
   - slug: ha-docker-card
     why: "The Docker containers running in its VMs"
+  - slug: ha-homelab-panel
+    why: "Proxmox with the rest of the homelab in one panel"
   cardTypes:
   - proxmox-card
   - proxmox-mini-card
@@ -4517,6 +4592,8 @@ projects:
   worksWith:
   - slug: ha-nas-card
     why: "The NAS the UPS protects"
+  - slug: ha-homelab-panel
+    why: "The UPS in the Homelab panel"
   cardTypes:
   - ups-card
   - ups-mini-card
@@ -4584,6 +4661,8 @@ projects:
   worksWith:
   - slug: ha-certificate-card
     why: "The certificates in detail, with DNS checks"
+  - slug: ha-homelab-panel
+    why: "The monitors in the Homelab panel"
   cardTypes:
   - uptime-card
   - uptime-mini-card
@@ -4650,6 +4729,8 @@ projects:
   worksWith:
   - slug: ha-reverse-proxy
     why: "The hosts it exposes, and their certificates"
+  - slug: ha-homelab-panel
+    why: "The certificates in the Homelab panel"
   cardTypes:
   - certificate-card
   - certificate-mini-card
@@ -4752,8 +4833,11 @@ projects:
   - "A glass pill for the car's battery level, or the charging power without it"
   - "Mini card on two lines with a battery ring and a zoom to the full card"
   - "Entities found automatically from Wallbox, Easee, Zaptec, Ohme, Tesla, myenergi, V2C Trydan, OCPP and more"
+  - "The charger's charge mode as pills on the main screen (Eco, Fast, Next Trip…)"
+  - "Several cars on one charger: the car plugged in last drawn with its name and paint, else each car's level"
+  - "Fronius Wattpilot supported"
   homeassistant: 2024.8.0
-  keywords: "ev charger wallbox easee zaptec ohme tesla myenergi go-e alfen peblar ocpp car electric charging session kwh current limit cable lock borne recharge v2c trydan pause presets réglages"
+  keywords: "ev charger wallbox easee zaptec ohme tesla myenergi go-e alfen peblar ocpp car electric charging session kwh current limit cable lock borne recharge v2c trydan pause presets réglages wattpilot fronius zappi mode de charge eco plusieurs voitures several cars"
   worksWith:
   - slug: ha-vehicle-card
     why: "The car being charged, its range and battery level"
@@ -4786,6 +4870,9 @@ projects:
     group: Card
   - src: ev-settings.png
     caption: Charger settings
+    group: Card
+  - src: ev-mode-cars.png
+    caption: "Charge mode and several cars"
     group: Card
   - src: ev-compact.png
     caption: "Without the illustration"
@@ -4834,6 +4921,8 @@ projects:
     why: "Tracks the fuel and energy consumption of the same car"
   - slug: ha-orange-internet-on-the-move
     why: "Its data plan is shown in the card's Orange Internet On the move section"
+  - slug: ha-vehicle-panel
+    why: "Every car in one sidebar panel"
   cardTypes:
   - vehicle-card
   - vehicle-mini-card
@@ -4966,6 +5055,8 @@ projects:
   worksWith:
   - slug: ha-vehicle-card
     why: "Its picture is shown by the Vehicle Card"
+  - slug: ha-vehicle-panel
+    why: "The car's photo in the Vehicles panel"
 - slug: ha-orange-internet-on-the-move
   title: Orange Internet On the move
   kind: integration
@@ -4986,6 +5077,8 @@ projects:
   worksWith:
   - slug: ha-vehicle-card
     why: "Shows its data plan in the card's Orange Internet On the move section"
+  - slug: ha-vehicle-panel
+    why: "The data plan in the Vehicles panel"
 - slug: ha-vehicle-consumption
   title: Vehicle Consumption
   kind: integration
@@ -5016,6 +5109,8 @@ projects:
   worksWith:
   - slug: ha-carburants-france
     why: "A station price sensor for the fuel cost"
+  - slug: ha-vehicle-panel
+    why: "The Consumption tab of the Vehicles panel"
   cardTypes:
   - vehicle-consumption-card
   - vehicle-consumption-mini-card
@@ -5096,6 +5191,8 @@ projects:
   worksWith:
   - slug: ha-vehicle-consumption
     why: "Uses your station prices to compute the cost per km"
+  - slug: ha-vehicle-panel
+    why: "The Fuel tab of the Vehicles panel"
   cardTypes:
   - carburants-france-card
   - carburants-france-mini-card
@@ -5864,6 +5961,8 @@ projects:
     why: "Its timetable turns the Family Link school mode on and off"
   - slug: ha-ent-skolengo
     why: "The other secondary-school ENT, for the schools on Skolengo"
+  - slug: ha-family-panel
+    why: "Each child's school day in the Family panel"
   cardTypes:
   - pronote-card
   - pronote-mini-card
@@ -5940,6 +6039,8 @@ projects:
     why: "The other secondary-school software, for the schools on Pronote"
   - slug: ha-family-day-card
     why: "Is there school tomorrow, holidays included"
+  - slug: ha-family-panel
+    why: "The children of Skolengo in the Family panel"
   cardTypes:
   - skolengo-card
   - skolengo-mini-card
@@ -6124,8 +6225,10 @@ projects:
   - "Animated developer's desk header, following the open issues and pull requests"
   - "The panel's top bar is the illustrated desk, with a To handle card of the latest issues and pull requests; the top bar can be hidden"
   - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
+  - "Branches tab: your stale branches, oldest first with their pull request, deleted in bulk after a confirmation"
+  - "New repository tab and a github_card.create_repository action: create a repository with its protections, topics and rulesets through the GitHub CLI"
   homeassistant: 2026.11.0
-  keywords: "github repositories repos stars issues pull requests releases commits git panel notifications downloads badge"
+  keywords: "github repositories repos stars issues pull requests releases commits git panel notifications downloads badge branches branche delete supprimer new repository nouveau dépôt create gh cli rulesets protections"
   cardTypes:
   - github-card
   - github-mini-card
@@ -6151,6 +6254,12 @@ projects:
     dark: panel-mine-dark.png
     group: Panel
     caption: My pull requests tab
+  - src: panel-branches.png
+    caption: "Branches tab"
+    group: Panel
+  - src: panel-create.png
+    caption: "New repository tab"
+    group: Panel
   - src: panel-settings.png
     dark: panel-settings-dark.png
     caption: Settings tab
@@ -6223,8 +6332,9 @@ projects:
   - "Each tab's illustrated banner as the panel's top bar, which can be hidden for everyone or non-admins"
   - "Versioning: a changes viewer with the files and lines changed, then commit and push from the panel"
   - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
+  - "Purge: every night, deletes the old files of the folders you pick (MCP server backups by default), with a Purge now button and a dry run"
   homeassistant: 2024.12.0
-  keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status mesh map zwave z-wave js réseau maillage sécurité security connexions sortantes outbound raccourcis shortcuts"
+  keywords: "system monitor containers add-ons supervisor database recorder security logs updates backups sentinel watchdog reload silent devices zigbee batteries git versioning automations cleanup orphans panel admin modules status mesh map zwave z-wave js réseau maillage sécurité security connexions sortantes outbound raccourcis shortcuts purge nettoyage fichiers files mcp_backups"
   worksWith:
   - slug: ha-docker-card
     why: "The other Docker containers of the homelab"
@@ -6295,6 +6405,12 @@ projects:
   - src: panel-backups.png
     dark: panel-backups-dark.png
     caption: Backups tab
+    group: Panel
+  - src: panel-purge.png
+    caption: "Purge tab"
+    group: Panel
+  - src: panel-purge-picker.png
+    caption: "Purge, picking the folders"
     group: Panel
   - src: panel-silent.png
     dark: panel-silent-dark.png
@@ -7022,6 +7138,8 @@ projects:
     why: "The kids' chores of the day"
   - slug: ha-routine-card
     why: "The routine of a school morning"
+  - slug: ha-family-panel
+    why: "The whole family's day in one sidebar panel"
   cardTypes:
   - family-day-card
   - family-day-mini-card
@@ -7335,7 +7453,7 @@ projects:
   - "Calendar entity with the due dates, and maintenance.done, add_task and remove_task actions"
   - "Sidebar panel with the due items grouped by device, a calendar, the history and the settings, and a count while something is overdue"
   - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
-  - "Card with the Done button under an animated illustrated header"
+  - "Card with the Done button under an animated workshop header: the wrench gets to work and the calendar turns red when something is overdue"
   - "22 languages"
   homeassistant: 2024.12.0
   keywords: "maintenance entretien consumables consommables filter filtre brush brosse mop serpillière ink encre toner drum tambour cartridge cartouche descaling détartrage smoke detector test chaudière boiler service chores tâches reminder rappel calendar roborock xiaomi ecovacs brother ipp homekit dock tank réservoir"
@@ -7346,6 +7464,8 @@ projects:
     why: "The robot vacuums whose brushes and filters it follows"
   - slug: ha-printer-scanner-card
     why: "The printers whose ink and toner it follows"
+  - slug: ha-vehicle-panel
+    why: "The cars' tasks in the Vehicles panel"
   cardTypes:
   - maintenance-card
   hero:
@@ -7723,6 +7843,8 @@ projects:
     why: "The family's day, the school events included"
   - slug: ha-ent-educartable
     why: "The EDUMOOV family portal, for the schools that use it"
+  - slug: ha-family-panel
+    why: "The children of ONE in the Family panel"
   cardTypes:
   - ent-one-card
   - ent-one-mini-card
@@ -7819,13 +7941,17 @@ projects:
   - "A count on the sidebar: messages to sign, homework to do and school reports to sign of every child"
   - "Animated school corner header: the envelope of the liaison book to sign, the pen writing when there is homework left"
   - Credentials in the entry or in secrets.yaml, optional two-factor code, diagnostics with counts only
+  - "Online exercises and revisions of the homework (dictation words, tables, a poem), with a link to do them"
+  - "Follow a child with the school's tracking code from the panel, delete a message you wrote or a portal notification"
   homeassistant: 2026.6.0
-  keywords: "educartable edumoov école primaire school cahier de liaison signature signer homework devoirs actualités news réunion parents rendez-vous sondage cahier de vie livret scolaire notifications attestation enseignant enfants éducation calendrier agenda pièce jointe attachment traduction translate"
+  keywords: "educartable edumoov école primaire school cahier de liaison signature signer homework devoirs actualités news réunion parents rendez-vous sondage cahier de vie livret scolaire notifications attestation enseignant enfants éducation calendrier agenda pièce jointe attachment traduction translate exercices exercises révisions dictée suivre un enfant code de suivi"
   worksWith:
   - slug: ha-ent-one
     why: "The other primary-school workspace, built on Edifice"
   - slug: ha-family-day-card
     why: "The family's day, the school events included"
+  - slug: ha-family-panel
+    why: "The children of Educartable in the Family panel"
   cardTypes:
   - educartable-card
   - educartable-mini-card
@@ -8257,7 +8383,7 @@ projects:
   - "Home Assistant's persistent notifications and new repairs captured too, if you like"
   - "Sidebar panel with the journal, routing, rules, sources and settings, and a count while something waits for an acknowledgement"
   - "On scroll, the panel's top bar folds into a compact sticky bar with round icon tabs"
-  - "Card with today's figures and the latest notifications, under an illustrated header whose bell rings"
+  - "Card with today's figures and the latest notifications, under an illustrated mailbox whose flag goes up and bell rings on an alert"
   - "22 languages"
   - "Captured notifications held back after a restart or for a delay, with rules by integration and id, so a fixed repair is never sent"
   homeassistant: 2024.12.0
@@ -8887,8 +9013,9 @@ projects:
   - "Node popup: status, product, firmware, protocol, security, signal, battery and last seen"
   - "Rebuild routes with a confirmation and its progress, and a button to the Z-Wave JS settings"
   - "Mini card with the network's status and counts, zooming to the full card"
+  - "Z-Wave JS UI over MQTT, without the Z-Wave integration: nodes, controller and Rebuild routes"
   homeassistant: 2024.8.0
-  keywords: "zwave z-wave zwave_js z-wave js node controller long range lr s2 s0 security sécurité rebuild routes asleep dead battery réseau maillage mesh"
+  keywords: "zwave z-wave zwave_js z-wave js node controller long range lr s2 s0 security sécurité rebuild routes asleep dead battery réseau maillage mesh zwave-js-ui zwave js ui mqtt"
   worksWith:
   - slug: ha-zigbee-card
     why: "The Zigbee devices"
@@ -9084,20 +9211,22 @@ projects:
   summary: "Each dashboard gets a 90 px scene (a house, devices, cars, energy, a server rack, security, family, a terrace) with its title, a live subtitle, a status pill and calm text tabs, or a compact bar with pill tabs. The scene follows your home, by day and night, and Home Assistant's own toolbar keeps working. Set in the dashboard's YAML, nothing native lost."
   highlights:
   - "Eight scenes, one per kind of dashboard: home, devices, cars, energy, system, security, family, outdoor"
-  - "Thirteen room scenes too: bathroom, toilet, bedroom, nursery, kids and teen rooms, garage, hallway, office, laundry, entrance, entryway and garden, each following its own devices"
+  - "Twenty-five room scenes too: bathroom, toilet, bedroom, nursery, kids and teen rooms, living room, kitchen, dining room, garage, hallway, office, laundry, entrance, entryway, garden, pool, game room, home cinema, gym, workshop, cellar, attic, guest room and veranda, each following its own devices"
   - "French scene names accepted as aliases (salle de bain, chambre bébé, jardin…), with spaces, dashes and accents"
   - "The scene follows your home: lit windows, the robot vacuum leaving its dock, today's Tempo colour, a blinking server LED, the alarm shield turning red, rain on the terrace"
   - "Cars drawn from their own picture, as on the Vehicle Card, on the road, the driveway or at the pump of a station with its prices"
   - "Live title, subtitle and status pill from entities or templates"
   - "Illustrated band with text tabs, or a compact bar with pill tabs; the band folds to the compact bar when you scroll"
   - "Day and night following the Home Assistant theme, or forced"
-  - "Home Assistant's toolbar kept: search, Assist and the dashboard menu as round buttons; edit mode and subviews keep the native header"
+  - "Home Assistant's toolbar kept: search, Assist and the dashboard menu as round buttons; edit mode keeps the native header"
   - "Per view: a view changes the scene, the subtitle or the status, or turns the header off"
   - "Banners on the Energy panel, one scene per tab: the meters with today's use, the Linky in the Tempo colour, the power running to the house"
   - App pages opened from the sidebar (Terminal & SSH…) get a banner too
   - "On a phone the scene moves under the buttons and the tabs scroll"
+  - "Subviews get the banner too, with a back button and the subview's title"
+  - "Auto mode: compact where Home Assistant lays the page out for a phone, illustrated elsewhere"
   homeassistant: 2025.6.0
-  keywords: "dashboard header bandeau en-tête banner tabs onglets illustrated scene toolbar compact theme ha-neutral cars voitures station driveway panneau énergie energy panel add-on app ingress room pièce bathroom salle de bain toilet toilettes wc bedroom chambre nursery chambre bébé kids enfant teen ado garage hallway couloir office bureau laundry buanderie entrance entrée entryway garden jardin"
+  keywords: "dashboard header bandeau en-tête banner tabs onglets illustrated scene toolbar compact theme ha-neutral cars voitures station driveway panneau énergie energy panel add-on app ingress room pièce bathroom salle de bain toilet toilettes wc bedroom chambre nursery chambre bébé kids enfant teen ado garage hallway couloir office bureau laundry buanderie entrance entrée entryway garden jardin piscine pool salle de jeux game room salon living room cuisine kitchen salle à manger cave cellar grenier attic chambre d'amis cinéma home cinema salle de sport gym atelier workshop véranda veranda sous-vue subview"
   worksWith:
   - slug: ha-neutral
     why: "The theme it is designed for"
@@ -9191,6 +9320,42 @@ projects:
     dark: scene-garden-dark.png
     caption: "Garden"
     group: Rooms
+  - src: scene-living_room.png
+    caption: "Living room"
+    group: Rooms
+  - src: scene-kitchen.png
+    caption: "Kitchen"
+    group: Rooms
+  - src: scene-dining_room.png
+    caption: "Dining room"
+    group: Rooms
+  - src: scene-pool.png
+    caption: "Pool"
+    group: Rooms
+  - src: scene-game_room.png
+    caption: "Game room"
+    group: Rooms
+  - src: scene-home_cinema.png
+    caption: "Home cinema"
+    group: Rooms
+  - src: scene-gym.png
+    caption: "Gym"
+    group: Rooms
+  - src: scene-workshop.png
+    caption: "Workshop"
+    group: Rooms
+  - src: scene-cellar.png
+    caption: "Cellar"
+    group: Rooms
+  - src: scene-attic.png
+    caption: "Attic"
+    group: Rooms
+  - src: scene-guest_room.png
+    caption: "Guest room"
+    group: Rooms
+  - src: scene-veranda.png
+    caption: "Veranda"
+    group: Rooms
   - src: energy-overview.png
     caption: Energy panel, overview
     group: Energy panel
@@ -9205,6 +9370,12 @@ projects:
     dark: cars-station-dark.png
     caption: "A car at the station"
     group: Cars
+  - src: subview.png
+    caption: "A subview, with its back button"
+    group: Subviews
+  - src: subview-phone.png
+    caption: "A subview on a phone"
+    group: Subviews
   - src: compact.png
     dark: compact-dark.png
     caption: "Compact bar"
@@ -9273,6 +9444,26 @@ projects:
   - src: garden-watering.gif
     dark: garden-watering-dark.gif
     caption: "Garden: watering, mower out"
+  - src: living-room-tv.gif
+    caption: "Living room: TV on, shutter down"
+  - src: kitchen-cooking.gif
+    caption: "Kitchen: cooking, hood running"
+  - src: pool-running.gif
+    caption: "Pool: pump running, robot cleaning"
+  - src: game-room-playing.gif
+    caption: "Game room: playing"
+  - src: home-cinema-playing.gif
+    caption: "Home cinema: a film on"
+  - src: gym-running.gif
+    caption: "Gym: treadmill running"
+  - src: workshop-busy.gif
+    caption: "Workshop: 3D printer at work"
+  - src: cellar-leak.gif
+    caption: "Cellar: a leak"
+  - src: guest-room-staying.gif
+    caption: "Guest room: a guest staying"
+  - src: veranda-fan.gif
+    caption: "Veranda: ceiling fan turning"
   - src: rain.gif
     dark: rain-dark.gif
     caption: "Rain on the terrace"
@@ -9635,6 +9826,8 @@ projects:
     why: "The household's day next to its meals"
   - slug: ha-todo-card
     why: "Other to-do lists of the home"
+  - slug: ha-family-panel
+    why: "The meal plan and shopping list in the Family panel"
   cardTypes:
   - meal-card
   - meal-mini-card
@@ -9697,6 +9890,8 @@ projects:
     why: "Whether there is school tomorrow"
   - slug: ha-routine-card
     why: "The children's morning and evening routines"
+  - slug: ha-family-panel
+    why: "The chores in the Family panel"
   cardTypes:
   - chores-card
   - chores-mini-card
@@ -10446,3 +10641,241 @@ projects:
     caption: "Bars animation"
   - src: er-mini-day.gif
     caption: "Mini card animation"
+- slug: ha-family-panel
+  title: Family Panel
+  kind: integration
+  withCard: false
+  category: family
+  icon: mdiHumanMaleFemaleChild
+  accent: '#7c4ddb'
+  tagline: "The family's day on one page: school, calendars, meals, chores and screen time."
+  summary: "A Family panel in the sidebar that gathers what the integrations you already have know about the household: each child's homework, things to sign and averages, tomorrow's first lesson, the family calendars, the week's meals and shopping list, the chores and the Family Link screen time. No account of its own: it reads their entities and calls their services."
+  highlights:
+  - "Illustrated top bar: a house with its garden and bins, by day or night with the theme, a status pill and whether there is school tomorrow"
+  - "Today: one card per child (homework, things to sign, unread messages, average, chores done), then tomorrow, tonight's bin, the name day, the meals and the day's events"
+  - "School: tomorrow's lessons with cancelled ones flagged, homework, averages and school life of each child"
+  - "Agenda: the family calendars over a week, one colour per calendar"
+  - "Meals: the week's lunches and dinners and the shopping list, ticked off or added to from the panel"
+  - "Chores: the week's chores, done, due or overdue, ticked off from the panel"
+  - "Screens: each child's screen time against the daily limit, bedtime and blocked apps, with +15 min, Lock / Unlock and Ring"
+  - "Children merged by first name across Pronote, ONE, Educartable, Skolengo and Family Link"
+  - "Clean empty states when a source is missing, administrators only if you like, 22 languages"
+  homeassistant: 2026.11.0
+  keywords: "family famille panel panneau enfants children school école pronote ent one educartable skolengo family link temps d'écran screen time mealie bring donetick courses shopping repas meals tâches ménagères chores agenda calendrier calendar poubelles bins saint du jour"
+  worksWith:
+  - slug: ha-pronote-card
+    why: "Each child's lessons, homework and averages"
+  - slug: ha-ent-one
+    why: "Homework, things to sign and messages from ONE"
+  - slug: ha-ent-educartable
+    why: "The liaison book and homework of primary school"
+  - slug: ha-ent-skolengo
+    why: "Homework and school life from Skolengo"
+  - slug: ha-family-link
+    why: "Screen time, bedtime and the lock buttons"
+  - slug: ha-meal-card
+    why: "The same meal plan and shopping list on a dashboard"
+  - slug: ha-chores-card
+    why: "The same chores on a dashboard"
+  - slug: ha-family-day-card
+    why: "Is there school tomorrow, on a dashboard"
+  hero:
+    src: panel-today.png
+    caption: "Today tab"
+    group: Panel
+  screenshots:
+  - src: panel-school.png
+    caption: "School tab"
+    group: Panel
+  - src: panel-agenda.png
+    caption: "Agenda tab"
+    group: Panel
+  - src: panel-meals.png
+    caption: "Meals tab"
+    group: Panel
+  - src: panel-chores.png
+    caption: "Chores tab"
+    group: Panel
+  - src: panel-screens.png
+    caption: "Screens tab"
+    group: Panel
+- slug: ha-vehicle-panel
+  title: Vehicle Panel
+  kind: integration
+  withCard: false
+  category: car
+  icon: mdiCarMultiple
+  accent: '#2f6fde'
+  tagline: "Every car of the household in one sidebar panel, whatever the brand."
+  summary: "A Vehicles panel in the sidebar for your connected cars: range, lock and location of each car at a glance, the week's trips, consumption, the cheapest fuel nearby, maintenance and lease tracking, one tab each. Pick your cars once and the panel finds their entities by itself, for 18 car integrations."
+  highlights:
+  - "Illustrated header with your cars parked by the road, their own photo when the integration gives one, and a status pill: all locked, unlocked, low range"
+  - "Overview: a tile per car with its picture, range, fuel or battery, mileage, tyres, data plan, location and action buttons"
+  - "Trips: kilometres driven today, this week and day by day over the last 7 days"
+  - "Consumption: the week's average, distance, trips and cost, with an 8-week chart (with Vehicle Consumption)"
+  - "Fuel: your stations sorted by price and what a full tank of each car costs (with Carburants France)"
+  - "Maintenance: the Maintenance integration's tasks, overdue first, and each car's tyre pressures"
+  - "Lease (LOA): kilometres driven against the contract, the end-of-contract projection and the monthly allowance left"
+  - "Several cars of different brands side by side, entities found from the device for 18 car integrations"
+  - "Settings per car (name, lease, tank, picture) saved for every user, 22 languages"
+  homeassistant: 2026.11.0
+  keywords: "vehicle véhicule voiture car cars panel panneau renault tesla peugeot volkswagen bmw kia hyundai autonomie range trajets trips consommation consumption carburant fuel entretien maintenance pneus tyres LOA lease leasing kilométrage mileage"
+  worksWith:
+  - slug: ha-vehicle-card
+    why: "The same cars on a dashboard"
+  - slug: ha-vehicle-consumption
+    why: "The Consumption tab"
+  - slug: ha-carburants-france
+    why: "The Fuel tab and the cost of a full tank"
+  - slug: ha-maintenance
+    why: "The Maintenance tab"
+  - slug: ha-renault-picture
+    why: "The official photo of a Renault in the header"
+  - slug: ha-orange-internet-on-the-move
+    why: "The car's data plan on its tile"
+  hero:
+    src: panel-overview.png
+    caption: "Overview tab"
+    group: Panel
+  screenshots:
+  - src: panel-trips.png
+    caption: "Trips tab"
+    group: Panel
+  - src: panel-consumption.png
+    caption: "Consumption tab"
+    group: Panel
+  - src: panel-fuel.png
+    caption: "Fuel tab"
+    group: Panel
+  - src: panel-maintenance.png
+    caption: "Maintenance tab"
+    group: Panel
+  - src: panel-lease.png
+    caption: "Lease tab"
+    group: Panel
+  - src: panel-settings.png
+    caption: "Settings tab"
+    group: Panel
+- slug: ha-homelab-panel
+  title: Homelab Panel
+  kind: integration
+  withCard: false
+  category: servers
+  icon: mdiServerNetwork
+  accent: '#0e9aa7'
+  tagline: "Your homelab on one page: Proxmox, Docker, NAS, UPS, services, backups and certificates."
+  summary: "A Homelab panel in the sidebar, for administrators: your Proxmox VE hosts and machines, the Docker containers, several NAS side by side, the UPS, the Uptime Kuma monitors, the reverse proxy, the backups and the certificates, read from the integrations you already have, with a machine's or a container's start, restart and stop one click away."
+  highlights:
+  - "Illustrated top bar: the Proxmox rack, a drawing per NAS model, the UPS and cables, by day or night with the theme, and a status pill"
+  - "Overview: a tile per source with its count and state, then what needs a look: stopped containers, image updates, hot drives"
+  - "Hosts: each Proxmox VE host with its gauges, every VM and LXC container with start, restart and stop"
+  - "Containers: the Docker hosts and every container with its status, image, CPU, RAM and pending update, filtered"
+  - "Storage: one card per NAS (UGREEN, Synology, QNAP) with volumes, temperature and drives, then the UPS"
+  - "Services: Uptime Kuma monitors, the reverse proxy hosts and the certificates with their days left"
+  - "Backups: Home Assistant's last and next backup and the last backup of each Proxmox host"
+  - "Confirmation before a restart or a stop; empty tabs hidden; thresholds for certificates and drives"
+  - "Administrators only, light and dark themes, phones and desktops, 22 languages"
+  homeassistant: 2026.11.0
+  keywords: "homelab panel panneau proxmox vm lxc docker portainer containers conteneurs nas ugreen synology qnap ups onduleur nut apcupsd uptime kuma reverse proxy certificats certificates sauvegardes backups serveur server"
+  worksWith:
+  - slug: ha-proxmox
+    why: "Proxmox VE on dashboards and in its own panel"
+  - slug: ha-docker-card
+    why: "The same containers on a dashboard"
+  - slug: ha-nas-card
+    why: "The NAS drawings and details on a dashboard"
+  - slug: ha-ups-card
+    why: "The UPS on a dashboard"
+  - slug: ha-uptime-card
+    why: "The Uptime Kuma monitors on a dashboard"
+  - slug: ha-reverse-proxy
+    why: "The reverse proxy hosts of the Services tab"
+  - slug: ha-certificate-card
+    why: "Certificates and domains on a dashboard"
+  - slug: ha-network-panel
+    why: "The network side of the homelab"
+  hero:
+    src: panel-overview.png
+    caption: "Overview tab"
+    group: Panel
+  screenshots:
+  - src: panel-hosts.png
+    caption: "Hosts tab"
+    group: Panel
+  - src: panel-containers.png
+    caption: "Containers tab"
+    group: Panel
+  - src: panel-storage.png
+    caption: "Storage tab"
+    group: Panel
+  - src: panel-services.png
+    caption: "Services tab"
+    group: Panel
+  - src: panel-backups.png
+    caption: "Backups tab"
+    group: Panel
+  - src: panel-confirm.png
+    caption: "Confirming a restart"
+    group: Panel
+  - src: panel-settings.png
+    caption: "Settings tab"
+    group: Panel
+- slug: ha-network-panel
+  title: Network Panel
+  kind: integration
+  withCard: false
+  category: network
+  icon: mdiLan
+  accent: '#2d6cdf'
+  tagline: "The whole home network on one page: box, routers, switches, Wi-Fi, devices, DNS and speed."
+  summary: "A Network panel in the sidebar, for administrators, on top of the integrations of your network gear: the internet box, the routers, firewalls and mesh access points, as many switches as you have, the Wi-Fi networks, the connected devices, the DNS filter, the speed tests and the reverse proxy, with the box, router and switches drawn as in the ha-* cards."
+  highlights:
+  - "Illustrated top bar: the internet box, the switches in their rack and the router, Wi-Fi waves while a network is on, by day or night with the theme"
+  - "Overview: the topology from the internet to each switch and access point, live throughput and the last 7 days of speed tests"
+  - "Devices: every tracked device, connected or away, with IP, MAC and Wi-Fi or cable, searchable"
+  - "Wi-Fi & switches: turn Wi-Fi networks on or off, access points with their clients, each switch's front panel with its ports lit"
+  - "DNS: queries, blocked share and protections of AdGuard Home or Pi-hole"
+  - "Speed: the last test, Run a test and the daily peaks of 30 days"
+  - "Proxy: each reverse proxy host with its upstream check and certificate expiry, problems first"
+  - "Tabs without a source hidden, confirmation before turning a network or a protection off"
+  - "Administrators only, light and dark themes, phones and desktops, 22 languages"
+  homeassistant: 2026.11.0
+  keywords: "network réseau panel panneau box internet freebox livebox sfr bbox fritzbox starlink routeur router unifi tp-link deco omada opnsense pfsense switch wifi appareils devices adguard pi-hole dns speedtest débit reverse proxy topologie topology"
+  worksWith:
+  - slug: ha-internet-box-card
+    why: "The internet box on a dashboard"
+  - slug: ha-router-card
+    why: "Routers, firewalls and mesh Wi-Fi on a dashboard"
+  - slug: ha-switch-card
+    why: "Each switch's front panel on a dashboard"
+  - slug: ha-dns-filter-card
+    why: "AdGuard Home or Pi-hole on a dashboard"
+  - slug: ha-speedtest-card
+    why: "The speed tests on a dashboard"
+  - slug: ha-reverse-proxy
+    why: "The hosts of the Proxy tab"
+  - slug: ha-homelab-panel
+    why: "The servers side of the homelab"
+  hero:
+    src: panel-overview.png
+    caption: "Overview tab"
+    group: Panel
+  screenshots:
+  - src: panel-devices.png
+    caption: "Devices tab"
+    group: Panel
+  - src: panel-wifi.png
+    caption: "Wi-Fi & switches tab"
+    group: Panel
+  - src: panel-dns.png
+    caption: "DNS tab"
+    group: Panel
+  - src: panel-speed.png
+    caption: "Speed tab"
+    group: Panel
+  - src: panel-proxy.png
+    caption: "Proxy tab"
+    group: Panel
+  - src: panel-settings.png
+    caption: "Settings tab"
+    group: Panel
