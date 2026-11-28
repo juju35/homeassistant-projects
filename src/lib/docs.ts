@@ -118,6 +118,12 @@ const haButtons = (html: string) =>
     },
   );
 
+// README images sized by a height attribute alone (brand logos in tables): the docs' height: auto would show them
+// at their natural size, so turn the attribute into an inline height with an automatic width.
+const heightOnlyImages = (html: string) =>
+  html.replace(/<img\b(?![^>]*\bwidth=)(?![^>]*\bstyle=)([^>]*?)\bheight="(\d+)"([^>]*)>/gi,
+    (_m, a: string, h: string, b: string) => `<img${a}height="${h}" style="height:${h}px;width:auto"${b}>`);
+
 // Buy Me a Coffee: the official button at the end of the READMEs, 40px high like the page's buttons (the README's
 // height attribute alone would be overridden by the docs' height: auto), rounded like them.
 const BMC_RATIO = 545 / 153;
@@ -196,7 +202,7 @@ async function load(p: Project): Promise<DocSection[] | null> {
       // Sanitized first: what follows only adds the site's own markup.
       const safe = sanitizeReadme(marked.parse(`## ${s.title}\n${s.body.join("\n")}`) as string);
       const parsed = siteLinks(safe, p.slug);
-      const html = permalinks(codeCopy(tableLabels(bmcButtons(haButtons(dropScreenshots(alerts(fixHtml(parsed, p.slug))))))));
+      const html = permalinks(codeCopy(tableLabels(heightOnlyImages(bmcButtons(haButtons(dropScreenshots(alerts(fixHtml(parsed, p.slug)))))))));
       return { id, title, html: html.replace(/^<h2/, '<h2 class="doc-anchor"'), open: OPEN.test(title) || FIXED.test(title), fixed: FIXED.test(title) };
     })
     .filter((s) => s.html.replace(/<h2[^>]*>.*?<\/h2>/s, "").trim());
